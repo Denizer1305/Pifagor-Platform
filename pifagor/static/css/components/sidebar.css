@@ -1,0 +1,77 @@
+.sidebar {
+    width: 250px;
+    background-color: var(--white);
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+    padding: 30px 0;
+    position: fixed;
+    height: calc(100vh - 80px);
+    overflow-y: auto;
+}
+
+.sidebar-menu {
+    list-style: none;
+}
+
+.sidebar-menu li {
+    margin-bottom: 5px;
+}
+
+.toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--secondary);
+    transition: .4s;
+    border-radius: 24px;
+}
+
+.toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .toggle-slider {
+    background-color: var(--success);
+}
+
+input:checked + .toggle-slider:before {
+    transform: translateX(26px);
+}
+
+.profile-sidebar {
+    width: 300px;
+    background-color: var(--white);
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    padding: 30px;
+    height: fit-content;
+    position: sticky;
+    top: 100px;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+    animation: fadeIn 0.5s;
+}
+
+.role-fields {
+    display: none;
+}
+
+.role-fields.active {
+    display: block;
+}

@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block body_class %}main-page{% endblock %}
+
+{% block header %}
+    {% include "main/includes/header.html" %}
+{% endblock %}
+
+
+{% block content %}
+
+    <section class="teachers-hero">
+        <div class="bg-shapes">
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+        <div class="container">
+            <h1 class="fade-in">Наши преподаватели</h1>
+            <p class="fade-in">Опытные педагоги и практики с глубокими знаниями в своих областях. Каждый преподаватель проходит тщательный отбор и регулярное повышение квалификации.</p>
+            <a href="#teachers" class="btn fade-in">Смотреть всех преподавателей</a>
+        </div>
+    </section>
+
+    <section class="teachers-filters">
+        <div class="container">
+            <h2 class="section-title">Направления подготовки</h2>
+            <div class="filters-container">
+                <button class="filter-btn active" data-filter="all">Все направления</button>
+                <button class="filter-btn" data-filter="programming">Программирование</button>
+                <button class="filter-btn" data-filter="mathematics">Математика</button>
+                <button class="filter-btn" data-filter="physics">Физика</button>
+                <button class="filter-btn" data-filter="design">Дизайн</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="teachers-section" id="teachers">
+        <div class="container">
+            <h2 class="section-title">Команда преподавателей</h2>
+            <div class="teachers-grid">
+                <div class="teacher-card fade-in" data-categories="programming mathematics">
+                    <div class="teacher-photo">
+                        <img src="{% static 'assets/image/partner/foto_teachers.jpg' %}" alt="Плеханова Елена Александровна">
+                    </div>
+                    <div class="teacher-info">
+                        <h3>Плеханова Елена Александровна</h3>
+                        <div class="teacher-position">Преподаватель</div>
+                        <div class="teacher-subjects">
+                            <ul class="subject-list">
+                                <li>Основы программирования</li>
+                                <li>Дисциплины и практики</li>
+                            </ul>
+                        </div>
+                        <div class="teacher-actions">
+                            <a href="#" class="btn">Курсы преподавателя</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block footer %}
+    {% include "main/includes/footer.html" %}
+{% endblock %}

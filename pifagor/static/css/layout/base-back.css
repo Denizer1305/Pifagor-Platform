@@ -1,0 +1,208 @@
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: auto;
+    position: relative;
+    z-index: 2;
+}
+
+.bg-shapes {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.shape {
+    position: absolute;
+    opacity: 0.1;
+    border-radius: 50%;
+    background: linear-gradient(45deg, var(--primary), var(--accent));
+    animation: move 25s infinite linear;
+    transform-style: preserve-3d;
+}
+
+.shape:nth-child(1) {
+    width: 300px;
+    height: 300px;
+    top: 10%;
+    left: 5%;
+    animation-duration: 30s;
+}
+
+.shape:nth-child(2) {
+    width: 200px;
+    height: 200px;
+    top: 60%;
+    left: 80%;
+    animation-duration: 25s;
+    animation-direction: reverse;
+}
+
+.shape:nth-child(3) {
+    width: 150px;
+    height: 150px;
+    top: 20%;
+    left: 70%;
+    animation-duration: 20s;
+}
+
+.shape:nth-child(4) {
+    width: 100px;
+    height: 100px;
+    top: 70%;
+    left: 10%;
+    animation-duration: 15s;
+    animation-direction: reverse;
+}
+
+.ai-bg-shapes {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.ai-shape {
+    position: absolute;
+    opacity: 0.1;
+    border-radius: 50%;
+    background: linear-gradient(45deg, var(--primary), var(--accent));
+    animation: move 25s infinite linear;
+    transform-style: preserve-3d;
+}
+
+.ai-shape:nth-child(1) {
+    width: 200px;
+    height: 200px;
+    top: 10%;
+    left: 85%;
+    animation-duration: 30s;
+    animation-direction: reverse;
+}
+
+.ai-shape:nth-child(2) {
+    width: 150px;
+    height: 150px;
+    top: 70%;
+    left: 10%;
+    animation-duration: 25s;
+}
+
+.ai-shape:nth-child(3) {
+    width: 100px;
+    height: 100px;
+    top: 20%;
+    left: 15%;
+    animation-duration: 20s;
+    animation-direction: reverse;
+}
+
+.ai-shape:nth-child(4) {
+    width: 80px;
+    height: 80px;
+    top: 80%;
+    left: 80%;
+    animation-duration: 15s;
+}
+
+.shape {
+    position: absolute;
+    z-index: 1;
+    opacity: 0.1;
+    transform-style: preserve-3d;
+}
+
+.shape-1 {
+    width: 300px;
+    height: 300px;
+    background: var(--accent-blue);
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    top: 10%;
+    left: 5%;
+    animation: float 20s infinite ease-in-out;
+    transform: rotateX(45deg) rotateY(15deg);
+}
+
+.shape-2 {
+    width: 200px;
+    height: 200px;
+    background: var(--primary-dark);
+    border-radius: 63% 37% 54% 46% / 55% 48% 52% 45%;
+    bottom: 20%;
+    right: 5%;
+    animation: float 15s infinite ease-in-out reverse;
+    transform: rotateX(60deg) rotateY(-25deg);
+}
+
+.shape-3 {
+    width: 150px;
+    height: 150px;
+    background: var(--accent-gray);
+    border-radius: 38% 62% 63% 37% / 41% 44% 56% 59%;
+    top: 60%;
+    left: 10%;
+    animation: float 25s infinite ease-in-out;
+    transform: rotateX(30deg) rotateY(45deg);
+}
+
+.shape-4 {
+    width: 180px;
+    height: 180px;
+    background: var(--accent-gold);
+    border-radius: 50% 20% 40% 70% / 60% 30% 70% 40%;
+    top: 20%;
+    right: 15%;
+    animation: float 18s infinite ease-in-out;
+    transform: rotateX(75deg) rotateY(10deg);
+}
+
+.shape-5 {
+    width: 120px;
+    height: 120px;
+    background: var(--accent-blue);
+    border-radius: 40% 60% 60% 40% / 60% 35% 65% 40%;
+    bottom: 30%;
+    left: 20%;
+    animation: float 22s infinite ease-in-out reverse;
+    transform: rotateX(20deg) rotateY(60deg);
+}
+
+.particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.particle {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    animation: floatParticle 15s infinite linear;
+    transform-style: preserve-3d;
+}
+
+.floating-element {
+    position: absolute;
+    z-index: 1;
+    opacity: 0.7;
+    animation: floatElement 10s infinite ease-in-out;
+    transform-style: preserve-3d;
+}
+
+.settings-layout {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 30px;
+}

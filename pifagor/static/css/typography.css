@@ -1,0 +1,857 @@
+h1, h2, h3, h4 {
+    font-family: 'Forum', serif;
+    margin-bottom: 1rem;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+    color: var(--primary);
+}
+
+.hero-subtitle {
+    font-size: 1.5rem;
+    color: var(--secondary);
+    margin-bottom: 1.5rem;
+}
+
+.hero-description {
+    font-size: 1.1rem;
+    margin-bottom: 2.5rem;
+    color: var(--text);
+}
+
+.hero-actions {
+    display: flex;
+    gap: 15px;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+.section-title:after {
+    content: '';
+    position: absolute;
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.feature-title {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+
+.feature-description {
+    color: var(--text);
+}
+
+.cta-content {
+    position: relative;
+    z-index: 2;
+}
+
+.cta .section-title {
+    color: var(--white);
+}
+
+.cta-description {
+    max-width: 700px;
+    margin: 0 auto 40px;
+    font-size: 1.2rem;
+}
+
+.testimonial-text {
+    font-style: italic;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.testimonial-text:before, .testimonial-text:after {
+    content: '"';
+    font-size: 2rem;
+    color: rgba(255, 255, 255, 0.5);
+    position: absolute;
+}
+
+.testimonial-text:before {
+    top: -10px;
+    left: -10px;
+}
+
+.testimonial-text:after {
+    bottom: -20px;
+    right: -10px;
+}
+
+.author-info h4 {
+    margin-bottom: 5px;
+    color: var(--white);
+}
+
+.author-info p {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+}
+
+
+.member-info {
+    flex: 1;
+    padding: 30px;
+}
+
+.member-info h3 {
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+    color: var(--primary);
+}
+
+.member-description {
+    color: var(--text);
+    line-height: 1.6;
+}
+
+.testing-content p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 25px;
+}
+
+.institution h3 {
+    color: var(--primary);
+    margin-bottom: 15px;
+    font-size: 1.4rem;
+}
+
+.institution p {
+    margin-bottom: 0;
+}
+
+.repo-name {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: var(--primary);
+}
+
+.repo-description {
+    margin-bottom: 25px;
+    color: var(--text);
+    line-height: 1.6;
+}
+
+.contact-card h3 {
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+    color: var(--primary);
+}
+
+.contact-card p {
+    margin-bottom: 8px;
+    line-height: 1.6;
+}
+
+.social-links-contact a {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    transition: all 0.3s;
+    text-decoration: none;
+}
+
+.social-links-contact a:hover {
+    background-color: var(--accent);
+    transform: translateY(-5px);
+}
+
+.contact-form h3 {
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+    text-align: center;
+    color: var(--primary);
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: var(--primary);
+}
+
+.info-text h3 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: var(--primary);
+}
+
+.faq-answer p {
+    line-height: 1.6;
+}
+
+.teachers-hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.teachers-hero p {
+    font-size: 1.2rem;
+    color: var(--secondary);
+    max-width: 700px;
+    margin: 0 auto 2rem;
+}
+
+.teacher-info {
+    padding: 25px;
+}
+
+.teacher-info h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.subject-list li {
+    background-color: var(--light-bg);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    color: var(--primary);
+}
+
+.registration h1 {
+    font-size: 2.8rem;
+    margin-bottom: 20px;
+    line-height: 1.2;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.registration p {
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+    color: var(--accent-gray);
+}
+
+.benefits-list {
+    list-style: none;
+    margin-bottom: 30px;
+}
+
+.benefits-list li {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.benefits-list li i {
+    color: var(--success);
+    margin-right: 10px;
+    font-size: 1.2rem;
+}
+
+.terms-text {
+    font-size: 0.9rem;
+    color: var(--accent-gray);
+}
+
+.terms-text a {
+    color: var(--accent-blue);
+    text-decoration: none;
+}
+
+.terms-text a:hover {
+    text-decoration: underline;
+}
+
+.login-link a {
+    color: var(--accent-blue);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}
+
+.role-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 10px;
+    background-color: var(--primary-light);
+    border: 2px solid transparent;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-align: center;
+}
+
+.login h1 {
+    font-size: 2.8rem;
+    margin-bottom: 20px;
+    line-height: 1.2;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.login p {
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+    color: var(--accent-gray);
+}
+
+.registration-link a {
+    color: var(--accent-blue);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.registration-link a:hover {
+    text-decoration: underline;
+}
+
+.social-login p {
+    margin-bottom: 15px;
+    color: var(--accent-gray);
+    position: relative;
+}
+
+.social-login p:before,
+.social-login p:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 30%;
+    height: 1px;
+    background-color: rgba(57, 68, 88, 0.2);
+}
+
+.social-login p:before {
+    left: 0;
+}
+
+.social-login p:after {
+    right: 0;
+}
+
+.instructions p {
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+    color: var(--primary-dark);
+}
+
+.instructions p:last-child {
+    margin-bottom: 0;
+}
+
+.success-message {
+    display: none;
+    text-align: center;
+    padding: 20px;
+    background-color: rgba(46, 204, 113, 0.1);
+    border-radius: 10px;
+    margin-top: 20px;
+    border: 1px solid rgba(46, 204, 113, 0.3);
+}
+
+.success-message i {
+    font-size: 3rem;
+    color: var(--success);
+    margin-bottom: 15px;
+}
+
+.success-message h3 {
+    color: var(--success);
+    margin-bottom: 15px;
+}
+
+.success-message p {
+    margin-bottom: 10px;
+    color: var(--primary-dark);
+}
+
+.reset h1 {
+    font-size: 2.8rem;
+    margin-bottom: 20px;
+    line-height: 1.2;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.reset p {
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+    color: var(--accent-gray);
+}
+
+.verification h1 {
+    font-size: 2.8rem;
+    margin-bottom: 20px;
+    line-height: 1.2;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.verification p {
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+    color: var(--accent-gray);
+}
+
+.instructions p {
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+    color: var(--primary-dark);
+}
+
+.instructions p:last-child {
+    margin-bottom: 0;
+}
+
+.logout h1 {
+    font-size: 2.8rem;
+    margin-bottom: 20px;
+    line-height: 1.2;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.logout p {
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+    color: var(--accent-gray);
+}
+
+.user-name {
+    font-weight: bold;
+    color: var(--primary);
+}
+
+.logout-message p {
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+    color: var(--primary-dark);
+}
+
+.logout-message p:last-child {
+    margin-bottom: 0;
+}
+
+.login-link a {
+    color: var(--accent-blue);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}
+
+.auto-redirect a {
+    color: var(--accent-blue);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.auto-redirect a:hover {
+    text-decoration: underline;
+}
+
+.sidebar-menu a {
+    display: flex;
+    align-items: center;
+    padding: 15px 25px;
+    text-decoration: none;
+    color: var(--text);
+    transition: all 0.3s;
+    border-left: 4px solid transparent;
+}
+
+.sidebar-menu a:hover {
+    background-color: var(--light-bg);
+    border-left-color: var(--accent);
+}
+
+.sidebar-menu a.active {
+    background-color: rgba(74, 111, 165, 0.1);
+    border-left-color: var(--accent);
+    color: var(--accent);
+    font-weight: bold;
+}
+
+.sidebar-menu i {
+    margin-right: 15px;
+    width: 20px;
+    text-align: center;
+}
+
+.welcome-content h1 {
+    color: var(--white);
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+}
+
+.welcome-content p {
+    opacity: 0.9;
+    margin-bottom: 20px;
+}
+
+.stat-info h3 {
+    font-size: 1.8rem;
+    margin-bottom: 5px;
+}
+
+.stat-info p {
+    color: var(--secondary);
+    font-size: 0.9rem;
+}
+
+.section-header h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0;
+}
+
+.course-info {
+    padding: 20px;
+}
+
+.course-info h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.course-info p {
+    color: var(--secondary);
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+}
+
+.course-stat h4 {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+}
+
+.course-stat p {
+    font-size: 0.7rem;
+    margin-bottom: 0;
+}
+
+.grading-info h4 {
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+
+.grading-info p {
+    font-size: 0.8rem;
+    color: var(--secondary);
+}
+
+.activity-info h4 {
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+
+.activity-info p {
+    font-size: 0.8rem;
+    color: var(--secondary);
+    margin-bottom: 5px;
+}
+
+.action-card h4 {
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+}
+
+.action-card p {
+    font-size: 0.7rem;
+    color: var(--secondary);
+}
+
+.deadline-info h4 {
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+
+.deadline-info p {
+    font-size: 0.8rem;
+    color: var(--secondary);
+}
+
+.progress-stat h3 {
+    font-size: 1.8rem;
+    margin-bottom: 5px;
+}
+
+.progress-stat p {
+    font-size: 0.8rem;
+    color: var(--secondary);
+}
+
+.notification-info h4 {
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+
+.notification-info p {
+    font-size: 0.8rem;
+    color: var(--secondary);
+    margin-bottom: 5px;
+}
+
+.schedule-info h4 {
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+
+.schedule-info p {
+    font-size: 0.8rem;
+    color: var(--secondary);
+}
+
+.course-info h4 {
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+
+.course-info p {
+    font-size: 0.8rem;
+    color: var(--secondary);
+}
+
+.child-info h3 {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+}
+
+.child-info p {
+    color: var(--secondary);
+    font-size: 0.9rem;
+}
+
+.section-header h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0;
+}
+
+.settings-title h1 {
+    margin-bottom: 5px;
+}
+
+.settings-title p {
+    color: var(--secondary);
+}
+
+.notification-title {
+    font-weight: bold;
+    color: var(--primary);
+    margin-bottom: 5px;
+}
+
+.notification-description {
+    font-size: 0.9rem;
+    color: var(--secondary);
+}
+
+.category-title {
+    font-size: 1.2rem;
+    color: var(--primary);
+}
+
+.notification-info, .delivery-info, .ai-text, .info-text {
+    flex: 1;
+}
+
+.delivery-title {
+    font-weight: bold;
+    color: var(--primary);
+    margin-bottom: 5px;
+}
+
+.delivery-description {
+    font-size: 0.9rem;
+    color: var(--secondary);
+}
+
+.channel-label {
+    font-size: 0.9rem;
+    color: var(--text);
+}
+
+.preview-title {
+    font-weight: bold;
+    color: var(--primary);
+}
+
+.preview-time {
+    font-size: 0.8rem;
+    color: var(--secondary);
+}
+
+.preview-message {
+    font-size: 0.9rem;
+    color: var(--text);
+}
+
+.notification-info h4 {
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+
+.notification-info p {
+    font-size: 0.9rem;
+    color: var(--secondary);
+}
+
+.security-info h4 {
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+
+.security-info p {
+    font-size: 0.9rem;
+    color: var(--secondary);
+}
+
+.danger-zone h3 {
+    color: var(--danger);
+    margin-bottom: 15px;
+}
+
+.danger-zone p {
+    margin-bottom: 20px;
+    color: var(--secondary);
+}
+
+.form-section h3 {
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--light-bg);
+}
+
+.profile-stat h3 {
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+}
+
+.profile-stat p {
+    font-size: 0.8rem;
+    color: var(--secondary);
+}
+
+.sidebar-menu a {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    text-decoration: none;
+    color: var(--text);
+    border-radius: 8px;
+    transition: all 0.3s;
+}
+
+.sidebar-menu a:hover {
+    background-color: var(--light-bg);
+}
+
+.sidebar-menu a.active {
+    background-color: rgba(74, 111, 165, 0.1);
+    color: var(--accent);
+    font-weight: bold;
+}
+
+.sidebar-menu i {
+    margin-right: 10px;
+    width: 20px;
+    text-align: center;
+}
+
+.content-header h1 {
+    font-size: 1.8rem;
+    margin-bottom: 0;
+}
+
+.troubleshooting-tips h3 {
+    color: var(--danger);
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.troubleshooting-tips ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.troubleshooting-tips li {
+    margin-bottom: 10px;
+    padding-left: 25px;
+    position: relative;
+}
+
+.troubleshooting-tips li:before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--accent-green);
+    font-weight: bold;
+}
+
+.illustration-title {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    color: var(--primary-dark);
+}
+
+.error-title {
+    font-size: 2.5rem;
+    color: var(--primary-dark);
+    margin-bottom: 20px;
+}
+
+.error-description {
+    background-color: rgba(231, 76, 60, 0.1);
+    border-left: 4px solid var(--danger);
+    padding: 15px;
+    margin-bottom: 25px;
+    border-radius: 0 8px 8px 0;
+    text-align: left;
+}
+
+.error-description p {
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+    color: var(--primary-dark);
+}
+
+.error-description p:last-child {
+    margin-bottom: 0;
+}
+
+.logo-text {
+    font-size: 1rem;
+    color: var(--accent-gray);
+    margin-bottom: 30px;
+    font-style: italic;
+}
+
+.error h1 {
+    font-size: 2.8rem;
+    margin-bottom: 20px;
+    line-height: 1.2;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.error p {
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+    color: var(--accent-gray);
+}

@@ -1,0 +1,7 @@
+.progress-chart {
+    height: 200px;
+    background-color: var(--white);
+    border-radius: 10px;
+    margin-bottom: 20px;
+    position: relative;
+}

@@ -1,0 +1,32 @@
+.progress-bar {
+    height: 8px;
+    background-color: var(--light-bg);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent) 0%, #3a7bd5 100%);
+    border-radius: 4px;
+}
+
+.progress-text {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: var(--secondary);
+}
+
+.course-progress {
+    margin-left: auto;
+    text-align: right;
+}
+
+.progress-percent {
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--accent);
+    margin-bottom: 5px;
+}
