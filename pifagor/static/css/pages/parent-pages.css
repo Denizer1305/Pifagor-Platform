@@ -1,0 +1,434 @@
+.journal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--light-bg);
+}
+
+.journal-title h1 {
+    margin-bottom: 5px;
+}
+
+.journal-title p {
+    color: var(--secondary);
+}
+
+.journal-controls {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.filter-select {
+    padding: 10px 15px;
+    border: 1px solid var(--light-bg);
+    border-radius: 8px;
+    background-color: var(--white);
+    font-family: 'PT Sans', sans-serif;
+    color: var(--primary-text);
+}
+
+.stat-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    font-size: 1.5rem;
+}
+
+.stat-icon.students {
+    background-color: rgba(74, 111, 165, 0.2);
+    color: var(--accent);
+}
+
+.stat-icon.average {
+    background-color: rgba(46, 204, 113, 0.2);
+    color: var(--success);
+}
+
+.stat-icon.completed {
+    background-color: rgba(243, 156, 18, 0.2);
+    color: var(--warning);
+}
+
+.stat-icon.missing {
+    background-color: rgba(231, 76, 60, 0.2);
+    color: var(--danger);
+}
+
+.stat-info h3 {
+    font-size: 1.8rem;
+    margin-bottom: 5px;
+}
+
+.stat-info p {
+    color: var(--secondary);
+    font-size: 0.9rem;
+}
+
+/* Journal Table */
+.journal-section {
+    background-color: var(--white);
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    margin-bottom: 30px;
+    overflow-x: auto;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.section-header h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    background-color: var(--light-bg);
+    border-radius: 8px;
+    padding: 8px 15px;
+    width: 300px;
+}
+
+.search-box input {
+    border: none;
+    background: transparent;
+    padding: 5px 10px;
+    width: 100%;
+    font-family: 'PT Sans', sans-serif;
+    color: var(--primary-text);
+}
+
+.search-box input:focus {
+    outline: none;
+}
+
+.journal-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 1000px;
+}
+
+.journal-table th, .journal-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--light-bg);
+}
+
+.journal-table th {
+    font-weight: bold;
+    color: var(--primary);
+    font-size: 0.9rem;
+    position: sticky;
+    top: 0;
+    background-color: var(--white);
+}
+
+.journal-table td {
+    font-size: 0.9rem;
+}
+
+.student-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.student-avatar {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    font-weight: bold;
+    font-size: 0.8rem;
+}
+
+.grade-cell {
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+}
+
+.grade-cell:hover {
+    background-color: var(--light-bg);
+}
+
+.grade-badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    min-width: 30px;
+}
+
+.grade-excellent {
+    background-color: rgba(46, 204, 113, 0.2);
+    color: var(--success);
+}
+
+.grade-good {
+    background-color: rgba(52, 152, 219, 0.2);
+    color: var(--info);
+}
+
+.grade-satisfactory {
+    background-color: rgba(243, 156, 18, 0.2);
+    color: var(--warning);
+}
+
+.grade-poor {
+    background-color: rgba(231, 76, 60, 0.2);
+    color: var(--danger);
+}
+
+.grade-missing {
+    color: var(--secondary);
+    font-style: italic;
+}
+
+.action-cell {
+    display: flex;
+    gap: 5px;
+}
+
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.page-btn {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    background-color: var(--light-bg);
+    color: var(--primary);
+    font-weight: bold;
+}
+
+.page-btn.active {
+    background-color: var(--accent);
+    color: var(--white);
+}
+
+.page-btn:hover:not(.active) {
+    background-color: var(--primary);
+    color: var(--white);
+}
+
+/* Grade Editor Modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.grade-modal {
+    background-color: var(--white);
+    border-radius: 15px;
+    padding: 30px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    transform: translateY(-20px);
+    transition: all 0.3s;
+}
+
+.modal-overlay.active .grade-modal {
+    transform: translateY(0);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.modal-header h3 {
+    margin-bottom: 0;
+}
+
+.close-modal {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    background-color: var(--light-bg);
+    color: var(--primary);
+}
+
+.close-modal:hover {
+    background-color: var(--danger);
+    color: var(--white);
+}
+
+.grade-options {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.grade-option {
+    padding: 15px;
+    border: 2px solid var(--light-bg);
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: bold;
+}
+
+.grade-option:hover {
+    border-color: var(--accent);
+}
+
+.grade-option.selected {
+    background-color: var(--accent);
+    color: var(--white);
+    border-color: var(--accent);
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+/* Responsive Styles */
+@media (max-width: 992px) {
+    .sidebar {
+        width: 70px;
+    }
+    
+    .sidebar-menu span {
+        display: none;
+    }
+    
+    .sidebar-menu i {
+        margin-right: 0;
+    }
+    
+    .main-content {
+        margin-left: 70px;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+    
+    .dashboard {
+        flex-direction: column;
+    }
+    
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        padding: 15px 0;
+    }
+    
+    .sidebar-menu {
+        display: flex;
+        overflow-x: auto;
+    }
+    
+    .sidebar-menu li {
+        margin-bottom: 0;
+        flex-shrink: 0;
+    }
+    
+    .sidebar-menu a {
+        padding: 10px 15px;
+        border-left: none;
+        border-bottom: 3px solid transparent;
+    }
+    
+    .sidebar-menu a.active {
+        border-left: none;
+        border-bottom-color: var(--accent);
+    }
+    
+    .main-content {
+        margin-left: 0;
+        padding: 20px;
+    }
+    
+    .journal-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    
+    .journal-controls {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .search-box {
+        width: 100%;
+    }
+}
+
+@media (max-width: 576px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .grade-options {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}

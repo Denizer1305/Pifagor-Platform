@@ -1,0 +1,71 @@
+.calendar-section {
+    background-color: var(--white);
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    margin-bottom: 30px;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1px;
+    background-color: var(--primary-light);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.calendar-header {
+    background-color: var(--primary-dark);
+    color: var(--white);
+    text-align: center;
+    padding: 15px 10px;
+    font-weight: bold;
+}
+
+.calendar-day {
+    background-color: var(--white);
+    padding: 10px;
+    min-height: 80px;
+    transition: all 0.3s;
+    position: relative;
+}
+
+.calendar-day:hover {
+    background-color: var(--primary-light);
+}
+
+.calendar-day.other-month {
+    color: var(--accent-gray);
+    background-color: #f9f9f9;
+}
+
+.calendar-day.today {
+    background-color: rgba(74, 111, 165, 0.1);
+}
+
+.day-number {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.attendance-indicator {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.indicator-good {
+    background-color: var(--success);
+}
+
+.indicator-average {
+    background-color: var(--warning);
+}
+
+.indicator-poor {
+    background-color: var(--danger);
+}

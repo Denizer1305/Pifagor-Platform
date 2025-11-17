@@ -1,0 +1,414 @@
+/* Основные стили кнопок */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--btn-padding);
+    background: var(--gradient-primary);
+    color: var(--white);
+    border: none;
+    border-radius: var(--btn-radius);
+    font-family: var(--font-pt-sans);
+    font-size: var(--text-base);
+    cursor: pointer;
+    transition: var(--transition-standard);
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--btn-shadow);
+    gap: var(--spacing-sm);
+    transform-style: preserve-3d;
+}
+
+/* Эффект блеска при наведении */
+.btn:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, var(--white-transparent-20), transparent);
+    transition: var(--transition-slow);
+}
+
+.btn:hover:before {
+    left: 100%;
+}
+
+.btn:hover {
+    transform: var(--btn-hover-transform);
+    box-shadow: var(--btn-hover-shadow);
+}
+
+/* Размеры кнопок */
+.btn-sm {
+    padding: var(--btn-padding-sm);
+    font-size: var(--text-sm);
+}
+
+.btn-lg {
+    padding: var(--btn-padding-lg);
+    font-size: var(--text-lg);
+}
+
+/* Варианты кнопок */
+.btn-light {
+    background: var(--btn-light-bg);
+    color: var(--primary);
+    border: var(--btn-light-border);
+    box-shadow: none;
+}
+
+.btn-light:hover {
+    background: var(--btn-light-hover-bg);
+    transform: var(--btn-hover-transform);
+    box-shadow: var(--btn-hover-shadow);
+}
+
+.btn-success { 
+    background: var(--gradient-success);
+    color: var(--white);
+}
+
+.btn-warning { 
+    background: var(--gradient-warning);
+    color: var(--white);
+}
+
+.btn-danger { 
+    background: var(--gradient-danger);
+    color: var(--white);
+}
+
+.btn-info {
+    background: var(--gradient-info);
+    color: var(--white);
+}
+
+.btn-practice {
+    background: var(--gradient-accent);
+}
+
+/* Специфические варианты */
+.btn-warning.amber {
+    background: var(--gradient-amber);
+    color: var(--primary);
+}
+
+.btn-warning.amber:hover {
+    background: var(--gradient-amber-hover);
+}
+
+.btn-info:hover {
+    background: var(--gradient-info-hover);
+}
+
+.btn-success:hover {
+    background: var(--gradient-success);
+    filter: brightness(1.1);
+}
+
+.btn-warning:hover {
+    background: var(--gradient-warning);
+    filter: brightness(1.1);
+}
+
+.btn-danger:hover {
+    background: var(--gradient-danger);
+    filter: brightness(1.1);
+}
+
+/* Социальные кнопки */
+.social-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--social-btn-size);
+    height: var(--social-btn-size);
+    border-radius: 50%;
+    background-color: var(--light-bg);
+    color: var(--primary);
+    border: 2px solid transparent;
+    transition: var(--transition-standard);
+    text-decoration: none;
+}
+
+.social-btn:hover {
+    transform: var(--btn-social-hover-transform);
+    box-shadow: var(--btn-shadow);
+}
+
+.social-btn.vk:hover {
+    background-color: var(--social-vk-hover);
+    color: var(--white);
+    border-color: var(--social-vk-hover);
+}
+
+.social-btn.telegram:hover {
+    background-color: var(--social-telegram-hover);
+    color: var(--white);
+    border-color: var(--social-telegram-hover);
+}
+
+.social-btn.yandex:hover {
+    background-color: var(--social-yandex-hover);
+    color: var(--white);
+    border-color: var(--social-yandex-hover);
+}
+
+/* Кнопки действий */
+.action-btn {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md) var(--spacing-lg);
+    background-color: var(--white);
+    border: none;
+    border-radius: var(--border-radius-xl);
+    cursor: pointer;
+    transition: var(--transition-standard);
+    text-align: left;
+}
+
+.action-btn:hover {
+    border-color: var(--accent);
+    background-color: var(--accent-blue-transparent-5);
+}
+
+/* Кнопки импорта */
+.import-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md) var(--spacing-lg);
+    width: 100%;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition-standard);
+    font-size: var(--text-base);
+    color: var(--white);
+}
+
+.import-word-btn {
+    background: var(--import-word-gradient);
+}
+
+.import-pdf-btn {
+    background: var(--import-pdf-gradient);
+}
+
+.import-btn:hover {
+    transform: var(--btn-social-hover-transform);
+    box-shadow: var(--card-shadow-hover);
+}
+
+/* Кнопки фильтров */
+.filter-btn {
+    padding: var(--spacing-sm) var(--spacing-lg);
+    background-color: var(--light-bg);
+    border: none;
+    border-radius: var(--btn-radius);
+    font-family: var(--font-pt-sans);
+    font-size: var(--text-base);
+    cursor: pointer;
+    transition: var(--transition-standard);
+    color: var(--primary-text);
+}
+
+.filter-btn.active,
+.filter-btn:hover {
+    background: var(--gradient-accent);
+    color: var(--white);
+    box-shadow: var(--ai-tag-shadow);
+}
+
+/* Кнопки навигации */
+.nav-btn {
+    width: var(--nav-btn-size);
+    height: var(--nav-btn-size);
+    border-radius: 50%;
+    background-color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition-standard);
+    box-shadow: var(--card-shadow-light);
+}
+
+.nav-btn:hover {
+    background-color: var(--light-bg);
+}
+
+/* Кнопка "Назад" */
+.back-btn {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: bold;
+    transition: var(--transition-standard);
+}
+
+.back-btn:hover {
+    transform: translateX(-5px);
+}
+
+/* Кнопка отправки */
+.send-button {
+    background: var(--gradient-accent);
+    color: var(--white);
+    border: none;
+    border-radius: 50%;
+    width: var(--send-btn-size);
+    height: var(--send-btn-size);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition-standard);
+    flex-shrink: 0;
+}
+
+.send-button:hover {
+    transform: scale(1.05);
+    box-shadow: var(--ai-tag-shadow);
+}
+
+.send-button:disabled {
+    opacity: var(--btn-disabled-opacity);
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Группы кнопок */
+.social-buttons {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-md);
+}
+
+.social-login {
+    margin-top: var(--spacing-xl);
+    text-align: center;
+}
+
+.error-actions {
+    display: flex;
+    gap: var(--spacing-md);
+    justify-content: flex-start;
+    margin-top: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+    flex-wrap: wrap;
+}
+
+.test-creation-navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: var(--spacing-xl);
+    padding-top: var(--spacing-lg);
+    border-top: var(--border-light);
+}
+
+.test-creation-actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-xl);
+}
+
+.option-actions {
+    display: flex;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-sm);
+}
+
+.question-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-lg);
+}
+
+.add-option-btn {
+    margin-top: var(--spacing-md);
+}
+
+.add-question-btn {
+    margin-top: var(--spacing-lg);
+    width: 100%;
+}
+
+.code-toolbar {
+    display: flex;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-sm);
+}
+
+.code-toolbar button {
+    padding: 6px 12px;
+    background-color: var(--white);
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: var(--text-sm);
+    transition: var(--transition-standard);
+}
+
+.code-toolbar button:hover {
+    background-color: #f0f0f0;
+}
+
+.editor-button {
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: var(--white);
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: var(--transition-standard);
+}
+
+.editor-button:hover {
+    background-color: #f0f0f0;
+}
+
+/* Специфические контексты */
+.cta .btn {
+    background-color: var(--white);
+    color: var(--white);
+}
+
+.cta .btn:hover {
+    background-color: var(--light-bg);
+}
+
+.teacher-actions .btn {
+    padding: 10px 20px;
+    font-size: var(--text-sm);
+}
+
+/* Состояния кнопок */
+.btn-disabled {
+    opacity: var(--btn-disabled-opacity);
+    cursor: not-allowed !important;
+    transform: none !important;
+}
+
+.btn-disabled:hover {
+    transform: none !important;
+    box-shadow: var(--btn-shadow) !important;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 15px;
+    top: 55px;
+    background: none;
+    border: none;
+    color: var(--accent-gray);
+    cursor: pointer;
+}

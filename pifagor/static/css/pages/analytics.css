@@ -1,0 +1,1124 @@
+/* Progress Header */
+.progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--light-bg);
+}
+
+.progress-title h1 {
+    margin-bottom: 5px;
+}
+
+.progress-title p {
+    color: var(--secondary);
+}
+
+.progress-controls {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.filter-select {
+    padding: 10px 15px;
+    border: 1px solid var(--light-bg);
+    border-radius: 8px;
+    background-color: var(--white);
+    font-family: 'PT Sans', sans-serif;
+    color: var(--primary-text);
+}
+
+.period-navigation {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.nav-btn:hover {
+    background-color: var(--light-bg);
+}
+
+.current-period {
+    font-weight: bold;
+    color: var(--primary);
+    min-width: 150px;
+    text-align: center;
+}
+
+.stat-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    font-size: 1.5rem;
+}
+
+.stat-icon.completion {
+    background-color: rgba(46, 204, 113, 0.2);
+    color: var(--success);
+}
+
+.stat-icon.average {
+    background-color: rgba(52, 152, 219, 0.2);
+    color: var(--info);
+}
+
+.stat-icon.performance {
+    background-color: rgba(243, 156, 18, 0.2);
+    color: var(--warning);
+}
+
+.stat-icon.time {
+    background-color: rgba(155, 89, 182, 0.2);
+    color: #9B59B6;
+}
+
+.stat-info h3 {
+    font-size: 1.8rem;
+    margin-bottom: 5px;
+}
+
+.stat-info p {
+    color: var(--secondary);
+    font-size: 0.9rem;
+}
+
+/* Progress Layout */
+.progress-layout {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 30px;
+}
+
+@media (max-width: 1200px) {
+    .progress-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Progress Section */
+.progress-section {
+    background-color: var(--white);
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    margin-bottom: 30px;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.section-header h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0;
+}
+
+/* Progress Table */
+.progress-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 800px;
+}
+
+.progress-table th, .progress-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--light-bg);
+}
+
+.progress-table th {
+    font-weight: bold;
+    color: var(--primary);
+    font-size: 0.9rem;
+    position: sticky;
+    top: 0;
+    background-color: var(--white);
+}
+
+.progress-table td {
+    font-size: 0.9rem;
+}
+
+.student-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.student-avatar {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    font-weight: bold;
+    font-size: 0.8rem;
+}
+
+.progress-cell {
+    text-align: center;
+}
+
+.progress-bar-container {
+    width: 100%;
+    height: 10px;
+    background-color: var(--light-bg);
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 5px;
+}
+
+.progress-bar {
+    height: 100%;
+    border-radius: 5px;
+    transition: width 0.5s ease;
+}
+
+.progress-bar.high {
+    background-color: var(--success);
+}
+
+.progress-bar.medium {
+    background-color: var(--warning);
+}
+
+.progress-bar.low {
+    background-color: var(--danger);
+}
+
+.progress-value {
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: var(--primary);
+}
+
+.grade-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    min-width: 40px;
+}
+
+.grade-excellent {
+    background-color: rgba(46, 204, 113, 0.2);
+    color: var(--success);
+}
+
+.grade-good {
+    background-color: rgba(52, 152, 219, 0.2);
+    color: var(--info);
+}
+
+.grade-average {
+    background-color: rgba(243, 156, 18, 0.2);
+    color: var(--warning);
+}
+
+.grade-poor {
+    background-color: rgba(231, 76, 60, 0.2);
+    color: var(--danger);
+}
+
+.progress-actions {
+    display: flex;
+    gap: 5px;
+}
+
+
+/* Course Progress */
+.course-progress-section {
+    background-color: var(--white);
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    margin-bottom: 30px;
+}
+
+.course-list {
+    list-style: none;
+}
+
+.course-item {
+    padding: 15px 0;
+    border-bottom: 1px solid var(--light-bg);
+}
+
+.course-item:last-child {
+    border-bottom: none;
+}
+
+.course-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.course-title {
+    font-weight: bold;
+    color: var(--primary);
+}
+
+.course-progress-value {
+    font-weight: bold;
+    color: var(--accent);
+}
+
+.course-progress-bar {
+    height: 8px;
+    background-color: var(--light-bg);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 5px;
+}
+
+.course-progress-fill {
+    height: 100%;
+    border-radius: 4px;
+    background: linear-gradient(90deg, var(--accent) 0%, #6A8FC9 100%);
+    transition: width 0.5s ease;
+}
+
+.course-details {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: var(--secondary);
+}
+
+/* Performance Chart */
+.chart-section {
+    background-color: var(--white);
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    margin-bottom: 30px;
+}
+
+.chart-container {
+    height: 300px;
+    position: relative;
+    margin-top: 20px;
+}
+
+.chart-controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.chart-type-btn {
+    padding: 8px 15px;
+    background-color: var(--light-bg);
+    border: none;
+    border-radius: 5px;
+    font-family: 'PT Sans', sans-serif;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.chart-type-btn.active {
+    background-color: var(--accent);
+    color: var(--white);
+}
+
+.chart-type-btn:hover:not(.active) {
+    background-color: #e0e4eb;
+}
+
+/* Activity Feed */
+.activity-section {
+    background-color: var(--white);
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    margin-bottom: 30px;
+}
+
+.activity-list {
+    list-style: none;
+}
+
+.activity-item {
+    display: flex;
+    padding: 15px 0;
+    border-bottom: 1px solid var(--light-bg);
+}
+
+.activity-item:last-child {
+    border-bottom: none;
+}
+
+.activity-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(52, 152, 219, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--info);
+    margin-right: 15px;
+    flex-shrink: 0;
+}
+
+.activity-info h4 {
+    font-size: 1rem;
+    margin-bottom: 5px;
+    color: var(--primary);
+}
+
+.activity-info p {
+    font-size: 0.8rem;
+    color: var(--secondary);
+}
+
+.activity-time {
+    font-size: 0.8rem;
+    color: var(--secondary);
+    margin-left: auto;
+    text-align: right;
+}
+
+/* Goals Section */
+.goals-section {
+    background-color: var(--white);
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.goals-list {
+    list-style: none;
+}
+
+.goal-item {
+    padding: 15px 0;
+    border-bottom: 1px solid var(--light-bg);
+}
+
+.goal-item:last-child {
+    border-bottom: none;
+}
+
+.goal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.goal-title {
+    font-weight: bold;
+    color: var(--primary);
+}
+
+.goal-progress {
+    font-weight: bold;
+    color: var(--accent);
+}
+
+.goal-progress-bar {
+    height: 6px;
+    background-color: var(--light-bg);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 5px;
+}
+
+.goal-progress-fill {
+    height: 100%;
+    border-radius: 3px;
+    background: linear-gradient(90deg, var(--success) 0%, #58D68D 100%);
+    transition: width 0.5s ease;
+}
+
+.goal-details {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: var(--secondary);
+}
+
+/* Responsive Styles */
+@media (max-width: 992px) {
+    .sidebar {
+        width: 70px;
+    }
+    
+    .sidebar-menu span {
+        display: none;
+    }
+    
+    .sidebar-menu i {
+        margin-right: 0;
+    }
+    
+    .main-content {
+        margin-left: 70px;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+    
+    .dashboard {
+        flex-direction: column;
+    }
+    
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        padding: 15px 0;
+    }
+    
+    .sidebar-menu {
+        display: flex;
+        overflow-x: auto;
+    }
+    
+    .sidebar-menu li {
+        margin-bottom: 0;
+        flex-shrink: 0;
+    }
+    
+    .sidebar-menu a {
+        padding: 10px 15px;
+        border-left: none;
+        border-bottom: 3px solid transparent;
+    }
+    
+    .sidebar-menu a.active {
+        border-left: none;
+        border-bottom-color: var(--accent);
+    }
+    
+    .main-content {
+        margin-left: 0;
+        padding: 20px;
+    }
+    
+    .progress-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    
+    .progress-controls {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 576px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .progress-table {
+        font-size: 0.8rem;
+    }
+}
+
+/* Grades Header */
+.grades-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--light-bg);
+}
+
+.grades-title h1 {
+    margin-bottom: 5px;
+}
+
+.grades-title p {
+    color: var(--secondary);
+}
+
+.grades-controls {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.filter-select {
+    padding: 10px 15px;
+    border: 1px solid var(--light-bg);
+    border-radius: 8px;
+    background-color: var(--white);
+    font-family: 'PT Sans', sans-serif;
+    color: var(--primary-text);
+}
+
+.term-navigation {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.nav-btn:hover {
+    background-color: var(--light-bg);
+}
+
+.current-term {
+    font-weight: bold;
+    color: var(--primary);
+    min-width: 150px;
+    text-align: center;
+}
+
+.stat-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    font-size: 1.5rem;
+}
+
+.stat-icon.high {
+    background-color: rgba(46, 204, 113, 0.2);
+    color: var(--success);
+}
+
+.stat-icon.medium {
+    background-color: rgba(243, 156, 18, 0.2);
+    color: var(--warning);
+}
+
+.stat-icon.low {
+    background-color: rgba(231, 76, 60, 0.2);
+    color: var(--danger);
+}
+
+.stat-icon.average {
+    background-color: rgba(52, 152, 219, 0.2);
+    color: var(--info);
+}
+
+.stat-info h3 {
+    font-size: 1.8rem;
+    margin-bottom: 5px;
+}
+
+.stat-info p {
+    color: var(--secondary);
+    font-size: 0.9rem;
+}
+
+/* Grades Layout */
+.grades-layout {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 30px;
+}
+
+@media (max-width: 1200px) {
+    .grades-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Grades Table */
+.grades-section {
+    background-color: var(--white);
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    margin-bottom: 30px;
+    overflow-x: auto;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.section-header h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0;
+}
+
+.grades-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 800px;
+}
+
+.grades-table th, .grades-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--light-bg);
+}
+
+.grades-table th {
+    font-weight: bold;
+    color: var(--primary);
+    font-size: 0.9rem;
+    position: sticky;
+    top: 0;
+    background-color: var(--white);
+}
+
+.grades-table td {
+    font-size: 0.9rem;
+}
+
+.student-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.student-avatar {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    font-weight: bold;
+    font-size: 0.8rem;
+}
+
+.grade-value {
+    text-align: center;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.grade-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    min-width: 40px;
+    transition: all 0.3s;
+}
+
+.grade-excellent {
+    background-color: rgba(46, 204, 113, 0.2);
+    color: var(--success);
+}
+
+.grade-good {
+    background-color: rgba(52, 152, 219, 0.2);
+    color: var(--info);
+}
+
+.grade-average {
+    background-color: rgba(243, 156, 18, 0.2);
+    color: var(--warning);
+}
+
+.grade-poor {
+    background-color: rgba(231, 76, 60, 0.2);
+    color: var(--danger);
+}
+
+.grade-actions {
+    display: flex;
+    gap: 5px;
+}
+
+/* Tasks Section */
+.tasks-section {
+    background-color: var(--white);
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    margin-bottom: 30px;
+}
+
+.tasks-list {
+    list-style: none;
+}
+
+.task-item {
+    display: flex;
+    padding: 15px 0;
+    border-bottom: 1px solid var(--light-bg);
+}
+
+.task-item:last-child {
+    border-bottom: none;
+}
+
+.task-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(52, 152, 219, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--info);
+    margin-right: 15px;
+    flex-shrink: 0;
+}
+
+.task-info h4 {
+    font-size: 1rem;
+    margin-bottom: 5px;
+    color: var(--primary);
+}
+
+.task-info p {
+    font-size: 0.8rem;
+    color: var(--secondary);
+}
+
+.task-date {
+    font-size: 0.8rem;
+    color: var(--secondary);
+}
+
+/* Summary Section */
+.summary-section {
+    background-color: var(--white);
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    margin-bottom: 30px;
+}
+
+.summary-list {
+    list-style: none;
+}
+
+.summary-item {
+    display: flex;
+    padding: 15px 0;
+    border-bottom: 1px solid var(--light-bg);
+}
+
+.summary-item:last-child {
+    border-bottom: none;
+}
+
+.summary-info h4 {
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+
+.summary-info p {
+    font-size: 0.8rem;
+    color: var(--secondary);
+}
+
+/* Bulk Actions */
+.bulk-actions-section {
+    background-color: var(--white);
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.bulk-actions {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.bulk-action {
+    background-color: var(--light-bg);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.bulk-action:hover {
+    background-color: rgba(74, 111, 165, 0.1);
+    transform: translateY(-3px);
+}
+
+.bulk-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    margin: 0 auto 15px;
+    font-size: 1.2rem;
+}
+
+.bulk-action h4 {
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+}
+
+.bulk-action p {
+    font-size: 0.7rem;
+    color: var(--secondary);
+}
+
+/* Modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.grade-modal {
+    background-color: var(--white);
+    border-radius: 15px;
+    padding: 30px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    transform: translateY(-20px);
+    transition: all 0.3s;
+}
+
+.modal-overlay.active .grade-modal {
+    transform: translateY(0);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.modal-header h3 {
+    margin-bottom: 0;
+}
+
+.close-modal {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    background-color: var(--light-bg);
+    color: var(--primary);
+}
+
+.close-modal:hover {
+    background-color: var(--danger);
+    color: var(--white);
+}
+
+.grade-options {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.grade-option {
+    padding: 15px;
+    border: 2px solid var(--light-bg);
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.grade-option:hover {
+    border-color: var(--accent);
+}
+
+.grade-option.selected {
+    background-color: var(--accent);
+    color: var(--white);
+    border-color: var(--accent);
+}
+
+.grade-input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid var(--light-bg);
+    border-radius: 8px;
+    font-family: 'PT Sans', sans-serif;
+    font-size: 1rem;
+    margin-bottom: 15px;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+/* Responsive Styles */
+@media (max-width: 992px) {
+    .sidebar {
+        width: 70px;
+    }
+    
+    .sidebar-menu span {
+        display: none;
+    }
+    
+    .sidebar-menu i {
+        margin-right: 0;
+    }
+    
+    .main-content {
+        margin-left: 70px;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+    
+    .dashboard {
+        flex-direction: column;
+    }
+    
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        padding: 15px 0;
+    }
+    
+    .sidebar-menu {
+        display: flex;
+        overflow-x: auto;
+    }
+    
+    .sidebar-menu li {
+        margin-bottom: 0;
+        flex-shrink: 0;
+    }
+    
+    .sidebar-menu a {
+        padding: 10px 15px;
+        border-left: none;
+        border-bottom: 3px solid transparent;
+    }
+    
+    .sidebar-menu a.active {
+        border-left: none;
+        border-bottom-color: var(--accent);
+    }
+    
+    .main-content {
+        margin-left: 0;
+        padding: 20px;
+    }
+    
+    .grades-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    
+    .grades-controls {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .bulk-actions {
+        grid-template-columns: 1fr;
+    }
+    
+    .grade-options {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 576px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .grade-options {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

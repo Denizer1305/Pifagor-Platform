@@ -1,0 +1,202 @@
+.attendance-page {
+    padding: 20px;
+}
+
+.attendance-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.stat-value {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    color: var(--accent-gray);
+    font-size: 0.9rem;
+}
+
+/* Attendance Header */
+.attendance-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--light-bg);
+}
+
+.attendance-title h1 {
+    margin-bottom: 5px;
+}
+
+.attendance-title p {
+    color: var(--secondary);
+}
+
+.attendance-controls {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+/* Иконки статусов посещаемости */
+.stat-icon.present {
+    background-color: rgba(46, 204, 113, 0.2);
+    color: var(--success);
+}
+
+.stat-icon.absent {
+    background-color: rgba(231, 76, 60, 0.2);
+    color: var(--danger);
+}
+
+.stat-icon.late {
+    background-color: rgba(243, 156, 18, 0.2);
+    color: var(--warning);
+}
+
+.stat-icon.overall {
+    background-color: rgba(74, 111, 165, 0.2);
+    color: var(--accent);
+}
+
+/* Секция посещаемости */
+.attendance-section {
+    background-color: var(--white);
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    margin-bottom: 30px;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.section-header h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0;
+}
+
+/* Дополнительные стили для таблицы посещаемости */
+.child-info-cell {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-align: left;
+}
+
+.child-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    font-weight: bold;
+    font-size: 0.8rem;
+}
+
+.child-name {
+    font-weight: bold;
+}
+
+.child-class {
+    color: var(--secondary);
+    font-size: 0.8rem;
+}
+
+.attendance-status {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    line-height: 24px;
+    font-size: 0.7rem;
+    font-weight: bold;
+}
+
+.status-present {
+    background-color: var(--success);
+    color: white;
+}
+
+.status-absent {
+    background-color: var(--danger);
+    color: white;
+}
+
+.status-late {
+    background-color: var(--warning);
+    color: white;
+}
+
+.status-excused {
+    background-color: var(--info);
+    color: white;
+}
+
+/* Стили для календаря */
+.day-header {
+    position: relative;
+}
+
+.day-number {
+    font-size: 1.2rem;
+    display: block;
+}
+
+.day-name {
+    font-size: 0.7rem;
+    color: var(--secondary);
+    display: block;
+}
+
+.weekend {
+    background-color: rgba(243, 156, 18, 0.1);
+}
+
+/* Сводка посещаемости */
+.attendance-summary {
+    background-color: var(--white);
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.legend {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.8rem;
+}
+
+.legend-color {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}

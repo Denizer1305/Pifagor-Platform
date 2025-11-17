@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'classes',
     'courses',
     'email',
-    'error'
+    'error',
     'homework',
     'journal',
     'main',
@@ -90,9 +90,9 @@ WSGI_APPLICATION = 'pifagor.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'db.sqlite3',
-        'USER': 'postgres',
-        'PASSWORD': '12345678',
+        'NAME': 'platform_pyth',
+        'USER': 'deniska1305',
+        'PASSWORD': 'prosto1000!',
         'HOST': 'localhost',
         'PORT': '5432',
     }
@@ -133,9 +133,25 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+import os
+
+if DEBUG:
+    import mimetypes
+    mimetypes.add_type("application/javascript", ".js", True)
+    mimetypes.add_type("text/css", ".css", True)

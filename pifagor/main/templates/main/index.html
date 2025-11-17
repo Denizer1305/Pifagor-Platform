@@ -1,0 +1,253 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <section class="hero">
+        <div class="bg-shapes">
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+        <div class="container hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">Образовательная платформа нового поколения</h1>
+                <p class="hero-subtitle">Российская разработка для современных образовательных учреждений</p>
+                <p class="hero-description">Единая цифровая среда для обучения, контроля и анализа успеваемости. Создана в сотрудничестве с ведущими образовательными учреждениями.</p>
+                <div class="hero-actions">
+                    <a href="{% url 'main:about' %}" class="btn btn-primary">Узнать больше</a>
+                    <a href="{% url 'main:about' %}" class="btn btn-light">Начать обучение</a>
+                </div>
+            </div>
+            <div class="hero-logo">
+                <img src="{% static 'assets/image/logo/hero-logo.svg' %}" alt="hero-logo">
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title">Возможности платформы</h2>
+            <div class="features-grid">
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <h3 class="feature-title">Электронные курсы</h3>
+                    <p class="feature-description">Создавайте и проходите интерактивные курсы с мультимедийными материалами, тестами и практическими заданиями.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <h3 class="feature-title">Тестирование</h3>
+                    <p class="feature-description">Разнообразные типы тестов с автоматической проверкой и детальной аналитикой результатов.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3 class="feature-title">Практические работы</h3>
+                    <p class="feature-description">Выполняйте лабораторные и практические задания с возможностью загрузки файлов и код-ревью.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="feature-title">Аналитика успеваемости</h3>
+                    <p class="feature-description">Детальная статистика и отчеты для студентов, преподавателей и родителей.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Электронный журнал</h3>
+                    <p class="feature-description">Удобное ведение журнала оценок, посещаемости и расписания занятий.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="feature-title">Родительский контроль</h3>
+                    <p class="feature-description">Родители могут отслеживать успеваемость и посещаемость своих детей.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="architecture" id="architecture">
+        <div class="container">
+            <h2 class="section-title fade-in">Архитектура платформы</h2>
+            <div class="architecture-grid">
+                <div class="architecture-card fade-in">
+                    <div class="architecture-icon">
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+                    <h3>Единый веб-портал</h3>
+                    <p>Доступ через браузер с любого устройства. Адаптивный интерфейс для ПК, планшетов и смартфонов.</p>
+                </div>
+                <div class="architecture-card fade-in">
+                    <div class="architecture-icon">
+                        <i class="fas fa-user-tag"></i>
+                    </div>
+                    <h3>Ролевая модель доступа</h3>
+                    <p>Разделение прав для учеников, учителей, родителей и администраторов учебных заведений.</p>
+                </div>
+                <div class="architecture-card fade-in">
+                    <div class="architecture-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3>Гибкая кастомизация</h3>
+                    <p>Возможность настройки цветовой темы, шрифтов и других элементов брендинга платформы.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="ai-assistant" id="ai-assistant">
+        <div class="ai-bg-shapes">
+            <div class="ai-shape"></div>
+            <div class="ai-shape"></div>
+            <div class="ai-shape"></div>
+            <div class="ai-shape"></div>
+        </div>
+        <div class="container">
+            <h2 class="section-title">Искусственный интеллект для преподавателей</h2>
+            
+            <div class="ai-main-card fade-in">
+                <div class="ai-card-content">
+                    <div class="ai-card-text">
+                        <span class="ai-tag">Искусственный интеллект</span>
+                        <h3>ИИ-помощник "Анастасия"</h3>
+                        <p>Платформа "Пифагор" интегрировала модель искусственного интеллекта "Анастасия", 
+                            созданную специально для поддержки преподавателей. Умный ассистент автоматизирует рутинные 
+                            задачи, помогает создавать учебные материалы, 
+                            позволяя педагогам сосредоточиться на работе со студентами.</p>
+                    </div>
+                    <div class="ai-card-logo">
+                        <img src="{% static 'assets/image/logo/Anastasia.svg' %}" alt="Анастасия">
+                    </div>
+                </div>
+            </div>
+
+            <div class="ai-content fade-in">
+                <div class="ai-text">
+                    <h3>Мои возможности</h3>
+                    <div class="ai-features">
+                        <div class="ai-feature">
+                            <div class="ai-feature-icon">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                            <div>
+                                <h4>Умные тесты</h4>
+                                <p>Создаю тренировочные и проверочные тесты, 
+                                    которые действительно помогают учиться, а не просто ставят оценки</p>
+                            </div>
+                        </div>
+                        <div class="ai-feature">
+                            <div class="ai-feature-icon">
+                                <i class="fas fa-tasks"></i>
+                            </div>
+                            <div>
+                                <h4>Практические задания</h4>
+                                <p>Помогаю составлять интересные практические работы - 
+                                    от простых упражнений до сложных проектов</p>
+                            </div>
+                        </div>
+                        <div class="ai-feature">
+                            <div class="ai-feature-icon">
+                                <i class="fas fa-check-double"></i>
+                            </div>
+                            <div>
+                                <h4>Проверка работ</h4>
+                                <p>Проверю тесты и практические задания, 
+                                    но всегда жду вашего финального одобрения - ведь вы главный эксперт!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="partners" id="partners">
+        <div class="container">
+            <h2 class="section-title">Наши партнеры</h2>
+            <div class="partners-grid">
+                <div class="partner-card fade-in">
+                    <div class="partner-logo">
+                        <img src="{% static 'assets/image/partner/elros.jpg' %}" alt="ООО ЭлРос">
+                    </div>
+                    <div class="partner-name">ООО "ЭлРос"</div>
+                    <div class="partner-role">Технологический партнер</div>
+                </div>
+                <div class="partner-card fade-in">
+                    <div class="partner-logo">
+                        <img src="{% static 'assets/image/partner/vamk.png' %}" alt="ВлГк им. Советкина">
+                    </div>
+                    <div class="partner-name">ГАПОУ ВО "ВлГк им. Советкина"</div>
+                    <div class="partner-role">Экспертный партнер - СПО</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta" id="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="section-title">Готовы начать обучение?</h2>
+                <p class="cta-description">Присоединяйтесь к прогрессивным образовательным учреждениям, выбирающим отечественные технологии. Платформа полностью бесплатна для всех пользователей.</p>
+                <a href="{% url 'main:about' %}" class="btn">Начать использовать бесплатно</a>
+            </div>
+
+            <div class="testimonials">
+                <h2 class="section-title">Отзывы о платформе</h2>
+                <div class="testimonials-grid">
+                    <div class="testimonial-card fade-in">
+                        <div class="testimonial-text">
+                            Платформа "Пифагор" кардинально изменила мой подход к преподаванию. Теперь я могу легко создавать интерактивные задания и отслеживать прогресс каждого студента в реальном времени.
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <img src="{% static 'assets/image/partner/foto_teachers.jpg' %}" alt="Икрамова">
+                            </div>
+                            <div class="author-info">
+                                <h4>Татьяна Икрамова</h4>
+                                <p>Преподаватель русского языка и литературы</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card fade-in">
+                        <div class="testimonial-text">
+                            Благодаря "Пифагору" я наконец-то разобрался с высшей математикой. Интерактивные задания и мгновенная проверка помогают сразу понять свои ошибки и исправить их.
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <img src="{% static 'assets/image/anastasia_qe.jpg' %}" alt="Anastasia">
+                            </div>
+                            <div class="author-info">
+                                <h4>Мария Фролова</h4>
+                                <p>Студентка 2 курса</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card fade-in">
+                        <div class="testimonial-text">
+                            Как родитель, я ценю возможность в любой момент посмотреть успеваемость своего ребенка. Платформа дает полную картину его прогресса и вовремя предупреждает о проблемах.
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <img src="{% static 'assets/image/denizer1305.png' %}" alt="avatar1">
+                            </div>
+                            <div class="author-info">
+                                <h4>Олег Новиков</h4>
+                                <p>Родитель ученика</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

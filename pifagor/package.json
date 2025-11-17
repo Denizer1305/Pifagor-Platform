@@ -1,0 +1,20 @@
+{
+  "name": "pifagor",
+  "version": "1.0.0",
+  "description": "",
+  "main": "build.js",
+  "scripts": {
+    "build": "node build.js",
+    "build:prod": "node build.js --minify",
+    "dev": "node build.js --watch",
+    "serve": "node build.js --watch --serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Denizer1305/Pifagor-Platform.git"
+  },
+  "private": true,
+  "devDependencies": {
+    "esbuild": "^0.27.0"
+  }
+}

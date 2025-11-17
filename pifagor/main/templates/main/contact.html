@@ -1,0 +1,197 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <section class="hero-page">
+        <div class="bg-shapes">
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+        <div class="container hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">Свяжитесь с нами</h1>
+                <p class="hero-subtitle">Мы всегда рады ответить на ваши вопросы</p>
+                <p class="hero-description">Если у вас есть вопросы о платформе, предложения по сотрудничеству или вам нужна техническая поддержка, заполните форму обратной связи или свяжитесь с нами напрямую.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section contact">
+        <div class="container">
+            <h2 class="section-title">Контактная информация</h2>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div class="contact-card fade-in">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <h3>Наш адрес</h3>
+                        <p>г. Владимир, ул. Офицерская, д. 11</p>
+                        <p>ВлГК им. Д.К.Советкина</p>
+                    </div>
+                    
+                    <div class="contact-card fade-in">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <h3>Телефон</h3>
+                        <p>+7 (800) 555-35-35</p>
+                        <p>Пн-Пт: 8:00 - 17:00</p>
+                    </div>
+                    
+                    <div class="contact-card fade-in">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h3>Электронная почта</h3>
+                        <p>info@pifagor-platform.ru</p>
+                        <p>support@pifagor-platform.ru</p>
+                    </div>
+                    
+                    <div class="contact-card fade-in">
+                        <div class="contact-icon">
+                            <i class="fas fa-share-alt"></i>
+                        </div>
+                        <h3>Социальные сети</h3>
+                        <p>Следите за нами в социальных сетях</p>
+                        <div class="social-links-contact">
+                            <a href="#"><i class="fab fa-vk"></i></a>
+                            <a href="#"><i class="fab fa-telegram"></i></a>
+                            <a href="#"><i class="fab fa-youtube"></i></a>
+                            <a href="#"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form fade-in">
+                    <h3>Форма обратной связи</h3>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Ваше имя</label>
+                            <input type="text" id="name" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Электронная почта</label>
+                            <input type="email" id="email" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subject">Тема сообщения</label>
+                            <input type="text" id="subject" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Сообщение</label>
+                            <textarea id="message" class="form-control" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn">Отправить сообщение</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section map-section">
+        <div class="container">
+            <h2 class="section-title">Мы на карте</h2>
+            
+            <div class="map-info-card">
+                <div class="info-content">
+                    <div class="info-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                            <circle cx="12" cy="10" r="3"></circle>
+                        </svg>
+                    </div>
+                    <div class="info-text">
+                        <h3>ГАПОУ ВО "ВлГК им. Советкина"</h3>
+                        <div class="contact-details">
+                            <div class="detail-item">
+                                <span class="detail-label">Адрес:</span>
+                                <span class="detail-value">г. Владимир, ул. Офицерская, д. 11</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Телефон:</span>
+                                <span class="detail-value">+7 (800) 555-35-35</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Режим работы:</span>
+                                <span class="detail-value">Пн-Пт: 8:00-17:00</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Email:</span>
+                                <span class="detail-value">info@vamk33.ru</span>
+                            </div>
+                        </div>
+                        <p class="location-description">
+                            Ближайшие остановки общественного транспорта: "улица Пичугина" и "Садовая площадь".
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="map-container">
+                <div id="map"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section faq-section">
+        <div class="container">
+            <h2 class="section-title">Часто задаваемые вопросы</h2>
+            <div class="faq-container">
+                <div class="faq-item fade-in">
+                    <div class="faq-question">
+                        <span>Как получить доступ к платформе?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Для получения доступа к платформе необходимо зарегистрироваться, заполнив форму регистрации. После подтверждения email вы получите полный доступ ко всем функциям платформы.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item fade-in">
+                    <div class="faq-question">
+                        <span>Платформа бесплатна для использования?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Да, платформа полностью бесплатна для всех пользователей. Мы стремимся сделать качественное образование доступным для каждого.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item fade-in">
+                    <div class="faq-question">
+                        <span>Чем уникальна ваша платформа?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Наша платформа предлагает несколько ключевых уникальных преимуществ:</p>
+                        
+                        <ul>
+                            <li><strong>Отечественная разработка</strong> - полный контроль над данными и независимость от зарубежных решений</li>
+                            <li><strong>Единая образовательная экосистема</strong> - все инструменты в одном месте без необходимости переключаться между сервисами</li>
+                            <li><strong>ИИ-ассистент "Анастасия"</strong> - автоматическая генерация тестов и проверка практических работ</li>
+                            <li><strong>Упор на практическое обучение</strong> - мощный функционал для лабораторных и практических работ с загрузкой файлов</li>
+                            <li><strong>Разработка в партнерстве с образовательными учреждениями</strong> - платформа создана при непосредственном участии преподавателей и студентов ВлГК им. Советкина</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="faq-item fade-in">
+                    <div class="faq-question">
+                        <span>Предоставляете ли вы техническую поддержку?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Да, наша команда технической поддержки работает с понедельника по пятницу с 9:00 до 18:00. Вы можете обратиться к нам по телефону или электронной почте.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

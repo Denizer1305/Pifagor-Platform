@@ -1,0 +1,171 @@
+.teachers-filters {
+    padding: 50px 0;
+    background-color: var(--white);
+}
+
+.filters-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.filter-section {
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.filter-title {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+}
+
+.filter-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.filter-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.filter-option input {
+    margin: 0;
+}
+
+.filter-option label {
+    cursor: pointer;
+}
+
+.progress-filters {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.filter-select {
+    padding: 10px 15px;
+    border: 1px solid var(--light-bg);
+    border-radius: 8px;
+    background-color: var(--white);
+    font-family: 'PT Sans', sans-serif;
+    color: var(--primary-text);
+}
+
+.statistics-filters {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+/* Filters Section */
+.filters {
+    background-color: var(--light-bg);
+    padding: 30px 0;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.filter-label {
+    font-size: 0.9rem;
+    color: var(--secondary);
+    font-weight: bold;
+}
+
+.filter-select {
+    padding: 10px 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-family: 'PT Sans', sans-serif;
+    font-size: 1rem;
+    background-color: var(--white);
+    cursor: pointer;
+}
+
+/* Поиск и фильтры */
+.search-box {
+    position: relative;
+    margin-left: auto;
+}
+
+.search-box input {
+    padding: 10px 15px 10px 40px;
+    border: 2px solid #e0e0e0;
+    border-radius: 50px;
+    font-family: 'PT Sans', sans-serif;
+    font-size: 1rem;
+    width: 300px;
+}
+
+.search-box i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--secondary);
+}
+
+.filters {
+    background-color: var(--light-bg);
+    padding: 30px 0;
+}
+
+.filter-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
+}
+
+.filter-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.filter-item label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.filter-item select,
+.filter-item input {
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-family: 'PT Sans', sans-serif;
+    background-color: var(--white);
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    background: var(--white);
+    border-radius: 5px;
+    overflow: hidden;
+    border: 1px solid #ddd;
+}
+
+.search-box input {
+    padding: 10px 15px;
+    border: none;
+    width: 250px;
+    font-family: 'PT Sans', sans-serif;
+}
+
+.search-box button {
+    background: var(--primary);
+    color: var(--white);
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+}

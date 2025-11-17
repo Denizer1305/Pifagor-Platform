@@ -1,0 +1,33 @@
+/* Специфичные стили для ошибки 404 */
+.error-code-404 {
+    color: var(--accent-blue);
+}
+
+.error-description-404 {
+    background-color: rgba(52, 152, 219, 0.1);
+    border-left: 4px solid var(--accent-light-blue);
+}
+
+.reassurance-404 {
+    border-left: 4px solid var(--accent-blue);
+}
+
+.reassurance-404 i {
+    color: var(--accent-blue);
+}
+
+.search-box-404 h3 {
+    color: var(--accent-blue);
+}
+
+.quick-links-404 h3 {
+    color: var(--accent-blue);
+}
+
+.error-illustration-404 i {
+    background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-light-blue) 100%);
+    box-shadow: 0 10px 25px rgba(52, 152, 219, 0.3);
+}
+
+.bg-shapes-404 .shape:nth-child(1) { background: var(--accent-blue); }
+.bg-shapes-404 .shape:nth-child(4) { background: var(--accent-light-blue); }

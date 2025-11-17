@@ -1,0 +1,96 @@
+/* Базовые аватары */
+.avatar {
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    font-weight: bold;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+}
+
+/* Размеры аватаров */
+.avatar-sm {
+    width: 32px;
+    height: 32px;
+    font-size: var(--text-sm);
+}
+
+.avatar-md {
+    width: 40px;
+    height: 40px;
+    font-size: var(--text-base);
+}
+
+.avatar-lg {
+    width: 50px;
+    height: 50px;
+    font-size: var(--text-lg);
+}
+
+.avatar-xl {
+    width: 60px;
+    height: 60px;
+    font-size: var(--text-xl);
+}
+
+.avatar-xxl {
+    width: 170px;
+    height: 170px;
+    font-size: var(--text-4xl);
+}
+
+/* Специфические аватары */
+.member-photo {
+    composes: avatar avatar-xxl;
+    margin: 0 auto var(--spacing-sm);
+    overflow: hidden;
+    border: 5px solid var(--white);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s ease;
+}
+
+.student-avatar { composes: avatar avatar-lg; }
+.submission-avatar { composes: avatar avatar-md; }
+.teacher-avatar { composes: avatar avatar-sm; }
+
+/* Группа аватаров */
+.teacher-avatars {
+    display: flex;
+    margin-right: var(--spacing-md);
+}
+
+.teacher-avatar {
+    margin-left: -8px;
+    border: 2px solid var(--white);
+}
+
+.teacher-avatar:first-child {
+    margin-left: 0;
+}
+
+.teacher-avatar.more {
+    background-color: var(--secondary);
+}
+
+/* Оверлей аватара */
+.avatar-overlay {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    background: var(--accent);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.avatar-overlay:hover {
+    background: var(--primary);
+    transform: scale(1.1);
+}

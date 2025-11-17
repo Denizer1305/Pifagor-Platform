@@ -1,0 +1,520 @@
+/* Темная тема на основе дефолтной цветовой схемы */
+:root {
+    /* Основные цвета - инвертированные для темной темы */
+    --primary: #1a1f2d;
+    --primary-light: #2d3447;
+    --secondary: #8A8A9F;
+    --primary-text: #E8EAED;
+    --light-bg: #0f121b;
+    --white: #1a1f2d;
+
+    /* Акцентные цвета - более насыщенные для темного фона */
+    --accent: #5b8cd9;
+    --accent-blue: #5b8cd9;
+    --accent-light-blue: #6ba8f0;
+    --accent-gray: #8A8A9F;
+    --accent-gold: #e6c34c;
+    --accent-green: #36d97d;
+    --accent-orange: #f5a623;
+    --accent-yellow: #f7c843;
+    --accent-amber: #ffb347;
+    --accent-red: #f05e5e;
+    --accent-purple: #b57de8;
+    --accent-pink: #f06c9d;
+
+    /* Семантические цвета */
+    --success: #36d97d;
+    --warning: #f5a623;
+    --danger: #f05e5e;
+    --error: #f05e5e;
+    --info: #5b8cd9;
+
+    /* Цвета предметов - более яркие для темного фона */
+    --russian: #f5a623;
+    --literature: #5b8cd9;
+    --math: #36d97d;
+    --economics: #b57de8;
+    --programming: #E8EAED;
+
+    /* Фоны для страниц/пользователей */
+    --anastasia-bg: #1a1f2d;
+    --user-bg: #2d3447;
+
+    /* Тени и эффекты */
+    --shadow-color: rgba(0, 0, 0, 0.5);
+
+    /* Градиенты для темной темы */
+    --gradient-primary-accent: linear-gradient(90deg, var(--primary), var(--accent));
+    --gradient-success: linear-gradient(135deg, rgba(54, 217, 125, 0.15), rgba(54, 217, 125, 0.25));
+    --gradient-error: linear-gradient(135deg, rgba(240, 94, 94, 0.15), rgba(240, 94, 94, 0.25));
+    --gradient-overlay: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+}
+
+/* Дополнительные стили для темной темы */
+body {
+    background-color: var(--light-bg);
+    color: var(--primary-text);
+}
+
+/* Header */
+header {
+    background: rgba(26, 31, 45, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--primary-light);
+}
+
+header.scrolled {
+    background: var(--primary);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
+}
+
+.nav-links a {
+    color: var(--primary-text);
+}
+
+.nav-links a:hover {
+    color: var(--accent);
+}
+
+.burger-menu {
+    color: var(--primary-text);
+}
+
+/* Hero секция */
+.hero {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--light-bg) 100%);
+}
+
+.bg-shapes .shape {
+    background: rgba(91, 140, 217, 0.1);
+    border: 1px solid rgba(91, 140, 217, 0.2);
+}
+
+.hero-title {
+    color: var(--primary-text);
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.hero-subtitle,
+.hero-description {
+    color: var(--secondary);
+}
+
+/* Features секция */
+.features {
+    background: var(--primary);
+}
+
+.feature-card {
+    background: var(--primary-light);
+    border: 1px solid var(--primary-light);
+    color: var(--primary-text);
+}
+
+.feature-card:hover {
+    background: var(--primary);
+    border-color: var(--accent);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.feature-icon {
+    background: rgba(91, 140, 217, 0.1);
+    color: var(--accent);
+}
+
+.feature-title {
+    color: var(--primary-text);
+}
+
+.feature-description {
+    color: var(--secondary);
+}
+
+/* Architecture секция */
+.architecture {
+    background: var(--light-bg);
+}
+
+.architecture-card {
+    background: var(--primary);
+    border: 1px solid var(--primary-light);
+    color: var(--primary-text);
+}
+
+.architecture-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-5px);
+}
+
+.architecture-icon {
+    background: rgba(91, 140, 217, 0.1);
+    color: var(--accent);
+}
+
+/* AI Assistant секция */
+.ai-assistant {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--light-bg) 100%);
+}
+
+.ai-main-card {
+    background: var(--primary-light);
+    border: 1px solid var(--primary-light);
+}
+
+.ai-tag {
+    background: var(--accent);
+    color: var(--white);
+}
+
+.ai-feature {
+    background: var(--primary);
+    border: 1px solid var(--primary-light);
+}
+
+.ai-feature:hover {
+    border-color: var(--accent);
+    transform: translateX(5px);
+}
+
+.ai-feature-icon {
+    background: rgba(91, 140, 217, 0.1);
+    color: var(--accent);
+}
+
+/* Partners секция */
+.partners {
+    background: var(--primary);
+}
+
+.partner-card {
+    background: var(--primary-light);
+    border: 1px solid var(--primary-light);
+    color: var(--primary-text);
+}
+
+.partner-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-5px);
+}
+
+/* CTA секция */
+.cta {
+    background: var(--light-bg);
+}
+
+.cta-content {
+    background: var(--primary);
+    border: 1px solid var(--primary-light);
+}
+
+.cta-description {
+    color: var(--secondary);
+}
+
+/* Testimonials */
+.testimonial-card {
+    background: var(--primary);
+    border: 1px solid var(--primary-light);
+    color: var(--primary-text);
+}
+
+.testimonial-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-5px);
+}
+
+.testimonial-text {
+    color: var(--secondary);
+}
+
+.author-info h4 {
+    color: var(--primary-text);
+}
+
+.author-info p {
+    color: var(--secondary);
+}
+
+/* Footer */
+footer {
+    background: var(--primary);
+    border-top: 1px solid var(--primary-light);
+}
+
+.footer-column h3 {
+    color: var(--primary-text);
+}
+
+.footer-column a {
+    color: var(--secondary);
+}
+
+.footer-column a:hover {
+    color: var(--accent);
+}
+
+.footer-bottom {
+    border-top: 1px solid var(--primary-light);
+    color: var(--secondary);
+}
+
+/* Кнопки */
+.btn {
+    background: var(--primary-light);
+    color: var(--primary-text);
+    border: 1px solid var(--primary-light);
+}
+
+.btn:hover {
+    background: var(--accent);
+    color: var(--white);
+    border-color: var(--accent);
+    transform: translateY(-2px);
+}
+
+.btn-primary {
+    background: var(--accent);
+    color: var(--white);
+    border-color: var(--accent);
+}
+
+.btn-primary:hover {
+    background: var(--accent-light-blue);
+    border-color: var(--accent-light-blue);
+}
+
+.btn-light {
+    background: transparent;
+    color: var(--primary-text);
+    border: 1px solid var(--primary-light);
+}
+
+.btn-light:hover {
+    background: var(--primary-light);
+    border-color: var(--accent);
+}
+
+/* Мобильное меню */
+.mobile-menu {
+    background: var(--primary);
+    border-left: 1px solid var(--primary-light);
+}
+
+.mobile-menu-overlay {
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.mobile-nav-link {
+    color: var(--primary-text);
+    border-bottom: 1px solid var(--primary-light);
+}
+
+.mobile-nav-link:hover {
+    color: var(--accent);
+    background: var(--primary-light);
+}
+
+.mobile-menu-close {
+    color: var(--primary-text);
+}
+
+.mobile-menu-close:hover {
+    color: var(--accent);
+}
+
+/* Переключатель тем в темной теме */
+.theme-switcher {
+    background: var(--primary-light);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.theme-btn {
+    color: var(--secondary);
+}
+
+.theme-btn:hover {
+    color: var(--accent-light-blue);
+}
+
+/* Формы */
+input,
+textarea,
+select {
+    background: var(--primary-light);
+    color: var(--primary-text);
+    border: 1px solid var(--primary-light);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(91, 140, 217, 0.1);
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: var(--secondary);
+}
+
+/* Состояния загрузки */
+.loading-spinner {
+    border-color: var(--primary-light);
+    border-top-color: var(--accent);
+}
+
+.skeleton-loader {
+    background: linear-gradient(90deg, var(--primary-light) 25%, var(--primary) 50%, var(--primary-light) 75%);
+}
+
+/* Улучшения для читаемости */
+body {
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.section-title {
+    color: var(--primary-text);
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Плавные переходы между темами */
+* {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Особые стили для контента */
+code {
+    background: var(--primary-light);
+    color: var(--accent);
+    border: 1px solid var(--primary);
+}
+
+pre {
+    background: var(--primary);
+    border: 1px solid var(--primary-light);
+    color: var(--primary-text);
+}
+
+blockquote {
+    border-left: 4px solid var(--accent);
+    background: var(--primary-light);
+    color: var(--secondary);
+}
+
+/* Таблицы */
+table {
+    background: var(--primary);
+    border: 1px solid var(--primary-light);
+}
+
+th {
+    background: var(--primary-light);
+    color: var(--primary-text);
+    border-bottom: 2px solid var(--accent);
+}
+
+td {
+    border-bottom: 1px solid var(--primary-light);
+    color: var(--primary-text);
+}
+
+tr:hover {
+    background: var(--primary-light);
+}
+
+/* Социальные иконки */
+.social-links a {
+    background: var(--primary-light);
+    color: var(--secondary);
+    border: 1px solid var(--primary-light);
+}
+
+.social-links a:hover {
+    background: var(--accent);
+    color: var(--white);
+    border-color: var(--accent);
+}
+
+/* Логотипы и изображения - добавляем фильтр для лучшей видимости */
+.logo-header img,
+.hero-logo img,
+.partner-logo img,
+.author-avatar img {
+    filter: brightness(0.9) contrast(1.1);
+}
+
+/* Улучшенная видимость фокуса */
+*:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+/* Адаптивность для темной темы */
+@media (max-width: 768px) {
+    .mobile-menu {
+        background: var(--primary);
+    }
+    
+    .mobile-nav-link {
+        background: var(--primary);
+    }
+    
+    .mobile-nav-link:hover {
+        background: var(--primary-light);
+    }
+}
+
+/* Темная тема для чата */
+@media (prefers-color-scheme: dark) {
+    .chat-messages {
+        background-color: rgba(var(--primary), 0.1);
+    }
+    
+    .message-content {
+        background-color: var(--white);
+    }
+    
+    .message.anastasia .message-content {
+        background-color: var(--anastasia-bg);
+    }
+    
+    .message.user .message-content {
+        background-color: var(--user-bg);
+    }
+    
+    .chat-input-container {
+        background-color: var(--white);
+        border-top-color: var(--input-border-color);
+    }
+    
+    .chat-input {
+        background-color: var(--white);
+        color: var(--primary-text);
+    }
+}
+
+/* Темная тема для хедера */
+@media (prefers-color-scheme: dark) {
+    header {
+        background-color: rgba(57, 68, 88, 0.95);
+    }
+    
+    .nav-links a {
+        color: var(--white);
+    }
+    
+    .mobile-menu {
+        background: var(--primary);
+    }
+    
+    .mobile-nav-link {
+        color: var(--white);
+    }
+    
+    .mobile-nav-link:hover {
+        background: rgba(255, 255, 255, 0.1);
+    }
+}

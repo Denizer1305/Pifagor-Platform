@@ -1,0 +1,78 @@
+/* Специфичные стили для ошибки 504 */
+.error-code-504 {
+    color: var(--accent-amber);
+}
+
+.error-description-504 {
+    background-color: rgba(255, 165, 0, 0.1);
+    border-left: 4px solid var(--accent-amber);
+}
+
+.reassurance-warning-504 {
+    border-left: 4px solid var(--accent-orange);
+}
+
+.reassurance-warning-504 i {
+    color: var(--accent-orange);
+}
+
+.timeout-info-504 h3 {
+    color: var(--accent-orange);
+}
+
+.status-dot-504 {
+    background: var(--accent-amber);
+}
+
+.status-text-504 {
+    color: var(--accent-orange);
+}
+
+.error-illustration-504 i {
+    background: linear-gradient(135deg, var(--accent-amber) 0%, var(--accent-orange) 100%);
+    color: var(--primary-dark);
+    box-shadow: 0 10px 25px rgba(255, 165, 0, 0.3);
+}
+
+.error-illustration-504 i::before {
+    content: '';
+    position: absolute;
+    top: 40%;
+    left: 40%;
+    width: 20%;
+    height: 20%;
+    background: var(--primary-dark);
+    border-radius: 50%;
+}
+
+.countdown-timer-504 {
+    margin: 15px 0;
+    padding: 15px;
+    background: rgba(255, 165, 0, 0.1);
+    border-radius: 8px;
+    text-align: center;
+}
+
+.timer-text-504 {
+    font-size: 0.9rem;
+    color: var(--accent-gray);
+    margin-bottom: 5px;
+}
+
+.timer-display-504 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--accent-orange);
+    font-family: 'PT Sans', monospace;
+}
+
+.connection-tips-504 {
+    margin-top: 20px;
+    padding: 15px;
+    background: rgba(255, 165, 0, 0.05);
+    border-radius: 8px;
+    border-left: 3px solid var(--accent-amber);
+}
+
+.bg-shapes-504 .shape:nth-child(1) { background: var(--accent-orange); }
+.bg-shapes-504 .shape:nth-child(4) { background: var(--accent-amber); }
