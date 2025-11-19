@@ -1,0 +1,362 @@
+.badge,
+.test-status,
+.subject-badge,
+.material-type,
+.difficulty,
+.materials-count,
+.material-type,
+.practice-count,
+.test-status,
+.difficulty,
+.course-level {
+    display: inline-block;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--border-radius-xl);
+    font-size: var(--text-sm);
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-top: 10px;
+}
+
+.status-pending {
+    background-color: rgba(243, 156, 18, 0.2);
+    color: var(--warning);
+}
+
+.status-reviewed {
+    background-color: rgba(46, 204, 113, 0.2);
+    color: var(--success);
+}
+
+.status-rejected {
+    background-color: rgba(231, 76, 60, 0.2);
+    color: var(--danger);
+}
+
+.status-not-started {
+    background-color: rgba(149, 165, 166, 0.2);
+    color: #7f8c8d;
+}
+
+.status-in-progress {
+    background-color: rgba(52, 152, 219, 0.2);
+    color: #2980b9;
+}
+
+.status-completed {
+    background-color: rgba(46, 204, 113, 0.2);
+    color: #27ae60;
+}
+
+.subject-badge {
+    color: var(--white);
+}
+
+.badge-russian { 
+    background-color: var(--russian);
+}
+
+.badge-literature { 
+    background-color: var(--literature);
+}
+
+.badge-math { 
+    background-color: var(--math);
+}
+
+.badge-economics { 
+    background-color: var(--economics);
+}
+
+.badge-programming { 
+    background-color: var(--programming);
+}
+
+.type-pdf {
+    background-color: rgba(231, 76, 60, 0.2);
+    color: #C0392B;
+}
+
+.type-video {
+    background-color: rgba(52, 152, 219, 0.2);
+    color: #2980B9;
+}
+
+.type-presentation {
+    background-color: rgba(155, 89, 182, 0.2);
+    color: #8E44AD;
+}
+
+.type-code {
+    background-color: rgba(26, 188, 156, 0.2);
+    color: #16A085;
+}
+
+.type-text {
+    background-color: rgba(243, 156, 18, 0.2);
+    color: #E67E22;
+}
+
+.difficulty-easy {
+    background-color: rgba(46, 204, 113, 0.2);
+    color: #27ae60;
+}
+
+.difficulty-medium {
+    background-color: rgba(52, 152, 219, 0.2);
+    color: #2980b9;
+}
+
+.difficulty-hard {
+    background-color: rgba(231, 76, 60, 0.2);
+    color: #c0392b;
+}
+
+.materials-count,
+.practice-count,
+.course-level {
+    background-color: rgba(74, 111, 165, 0.2);
+    color: var(--accent);
+}
+
+.badge-sm {
+    padding: 4px 8px;
+    font-size: var(--text-xs);
+}
+
+.badge-lg {
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: var(--text-base);
+}
+
+.badge-outline {
+    background-color: transparent;
+    border: 2px solid currentColor;
+}
+
+.attendance-badge {
+    display: inline-block;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--border-radius-xl);
+    font-size: var(--text-sm);
+    font-weight: bold;
+    min-width: 80px;
+    text-align: center;
+    border: 2px solid transparent;
+}
+
+.status-present {
+    background-color: var(--status-present-bg);
+    color: var(--status-present-color);
+    border-color: var(--status-present-border);
+}
+
+.status-absent {
+    background-color: var(--status-absent-bg);
+    color: var(--status-absent-color);
+    border-color: var(--status-absent-border);
+}
+
+.status-late {
+    background-color: var(--status-late-bg);
+    color: var(--status-late-color);
+    border-color: var(--status-late-border);
+}
+
+.status-excused {
+    background-color: var(--status-excused-bg);
+    color: var(--status-excused-color);
+    border-color: var(--status-excused-border);
+}
+
+.badge-interactive {
+    cursor: pointer;
+    transition: var(--transition-standard);
+}
+
+.badge-interactive:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+}
+
+.badge-with-icon {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+.badge-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    font-size: var(--text-xs);
+}
+
+.badge-primary {
+    background-color: rgba(74, 111, 165, 0.2);
+    color: var(--accent);
+}
+
+.badge-success {
+    background-color: rgba(46, 204, 113, 0.2);
+    color: var(--success);
+}
+
+.badge-warning {
+    background-color: rgba(243, 156, 18, 0.2);
+    color: var(--warning);
+}
+
+.badge-danger {
+    background-color: rgba(231, 76, 60, 0.2);
+    color: var(--danger);
+}
+
+.badge-info {
+    background-color: rgba(52, 152, 219, 0.2);
+    color: var(--info);
+}
+
+.badge-filled {
+    color: var(--white);
+}
+
+.badge-filled.badge-primary {
+    background-color: var(--accent);
+}
+
+.badge-filled.badge-success {
+    background-color: var(--success);
+}
+
+.badge-filled.badge-warning {
+    background-color: var(--warning);
+}
+
+.badge-filled.badge-danger {
+    background-color: var(--danger);
+}
+
+.badge-filled.badge-info {
+    background-color: var(--info);
+}
+
+.strength-weak {
+    background-color: var(--danger);
+    width: 25%;
+}
+
+.strength-fair {
+    background-color: var(--warning);
+    width: 50%;
+}
+
+.strength-good {
+    background-color: var(--info);
+    width: 75%;
+}
+
+.strength-strong {
+    background-color: var(--success);
+    width: 100%;
+}
+
+.homework-status {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.status-new {
+    background-color: rgba(52, 152, 219, 0.2);
+    color: #2980b9;
+}
+
+.status-in-progress {
+    background-color: rgba(243, 156, 18, 0.2);
+    color: #d35400;
+}
+
+.status-reviewed {
+    background-color: rgba(46, 204, 113, 0.2);
+    color: #27ae60;
+}
+
+.status-overdue {
+    background-color: rgba(231, 76, 60, 0.2);
+    color: #c0392b;
+}
+
+.difficulty {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.difficulty-easy {
+    background-color: rgba(46, 204, 113, 0.2);
+    color: #27ae60;
+}
+
+.difficulty-medium {
+    background-color: rgba(243, 156, 18, 0.2);
+    color: #d35400;
+}
+
+.difficulty-hard {
+    background-color: rgba(231, 76, 60, 0.2);
+    color: #c0392b;
+}
+
+.status-new {
+    color: #2980b9;
+    font-weight: bold;
+}
+
+.status-in-progress {
+    color: #d35400;
+    font-weight: bold;
+}
+
+.status-pending {
+    background-color: rgba(243, 156, 18, 0.2);
+    color: #d35400;
+}
+
+.status-reviewed {
+    background-color: rgba(46, 204, 113, 0.2);
+    color: #27ae60;
+}
+
+.status-returned {
+    background-color: rgba(231, 76, 60, 0.2);
+    color: #c0392b;
+}
+
+.template-badge {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.badge-popular {
+    background-color: rgba(231, 76, 60, 0.2);
+    color: #c0392b;
+}
+
+.badge-new {
+    background-color: rgba(46, 204, 113, 0.2);
+    color: #27ae60;
+}
+
+.badge-official {
+    background-color: rgba(52, 152, 219, 0.2);
+    color: #2980b9;
+}

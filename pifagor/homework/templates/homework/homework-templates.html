@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пифагор - Шаблоны домашних заданий</title>
+    <link rel="icon" href="/frontend/static/assets/image/logo/icons.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Forum&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/frontend/static/css/main.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo-header">
+                <a href="/frontend/templates/main/index.html">
+                    <img src="/frontend/static/assets/image/logo/logo.svg" alt="logo">
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/frontend/templates/courses/courses.html">Курсы</a></li>
+                <li><a href="/frontend/templates/test/tests.html">Тестирование</a></li>
+                <li><a href="/frontend/templates/practic/practic.html">Практические задания</a></li>
+                <li><a href="/frontend/templates/materials/materials.html">Учебные материалы</a></li>
+                <li><a href="/frontend/templates/homework/homework.html" class="active">Домашняя работа</a></li>
+            </ul>
+            <div class="header-actions">
+                <a href="/frontend/templates/auth/registration.html" class="btn btn-primary login-btn">Вход в кабинет</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-page">
+        <div class="bg-shapes">
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+        <div class="container hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">Шаблоны домашних заданий</h1>
+                <p class="hero-subtitle">Готовые шаблоны для быстрого создания качественных заданий</p>
+                <p>Используйте предварительно созданные шаблоны для экономии времени при подготовке домашних заданий. Все шаблоны можно адаптировать под ваши потребности.</p>
+                <div class="hero-actions">
+                    <a href="#templates" class="btn">Смотреть шаблоны</a>
+                    <a href="/frontend/templates/homework/homework-create.html" class="btn btn-light">Создать с нуля</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filters Section -->
+    <section class="filters">
+        <div class="container">
+            <div class="filters-container">
+                <div class="filter-group">
+                    <div class="filter-item">
+                        <label for="subject">Предмет</label>
+                        <select id="subject">
+                            <option value="all">Все предметы</option>
+                            <option value="math">Математика</option>
+                            <option value="physics">Физика</option>
+                            <option value="informatics">Информатика</option>
+                            <option value="russian">Русский язык</option>
+                            <option value="english">Английский язык</option>
+                        </select>
+                    </div>
+                    <div class="filter-item">
+                        <label for="difficulty">Уровень сложности</label>
+                        <select id="difficulty">
+                            <option value="all">Все уровни</option>
+                            <option value="easy">Начальный</option>
+                            <option value="medium">Средний</option>
+                            <option value="hard">Продвинутый</option>
+                        </select>
+                    </div>
+                    <div class="filter-item">
+                        <label for="type">Тип задания</label>
+                        <select id="type">
+                            <option value="all">Все типы</option>
+                            <option value="theory">Теоретическое</option>
+                            <option value="practice">Практическое</option>
+                            <option value="project">Проектное</option>
+                            <option value="research">Исследовательское</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="search-box">
+                    <input type="text" placeholder="Поиск по названию шаблона...">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Templates Section -->
+    <section id="templates" class="section templates">
+        <div class="container">
+            <h2 class="section-title">Доступные шаблоны</h2>
+            <div class="templates-grid">
+                <!-- Шаблон 1 -->
+                <div class="template-card fade-in">
+                    <div class="template-header">
+                        <div>
+                            <h3 class="template-title">Решение квадратных уравнений</h3>
+                            <p class="template-subject">Математика</p>
+                        </div>
+                        <span class="template-badge badge-popular">Популярный</span>
+                    </div>
+                    <div class="template-body">
+                        <div class="template-info">
+                            <div class="template-info-item">
+                                <span class="template-info-label">Уровень:</span>
+                                <span class="template-info-value">Средний</span>
+                            </div>
+                            <div class="template-info-item">
+                                <span class="template-info-label">Время выполнения:</span>
+                                <span class="template-info-value">2-3 часа</span>
+                            </div>
+                            <div class="template-info-item">
+                                <span class="template-info-label">Тип:</span>
+                                <span class="template-info-value">Практическое</span>
+                            </div>
+                        </div>
+                        <p class="template-description">Шаблон для задания по решению квадратных уравнений различными методами. Включает примеры, критерии оценки и рекомендации.</p>
+                        
+                        <div class="template-features">
+                            <div class="features-title">Включает:</div>
+                            <ul class="features-list">
+                                <li><i class="fas fa-check"></i> Пошаговые инструкции</li>
+                                <li><i class="fas fa-check"></i> Примеры решения</li>
+                                <li><i class="fas fa-check"></i> Критерии оценки</li>
+                                <li><i class="fas fa-check"></i> Рекомендации для студентов</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="template-actions">
+                            <button class="btn btn-small btn-light preview-template" data-template="1">
+                                <i class="fas fa-eye"></i> Предпросмотр
+                            </button>
+                            <button class="btn btn-small use-template" data-template="1">
+                                <i class="fas fa-plus"></i> Использовать
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Preview Modal -->
+    <div class="modal-overlay" id="preview-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title" id="preview-modal-title">Предпросмотр шаблона</h3>
+                <button class="modal-close" id="preview-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-content">
+                <div class="template-preview">
+                    <div class="preview-section">
+                        <div class="preview-section-title">Описание задания</div>
+                        <div class="preview-content" id="preview-description-content">
+                            <!-- Content will be filled by JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <div class="preview-section">
+                        <div class="preview-section-title">Требования</div>
+                        <div class="preview-content" id="preview-requirements-content">
+                            <!-- Content will be filled by JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <div class="preview-section">
+                        <div class="preview-section-title">Критерии оценки</div>
+                        <div class="preview-content" id="preview-criteria-content">
+                            <!-- Content will be filled by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-light" id="preview-cancel">Закрыть</button>
+                <button class="btn btn-success" id="preview-use">Использовать этот шаблон</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Пифагор</h3>
+                    <p>Образовательная платформа, которая делает сложное простым, а обучение — увлекательным.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-vk"></i></a>
+                        <a href="#"><i class="fab fa-gitlab"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Курсы</h3>
+                    <ul>
+                        <li><a href="#">Математика</a></li>
+                        <li><a href="#">Физика</a></li>
+                        <li><a href="#">Информатика</a></li>
+                        <li><a href="#">Подготовка к ЕГЭ</a></li>
+                        <li><a href="#">Высшая математика</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Компания</h3>
+                    <ul>
+                        <li><a href="#">О нас</a></li>
+                        <li><a href="#">Преподаватели</a></li>
+                        <li><a href="#">Новости</a></li>
+                        <li><a href="#">Контакты</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Помощь</h3>
+                    <ul>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Поддержка</a></li>
+                        <li><a href="#">Политика конфиденциальности</a></li>
+                        <li><a href="#">Условия использования</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Образовательная платформа "Пифагор". Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="/frontend/static/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пифагор - Условные операторы: Лекция</title>
+    <link rel="icon" href="/frontend/static/assets/image/logo/icons.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Forum&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/frontend/static/css/main.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo-header">
+                <a href="/frontend/templates/main/index.html">
+                    <img src="/frontend/static/assets/image/logo/logo.svg" alt="logo">
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/frontend/templates/courses/courses.html">Курсы</a></li>
+                <li><a href="/frontend/templates/test/tests.html">Тестирование</a></li>
+                <li><a href="/frontend/templates/practic/practic.html">Практические задания</a></li>
+                <li><a href="/frontend/templates/homework/homework.html">Домашние задания</a></li>
+                <li><a href="/frontend/templates/materials/materials.html">Учебные материалы</a></li>
+            </ul>
+            <div class="header-actions">
+                <a href="/frontend/templates/auth/registration.html" class="btn btn-primary login-btn">Вход в кабинет</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-page">
+        <div class="bg-shapes">
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+        <div class="container hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">Введение в условные операторы</h1>
+                <p class="hero-subtitle">Изучите основы условных операторов if, elif и else в Python</p>
+                <div class="topic-meta">
+                    <div class="meta-item">
+                        <i class="far fa-clock"></i>
+                        <span>25 минут</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="far fa-calendar"></i>
+                        <span>15.03.2025</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="fas fa-signal"></i>
+                        <span>Начальный уровень</span>
+                    </div>
+                </div>
+                <div class="progress-text">Прогресс лекции: 100%</div>
+                <div class="progress-container">
+                    <div class="progress-bar"></div>
+                </div>
+                <p class="hero-description">В этой лекции вы изучите основы условных операторов в Python. Вы узнаете, как заставить программу принимать решения на основе различных условий.</p>
+                <div class="hero-actions">
+                    <a href="#practice-test" class="btn btn-success">Перейти к практике</a>
+                    <a href="#practice-test" class="btn btn-warning">Пройти тест</a>
+                    <a href="/frontend/templates/courses/materials.html" class="btn btn-light">Назад к материалам</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lecture Section -->
+    <section class="section lecture">
+        <div class="container">
+            <h2 class="section-title">Лекция: Введение в условные операторы</h2>
+            <div class="lecture-container">
+                <div class="lecture-content">
+                    <div class="video-container">
+                        <!-- Здесь будет видео лекции -->
+                        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Лекция по условным операторам" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    
+                    <div class="lecture-text">
+                        <h3>Что такое условные операторы?</h3>
+                        <p>Условные операторы позволяют программе принимать решения на основе определенных условий. В Python для этого используются операторы <code>if</code>, <code>elif</code> и <code>else</code>.</p>
+                        
+                        <h3>Базовый синтаксис оператора if</h3>
+                        <p>Простейшая форма условного оператора выглядит так:</p>
+                        <div class="code-block">
+                            <span class="code-keyword">if</span> условие:<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-comment"># код, который выполнится, если условие истинно</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;выражение
+                        </div>
+                        
+                        <h3>Пример использования if</h3>
+                        <p>Рассмотрим простой пример:</p>
+                        <div class="code-block">
+                            age = 18<br>
+                            <span class="code-keyword">if</span> age >= 18:<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-function">print</span>(<span class="code-string">"Вы совершеннолетний"</span>)
+                        </div>
+                        
+                        <h3>Операторы if-else</h3>
+                        <p>Когда нужно предусмотреть альтернативный вариант, используется конструкция if-else:</p>
+                        <div class="code-block">
+                            age = 16<br>
+                            <span class="code-keyword">if</span> age >= 18:<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-function">print</span>(<span class="code-string">"Вы совершеннолетний"</span>)<br>
+                            <span class="code-keyword">else</span>:<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-function">print</span>(<span class="code-string">"Вы несовершеннолетний"</span>)
+                        </div>
+                        
+                        <h3>Множественные условия с elif</h3>
+                        <p>Когда нужно проверить несколько условий, используется оператор elif:</p>
+                        <div class="code-block">
+                            score = 85<br>
+                            <span class="code-keyword">if</span> score >= 90:<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-function">print</span>(<span class="code-string">"Отлично!"</span>)<br>
+                            <span class="code-keyword">elif</span> score >= 70:<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-function">print</span>(<span class="code-string">"Хорошо"</span>)<br>
+                            <span class="code-keyword">elif</span> score >= 50:<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-function">print</span>(<span class="code-string">"Удовлетворительно"</span>)<br>
+                            <span class="code-keyword">else</span>:<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-function">print</span>(<span class="code-string">"Неудовлетворительно"</span>)
+                        </div>
+                        
+                        <h3>Логические операторы</h3>
+                        <p>Для создания сложных условий используются логические операторы:</p>
+                        <ul>
+                            <li><code>and</code> - логическое И (оба условия истинны)</li>
+                            <li><code>or</code> - логическое ИЛИ (хотя бы одно условие истинно)</li>
+                            <li><code>not</code> - логическое НЕ (инвертирует условие)</li>
+                        </ul>
+                        
+                        <div class="code-block">
+                            age = 25<br>
+                            has_license = <span class="code-keyword">True</span><br>
+                            <br>
+                            <span class="code-keyword">if</span> age >= 18 <span class="code-keyword">and</span> has_license:<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-function">print</span>(<span class="code-string">"Вы можете водить машину"</span>)<br>
+                            <span class="code-keyword">else</span>:<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-function">print</span>(<span class="code-string">"Вы не можете водить машину"</span>)
+                        </div>
+                    </div>
+                    
+                    <div class="actions-panel">
+                        <a href="#" class="btn">
+                            <i class="far fa-file-pdf"></i> Скачать конспект
+                        </a>
+                        <a href="#" class="btn">
+                            <i class="fas fa-code"></i> Примеры кода
+                        </a>
+                        <a href="#" class="btn">
+                            <i class="far fa-bookmark"></i> Добавить в закладки
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Sidebar -->
+                <div class="lecture-sidebar">
+                    <h3 class="sidebar-title">О лекции</h3>
+                    
+                    <div class="lecture-info">
+                        <h4>Введение в условные операторы</h4>
+                        <p>Изучите основы условных операторов if, elif и else в Python.</p>
+                    </div>
+                    
+                    <div class="lecture-stats">
+                        <div class="stat-item">
+                            <span class="stat-label">Статус:</span>
+                            <span class="stat-value">Просмотрено</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Длительность:</span>
+                            <span class="stat-value">25 минут</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Дата просмотра:</span>
+                            <span class="stat-value">15.03.2025</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Сложность:</span>
+                            <span class="stat-value">Начальная</span>
+                        </div>
+                    </div>
+                    
+                    <h4>Дополнительные материалы</h4>
+                    <ul class="resources-list">
+                        <li>
+                            <a href="#">
+                                <i class="far fa-file-pdf"></i>
+                                <span>Конспект лекции</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fas fa-code"></i>
+                                <span>Примеры кода</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fas fa-external-link-alt"></i>
+                                <span>Официальная документация</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fas fa-book"></i>
+                                <span>Рекомендуемая литература</span>
+                            </a>
+                        </li>
+                    </ul>
+                    
+                    <div class="next-lesson">
+                        <h4>Следующая лекция</h4>
+                        <p>Сложные условия и логические операторы</p>
+                        <a href="#" class="btn btn-light btn-small" style="margin-top: 10px;">Перейти</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Practice & Test Section -->
+    <section id="practice-test" class="section practice-test">
+        <div class="container">
+            <h2 class="section-title">Закрепите знания</h2>
+            <div class="practice-test-container">
+                <div class="practice-card fade-in">
+                    <div class="practice-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3>Практические задания</h3>
+                    <p>Решите практические задачи по теме "Условные операторы" для закрепления материала. Задания разного уровня сложности помогут вам лучше понять тему.</p>
+                    <a href="#" class="btn btn-success">Начать практику</a>
+                </div>
+                
+                <div class="test-card fade-in">
+                    <div class="test-icon">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <h3>Тестирование</h3>
+                    <p>Пройдите тест по теме "Условные операторы", чтобы проверить свои знания. Тест содержит 15 вопросов разного уровня сложности.</p>
+                    <a href="#" class="btn btn-warning">Пройти тест</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Пифагор</h3>
+                    <p>Образовательная платформа, которая делает сложное простым, а обучение — увлекательным.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-vk"></i></a>
+                        <a href="#"><i class="fab fa-gitlab"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Курсы</h3>
+                    <ul>
+                        <li><a href="#">Математика</a></li>
+                        <li><a href="#">Физика</a></li>
+                        <li><a href="#">Информатика</a></li>
+                        <li><a href="#">Подготовка к ЕГЭ</a></li>
+                        <li><a href="#">Высшая математика</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Компания</h3>
+                    <ul>
+                        <li><a href="#">О нас</a></li>
+                        <li><a href="#">Преподаватели</a></li>
+                        <li><a href="#">Новости</a></li>
+                        <li><a href="#">Контакты</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Помощь</h3>
+                    <ul>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Поддержка</a></li>
+                        <li><a href="#">Политика конфиденциальности</a></li>
+                        <li><a href="#">Условия использования</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Образовательная платформа "Пифагор". Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="/frontend/static/js/main.js"></script>
+</body>
+</html>

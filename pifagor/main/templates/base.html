@@ -24,9 +24,9 @@
             
             <ul class="nav-links">
                 <li><a href="{% url 'main:about' %}">О платформе</a></li>
-                <li><a href="{% url 'main:about' %}">Курсы</a></li>
                 <li><a href="{% url 'main:teachers' %}">Преподаватели</a></li>
                 <li><a href="{% url 'main:contact' %}">Контакты</a></li>
+                <li><a href="{% url 'main:about' %}">Курсы</a></li>
             </ul>
 
             <div class="theme-switcher">
@@ -36,7 +36,7 @@
             </div>
             
             <div class="header-actions">
-                <a href="{% url 'main:contact' %}" class="btn btn-primary login-btn">Регистрация</a>
+                <a href="{% url 'authorization:registration' %}" class="btn btn-primary login-btn">Регистрация</a>
             </div>
 
             <!-- Мобильное меню -->
@@ -72,7 +72,7 @@
                 </div>
                 
                 <div class="mobile-menu-actions">
-                    <a href="{% url 'main:contact' %}" class="btn btn-primary btn-mobile">Регистрация</a>
+                    <a href="{% url 'authorization:registration' %}" class="btn btn-primary btn-mobile">Регистрация</a>
                 </div>
             </nav>
         </div>
@@ -130,6 +130,6 @@
     </footer>
 
     <script type="module" src="{% static 'js/bundle.js' %}"></script>
-<script src="https://api-maps.yandex.ru/2.1/?apikey=d6033963-5910-4384-8a9b-ca0e6600b444&lang=ru_RU" type="text/javascript"></script>
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=d6033963-5910-4384-8a9b-ca0e6600b444&lang=ru_RU" type="text/javascript"></script>
 </body>
 </html>

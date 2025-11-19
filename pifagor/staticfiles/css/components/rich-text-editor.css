@@ -1,0 +1,241 @@
+.code-editor {
+    position: relative;
+}
+
+.code-review {
+    flex: 1;
+    margin-bottom: 20px;
+    border: 1px solid var(--light-bg);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.code-header {
+    background-color: var(--primary);
+    color: var(--white);
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.code-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.code-action {
+    background: none;
+    border: none;
+    color: var(--white);
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.code-content {
+    padding: 15px;
+    background-color: #f8f9fa;
+    font-family: monospace;
+    white-space: pre-wrap;
+    max-height: 400px;
+    overflow-y: auto;
+    line-height: 1.5;
+}
+
+.code-line {
+    padding: 2px 0;
+}
+
+.code-line.highlight {
+    background-color: rgba(255, 255, 0, 0.2);
+    border-left: 3px solid var(--warning);
+}
+
+.code-editor {
+    margin: 30px 0;
+}
+
+.editor-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.editor-title {
+    font-weight: bold;
+    color: var(--primary-dark);
+}
+
+.editor-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.editor-container {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.editor-toolbar {
+    background-color: #2d3748;
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.toolbar-item {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.toolbar-close {
+    background-color: #f56565;
+}
+
+.toolbar-minimize {
+    background-color: #f6e05e;
+}
+
+.toolbar-maximize {
+    background-color: #48bb78;
+}
+
+.editor-language {
+    color: #a0aec0;
+    font-size: 0.8rem;
+    margin-left: auto;
+}
+
+textarea.code-input {
+    width: 100%;
+    min-height: 300px;
+    background-color: #1a202c;
+    color: #e2e8f0;
+    border: none;
+    padding: 20px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    resize: vertical;
+    outline: none;
+}
+
+.result-output {
+    background-color: #1a202c;
+    color: #e2e8f0;
+    padding: 20px;
+    border-radius: 8px;
+    font-family: 'Courier New', monospace;
+    margin: 20px 0;
+    white-space: pre-wrap;
+}
+
+/* Rich Text Editor Styles (for task descriptions) */
+.rich-text-content {
+    line-height: 1.6;
+}
+
+.rich-text-content h1,
+.rich-text-content h2,
+.rich-text-content h3 {
+    margin: 1.5em 0 0.5em 0;
+    color: var(--primary-dark);
+}
+
+.rich-text-content p {
+    margin-bottom: 1em;
+}
+
+.rich-text-content code {
+    background-color: var(--light-bg);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+.rich-text-content pre {
+    background-color: #1a202c;
+    color: #e2e8f0;
+    padding: 15px;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 15px 0;
+}
+
+.rich-text-content blockquote {
+    border-left: 4px solid var(--accent-blue);
+    padding-left: 15px;
+    margin: 15px 0;
+    color: var(--accent-gray);
+    font-style: italic;
+}
+
+.rich-text-content ul,
+.rich-text-content ol {
+    margin: 15px 0;
+    padding-left: 25px;
+}
+
+.rich-text-content li {
+    margin-bottom: 5px;
+}
+
+/* Предпросмотр кода */
+.task-preview {
+    background-color: var(--white);
+    border-radius: 10px;
+    padding: 15px;
+    margin: 15px 0;
+    border-left: 4px solid var(--accent);
+}
+
+.task-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: var(--accent);
+}
+
+.code-preview {
+    background-color: #2d3748;
+    color: #e2e8f0;
+    padding: 15px;
+    border-radius: 8px;
+    font-family: 'Courier New', monospace;
+    overflow-x: auto;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+.code-full {
+    background-color: #2d3748;
+    color: #e2e8f0;
+    padding: 20px;
+    border-radius: 8px;
+    font-family: 'Courier New', monospace;
+    overflow-x: auto;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+#password-field {
+    border-left: 4px solid #007bff;
+    padding-left: 15px;
+    margin-top: 15px;
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 5px;
+    display: none; /* Скрыто по умолчанию */
+}
+
+#password-field.visible {
+    display: block;
+}

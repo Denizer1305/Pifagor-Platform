@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пифагор - Создание курса</title>
+    <link rel="icon" href="/frontend/static/assets/image/logo/icons.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Forum&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/frontend/static/css/main.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo-header">
+                <a href="/frontend/templates/main/index.html">
+                    <img src="/frontend/static/assets/image/logo/logo.svg" alt="logo">
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/frontend/templates/courses/courses.html">Курсы</a></li>
+                <li><a href="/frontend/templates/test/tests.html">Тестирование</a></li>
+                <li><a href="/frontend/templates/practic/practic.html">Практические задания</a></li>
+                <li><a href="/frontend/templates/homework/homework.html">Домашние задания</a></li>
+                <li><a href="/frontend/templates/materials/materials.html">Учебные материалы</a></li>
+            </ul>
+            <div class="header-actions">
+                <a href="/frontend/templates/auth/registration.html" class="btn btn-primary login-btn">Вход в кабинет</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-page">
+        <div class="bg-shapes">
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+        <div class="container hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">Создание нового курса</h1>
+                <p class="hero-subtitle">Разработайте образовательный курс для студентов платформы "Пифагор"</p>
+                <p class="hero-description">Заполните информацию о курсе, добавьте модули и уроки. После создания курс будет отправлен на модерацию перед публикацией.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Form Section -->
+    <section class="section form-section">
+        <div class="container">
+            <h2 class="section-title">Информация о курсе</h2>
+            <div class="form-container">
+                <div class="form-content">
+                    <form id="course-form">
+                        <div class="form-group">
+                            <label for="course-title" class="form-label">Название курса *</label>
+                            <input type="text" id="course-title" class="form-control" placeholder="Введите название курса" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="course-short-desc" class="form-label">Краткое описание *</label>
+                            <input type="text" id="course-short-desc" class="form-control" placeholder="Краткое описание курса (максимум 150 символов)" maxlength="150" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="course-full-desc" class="form-label">Полное описание *</label>
+                            <textarea id="course-full-desc" class="form-control" placeholder="Подробное описание курса, чему научатся студенты, для кого предназначен курс" required></textarea>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="course-category" class="form-label">Категория *</label>
+                                <select id="course-category" class="form-control" required>
+                                    <option value="">Выберите категорию</option>
+                                    <option value="programming">Программирование</option>
+                                    <option value="math">Математика</option>
+                                    <option value="physics">Физика</option>
+                                    <option value="languages">Языки</option>
+                                    <option value="other">Другое</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="course-level" class="form-label">Уровень сложности *</label>
+                                <select id="course-level" class="form-control" required>
+                                    <option value="">Выберите уровень</option>
+                                    <option value="beginner">Начальный</option>
+                                    <option value="intermediate">Средний</option>
+                                    <option value="advanced">Продвинутый</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="course-duration" class="form-label">Продолжительность (часов) *</label>
+                                <input type="number" id="course-duration" class="form-control" min="1" max="500" placeholder="Например: 36" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Изображение курса</label>
+                            <div class="file-upload">
+                                <input type="file" id="course-image" class="file-upload-input" accept="image/*">
+                                <label for="course-image" class="file-upload-label">
+                                    <div>
+                                        <i class="fas fa-cloud-upload-alt"></i>
+                                        <span>Загрузите обложку курса</span>
+                                        <span style="font-size: 0.8rem;">Рекомендуемый размер: 1280x720px</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="modules-section">
+                            <h3>Модули и уроки</h3>
+                            <p>Добавьте модули и уроки для вашего курса. Вы можете добавлять, редактировать и удалять их.</p>
+
+                            <div class="module-card">
+                                <div class="module-header">
+                                    <div class="module-title-container">
+                                        <h4 class="module-title">Модуль 1: Введение</h4>
+                                    </div>
+                                    <div class="module-actions">
+                                        <a href="/frontend/templates/courses/create-course-detail.html" class="btn btn-small btn-light">
+                                            <i class="fas fa-plus"></i>
+                                        </a>
+                                        <button type="button" class="btn btn-small btn-light edit-module-btn">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-small btn-danger">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="module-description">
+                                    <p>Вводный модуль, знакомящий с основами курса</p>
+                                    <p><small><i class="fas fa-book"></i> Теоретический модуль</small></p>
+                                </div>
+                                <div class="lessons-list">
+                                    <div class="lesson-item">
+                                        <div class="lesson-drag"><i class="fas fa-grip-vertical"></i></div>
+                                        <div class="lesson-title">1. Введение в курс</div>
+                                        <div class="lesson-actions">
+                                            <button type="button" class="btn btn-small">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="lesson-item">
+                                        <div class="lesson-drag"><i class="fas fa-grip-vertical"></i></div>
+                                        <div class="lesson-title">2. Установка необходимого ПО</div>
+                                        <div class="lesson-actions">
+                                            <button type="button" class="btn btn-small">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="button" class="btn add-module-btn" style="width: 100%; margin-top: 20px;">
+                                <i class="fas fa-plus"></i> Добавить модуль
+                            </button>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-light">Сохранить черновик</button>
+                            <button type="submit" class="btn btn-success">Создать курс</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="form-sidebar">
+                    <h3 class="sidebar-title">Предпросмотр</h3>
+                    
+                    <div class="preview-card">
+                        <div class="preview-image">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <h4 class="preview-title" id="preview-title">Название курса</h4>
+                        <p class="preview-description" id="preview-desc">Краткое описание курса появится здесь</p>
+                        <div class="preview-meta">
+                            <span id="preview-level">Уровень: -</span>
+                            <span id="preview-duration">Часов: -</span>
+                        </div>
+                    </div>
+                    
+                    <h4>Советы по созданию курса</h4>
+                    <ul class="tips-list">
+                        <li>
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Выберите понятное и привлекательное название</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Подробно опишите, чему научатся студенты</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Разбейте курс на логические модули</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Добавьте практические задания и тесты</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Используйте качественные изображения и материалы</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="modal-overlay" id="addModuleModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Создание нового модуля</h3>
+                <button type="button" class="modal-close" id="closeModuleModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="module-title" class="form-label">Название модуля *</label>
+                    <input type="text" id="module-title" class="form-control" placeholder="Введите название модуля">
+                </div>
+                
+                <div class="form-group">
+                    <label for="module-description" class="form-label">Описание модуля</label>
+                    <textarea id="module-description" class="form-control" placeholder="Опишите содержание модуля" rows="3"></textarea>
+                </div>
+                
+                <div class="module-type-options">
+                    <div class="form-group">
+                        <label class="form-label">Тип модуля</label>
+                        <div class="radio-options">
+                            <label class="radio-option">
+                                <input type="radio" name="module-type" value="theory" checked>
+                                    <i class="fas fa-book"></i>
+                                    Теоретический
+                            </label>
+                            
+                            <label class="radio-option">
+                                <input type="radio" name="module-type" value="practice">
+                                    <i class="fas fa-tasks"></i>
+                                    Практический
+                            </label>
+                            
+                            <label class="radio-option">
+                                <input type="radio" name="module-type" value="project">
+                                    <i class="fas fa-project-diagram"></i>
+                                    Проектный
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" id="cancelModuleModal">Отмена</button>
+                <button type="button" class="btn btn-success" id="confirmModuleModal">Создать модуль</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Пифагор</h3>
+                    <p>Образовательная платформа, которая делает сложное простым, а обучение — увлекательным.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-vk"></i></a>
+                        <a href="#"><i class="fab fa-gitlab"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Курсы</h3>
+                    <ul>
+                        <li><a href="#">Математика</a></li>
+                        <li><a href="#">Физика</a></li>
+                        <li><a href="#">Информатика</a></li>
+                        <li><a href="#">Подготовка к ЕГЭ</a></li>
+                        <li><a href="#">Высшая математика</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Компания</h3>
+                    <ul>
+                        <li><a href="#">О нас</a></li>
+                        <li><a href="#">Преподаватели</a></li>
+                        <li><a href="#">Новости</a></li>
+                        <li><a href="#">Контакты</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Помощь</h3>
+                    <ul>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Поддержка</a></li>
+                        <li><a href="#">Политика конфиденциальности</a></li>
+                        <li><a href="#">Условия использования</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Образовательная платформа "Пифагор". Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="/frontend/static/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,314 @@
+/* Контейнеры управления посещаемостью */
+.attendance-controls {
+    display: flex;
+    gap: var(--spacing-md);
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.attendance-layout {
+    display: grid;
+    gap: var(--spacing-xl);
+    margin-top: var(--spacing-lg);
+}
+
+/* Навигация по датам */
+.date-navigation {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.current-date {
+    font-weight: bold;
+    color: var(--primary);
+    min-width: 150px;
+    text-align: center;
+    font-size: var(--text-md);
+}
+
+/* Информация о студентах */
+.student-info {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.student-avatar {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: var(--gradient-accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    font-weight: bold;
+    font-size: var(--text-sm);
+    flex-shrink: 0;
+}
+
+.student-details {
+    flex: 1;
+}
+
+.student-name {
+    font-weight: bold;
+    color: var(--primary);
+    margin-bottom: 2px;
+}
+
+.student-group {
+    color: var(--secondary);
+    font-size: var(--text-sm);
+}
+
+/* Статусы посещаемости */
+.attendance-status {
+    text-align: center;
+    cursor: pointer;
+    transition: var(--transition-standard);
+}
+
+.attendance-status:hover {
+    transform: scale(1.05);
+}
+
+.status-badge {
+    display: inline-block;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--border-radius-xl);
+    font-size: var(--text-sm);
+    font-weight: bold;
+    min-width: 80px;
+    transition: var(--transition-standard);
+    text-align: center;
+    cursor: pointer;
+    border: 2px solid transparent;
+}
+
+.status-badge:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+}
+
+.status-present {
+    background-color: rgba(46, 204, 113, 0.2);
+    color: var(--success);
+    border-color: rgba(46, 204, 113, 0.3);
+}
+
+.status-absent {
+    background-color: rgba(231, 76, 60, 0.2);
+    color: var(--danger);
+    border-color: rgba(231, 76, 60, 0.3);
+}
+
+.status-late {
+    background-color: rgba(243, 156, 18, 0.2);
+    color: var(--warning);
+    border-color: rgba(243, 156, 18, 0.3);
+}
+
+.status-excused {
+    background-color: rgba(52, 152, 219, 0.2);
+    color: var(--accent-blue);
+    border-color: rgba(52, 152, 219, 0.3);
+}
+
+.status-badge.active {
+    background-color: var(--success);
+    color: var(--white);
+    border-color: var(--success);
+}
+
+/* Действия с посещаемостью */
+.attendance-actions {
+    display: flex;
+    gap: var(--spacing-xs);
+    justify-content: center;
+}
+
+.attendance-action-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--light-bg);
+    color: var(--secondary);
+    border: none;
+    cursor: pointer;
+    transition: var(--transition-standard);
+    font-size: var(--text-sm);
+}
+
+.attendance-action-btn:hover {
+    background: var(--accent);
+    color: var(--white);
+    transform: scale(1.1);
+}
+
+/* Таблица посещаемости */
+.attendance-table {
+    width: 100%;
+    background: var(--white);
+    border-radius: var(--card-border-radius);
+    box-shadow: var(--card-shadow);
+    overflow: hidden;
+}
+
+.attendance-table-header {
+    display: grid;
+    grid-template-columns: 2fr repeat(7, 1fr);
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md);
+    background: var(--light-bg);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    font-weight: bold;
+    color: var(--primary);
+}
+
+.attendance-table-row {
+    display: grid;
+    grid-template-columns: 2fr repeat(7, 1fr);
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    align-items: center;
+}
+
+.attendance-table-row:hover {
+    background: rgba(74, 111, 165, 0.03);
+}
+
+/* Сводка посещаемости */
+.attendance-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-lg);
+}
+
+.summary-label {
+    color: var(--secondary);
+    font-size: var(--text-sm);
+}
+
+/* Быстрый выбор статусов */
+.quick-status-selector {
+    display: flex;
+    gap: var(--spacing-sm);
+    margin: var(--spacing-md) 0;
+    flex-wrap: wrap;
+}
+
+.quick-status-btn {
+    padding: var(--spacing-xs) var(--spacing-md);
+    border: 2px solid var(--light-bg);
+    border-radius: var(--border-radius-xl);
+    background: var(--white);
+    cursor: pointer;
+    transition: var(--transition-standard);
+    font-size: var(--text-sm);
+    font-weight: bold;
+}
+
+.quick-status-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+}
+
+.quick-status-btn.present {
+    color: var(--success);
+    border-color: rgba(46, 204, 113, 0.3);
+}
+
+.quick-status-btn.absent {
+    color: var(--danger);
+    border-color: rgba(231, 76, 60, 0.3);
+}
+
+.quick-status-btn.late {
+    color: var(--warning);
+    border-color: rgba(243, 156, 18, 0.3);
+}
+
+.quick-status-btn.excused {
+    color: var(--accent-blue);
+    border-color: rgba(52, 152, 219, 0.3);
+}
+
+/* Фильтры посещаемости */
+.attendance-filters {
+    display: flex;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+    flex-wrap: wrap;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.filter-label {
+    font-size: var(--text-sm);
+    color: var(--secondary);
+    font-weight: bold;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .attendance-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .date-navigation {
+        justify-content: center;
+    }
+    
+    .attendance-table-header,
+    .attendance-table-row {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--spacing-sm);
+    }
+    
+    .attendance-table-header div:nth-child(n+3),
+    .attendance-table-row div:nth-child(n+3) {
+        display: none;
+    }
+    
+    .attendance-filters {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    .student-info {
+        flex-direction: column;
+        text-align: center;
+        gap: var(--spacing-xs);
+    }
+    
+    .attendance-actions {
+        flex-wrap: wrap;
+    }
+    
+    .attendance-summary {
+        grid-template-columns: 1fr;
+    }
+    
+    .quick-status-selector {
+        justify-content: center;
+    }
+    
+    .quick-status-btn {
+        flex: 1;
+        min-width: 80px;
+        text-align: center;
+    }
+}

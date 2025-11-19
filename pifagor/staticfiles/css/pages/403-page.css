@@ -1,0 +1,39 @@
+/* Специфичные стили для ошибки 403 */
+.error-code-403 {
+    color: var(--accent-red);
+}
+
+.error-description-403 {
+    background-color: rgba(231, 76, 60, 0.1);
+    border-left: 4px solid var(--accent-red);
+}
+
+.reassurance-access-403 {
+    border-left: 4px solid var(--accent-orange);
+}
+
+.reassurance-access-403 i {
+    color: var(--accent-orange);
+}
+
+.access-tips-403 h3 {
+    color: var(--accent-red);
+}
+
+.error-illustration-403 i {
+    background: linear-gradient(135deg, var(--accent-red) 0%, var(--accent-purple) 100%);
+    box-shadow: 0 10px 25px rgba(231, 76, 60, 0.3);
+}
+
+.error-illustration-403 i:after {
+    content: '';
+    position: absolute;
+    width: 80%;
+    height: 8px;
+    background: var(--white);
+    border-radius: 4px;
+    transform: rotate(45deg);
+}
+
+.bg-shapes-403 .shape:nth-child(1) { background: var(--accent-purple); }
+.bg-shapes-403 .shape:nth-child(4) { background: var(--accent-red); }

@@ -1,0 +1,130 @@
+.class-layout {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 30px;
+}
+
+.class-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--light-bg);
+}
+
+.class-title h1 {
+    margin-bottom: 5px;
+}
+
+.class-title p {
+    color: var(--secondary);
+}
+
+.class-controls {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.students-layout {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 30px;
+}
+
+.filter-select {
+    padding: 10px 15px;
+    border: 1px solid var(--light-bg);
+    border-radius: 8px;
+    background-color: var(--white);
+    font-family: 'PT Sans', sans-serif;
+    color: var(--primary-text);
+}
+
+.schedule-layout {
+    display: grid;
+    gap: 30px;
+}
+
+.schedule-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--light-bg);
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.schedule-controls {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.mobile-menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--primary);
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .mobile-menu-toggle {
+        display: block;
+    }
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 1s ease-in-out infinite;
+    margin-bottom: 15px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.export-watermark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-45deg);
+    font-size: 5rem;
+    color: rgba(57, 68, 88, 0.1);
+    font-family: 'Forum', serif;
+    font-weight: bold;
+    pointer-events: none;
+    z-index: 100;
+}
+
+.class-layout, .students-layout, .subjects-layout, .teachers-layout {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 30px;
+}
+
+.schedule-layout {
+    display: grid;
+    gap: 30px;
+}
+
+.left-column {
+    width: 100%;
+    padding: auto;
+}
+
+@media (max-width: 1200px) {
+    .class-layout, .students-layout, .subjects-layout, .teachers-layout {
+        grid-template-columns: 1fr;
+    }
+}

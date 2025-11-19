@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пифагор - Домашняя работа: Решение квадратных уравнений</title>
+    <link rel="icon" href="/frontend/static/assets/image/logo/icons.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Forum&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/frontend/static/css/main.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo-header">
+                <a href="/frontend/templates/main/index.html">
+                    <img src="/frontend/static/assets/image/logo/logo.svg" alt="logo">
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/frontend/templates/courses/courses.html">Курсы</a></li>
+                <li><a href="/frontend/templates/test/tests.html">Тестирование</a></li>
+                <li><a href="/frontend/templates/practic/practic.html">Практические задания</a></li>
+                <li><a href="/frontend/templates/materials/materials.html">Учебные материалы</a></li>
+                <li><a href="/frontend/templates/homework/homework.html" class="active">Домашняя работа</a></li>
+            </ul>
+            <div class="header-actions">
+                <a href="/frontend/templates/auth/registration.html" class="btn btn-primary login-btn">Вход в кабинет</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-page">
+        <div class="bg-shapes">
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+        <div class="container hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">Решение квадратных уравнений</h1>
+                <p class="hero-subtitle">Домашняя работа по математике: применение формул и методов решения квадратных уравнений</p>
+                <div class="task-meta">
+                    <div class="meta-item">
+                        <i class="far fa-clock"></i>
+                        <span>Срок сдачи: 22.10.2023</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="fas fa-signal"></i>
+                        <span class="difficulty difficulty-medium">Средний уровень</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="fas fa-book"></i>
+                        <span>Математика</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="fas fa-user"></i>
+                        <span>Преподаватель: Иванова А.С.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Task Section -->
+    <section class="section task">
+        <div class="container">
+            <div class="task-container">
+                <div class="task-content">
+                    <h2 class="section-title">Описание задания</h2>
+                    
+                    <div class="task-description">
+                        <p>В этом задании вам предстоит решить квадратные уравнения различными методами. Квадратное уравнение — это уравнение вида ax² + bx + c = 0, где a, b, c — коэффициенты, причём a ≠ 0.</p>
+                        
+                        <div class="task-requirements">
+                            <div class="requirements-title">Требования к решению:</div>
+                            <ul class="requirements-list">
+                                <li>Решите 10 квадратных уравнений, приведенных ниже</li>
+                                <li>Для каждого уравнения укажите использованный метод решения</li>
+                                <li>Предоставьте полное решение с пояснениями каждого шага</li>
+                                <li>Проверьте корни, подставив их в исходное уравнение</li>
+                                <li>Оформите решение аккуратно и разборчиво</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="task-example">
+                            <div class="example-title">Пример уравнения для решения:</div>
+                            <div class="code-block">
+Уравнение: 2x² - 5x + 3 = 0
+
+Решение:
+1. Найдем дискриминант: D = b² - 4ac = (-5)² - 4*2*3 = 25 - 24 = 1
+2. Так как D > 0, уравнение имеет два корня:
+   x₁ = (5 + √1) / (2*2) = (5 + 1) / 4 = 6 / 4 = 1.5
+   x₂ = (5 - √1) / (2*2) = (5 - 1) / 4 = 4 / 4 = 1
+3. Проверка:
+   Для x=1.5: 2*(1.5)² - 5*1.5 + 3 = 2*2.25 - 7.5 + 3 = 4.5 - 7.5 + 3 = 0
+   Для x=1: 2*(1)² - 5*1 + 3 = 2 - 5 + 3 = 0
+
+Ответ: x₁ = 1.5, x₂ = 1
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="submission-section">
+                        <h3 class="section-title">Сдача работы</h3>
+                        
+                        <div class="submission-options">
+                            <div class="submission-option active" id="text-option">
+                                <i class="fas fa-file-alt"></i>
+                                <h4>Текстовый ответ</h4>
+                            </div>
+                            <div class="submission-option" id="file-option">
+                                <i class="fas fa-file-upload"></i>
+                                <h4>Загрузка файла</h4>
+                            </div>
+                        </div>
+                        
+                        <div class="submission-form" id="text-form">
+                            <div class="form-group">
+                                <label for="solution-text">Ваше решение:</label>
+                                <textarea id="solution-text" placeholder="Введите ваше решение здесь..."></textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="submission-form" id="file-form" style="display: none;">
+                            <div class="file-upload" id="file-upload-area">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <h4>Перетащите файл сюда или нажмите для выбора</h4>
+                                <p>Поддерживаемые форматы: PDF, DOC, DOCX, JPG, PNG (макс. 10 МБ)</p>
+                                <input type="file" id="file-input">
+                            </div>
+                            <div id="file-name" style="margin-top: 15px; font-weight: bold;"></div>
+                        </div>
+                        
+                        <div class="submission-actions">
+                            <button class="btn btn-success" id="submit-btn">
+                                <i class="fas fa-paper-plane"></i> На проверку
+                            </button>
+                            <button class="btn btn-light" id="save-draft-btn">
+                                <i class="fas fa-save"></i> Сохранить черновик
+                            </button>
+                            <a href="/frontend/templates/homework/homework.html" class="btn btn-light">
+                                <i class="fas fa-arrow-left"></i> Назад
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="task-sidebar">
+                    <h3 class="sidebar-title">Информация о задании</h3>
+                    
+                    <div class="task-info">
+                        <div class="info-item">
+                            <span class="info-label">Предмет:</span>
+                            <span class="info-value">Математика</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Статус:</span>
+                            <span class="info-value status-new">Новое</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Дата выдачи:</span>
+                            <span class="info-value">15.10.2023</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Срок сдачи:</span>
+                            <span class="info-value">22.10.2023</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Осталось:</span>
+                            <span class="info-value">5 дней</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Макс. оценка:</span>
+                            <span class="info-value">10 баллов</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Попытки:</span>
+                            <span class="info-value">0 из 3</span>
+                        </div>
+                    </div>
+                    
+                    <div class="task-tips">
+                        <h4 class="tips-title">Советы по выполнению</h4>
+                        <ul class="tips-list">
+                            <li>Внимательно проверьте коэффициенты уравнений</li>
+                            <li>Используйте формулу дискриминанта D = b² - 4ac</li>
+                            <li>Не забудьте проверить полученные корни</li>
+                            <li>Если дискриминант отрицательный, укажите, что действительных корней нет</li>
+                            <li>Оформите решение аккуратно и последовательно</li>
+                        </ul>
+                    </div>
+                    
+                    <h4>Полезные ресурсы</h4>
+                    <ul class="resources-list">
+                        <li>
+                            <a href="/frontend/templates/materials/materials.html">
+                                <i class="fas fa-book"></i>
+                                <span>Учебные материалы</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fas fa-calculator"></i>
+                                <span>Методы решения уравнений</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/frontend/templates/support/support.html">
+                                <i class="fas fa-question-circle"></i>
+                                <span>Помощь и поддержка</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Results Section (будет показана после отправки) -->
+    <section id="results" class="section results" style="display: none;">
+        <div class="container">
+            <h2 class="section-title">Результат проверки</h2>
+            
+            <div class="result-card fade-in">
+                <div class="result-header">
+                    <h3 class="result-title">Работа отправлена</h3>
+                    <span class="result-status status-pending">На проверке</span>
+                </div>
+                
+                <div class="result-feedback">
+                    <div class="feedback-title">Информация:</div>
+                    <p id="feedback-text">Ваша работа успешно отправлена на проверку. Результат будет доступен после проверки преподавателем. Обычно проверка занимает 1-3 рабочих дня.</p>
+                </div>
+                
+                <div class="result-actions">
+                    <button class="btn btn-success" id="view-submission-btn">
+                        <i class="fas fa-eye"></i> Посмотреть отправку
+                    </button>
+                    <a href="/frontend/templates/homework/homework.html" class="btn btn-light">
+                        <i class="fas fa-arrow-left"></i> К списку заданий
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Пифагор</h3>
+                    <p>Образовательная платформа, которая делает сложное простым, а обучение — увлекательным.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-vk"></i></a>
+                        <a href="#"><i class="fab fa-gitlab"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Курсы</h3>
+                    <ul>
+                        <li><a href="#">Математика</a></li>
+                        <li><a href="#">Физика</a></li>
+                        <li><a href="#">Информатика</a></li>
+                        <li><a href="#">Подготовка к ЕГЭ</a></li>
+                        <li><a href="#">Высшая математика</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Компания</h3>
+                    <ul>
+                        <li><a href="#">О нас</a></li>
+                        <li><a href="#">Преподаватели</a></li>
+                        <li><a href="#">Новости</a></li>
+                        <li><a href="#">Контакты</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Помощь</h3>
+                    <ul>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Поддержка</a></li>
+                        <li><a href="#">Политика конфиденциальности</a></li>
+                        <li><a href="#">Условия использования</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Образовательная платформа "Пифагор". Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="/frontend/static/js/main.js"></script>
+</body>
+</html>

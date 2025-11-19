@@ -1,0 +1,37 @@
+/* Специфичные стили для ошибки 500 */
+.error-code-500 {
+    color: var(--accent-red);
+}
+
+.error-description-500 {
+    background-color: rgba(231, 76, 60, 0.1);
+    border-left: 4px solid var(--accent-red);
+}
+
+.reassurance-access-500 {
+    border-left: 4px solid var(--accent-pink);
+}
+
+.reassurance-access-500 i {
+    color: var(--accent-pink);
+}
+
+.status-info-500 h3 {
+    color: var(--accent-red);
+}
+
+.status-dot-500 {
+    background: var(--accent-red);
+}
+
+.status-text-500 {
+    color: var(--accent-red);
+}
+
+.error-illustration-500 i {
+    background: linear-gradient(135deg, var(--accent-red) 0%, var(--accent-pink) 100%);
+    box-shadow: 0 10px 25px rgba(231, 76, 60, 0.3);
+}
+
+.bg-shapes-500 .shape:nth-child(1) { background: var(--accent-red); }
+.bg-shapes-500 .shape:nth-child(4) { background: var(--accent-pink); }

@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пифагор - Проверка практических заданий</title>
+    <link rel="icon" href="/frontend/static/assets/image/logo/icons.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Forum&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/frontend/static/css/main.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo-header">
+                <a href="/frontend/templates/main/index.html">
+                    <img src="/frontend/static/assets/image/logo/logo.svg" alt="logo">
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/frontend/templates/courses/courses.html">Курсы</a></li>
+                <li><a href="/frontend/templates/test/tests.html">Тестирование</a></li>
+                <li><a href="/frontend/templates/practic/practic.html">Практические задания</a></li>
+                <li><a href="/frontend/templates/materials/materials.html">Учебные материалы</a></li>
+            </ul>
+            <div class="header-actions">
+                <a href="/frontend/templates/auth/registration.html" class="btn btn-primary login-btn">Вход в кабинет</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-page">
+        <div class="bg-shapes">
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+        <div class="container hero-container">
+                <h1 class="hero-title">Проверка практических заданий</h1>
+                <p class="hero-subtitle">Проверяйте выполненные задания студентов и оставляйте обратную связь</p>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Filters Section -->
+    <section class="filters">
+        <div class="container">
+            <div class="filters-container">
+                <div class="filter-group">
+                    <div class="filter-label">Предмет</div>
+                    <select class="filter-select" id="subject-filter">
+                        <option value="all">Все предметы</option>
+                        <option value="programming">Программирование</option>
+                        <option value="math">Математика</option>
+                        <option value="physics">Физика</option>
+                        <option value="chemistry">Химия</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <div class="filter-label">Статус</div>
+                    <select class="filter-select" id="status-filter">
+                        <option value="all">Все статусы</option>
+                        <option value="pending">Ожидает проверки</option>
+                        <option value="reviewed">Проверено</option>
+                        <option value="rejected">Отклонено</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <div class="filter-label">Сложность</div>
+                    <select class="filter-select" id="difficulty-filter">
+                        <option value="all">Любая сложность</option>
+                        <option value="easy">Начальная</option>
+                        <option value="medium">Средняя</option>
+                        <option value="hard">Продвинутая</option>
+                    </select>
+                </div>
+                
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Поиск по студентам или заданиям...">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Submissions Section -->
+    <section class="section submissions">
+        <div class="container">
+            <h2 class="section-title">Задания для проверки</h2>
+            <div class="submissions-container">
+                <!-- Задание 1 -->
+                <div class="submission-card fade-in pending">
+                    <div class="submission-header">
+                        <div class="student-info">
+                            <div class="student-avatar">ИП</div>
+                            <div class="student-details">
+                                <h3>Иванов Петр</h3>
+                                <p>Группа: ПИ-201 | Дата: 15.03.2023</p>
+                            </div>
+                        </div>
+                        <span class="submission-status status-pending">Ожидает проверки</span>
+                    </div>
+                    
+                    <div class="submission-meta">
+                        <span><i class="fas fa-book"></i> Основы программирования</span>
+                        <span><i class="fas fa-tasks"></i> Задание 1: Переменные и типы данных</span>
+                        <span><i class="fas fa-signal"></i> Начальный уровень</span>
+                    </div>
+                    
+                    <div class="task-preview">
+                        <div class="task-title">Решение студента:</div>
+                        <div class="code-preview">
+# Создание переменных
+name = "Петр"
+age = 20
+height = 1.78
+is_student = True
+
+# Вывод информации
+print(f"Меня зовут {name}, мне {age} лет, мой рост {height} м, студент: {is_student}")
+                        </div>
+                    </div>
+                    
+                    <div class="submission-actions">
+                        <button class="btn btn-review btn-small open-review">
+                            <i class="fas fa-check-circle"></i> Проверить
+                        </button>
+                        <button class="btn btn-light btn-small">
+                            <i class="fas fa-eye"></i> Просмотреть
+                        </button>
+                        <button class="btn btn-light btn-small">
+                            <i class="fas fa-comment"></i> Комментарий
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Задание 2 -->
+                <div class="submission-card fade-in pending">
+                    <div class="submission-header">
+                        <div class="student-info">
+                            <div class="student-avatar">АС</div>
+                            <div class="student-details">
+                                <h3>Александрова Светлана</h3>
+                                <p>Группа: ПИ-202 | Дата: 14.03.2023</p>
+                            </div>
+                        </div>
+                        <span class="submission-status status-pending">Ожидает проверки</span>
+                    </div>
+                    
+                    <div class="submission-meta">
+                        <span><i class="fas fa-book"></i> Основы программирования</span>
+                        <span><i class="fas fa-tasks"></i> Задание 2: Условные операторы</span>
+                        <span><i class="fas fa-signal"></i> Начальный уровень</span>
+                    </div>
+                    
+                    <div class="task-preview">
+                        <div class="task-title">Решение студента:</div>
+                        <div class="code-preview">
+# Проверка возраста
+age = 19
+
+if age >= 18:
+    print("Совершеннолетний")
+else:
+    print("Несовершеннолетний")
+
+# Проверка числа
+number = 7
+if number % 2 == 0:
+    print("Число четное")
+else:
+    print("Число нечетное")
+                        </div>
+                    </div>
+                    
+                    <div class="submission-actions">
+                        <button class="btn btn-review btn-small open-review">
+                            <i class="fas fa-check-circle"></i> Проверить
+                        </button>
+                        <button class="btn btn-light btn-small">
+                            <i class="fas fa-eye"></i> Просмотреть
+                        </button>
+                        <button class="btn btn-light btn-small">
+                            <i class="fas fa-comment"></i> Комментарий
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Задание 3 -->
+                <div class="submission-card fade-in reviewed">
+                    <div class="submission-header">
+                        <div class="student-info">
+                            <div class="student-avatar">МК</div>
+                            <div class="student-details">
+                                <h3>Михайлов Кирилл</h3>
+                                <p>Группа: ПИ-201 | Дата: 13.03.2023</p>
+                            </div>
+                        </div>
+                        <span class="submission-status status-reviewed">Проверено</span>
+                    </div>
+                    
+                    <div class="submission-meta">
+                        <span><i class="fas fa-book"></i> Математика</span>
+                        <span><i class="fas fa-tasks"></i> Задание 5: Производные</span>
+                        <span><i class="fas fa-signal"></i> Средний уровень</span>
+                    </div>
+                    
+                    <div class="task-preview">
+                        <div class="task-title">Решение студента:</div>
+                        <div class="code-preview">
+# Вычисление производной функции f(x) = x^2 + 3x + 5
+def derivative(x):
+    return 2*x + 3
+
+# Проверка в точке x=2
+result = derivative(2)
+print(f"Производная в точке x=2: {result}")
+                        </div>
+                    </div>
+                    
+                    <div class="submission-actions">
+                        <button class="btn btn-light btn-small">
+                            <i class="fas fa-eye"></i> Просмотреть
+                        </button>
+                        <button class="btn btn-success btn-small">
+                            <i class="fas fa-check"></i> Оценка: 5/5
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Задание 4 -->
+                <div class="submission-card fade-in rejected">
+                    <div class="submission-header">
+                        <div class="student-info">
+                            <div class="student-avatar">ОД</div>
+                            <div class="student-details">
+                                <h3>Орлова Дарья</h3>
+                                <p>Группа: ПИ-203 | Дата: 12.03.2023</p>
+                            </div>
+                        </div>
+                        <span class="submission-status status-rejected">Отклонено</span>
+                    </div>
+                    
+                    <div class="submission-meta">
+                        <span><i class="fas fa-book"></i> Физика</span>
+                        <span><i class="fas fa-tasks"></i> Задание 3: Законы Ньютона</span>
+                        <span><i class="fas fa-signal"></i> Начальный уровень</span>
+                    </div>
+                    
+                    <div class="task-preview">
+                        <div class="task-title">Решение студента:</div>
+                        <div class="code-preview">
+# Расчет силы по второму закону Ньютона
+mass = 10  # кг
+acceleration = 5  # м/с²
+
+force = mass * acceleration
+print(f"Сила: {force} Н")
+                        </div>
+                    </div>
+                    
+                    <div class="submission-actions">
+                        <button class="btn btn-light btn-small">
+                            <i class="fas fa-eye"></i> Просмотреть
+                        </button>
+                        <button class="btn btn-danger btn-small">
+                            <i class="fas fa-times"></i> Оценка: 2/5
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="pagination">
+                <a href="#" class="pagination-btn active">1</a>
+                <a href="#" class="pagination-btn">2</a>
+                <a href="#" class="pagination-btn">3</a>
+                <a href="#" class="pagination-btn">4</a>
+                <a href="#" class="pagination-btn">5</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Review Modal -->
+    <div class="modal-overlay" id="review-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Проверка задания</h2>
+                <button class="close-modal" id="close-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="review-container">
+                <div class="submission-details">
+                    <h3>Информация о задании</h3>
+                    
+                    <div class="detail-item">
+                        <div class="detail-label">Студент</div>
+                        <div class="detail-value">Иванов Петр (Группа: ПИ-201)</div>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <div class="detail-label">Предмет</div>
+                        <div class="detail-value">Основы программирования</div>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <div class="detail-label">Задание</div>
+                        <div class="detail-value">Задание 1: Переменные и типы данных</div>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <div class="detail-label">Уровень сложности</div>
+                        <div class="detail-value">Начальный</div>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <div class="detail-label">Дата отправки</div>
+                        <div class="detail-value">15.03.2023 14:30</div>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <div class="detail-label">Требования</div>
+                        <div class="detail-value">
+                            <ul>
+                                <li>Создать переменные name, age, height, is_student</li>
+                                <li>Присвоить правильные типы данных</li>
+                                <li>Вывести информацию в указанном формате</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <h3 style="margin-top: 20px;">Решение студента</h3>
+                    <div class="code-full">
+# Создание переменных
+name = "Петр"
+age = 20
+height = 1.78
+is_student = True
+
+# Вывод информации
+print(f"Меня зовут {name}, мне {age} лет, мой рост {height} м, студент: {is_student}")
+                    </div>
+                </div>
+                
+                <div class="review-form">
+                    <h3>Оценка задания</h3>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Оценка</label>
+                        <div class="grade-selector">
+                            <div class="grade-option" data-value="5">
+                                <div class="grade-value">5</div>
+                                <div class="grade-label">Отлично</div>
+                            </div>
+                            <div class="grade-option" data-value="4">
+                                <div class="grade-value">4</div>
+                                <div class="grade-label">Хорошо</div>
+                            </div>
+                            <div class="grade-option" data-value="3">
+                                <div class="grade-value">3</div>
+                                <div class="grade-label">Удовлетворительно</div>
+                            </div>
+                            <div class="grade-option" data-value="2">
+                                <div class="grade-value">2</div>
+                                <div class="grade-label">Неудовлетворительно</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="review-comment">Комментарий</label>
+                        <textarea class="form-control" id="review-comment" placeholder="Оставьте обратную связь для студента...">Решение правильное, все требования выполнены. Переменные созданы с правильными типами данных, вывод соответствует формату. Хорошая работа!</textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="private-notes">Примечания (только для преподавателей)</label>
+                        <textarea class="form-control" id="private-notes" placeholder="Внутренние заметки...">Студент показал хорошее понимание базовых концепций. Можно рекомендовать к более сложным заданиям.</textarea>
+                    </div>
+                    
+                    <div class="review-actions">
+                        <button class="btn btn-success" id="submit-review">
+                            <i class="fas fa-check"></i> Завершить
+                        </button>
+                        <button class="btn btn-light" id="save-draft">
+                            <i class="fas fa-save"></i> Сохранить
+                        </button>
+                        <button class="btn btn-small btn-light" id="cancel-review">
+                            Отмена
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Пифагор</h3>
+                    <p>Образовательная платформа, которая делает сложное простым, а обучение — увлекательным.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-vk"></i></a>
+                        <a href="#"><i class="fab fa-gitlab"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Курсы</h3>
+                    <ul>
+                        <li><a href="#">Математика</a></li>
+                        <li><a href="#">Физика</a></li>
+                        <li><a href="#">Информатика</a></li>
+                        <li><a href="#">Подготовка к ЕГЭ</a></li>
+                        <li><a href="#">Высшая математика</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Компания</h3>
+                    <ul>
+                        <li><a href="#">О нас</a></li>
+                        <li><a href="#">Преподаватели</a></li>
+                        <li><a href="#">Новости</a></li>
+                        <li><a href="#">Контакты</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Помощь</h3>
+                    <ul>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Поддержка</a></li>
+                        <li><a href="#">Политика конфиденциальности</a></li>
+                        <li><a href="#">Условия использования</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Образовательная платформа "Пифагор". Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="/frontend/static/js/main.js"></script>
+</body>
+</html>

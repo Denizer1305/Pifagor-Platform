@@ -248,15 +248,21 @@ var init_ui = __esm({
 // static/js/modules/auth.js
 function initAuth() {
   initLogin();
-  initRegistration();
   initPasswordReset();
   initEmailVerification();
   initLogout();
   initCreateNewPassword();
+  initRegistration();
 }
 function initLogin() {
   const loginForm = document.getElementById("loginForm");
   if (!loginForm) return;
+  const loginElement = document.querySelector(".login");
+  if (!loginElement) {
+    console.error('Element with class "login" not found');
+    return;
+  }
+  const indexUrl = loginElement.dataset.indexUrl;
   loginForm.addEventListener("submit", function(e) {
     e.preventDefault();
     const email = document.getElementById("email").value;
@@ -283,7 +289,7 @@ function initLogin() {
       submitButton.textContent = originalText;
       submitButton.disabled = false;
       setTimeout(() => {
-        window.location.href = "/frontend/templates/main/index.html";
+        window.location.href = indexUrl;
       }, 2e3);
     }, 1500);
   });
@@ -292,134 +298,95 @@ function isValidEmail(email) {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(email);
 }
+function getCSRFToken() {
+  const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]");
+  return csrfToken ? csrfToken.value : "";
+}
 function initRegistration() {
-  const registerForm = document.getElementById("register-form");
-  if (!registerForm) return;
-  const togglePassword = document.getElementById("togglePassword");
-  const passwordInput = document.getElementById("password");
-  const toggleConfirmPassword = document.getElementById("toggleConfirmPassword");
-  const confirmPasswordInput = document.getElementById("confirmPassword");
-  console.log("Registration elements:", { togglePassword, passwordInput, toggleConfirmPassword, confirmPasswordInput });
-  if (togglePassword && passwordInput) {
-    togglePassword.addEventListener("click", function() {
-      const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
-      passwordInput.setAttribute("type", type);
-      const icon = this.querySelector("i");
-      if (icon) {
-        icon.className = type === "password" ? "fas fa-eye" : "fas fa-eye-slash";
-      }
-      console.log("Toggled password visibility:", type);
-    });
+  const registerForm = document.querySelector("form#register-form");
+  if (!registerForm) {
+    console.log("Registration form not found");
+    return;
   }
-  if (toggleConfirmPassword && confirmPasswordInput) {
-    toggleConfirmPassword.addEventListener("click", function() {
-      const type = confirmPasswordInput.getAttribute("type") === "password" ? "text" : "password";
-      confirmPasswordInput.setAttribute("type", type);
-      const icon = this.querySelector("i");
-      if (icon) {
-        icon.className = type === "password" ? "fas fa-eye" : "fas fa-eye-slash";
-      }
-      console.log("Toggled confirm password visibility:", type);
+  console.log("Registration form found:", registerForm);
+  const requirementIds = ["lengthReq", "uppercaseReq", "numberReq", "specialReq"];
+  requirementIds.forEach((id) => {
+    const element = document.getElementById(id);
+    console.log(`Element ${id}:`, element, "Content:", element ? element.innerHTML : "NOT FOUND");
+  });
+  function initPasswordToggles() {
+    console.log("Initializing password toggles...");
+    const passwordToggles = document.querySelectorAll(".password-toggle");
+    console.log("Found password toggles:", passwordToggles.length);
+    passwordToggles.forEach((toggle) => {
+      const newToggle = toggle.cloneNode(true);
+      toggle.parentNode.replaceChild(newToggle, toggle);
+      newToggle.addEventListener("click", function(e) {
+        e.preventDefault();
+        console.log("Password toggle clicked");
+        const targetId = this.getAttribute("data-target");
+        console.log("Target ID:", targetId);
+        const passwordInput = document.getElementById(targetId);
+        console.log("Password input found:", !!passwordInput);
+        if (passwordInput) {
+          const currentType = passwordInput.getAttribute("type");
+          const newType = currentType === "password" ? "text" : "password";
+          console.log("Changing input type from", currentType, "to", newType);
+          passwordInput.setAttribute("type", newType);
+          const icon = this.querySelector("i");
+          if (icon) {
+            if (newType === "password") {
+              icon.className = "fas fa-eye";
+            } else {
+              icon.className = "fas fa-eye-slash";
+            }
+            console.log("Icon changed to:", icon.className);
+          }
+        } else {
+          console.error("Password input not found for target:", targetId);
+        }
+      });
     });
+    console.log("Password toggles initialization completed");
   }
+  initPasswordToggles();
   function checkPasswordStrength(password) {
-    let strength = 0;
-    const requirements = {
+    let strength2 = 0;
+    const requirements2 = {
       length: false,
       uppercase: false,
       number: false,
       special: false
     };
+    if (!password) {
+      return { strength: 0, requirements: requirements2 };
+    }
     if (password.length >= 8) {
-      strength += 25;
-      requirements.length = true;
+      strength2 += 25;
+      requirements2.length = true;
     }
     if (/[A-Z]/.test(password)) {
-      strength += 25;
-      requirements.uppercase = true;
+      strength2 += 25;
+      requirements2.uppercase = true;
     }
     if (/[0-9]/.test(password)) {
-      strength += 25;
-      requirements.number = true;
+      strength2 += 25;
+      requirements2.number = true;
     }
-    if (/[^A-Za-z0-9]/.test(password)) {
-      strength += 25;
-      requirements.special = true;
+    if (/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+      strength2 += 25;
+      requirements2.special = true;
     }
-    return { strength, requirements };
-  }
-  function updatePasswordRequirements(requirements) {
-    const lengthReq = document.getElementById("lengthReq");
-    const uppercaseReq = document.getElementById("uppercaseReq");
-    const numberReq = document.getElementById("numberReq");
-    const specialReq = document.getElementById("specialReq");
-    if (lengthReq) {
-      if (requirements.length) {
-        lengthReq.classList.remove("invalid");
-        lengthReq.classList.add("valid");
-        lengthReq.innerHTML = '<i class="fas fa-check"></i> \u041D\u0435 \u043C\u0435\u043D\u0435\u0435 8 \u0441\u0438\u043C\u0432\u043E\u043B\u043E\u0432';
-      } else {
-        lengthReq.classList.remove("valid");
-        lengthReq.classList.add("invalid");
-        lengthReq.innerHTML = '<i class="fas fa-times"></i> \u041D\u0435 \u043C\u0435\u043D\u0435\u0435 8 \u0441\u0438\u043C\u0432\u043E\u043B\u043E\u0432';
-      }
-    }
-    if (uppercaseReq) {
-      if (requirements.uppercase) {
-        uppercaseReq.classList.remove("invalid");
-        uppercaseReq.classList.add("valid");
-        uppercaseReq.innerHTML = '<i class="fas fa-check"></i> \u0417\u0430\u0433\u043B\u0430\u0432\u043D\u0430\u044F \u0431\u0443\u043A\u0432\u0430';
-      } else {
-        uppercaseReq.classList.remove("valid");
-        uppercaseReq.classList.add("invalid");
-        uppercaseReq.innerHTML = '<i class="fas fa-times"></i> \u0417\u0430\u0433\u043B\u0430\u0432\u043D\u0430\u044F \u0431\u0443\u043A\u0432\u0430';
-      }
-    }
-    if (numberReq) {
-      if (requirements.number) {
-        numberReq.classList.remove("invalid");
-        numberReq.classList.add("valid");
-        numberReq.innerHTML = '<i class="fas fa-check"></i> \u0425\u043E\u0442\u044F \u0431\u044B \u043E\u0434\u043D\u0430 \u0446\u0438\u0444\u0440\u0430';
-      } else {
-        numberReq.classList.remove("valid");
-        numberReq.classList.add("invalid");
-        numberReq.innerHTML = '<i class="fas fa-times"></i> \u0425\u043E\u0442\u044F \u0431\u044B \u043E\u0434\u043D\u0430 \u0446\u0438\u0444\u0440\u0430';
-      }
-    }
-    if (specialReq) {
-      if (requirements.special) {
-        specialReq.classList.remove("invalid");
-        specialReq.classList.add("valid");
-        specialReq.innerHTML = '<i class="fas fa-check"></i> \u0421\u043F\u0435\u0446\u0438\u0430\u043B\u044C\u043D\u044B\u0439 \u0441\u0438\u043C\u0432\u043E\u043B';
-      } else {
-        specialReq.classList.remove("valid");
-        specialReq.classList.add("invalid");
-        specialReq.innerHTML = '<i class="fas fa-times"></i> \u0421\u043F\u0435\u0446\u0438\u0430\u043B\u044C\u043D\u044B\u0439 \u0441\u0438\u043C\u0432\u043E\u043B';
-      }
-    }
-  }
-  function updatePasswordStrengthBar(strength) {
-    const strengthBar = document.getElementById("passwordStrengthBar");
-    if (!strengthBar) return;
-    strengthBar.className = "password-strength-bar";
-    if (strength <= 25) {
-      strengthBar.classList.add("strength-weak");
-    } else if (strength <= 50) {
-      strengthBar.classList.add("strength-fair");
-    } else if (strength <= 75) {
-      strengthBar.classList.add("strength-good");
-    } else {
-      strengthBar.classList.add("strength-strong");
-    }
+    return { strength: strength2, requirements: requirements2 };
   }
   function checkPasswordMatch() {
-    const password = passwordInput ? passwordInput.value : "";
-    const confirmPassword = confirmPasswordInput ? confirmPasswordInput.value : "";
+    const password1 = document.getElementById("id_password1")?.value || "";
+    const password2 = document.getElementById("id_password2")?.value || "";
     const passwordMatch = document.getElementById("passwordMatch");
     if (!passwordMatch) return false;
-    if (confirmPassword.length > 0) {
-      if (password === confirmPassword) {
-        passwordMatch.style.display = "none";
+    if (password2.length > 0) {
+      if (password1 === password2) {
+        passwordMatch.style.display = "block";
         passwordMatch.innerHTML = '<i class="fas fa-check"></i> \u041F\u0430\u0440\u043E\u043B\u0438 \u0441\u043E\u0432\u043F\u0430\u0434\u0430\u044E\u0442';
         passwordMatch.classList.remove("invalid");
         passwordMatch.classList.add("valid");
@@ -436,15 +403,82 @@ function initRegistration() {
       return false;
     }
   }
+  function updatePasswordRequirements(requirements2) {
+    console.log("Updating password requirements:", requirements2);
+    const requirementsConfig = {
+      "length": {
+        elementId: "lengthReq",
+        text: "\u041D\u0435 \u043C\u0435\u043D\u0435\u0435 8 \u0441\u0438\u043C\u0432\u043E\u043B\u043E\u0432"
+      },
+      "uppercase": {
+        elementId: "uppercaseReq",
+        text: "\u0417\u0430\u0433\u043B\u0430\u0432\u043D\u0430\u044F \u0431\u0443\u043A\u0432\u0430"
+      },
+      "number": {
+        elementId: "numberReq",
+        text: "\u0425\u043E\u0442\u044F \u0431\u044B \u043E\u0434\u043D\u0430 \u0446\u0438\u0444\u0440\u0430"
+      },
+      "special": {
+        elementId: "specialReq",
+        text: "\u0421\u043F\u0435\u0446\u0438\u0430\u043B\u044C\u043D\u044B\u0439 \u0441\u0438\u043C\u0432\u043E\u043B"
+      }
+    };
+    Object.keys(requirementsConfig).forEach((requirementType) => {
+      const config = requirementsConfig[requirementType];
+      const element = document.getElementById(config.elementId);
+      if (element) {
+        const isValid = requirements2[requirementType];
+        if (isValid) {
+          element.classList.remove("invalid");
+          element.classList.add("valid");
+          const currentText = element.textContent || config.text;
+          element.innerHTML = '<i class="fas fa-check"></i> ' + currentText.replace(/^.*?(\s|$)/, "");
+        } else {
+          element.classList.remove("valid");
+          element.classList.add("invalid");
+          const currentText = element.textContent || config.text;
+          element.innerHTML = '<i class="fas fa-times"></i> ' + currentText.replace(/^.*?(\s|$)/, "");
+        }
+      } else {
+        console.warn("Element not found:", config.elementId);
+      }
+    });
+  }
+  function updatePasswordStrengthBar(strength2) {
+    const strengthBar = document.getElementById("passwordStrengthBar");
+    if (!strengthBar) return;
+    strengthBar.className = "password-strength-bar";
+    strengthBar.style.width = "0%";
+    if (strength2 > 0) {
+      if (strength2 <= 25) {
+        strengthBar.classList.add("strength-weak");
+        strengthBar.style.width = "25%";
+      } else if (strength2 <= 50) {
+        strengthBar.classList.add("strength-fair");
+        strengthBar.style.width = "50%";
+      } else if (strength2 <= 75) {
+        strengthBar.classList.add("strength-good");
+        strengthBar.style.width = "75%";
+      } else {
+        strengthBar.classList.add("strength-strong");
+        strengthBar.style.width = "100%";
+      }
+    }
+  }
   function updateSubmitButton() {
-    const password = passwordInput ? passwordInput.value : "";
-    const confirmPassword = confirmPasswordInput ? confirmPasswordInput.value : "";
+    const password1 = document.getElementById("id_password1")?.value || "";
+    const password2 = document.getElementById("id_password2")?.value || "";
+    const termsCheckbox2 = document.getElementById("terms");
+    const roleSelected = document.querySelector('input[name="role"]:checked');
     const submitButton = registerForm.querySelector('button[type="submit"]');
     if (!submitButton) return;
-    const { strength, requirements } = checkPasswordStrength(password);
+    const { requirements: requirements2 } = checkPasswordStrength(password1);
     const passwordsMatch = checkPasswordMatch();
-    const allRequirementsMet = requirements.length && requirements.uppercase && requirements.number && requirements.special;
-    if (allRequirementsMet && passwordsMatch && password.length > 0 && confirmPassword.length > 0) {
+    const termsAccepted = termsCheckbox2 ? termsCheckbox2.checked : false;
+    const roleIsSelected = roleSelected !== null;
+    const allRequirementsMet = requirements2.length && requirements2.uppercase && requirements2.number && requirements2.special;
+    const isFormValid = allRequirementsMet && passwordsMatch && password1.length > 0 && password2.length > 0 && termsAccepted && roleIsSelected;
+    if (isFormValid) {
       submitButton.disabled = false;
       submitButton.classList.remove("btn-disabled");
     } else {
@@ -452,64 +486,162 @@ function initRegistration() {
       submitButton.classList.add("btn-disabled");
     }
   }
-  if (passwordInput) {
-    passwordInput.addEventListener("input", function() {
+  const password1Input = document.getElementById("id_password1");
+  const password2Input = document.getElementById("id_password2");
+  const termsCheckbox = document.getElementById("terms");
+  const roleInputs = document.querySelectorAll('input[name="role"]');
+  if (password1Input) {
+    password1Input.addEventListener("input", function() {
       const password = this.value;
-      const { strength, requirements } = checkPasswordStrength(password);
-      updatePasswordStrengthBar(strength);
-      updatePasswordRequirements(requirements);
-      updateSubmitButton();
-    });
-  }
-  if (confirmPasswordInput) {
-    confirmPasswordInput.addEventListener("input", function() {
+      const { strength: strength2, requirements: requirements2 } = checkPasswordStrength(password);
+      updatePasswordStrengthBar(strength2);
+      updatePasswordRequirements(requirements2);
       checkPasswordMatch();
       updateSubmitButton();
     });
   }
+  if (password2Input) {
+    password2Input.addEventListener("input", function() {
+      checkPasswordMatch();
+      updateSubmitButton();
+    });
+  }
+  if (termsCheckbox) {
+    termsCheckbox.addEventListener("change", function() {
+      updateSubmitButton();
+    });
+  }
+  roleInputs.forEach((input) => {
+    input.addEventListener("change", function() {
+      updateSubmitButton();
+    });
+  });
   registerForm.addEventListener("submit", function(e) {
     e.preventDefault();
-    const firstName = document.getElementById("firstName").value;
-    const lastName = document.getElementById("lastName").value;
-    const fullName = document.getElementById("fullName").value;
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-    const confirmPassword = document.getElementById("confirmPassword").value;
-    const terms = document.getElementById("terms").checked;
-    if (password !== confirmPassword) {
+    const password1 = document.getElementById("id_password1")?.value || "";
+    const password2 = document.getElementById("id_password2")?.value || "";
+    const terms = document.getElementById("terms")?.checked || false;
+    const roleSelected = document.querySelector('input[name="role"]:checked');
+    if (password1 !== password2) {
       showAlert("\u041E\u0448\u0438\u0431\u043A\u0430", "\u041F\u0430\u0440\u043E\u043B\u0438 \u043D\u0435 \u0441\u043E\u0432\u043F\u0430\u0434\u0430\u044E\u0442!", "error");
       return;
     }
-    if (password.length < 8) {
-      showAlert("\u041E\u0448\u0438\u0431\u043A\u0430", "\u041F\u0430\u0440\u043E\u043B\u044C \u0434\u043E\u043B\u0436\u0435\u043D \u0441\u043E\u0434\u0435\u0440\u0436\u0430\u0442\u044C \u043D\u0435 \u043C\u0435\u043D\u0435\u0435 8 \u0441\u0438\u043C\u0432\u043E\u043B\u043E\u0432!", "error");
-      return;
-    }
-    const { requirements } = checkPasswordStrength(password);
-    const allRequirementsMet = requirements.length && requirements.uppercase && requirements.number && requirements.special;
+    const { requirements: requirements2 } = checkPasswordStrength(password1);
+    const allRequirementsMet = requirements2.length && requirements2.uppercase && requirements2.number && requirements2.special;
     if (!allRequirementsMet) {
       showAlert("\u041E\u0448\u0438\u0431\u043A\u0430", "\u041F\u0430\u0440\u043E\u043B\u044C \u043D\u0435 \u0441\u043E\u043E\u0442\u0432\u0435\u0442\u0441\u0442\u0432\u0443\u0435\u0442 \u0442\u0440\u0435\u0431\u043E\u0432\u0430\u043D\u0438\u044F\u043C \u0431\u0435\u0437\u043E\u043F\u0430\u0441\u043D\u043E\u0441\u0442\u0438!", "error");
       return;
     }
     if (!terms) {
-      showAlert("\u0412\u043D\u0438\u043C\u0430\u043D\u0438\u0435", "\u041F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430, \u043F\u0440\u0438\u043C\u0438\u0442\u0435 \u0443\u0441\u043B\u043E\u0432\u0438\u044F \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u043D\u0438\u044F!", "warning");
+      showAlert("\u041E\u0448\u0438\u0431\u043A\u0430", "\u041F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430, \u043F\u0440\u0438\u043C\u0438\u0442\u0435 \u0443\u0441\u043B\u043E\u0432\u0438\u044F \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u043D\u0438\u044F!", "error");
       return;
     }
+    if (!roleSelected) {
+      showAlert("\u041E\u0448\u0438\u0431\u043A\u0430", "\u041F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430, \u0432\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0440\u043E\u043B\u044C!", "error");
+      return;
+    }
+    const formData = new FormData(registerForm);
     const submitButton = registerForm.querySelector('button[type="submit"]');
     const originalText = submitButton.textContent;
     submitButton.textContent = "\u0420\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044F...";
     submitButton.disabled = true;
-    setTimeout(() => {
-      showAlert("\u0420\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044F \u0437\u0430\u0432\u0435\u0440\u0448\u0435\u043D\u0430!", `\u0414\u043E\u0431\u0440\u043E \u043F\u043E\u0436\u0430\u043B\u043E\u0432\u0430\u0442\u044C, ${firstName} ${fullName}! \u0412\u0430\u0448 \u0430\u043A\u043A\u0430\u0443\u043D\u0442 \u0443\u0441\u043F\u0435\u0448\u043D\u043E \u0441\u043E\u0437\u0434\u0430\u043D.`, "success", {
-        autoClose: 3e5,
-        onConfirm: () => {
-          window.location.href = "/frontend/templates/auth/login.html";
+    console.log("Sending registration request...");
+    fetch(registerForm.action, {
+      method: "POST",
+      body: formData,
+      headers: {
+        "X-Requested-With": "XMLHttpRequest",
+        "X-CSRFToken": getCSRFToken()
+      }
+    }).then((response) => {
+      console.log("Response status:", response.status);
+      const contentType = response.headers.get("content-type");
+      if (contentType && contentType.includes("application/json")) {
+        return response.json().then((data) => {
+          return { data, status: response.status, ok: response.ok };
+        });
+      } else {
+        throw new Error("Server returned non-JSON response");
+      }
+    }).then(({ data, status, ok }) => {
+      console.log("Response data:", data);
+      if (ok && data.success) {
+        showAlert(
+          "\u0423\u0441\u043F\u0435\u0448\u043D\u0430\u044F \u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044F!",
+          "\u0412\u0430\u0448 \u0430\u043A\u043A\u0430\u0443\u043D\u0442 \u0431\u044B\u043B \u0443\u0441\u043F\u0435\u0448\u043D\u043E \u0441\u043E\u0437\u0434\u0430\u043D. \u0422\u0435\u043F\u0435\u0440\u044C \u0432\u044B \u043C\u043E\u0436\u0435\u0442\u0435 \u0432\u043E\u0439\u0442\u0438 \u0432 \u0441\u0438\u0441\u0442\u0435\u043C\u0443.",
+          "success",
+          {
+            autoClose: 5e3,
+            onConfirm: () => {
+              window.location.href = data.redirect_url || "/authorization/login/";
+            }
+          }
+        );
+      } else {
+        console.log("Registration error:", data);
+        document.querySelectorAll(".error-message").forEach((el) => {
+          el.style.display = "none";
+          el.textContent = "";
+        });
+        if (data.errors) {
+          let hasFieldErrors = false;
+          Object.keys(data.errors).forEach((field) => {
+            let errorElement;
+            if (field === "password1" || field === "id_password1") {
+              errorElement = document.querySelector("#id_password1")?.closest(".form-group")?.querySelector(".error-message");
+            } else if (field === "password2" || field === "id_password2") {
+              errorElement = document.querySelector("#id_password2")?.closest(".form-group")?.querySelector(".error-message");
+            } else if (field === "email" || field === "id_email") {
+              errorElement = document.querySelector("#id_email")?.closest(".form-group")?.querySelector(".error-message");
+            } else if (field === "fullname" || field === "id_fullname") {
+              errorElement = document.querySelector("#id_fullname")?.closest(".form-group")?.querySelector(".error-message");
+            } else if (field === "role") {
+              errorElement = document.querySelector(".role-selector")?.closest(".form-group")?.querySelector(".error-message");
+            } else if (field === "__all__") {
+              showAlert("\u041E\u0448\u0438\u0431\u043A\u0430 \u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u0438", Array.isArray(data.errors[field]) ? data.errors[field][0] : data.errors[field], "error");
+              return;
+            }
+            if (errorElement) {
+              const errorText = Array.isArray(data.errors[field]) ? data.errors[field][0] : data.errors[field];
+              errorElement.textContent = errorText;
+              errorElement.style.display = "block";
+              hasFieldErrors = true;
+              console.log(`Showing error for field ${field}:`, errorText);
+            }
+          });
+          if (!hasFieldErrors) {
+            showAlert(
+              "\u041E\u0448\u0438\u0431\u043A\u0430 \u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u0438",
+              "\u041F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430, \u0438\u0441\u043F\u0440\u0430\u0432\u044C\u0442\u0435 \u043E\u0448\u0438\u0431\u043A\u0438 \u0432 \u0444\u043E\u0440\u043C\u0435.",
+              "error"
+            );
+          }
+        } else {
+          showAlert(
+            "\u041E\u0448\u0438\u0431\u043A\u0430 \u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u0438",
+            "\u041F\u0440\u043E\u0438\u0437\u043E\u0448\u043B\u0430 \u043D\u0435\u0438\u0437\u0432\u0435\u0441\u0442\u043D\u0430\u044F \u043E\u0448\u0438\u0431\u043A\u0430. \u041F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430, \u043F\u043E\u043F\u0440\u043E\u0431\u0443\u0439\u0442\u0435 \u0435\u0449\u0435 \u0440\u0430\u0437.",
+            "error"
+          );
         }
-      });
+      }
+    }).catch((error) => {
+      console.error("Fetch error:", error);
+      let errorMessage = "\u041F\u0440\u043E\u0438\u0437\u043E\u0448\u043B\u0430 \u043E\u0448\u0438\u0431\u043A\u0430 \u043F\u0440\u0438 \u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u0438. ";
+      if (error.message.includes("non-JSON")) {
+        errorMessage += "\u0421\u0435\u0440\u0432\u0435\u0440 \u0432\u0435\u0440\u043D\u0443\u043B \u043D\u0435\u043A\u043E\u0440\u0440\u0435\u043A\u0442\u043D\u044B\u0439 \u043E\u0442\u0432\u0435\u0442.";
+      } else {
+        errorMessage += "\u041F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430, \u043F\u043E\u043F\u0440\u043E\u0431\u0443\u0439\u0442\u0435 \u0435\u0449\u0435 \u0440\u0430\u0437.";
+      }
+      showAlert("\u041E\u0448\u0438\u0431\u043A\u0430", errorMessage, "error");
+    }).finally(() => {
       submitButton.textContent = originalText;
       submitButton.disabled = false;
-    }, 2e3);
+    });
   });
   updateSubmitButton();
+  const { strength, requirements } = checkPasswordStrength("");
+  updatePasswordStrengthBar(strength);
+  updatePasswordRequirements(requirements);
 }
 function showAlert(title, message, type = "info", options = {}) {
   const existingAlert = document.querySelector(".alert-overlay");
@@ -726,9 +858,10 @@ function initEmailVerification() {
     setTimeout(() => {
       if (code === "123456") {
         showAlert("\u0423\u0441\u043F\u0435\u0448\u043D\u0430\u044F \u0432\u0435\u0440\u0438\u0444\u0438\u043A\u0430\u0446\u0438\u044F!", "\u0412\u0430\u0448 email \u0443\u0441\u043F\u0435\u0448\u043D\u043E \u043F\u043E\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043D. \u0422\u0435\u043F\u0435\u0440\u044C \u0432\u044B \u043C\u043E\u0436\u0435\u0442\u0435 \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u044C\u0441\u044F \u0432\u0441\u0435\u043C\u0438 \u0444\u0443\u043D\u043A\u0446\u0438\u044F\u043C\u0438 \u043F\u043B\u0430\u0442\u0444\u043E\u0440\u043C\u044B.", "success", {
-          autoClose: 3e5,
+          autoClose: 3e3,
+          // Исправлено с 300000 на 3000
           onConfirm: () => {
-            window.location.href = "/frontend/templates/main/dashboard.html";
+            window.location.href = "/authorization/login/";
           }
         });
       } else {
@@ -831,7 +964,7 @@ function initPasswordResetCode() {
         verifyButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> \u041F\u0440\u043E\u0432\u0435\u0440\u043A\u0430...';
         verifyButton.disabled = true;
         setTimeout(() => {
-          window.location.href = "/frontend/templates/auth/create-new-password.html?email=" + encodeURIComponent(email);
+          window.location.href = "/authorization/create-new-password/?email=" + encodeURIComponent(email);
         }, 2e3);
       } else {
         showAlert("\u041E\u0448\u0438\u0431\u043A\u0430", "\u041F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430, \u0432\u0432\u0435\u0434\u0438\u0442\u0435 \u043F\u043E\u043B\u043D\u044B\u0439 6-\u0437\u043D\u0430\u0447\u043D\u044B\u0439 \u043A\u043E\u0434", "error");
@@ -851,7 +984,7 @@ function initLogout() {
       timeLeft--;
       setTimeout(updateTimer, 1e3);
     } else {
-      window.location.href = "/frontend/templates/main/index.html";
+      window.location.href = "/";
     }
   }
   updateTimer();
@@ -1025,7 +1158,7 @@ function initCreateNewPassword() {
         showAlert("\u041F\u0430\u0440\u043E\u043B\u044C \u043E\u0431\u043D\u043E\u0432\u043B\u0435\u043D!", "\u0412\u0430\u0448 \u043F\u0430\u0440\u043E\u043B\u044C \u0431\u044B\u043B \u0443\u0441\u043F\u0435\u0448\u043D\u043E \u0438\u0437\u043C\u0435\u043D\u0435\u043D. \u0422\u0435\u043F\u0435\u0440\u044C \u0432\u044B \u043C\u043E\u0436\u0435\u0442\u0435 \u0432\u043E\u0439\u0442\u0438 \u0432 \u0441\u0438\u0441\u0442\u0435\u043C\u0443 \u0441 \u043D\u043E\u0432\u044B\u043C \u043F\u0430\u0440\u043E\u043B\u0435\u043C.", "success", {
           autoClose: 3e3,
           onConfirm: () => {
-            window.location.href = "/frontend/templates/auth/login.html";
+            window.location.href = "/authorization/login/";
           }
         });
         submitButton.innerHTML = originalText;
@@ -11546,6 +11679,10 @@ var require_main = __commonJS({
       }
       if (currentPath.includes("dashboard.html") || currentPath.includes("teacher-dashboard.html")) {
         initDashboard();
+      }
+      if (currentPath.includes("registration") || currentPath.includes("/authorization/") || window.location.pathname === "/authorization/" || window.location.pathname === "/authorization") {
+        console.log("Initializing registration module...");
+        initAuth();
       }
       if (currentPath.includes("practic-detail.html")) {
         console.log("\u041F\u0440\u044F\u043C\u0430\u044F \u0438\u043D\u0438\u0446\u0438\u0430\u043B\u0438\u0437\u0430\u0446\u0438\u044F \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u044B \u0432\u044B\u043F\u043E\u043B\u043D\u0435\u043D\u0438\u044F \u0437\u0430\u0434\u0430\u043D\u0438\u044F");

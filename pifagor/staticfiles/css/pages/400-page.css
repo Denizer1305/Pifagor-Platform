@@ -1,0 +1,25 @@
+/* Специфичные стили для ошибки 400 */
+.error-code-400 {
+    color: var(--danger);
+}
+
+.error-description-400 {
+    background-color: rgba(231, 76, 60, 0.1);
+    border-left: 4px solid var(--danger);
+}
+
+.troubleshooting-tips-400 {
+    border-left: 4px solid var(--accent-blue);
+}
+
+.troubleshooting-tips-400 i {
+    color: var(--accent-blue);
+}
+
+.error-illustration-400 i {
+    background: linear-gradient(135deg, var(--danger) 0%, #c0392b 100%);
+    box-shadow: 0 10px 25px rgba(231, 76, 60, 0.3);
+}
+
+.bg-shapes-400 .shape:nth-child(1) { background: var(--accent-blue); }
+.bg-shapes-400 .shape:nth-child(4) { background: var(--danger); }

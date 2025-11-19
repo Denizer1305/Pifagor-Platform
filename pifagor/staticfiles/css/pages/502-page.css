@@ -1,0 +1,39 @@
+/* Специфичные стили для ошибки 502 */
+.error-code-502 {
+    color: var(--accent-amber);
+}
+
+.error-description-502 {
+    background-color: rgba(255, 165, 0, 0.1);
+    border-left: 4px solid var(--accent-amber);
+}
+
+.reassurance-warning-502 {
+    border-left: 4px solid var(--accent-orange);
+}
+
+.reassurance-warning-502 i {
+    color: var(--accent-orange);
+}
+
+.gateway-info-502 h3 {
+    color: var(--accent-orange);
+}
+
+.status-dot-502 {
+    background: var(--accent-amber);
+}
+
+.status-text-502 {
+    color: var(--accent-orange);
+}
+
+.error-illustration-502 i {
+    background: linear-gradient(135deg, var(--accent-amber) 0%, var(--accent-orange) 100%);
+    color: var(--primary-dark);
+    box-shadow: 0 10px 25px rgba(255, 165, 0, 0.3);
+    animation: signal 2s ease-in-out infinite;
+}
+
+.bg-shapes-502 .shape:nth-child(1) { background: var(--accent-orange); }
+.bg-shapes-502 .shape:nth-child(4) { background: var(--accent-amber); }

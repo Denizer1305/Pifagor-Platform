@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пифагор - Создание домашнего задания</title>
+    <link rel="icon" href="/frontend/static/assets/image/logo/icons.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Forum&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/frontend/static/css/main.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo-header">
+                <a href="/frontend/templates/main/index.html">
+                    <img src="/frontend/static/assets/image/logo/logo.svg" alt="logo">
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/frontend/templates/courses/courses.html">Курсы</a></li>
+                <li><a href="/frontend/templates/test/tests.html">Тестирование</a></li>
+                <li><a href="/frontend/templates/practic/practic.html">Практические задания</a></li>
+                <li><a href="/frontend/templates/materials/materials.html">Учебные материалы</a></li>
+                <li><a href="/frontend/templates/homework/homework.html" class="active">Домашняя работа</a></li>
+            </ul>
+            <div class="header-actions">
+                <a href="/frontend/templates/auth/registration.html" class="btn btn-primary login-btn">Вход в кабинет</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-page">
+        <div class="bg-shapes">
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+        <div class="container hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">Создание домашнего задания</h1>
+                <p class="hero-subtitle">Создайте новое задание для ваших студентов</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Form Section -->
+    <section class="section">
+        <div class="container">
+            <div class="form-container">
+                <div class="form-content">
+                    <h2 class="section-title">Создание задания</h2>
+                    
+                    <div class="form-section">
+                        <h3>Основная информация</h3>
+                        
+                        <div class="form-group">
+                            <label for="assignment-title">Название задания *</label>
+                            <input type="text" id="assignment-title" placeholder="Введите название задания" required>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="assignment-subject">Предмет *</label>
+                                <select id="assignment-subject" required>
+                                    <option value="">Выберите предмет</option>
+                                    <option value="math">Математика</option>
+                                    <option value="physics">Физика</option>
+                                    <option value="informatics">Информатика</option>
+                                    <option value="russian">Русский язык</option>
+                                    <option value="english">Английский язык</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="assignment-difficulty">Уровень сложности</label>
+                                <select id="assignment-difficulty">
+                                    <option value="easy">Начальный</option>
+                                    <option value="medium" selected>Средний</option>
+                                    <option value="hard">Продвинутый</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="assignment-description">Описание задания *</label>
+                            <textarea id="assignment-description" placeholder="Опишите задание, требования и ожидаемый результат" required></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <h3>Сроки выполнения</h3>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="assignment-start">Дата выдачи *</label>
+                                <input type="date" id="assignment-start" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="assignment-due">Срок сдачи *</label>
+                                <input type="date" id="assignment-due" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="assignment-time">Примерное время выполнения (часы)</label>
+                            <input type="number" id="assignment-time" min="1" max="50" placeholder="Например: 5">
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <h3>Прикрепленные материалы</h3>
+                        
+                        <div class="file-upload" id="file-upload-area">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <h4>Перетащите файлы сюда или нажмите для выбора</h4>
+                            <p>Поддерживаемые форматы: PDF, DOC, DOCX, JPG, PNG, ZIP (макс. 20 МБ)</p>
+                            <input type="file" id="file-input" multiple>
+                        </div>
+                        
+                        <div class="file-list" id="file-list">
+                            <!-- Files will be listed here -->
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <h3>Критерии оценки</h3>
+                        
+                        <div class="form-group">
+                            <label for="max-score">Максимальный балл *</label>
+                            <input type="number" id="max-score" min="1" max="100" value="10" required>
+                        </div>
+                        
+                        <div class="criteria-list" id="criteria-list">
+                            <div class="criteria-item">
+                                <div class="criteria-inputs">
+                                    <div class="form-group">
+                                        <label>Критерий 1</label>
+                                        <input type="text" placeholder="Название критерия" value="Правильность решения">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Баллы</label>
+                                        <input type="number" min="1" max="10" value="5">
+                                    </div>
+                                </div>
+                                <div class="criteria-actions">
+                                    <i class="fas fa-times criteria-remove"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button class="btn btn-light btn-small" id="add-criteria-btn">
+                            <i class="fas fa-plus"></i> Добавить критерий
+                        </button>
+                    </div>
+                    
+                    <div class="form-section">
+                        <h3>Настройки задания</h3>
+                        
+                        <div class="settings-group">
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <div class="setting-title">Разрешить повторную отправку</div>
+                                    <div class="setting-description">Студенты смогут переслать работу после получения оценки</div>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="allow-resubmission">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <div class="setting-title">Публикация задания</div>
+                                    <div class="setting-description">Сделать задание видимым для студентов</div>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="publish-assignment" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <div class="setting-title">Групповая работа</div>
+                                    <div class="setting-description">Разрешить студентам работать в группах</div>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="group-work">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button class="btn btn-success" id="save-draft-btn">
+                            <i class="fas fa-save"></i> Сохранить черновик
+                        </button>
+                        <button class="btn" id="create-assignment-btn">
+                            <i class="fas fa-plus"></i> Создать задание
+                        </button>
+                        <a href="/frontend/templates/homework/homework.html" class="btn btn-light">
+                            <i class="fas fa-arrow-left"></i> Отмена
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Preview Sidebar -->
+                <div class="preview-sidebar">
+                    <h3 class="preview-title">Предпросмотр</h3>
+                    
+                    <div class="preview-card">
+                        <div class="preview-header">
+                            <h4 id="preview-title">Название задания</h4>
+                            <div class="preview-subject" id="preview-subject">Предмет</div>
+                        </div>
+                        
+                        <div class="preview-description" id="preview-description">
+                            Описание задания появится здесь после ввода.
+                        </div>
+                        
+                        <div class="preview-meta">
+                            <div class="preview-meta-item">
+                                <span class="meta-label">Сложность:</span>
+                                <span class="meta-value" id="preview-difficulty">Средний</span>
+                            </div>
+                            <div class="preview-meta-item">
+                                <span class="meta-label">Срок сдачи:</span>
+                                <span class="meta-value" id="preview-due">--.--.----</span>
+                            </div>
+                            <div class="preview-meta-item">
+                                <span class="meta-label">Макс. балл:</span>
+                                <span class="meta-value" id="preview-score">10</span>
+                            </div>
+                            <div class="preview-meta-item">
+                                <span class="meta-label">Время выполнения:</span>
+                                <span class="meta-value" id="preview-time">- ч</span>
+                            </div>
+                        </div>
+                        
+                        <div class="preview-actions">
+                            <button class="btn btn-small btn-light" id="refresh-preview-btn">
+                                <i class="fas fa-sync-alt"></i> Обновить
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="preview-card">
+                        <h4>Статистика</h4>
+                        <div class="preview-meta">
+                            <div class="preview-meta-item">
+                                <span class="meta-label">Студентов в курсе:</span>
+                                <span class="meta-value">24</span>
+                            </div>
+                            <div class="preview-meta-item">
+                                <span class="meta-label">Средний балл:</span>
+                                <span class="meta-value">-</span>
+                            </div>
+                            <div class="preview-meta-item">
+                                <span class="meta-label">Завершили:</span>
+                                <span class="meta-value">0%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Success Modal -->
+    <div class="modal-overlay" id="success-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-icon">
+                    <i class="fas fa-check"></i>
+                </div>
+                <h3 class="modal-title">Задание создано!</h3>
+            </div>
+            <div class="modal-content">
+                <p>Домашнее задание успешно создано и опубликовано для студентов.</p>
+                <p>Вы будете перенаправлены на страницу управления заданиями.</p>
+            </div>
+            <div class="modal-actions">
+                <button class="btn" id="view-assignment-btn">Перейти к заданию</button>
+                <a href="/frontend/templates/homework/homework.html" class="btn btn-light">К списку заданий</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Пифагор</h3>
+                    <p>Образовательная платформа, которая делает сложное простым, а обучение — увлекательным.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-vk"></i></a>
+                        <a href="#"><i class="fab fa-gitlab"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Курсы</h3>
+                    <ul>
+                        <li><a href="#">Математика</a></li>
+                        <li><a href="#">Физика</a></li>
+                        <li><a href="#">Информатика</a></li>
+                        <li><a href="#">Подготовка к ЕГЭ</a></li>
+                        <li><a href="#">Высшая математика</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Компания</h3>
+                    <ul>
+                        <li><a href="#">О нас</a></li>
+                        <li><a href="#">Преподаватели</a></li>
+                        <li><a href="#">Новости</a></li>
+                        <li><a href="#">Контакты</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Помощь</h3>
+                    <ul>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Поддержка</a></li>
+                        <li><a href="#">Политика конфиденциальности</a></li>
+                        <li><a href="#">Условия использования</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Образовательная платформа "Пифагор". Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="/frontend/static/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ошибка 400 - Пифагор</title>
+    <link rel="icon" href="/frontend/static/assets/image/logo/icons.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Forum&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/frontend/static/css/main.css">
+</head>
+<body class="error-page-400">
+    <div class="bg-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <!-- Floating elements -->
+    <div class="floating-element" style="top: 15%; right: 8%; width: 40px; height: 40px; background: var(--accent-blue); border-radius: 50%;"></div>
+    <div class="floating-element" style="top: 70%; left: 5%; width: 30px; height: 30px; background: var(--primary-dark); border-radius: 50%; animation-delay: 0.5s;"></div>
+    <div class="floating-element" style="top: 40%; right: 15%; width: 25px; height: 25px; background: var(--accent-gray); border-radius: 50%; animation-delay: 1s;"></div>
+    
+    <!-- Particle Background -->
+    <div class="particles" id="particles"></div>
+
+    <div class="container-error">
+        <div class="content-left">
+            <div class="logo-container">
+                <div class="logo">
+                    <img src="/frontend/static/assets/image/logo/logo.svg" alt="Пифагор">
+                </div>
+            </div>
+            
+            <div class="error-code">400</div>
+            
+            <h1 class="error-title">Неверный запрос</h1>
+            
+            <p class="error-description">
+                К сожалению, сервер не может обработать ваш запрос из-за неправильного синтаксиса.
+                Возможно, введённые данные содержат ошибку или запрос был сформирован некорректно.
+            </p>
+            
+            <div class="troubleshooting-tips">
+                <h3><i class="fas fa-lightbulb"></i> Возможные решения:</h3>
+                <ul>
+                    <li>Проверьте правильность введённых данных в форме</li>
+                    <li>Обновите страницу и попробуйте снова</li>
+                    <li>Очистите кеш браузера и cookies</li>
+                    <li>Попробуйте использовать другой браузер</li>
+                    <li>Если проблема повторяется, свяжитесь с поддержкой</li>
+                </ul>
+            </div>
+            
+            <div class="error-actions">
+                <a href="/frontend/templates/main/index.html" class="btn">
+                    <i class="fas fa-home"></i> На главную
+                </a>
+                <a href="/frontend/templates/courses/courses.html" class="btn btn-light">
+                    <i class="fas fa-book-open"></i> К курсам
+                </a>
+                <button onclick="history.back()" class="btn btn-light">
+                    <i class="fas fa-arrow-left"></i> Назад
+                </button>
+            </div>
+        </div>
+        
+        <div class="illustration-right">
+            <div class="error-illustration error-illustration-400" id="error-illustration">
+                <i class="fas fa-exclamation-triangle"></i>
+                <h3 class="illustration-title">Ошибка 400</h3>
+                <p>Неверный запрос к серверу</p>
+                <p>Проверьте корректность введённых данных</p>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="/frontend/static/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+.status-indicator,
+.connection-status,
+.maintenance-status {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.status-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+.status-text {
+    font-weight: bold;
+}
+
+/* Иконки в заголовках */
+.troubleshooting-tips h3,
+.status-info h3,
+.access-tips h3,
+.gateway-info h3,
+.method-info h3,
+.maintenance-info h3,
+.search-box h3,
+.quick-links h3 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.troubleshooting-tips i,
+.reassurance-access i,
+.reassurance-warning i,
+.reassurance-work i,
+.reassurance i,
+.status-info i,
+.access-tips i,
+.gateway-info i,
+.method-info i,
+.maintenance-info i,
+.search-box i,
+.quick-links i {
+    font-size: 1.2rem;
+}

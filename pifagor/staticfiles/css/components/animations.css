@@ -1,0 +1,84 @@
+/* Анимации для карточек */
+.card-hover {
+    transition: all 0.4s ease;
+    transform-style: preserve-3d;
+}
+
+.card-hover:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+.card-hover-sm:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Анимация верхней полосы */
+.card-top-border:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+}
+
+.card-top-border:hover:before {
+    transform: scaleX(1);
+}
+
+/* Анимация боковой полосы */
+.card-left-border {
+    border-left: 5px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.card-left-border:hover {
+    border-left-color: var(--accent);
+}
+
+/* Анимация блеска */
+.glow-effect {
+    position: relative;
+    overflow: hidden;
+}
+
+.glow-effect:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: all 0.6s;
+}
+
+.glow-effect:hover:before {
+    left: 100%;
+}
+
+/* Пульсация */
+.pulse {
+    animation: pulse var(--animation-duration-medium) infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* Плавающая анимация */
+.float {
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}

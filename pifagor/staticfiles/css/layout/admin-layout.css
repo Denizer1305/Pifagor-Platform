@@ -1,0 +1,147 @@
+
+.dashboard {
+    display: flex;
+    min-height: 100vh;
+    padding-top: 80px;
+}
+
+.main-content {
+    flex: 1;
+    margin-left: 250px;
+    padding: 30px;
+}
+
+/* Settings Page Styles */
+.settings-page {
+    padding: 20px 0;
+}
+
+/* Settings Header */
+.settings-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--light-bg);
+}
+
+.settings-title h1 {
+    margin-bottom: 5px;
+}
+
+.settings-title p {
+    color: var(--secondary);
+}
+
+.settings-controls {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+/* Settings Layout */
+.settings-container {
+    display: flex;
+    gap: 30px;
+}
+
+.settings-sidebar {
+    width: 250px;
+    flex-shrink: 0;
+}
+
+.settings-content {
+    flex: 1;
+}
+
+.settings-section {
+    background-color: var(--white);
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    margin-bottom: 30px;
+    display: none;
+}
+
+.settings-section.active {
+    display: block;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--light-bg);
+}
+
+.section-header h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0;
+}
+
+.section-actions {
+    display: flex;
+    gap: 10px;
+}
+
+/* Form Help Text */
+.form-help {
+    color: var(--secondary);
+    font-size: 0.85rem;
+    margin-top: 5px;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: var(--white);
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+    padding: 30px 0;
+    position: fixed;
+    height: calc(100vh - 80px);
+    overflow-y: auto;
+}
+
+.main-content {
+    flex: 1;
+    margin-left: 250px;
+    padding: 30px;
+}
+
+.sidebar-menu {
+    list-style: none;
+}
+
+.sidebar-menu li {
+    margin-bottom: 5px;
+}
+
+.sidebar-menu a {
+    display: flex;
+    align-items: center;
+    padding: 15px 25px;
+    text-decoration: none;
+    color: var(--primary-text);
+    transition: all 0.3s;
+    border-left: 4px solid transparent;
+}
+
+.sidebar-menu a:hover {
+    background-color: var(--light-bg);
+    border-left-color: var(--accent);
+}
+
+.sidebar-menu a.active {
+    background-color: rgba(74, 111, 165, 0.1);
+    border-left-color: var(--accent);
+    color: var(--accent);
+    font-weight: bold;
+}
+
+.sidebar-menu i {
+    margin-right: 15px;
+    width: 20px;
+    text-align: center;
+}

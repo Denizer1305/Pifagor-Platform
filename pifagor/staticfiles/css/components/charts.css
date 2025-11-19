@@ -1,0 +1,497 @@
+.progress-chart {
+    height: 200px;
+    background-color: var(--white);
+    border-radius: var(--border-radius-lg);
+    margin-bottom: var(--spacing-lg);
+    position: relative;
+}
+
+.chart-container {
+    background-color: var(--white);
+    border-radius: var(--border-radius-lg);
+    padding: var(--card-padding-md);
+    height: 300px;
+    position: relative;
+}
+
+.charts-section {
+    background-color: var(--white);
+    border-radius: var(--card-border-radius);
+    padding: var(--card-padding-md);
+    box-shadow: var(--card-shadow);
+}
+
+.charts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: var(--grid-gap-md);
+    margin-top: var(--spacing-lg);
+}
+
+.chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-sm);
+}
+
+.chart-title {
+    font-weight: bold;
+    color: var(--primary);
+}
+
+/* Дополнительные стили для графиков и прогресса */
+.progress-ring {
+    transform: rotate(-90deg);
+}
+
+.progress-value {
+    font-size: var(--text-3xl);
+    font-weight: bold;
+    fill: var(--primary);
+}
+
+.progress-label {
+    font-size: var(--text-sm);
+    fill: var(--secondary);
+}
+
+.chart-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-md);
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    font-size: var(--text-sm);
+}
+
+.legend-color {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.chart-tooltip {
+    background-color: var(--white);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    box-shadow: var(--shadow-md);
+    font-size: var(--text-sm);
+    border: 1px solid var(--input-border-color);
+}
+
+.progress-bar {
+    background-color: var(--light-bg);
+    border-radius: 10px;
+    height: 8px;
+    overflow: hidden;
+    margin: var(--spacing-xs) 0;
+}
+
+.progress-fill {
+    height: 100%;
+    background: var(--gradient-primary);
+    border-radius: 10px;
+    transition: width var(--animation-duration-medium) var(--animation-timing-ease-in-out);
+}
+
+.progress-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: var(--text-sm);
+    color: var(--secondary);
+    margin-top: var(--spacing-xs);
+}
+
+.chart-filters {
+    display: flex;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+}
+
+.chart-filter {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border: 1px solid var(--input-border-color);
+    border-radius: var(--border-radius);
+    background-color: var(--white);
+    cursor: pointer;
+    transition: var(--transition-standard);
+    font-size: var(--text-sm);
+}
+
+.chart-filter.active {
+    background-color: var(--accent);
+    color: var(--white);
+    border-color: var(--accent);
+}
+
+.chart-filter:hover:not(.active) {
+    border-color: var(--accent);
+}
+
+.performance-metric {
+    text-align: center;
+    padding: var(--spacing-md);
+}
+
+.metric-value {
+    font-size: var(--text-4xl);
+    font-weight: bold;
+    color: var(--accent);
+    margin-bottom: var(--spacing-xs);
+}
+
+.metric-label {
+    font-size: var(--text-sm);
+    color: var(--secondary);
+    text-transform: uppercase;
+}
+
+.trend-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    font-size: var(--text-sm);
+    margin-left: var(--spacing-xs);
+}
+
+.trend-up {
+    color: var(--success);
+}
+
+.trend-down {
+    color: var(--danger);
+}
+
+.trend-neutral {
+    color: var(--secondary);
+}
+
+.sparkline-container {
+    background-color: var(--white);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-sm);
+    box-shadow: var(--card-shadow-light);
+}
+
+.comparison-chart {
+    background-color: var(--white);
+    border-radius: var(--border-radius-lg);
+    padding: var(--card-padding-md);
+    box-shadow: var(--card-shadow);
+}
+
+.comparison-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-sm) 0;
+    border-bottom: 1px solid var(--list-border-color);
+}
+
+.comparison-item:last-child {
+    border-bottom: none;
+}
+
+.comparison-label {
+    color: var(--secondary);
+    font-size: var(--text-md);
+}
+
+.comparison-value {
+    font-weight: bold;
+    color: var(--primary);
+}
+
+.distribution-chart {
+    background-color: var(--white);
+    border-radius: var(--border-radius-lg);
+    padding: var(--card-padding-md);
+    box-shadow: var(--card-shadow);
+}
+
+.distribution-item {
+    margin-bottom: var(--spacing-sm);
+}
+
+.distribution-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: var(--spacing-xs);
+}
+
+.distribution-range {
+    font-size: var(--text-sm);
+    color: var(--secondary);
+}
+
+.distribution-count {
+    font-size: var(--text-sm);
+    font-weight: bold;
+    color: var(--primary);
+}
+
+.distribution-bar {
+    background-color: var(--light-bg);
+    height: 6px;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.distribution-fill {
+    height: 100%;
+    background: var(--gradient-primary);
+    border-radius: 3px;
+}
+
+.timeline-chart {
+    background-color: var(--white);
+    border-radius: var(--border-radius-lg);
+    padding: var(--card-padding-md);
+    box-shadow: var(--card-shadow);
+}
+
+.timeline-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: var(--spacing-md);
+    position: relative;
+}
+
+.timeline-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: var(--accent);
+    margin-right: var(--spacing-sm);
+    flex-shrink: 0;
+}
+
+.timeline-content {
+    flex: 1;
+}
+
+.timeline-date {
+    font-size: var(--text-sm);
+    color: var(--secondary);
+    margin-bottom: var(--spacing-xs);
+}
+
+.timeline-value {
+    font-weight: bold;
+    color: var(--primary);
+}
+
+.radial-progress {
+    position: relative;
+    width: 120px;
+    height: 120px;
+}
+
+.radial-background {
+    fill: none;
+    stroke: var(--light-bg);
+}
+
+.radial-progress-circle {
+    fill: none;
+    stroke: var(--accent);
+    stroke-linecap: round;
+    transform: rotate(-90deg);
+    transform-origin: 50% 50%;
+    transition: stroke-dashoffset var(--animation-duration-medium) var(--animation-timing-ease-in-out);
+}
+
+.radial-text {
+    text-anchor: middle;
+    dominant-baseline: central;
+}
+
+.radial-value {
+    font-size: var(--text-2xl);
+    font-weight: bold;
+    fill: var(--primary);
+}
+
+.radial-label {
+    font-size: var(--text-xs);
+    fill: var(--secondary);
+}
+
+.chart-actions {
+    display: flex;
+    gap: var(--spacing-xs);
+    margin-top: var(--spacing-md);
+}
+
+.chart-action {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border: 1px solid var(--input-border-color);
+    border-radius: var(--border-radius);
+    background-color: var(--white);
+    cursor: pointer;
+    transition: var(--transition-standard);
+    font-size: var(--text-sm);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+.chart-action:hover {
+    border-color: var(--accent);
+    background-color: var(--light-bg);
+}
+
+.analytics-overview {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--grid-gap-md);
+    margin-bottom: var(--spacing-xl);
+}
+
+.analytics-card {
+    background-color: var(--white);
+    border-radius: var(--border-radius-lg);
+    padding: var(--card-padding-md);
+    box-shadow: var(--card-shadow);
+    text-align: center;
+    transition: var(--transition-standard);
+}
+
+.analytics-card:hover {
+    transform: var(--card-hover-transform-sm);
+    box-shadow: var(--card-shadow-hover);
+}
+
+.analytics-icon {
+    width: var(--icon-size-md);
+    height: var(--icon-size-md);
+    margin: 0 auto var(--spacing-sm);
+    background-color: var(--light-bg);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+}
+
+.analytics-value {
+    font-size: var(--text-4xl);
+    font-weight: bold;
+    color: var(--primary);
+    margin-bottom: var(--spacing-xs);
+}
+
+.analytics-label {
+    font-size: var(--text-md);
+    color: var(--secondary);
+    margin-bottom: var(--spacing-xs);
+}
+
+.analytics-change {
+    font-size: var(--text-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-xs);
+}
+
+.chart-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: var(--secondary);
+}
+
+.chart-error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: var(--danger);
+    text-align: center;
+    padding: var(--spacing-lg);
+}
+
+.chart-error-icon {
+    font-size: var(--text-5xl);
+    margin-bottom: var(--spacing-sm);
+}
+
+.chart-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    background-color: var(--light-bg);
+    border-radius: var(--border-radius);
+    color: var(--secondary);
+    border: 2px dashed var(--input-border-color);
+}
+
+.responsive-chart {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.chart-zoom-controls {
+    position: absolute;
+    top: var(--spacing-sm);
+    right: var(--spacing-sm);
+    display: flex;
+    gap: var(--spacing-xs);
+    z-index: var(--z-tooltip);
+}
+
+.zoom-control {
+    width: var(--icon-size-sm);
+    height: var(--icon-size-sm);
+    border: 1px solid var(--input-border-color);
+    border-radius: var(--border-radius);
+    background-color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition-standard);
+    font-size: var(--text-sm);
+}
+
+.zoom-control:hover {
+    border-color: var(--accent);
+    background-color: var(--light-bg);
+}
+
+.chart-export {
+    position: absolute;
+    top: var(--spacing-sm);
+    right: var(--spacing-sm);
+    z-index: var(--z-tooltip);
+}
+
+.export-btn {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border: 1px solid var(--input-border-color);
+    border-radius: var(--border-radius);
+    background-color: var(--white);
+    cursor: pointer;
+    transition: var(--transition-standard);
+    font-size: var(--text-sm);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+.export-btn:hover {
+    border-color: var(--accent);
+    background-color: var(--light-bg);
+}
+

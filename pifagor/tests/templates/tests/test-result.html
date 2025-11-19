@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пифагор - Результаты теста: Основы синтаксиса Python</title>
+    <link rel="icon" href="/frontend/static/assets/image/logo/icons.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Forum&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/frontend/static/css/main.css">
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="logo-header">
+                <a href="/frontend/templates/main/index.html">
+                    <img src="/frontend/static/assets/image/logo/logo.svg" alt="logo">
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/frontend/templates/courses/courses.html">Курсы</a></li>
+                <li><a href="/frontend/templates/test/tests.html">Тестирование</a></li>
+                <li><a href="/frontend/templates/practic/practic.html">Практические задания</a></li>
+                <li><a href="/frontend/templates/materials/materials.html">Учебные материалы</a></li>
+            </ul>
+            <div class="header-actions">
+                <a href="/frontend/templates/auth/registration.html" class="btn btn-primary login-btn">Вход в кабинет</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-page">
+        <div class="bg-shapes">
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+        <div class="container hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">Результаты тестирования</h1>
+                <p class="hero-subtitle">Основы синтаксиса Python</p>
+                <div class="result-badge badge-success">
+                    <i class="fas fa-trophy"></i> Отлично! 87% правильных ответов
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">13/15</span>
+                        <span class="stat-label">Правильных ответов</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">14:32</span>
+                        <span class="stat-label">Затраченное время</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">87%</span>
+                        <span class="stat-label">Общий результат</span>
+                    </div>
+                </div>
+                <p class="hero-description">Вы успешно прошли тест по основам синтаксиса Python. Ваш результат выше среднего по платформе (75%). Ниже вы можете ознакомиться с детальным разбором ваших ответов.</p>
+                <div class="hero-actions">
+                    <a href="#results" class="btn">Смотреть детали</a>
+                    <a href="/frontend/templates/tests/test-python-basic.html" class="btn btn-success">Пройти еще раз</a>
+                    <a href="/frontend/templates/tests/python-tests.html" class="btn btn-light">Другие тесты</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Results Section -->
+    <section id="results" class="section results">
+        <div class="container">
+            <h2 class="section-title">Детали результатов</h2>
+            <div class="results-container">
+                <div class="results-content">
+                    <div class="results-summary">
+                        <div class="summary-card fade-in">
+                            <div class="summary-icon icon-correct">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div class="summary-number">13</div>
+                            <div class="summary-label">Правильных ответов</div>
+                        </div>
+                        <div class="summary-card fade-in">
+                            <div class="summary-icon icon-incorrect">
+                                <i class="fas fa-times"></i>
+                            </div>
+                            <div class="summary-number">2</div>
+                            <div class="summary-label">Неправильных ответов</div>
+                        </div>
+                        <div class="summary-card fade-in">
+                            <div class="summary-icon icon-time">
+                                <i class="far fa-clock"></i>
+                            </div>
+                            <div class="summary-number">14:32</div>
+                            <div class="summary-label">Затраченное время</div>
+                        </div>
+                    </div>
+
+                    <div class="results-details">
+                        <div class="details-tabs">
+                            <div class="details-tab active" data-tab="incorrect">Неправильные ответы</div>
+                            <div class="details-tab" data-tab="all">Все вопросы</div>
+                            <div class="details-tab" data-tab="correct">Правильные ответы</div>
+                        </div>
+
+                        <div class="details-panel active" id="incorrect-panel">
+                            <!-- Вопрос 1 (неправильный) -->
+                            <div class="question-review fade-in">
+                                <div class="question-header">
+                                    <h3 class="question-text">Вопрос 7: Что выведет следующий код?</h3>
+                                    <span class="question-status status-incorrect">Неправильно</span>
+                                </div>
+                                <div class="code-block">
+                                    x = <span class="code-number">5</span><br>
+                                    y = <span class="code-number">2</span><br>
+                                    <span class="code-keyword">print</span>(x // y)
+                                </div>
+                                <div class="answers-comparison">
+                                    <div class="answer-box incorrect-answer">
+                                        <div class="answer-label">
+                                            <i class="fas fa-times"></i>
+                                            Ваш ответ
+                                        </div>
+                                        <div>2.5</div>
+                                    </div>
+                                    <div class="answer-box correct-answer">
+                                        <div class="answer-label">
+                                            <i class="fas fa-check"></i>
+                                            Правильный ответ
+                                        </div>
+                                        <div>2</div>
+                                    </div>
+                                </div>
+                                <div class="explanation">
+                                    <div class="explanation-title">Объяснение:</div>
+                                    <p>Оператор // в Python выполняет целочисленное деление, которое отбрасывает дробную часть и возвращает целое число. В отличие от оператора /, который выполняет обычное деление и возвращает число с плавающей точкой.</p>
+                                </div>
+                            </div>
+
+                            <!-- Вопрос 2 (неправильный) -->
+                            <div class="question-review fade-in">
+                                <div class="question-header">
+                                    <h3 class="question-text">Вопрос 12: Какой метод используется для добавления элемента в конец списка?</h3>
+                                    <span class="question-status status-incorrect">Неправильно</span>
+                                </div>
+                                <div class="answers-comparison">
+                                    <div class="answer-box incorrect-answer">
+                                        <div class="answer-label">
+                                            <i class="fas fa-times"></i>
+                                            Ваш ответ
+                                        </div>
+                                        <div>append()</div>
+                                    </div>
+                                    <div class="answer-box correct-answer">
+                                        <div class="answer-label">
+                                            <i class="fas fa-check"></i>
+                                            Правильный ответ
+                                        </div>
+                                        <div>append()</div>
+                                    </div>
+                                </div>
+                                <div class="explanation">
+                                    <div class="explanation-title">Объяснение:</div>
+                                    <p>Ваш ответ был правильным! Возможно, произошла техническая ошибка при сохранении ответа. Метод append() действительно используется для добавления элемента в конец списка.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="details-panel" id="all-panel">
+                            <p>Здесь будут отображены все вопросы теста с вашими ответами и правильными ответами.</p>
+                        </div>
+
+                        <div class="details-panel" id="correct-panel">
+                            <p>Здесь будут отображены только правильно отвеченные вопросы.</p>
+                        </div>
+                    </div>
+
+                    <div class="results-actions">
+                        <a href="/frontend/templates/tests/test-python-basic.html" class="btn btn-success">
+                            <i class="fas fa-redo"></i> Пройти еще раз
+                        </a>
+                        <a href="/frontend/templates/tests/python-tests.html" class="btn">
+                            <i class="fas fa-arrow-right"></i> Следующий
+                        </a>
+                        <a href="/frontend/templates/courses/courses-list.html" class="btn btn-light">
+                            <i class="fas fa-book"></i> Обратно
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="results-sidebar">
+                    <h3 class="sidebar-title">Информация о тесте</h3>
+                    
+                    <div class="test-info">
+                        <div class="info-item">
+                            <span class="info-label">Тест:</span>
+                            <span class="info-value">Основы синтаксиса Python</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Уровень:</span>
+                            <span class="info-value">Начальный</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Дата прохождения:</span>
+                            <span class="info-value">15.03.2025</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Время начала:</span>
+                            <span class="info-value">14:20</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Время завершения:</span>
+                            <span class="info-value">14:35</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Общее время:</span>
+                            <span class="info-value">14:32</span>
+                        </div>
+                    </div>
+                    
+                    <div class="recommendations">
+                        <h4>Рекомендации</h4>
+                        <div class="recommendation-item">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Обратите внимание на операторы целочисленного деления</span>
+                        </div>
+                        <div class="recommendation-item">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Повторите методы работы со списками</span>
+                        </div>
+                        <div class="recommendation-item">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Изучите особенности работы с циклами for и while</span>
+                        </div>
+                    </div>
+                    
+                    <h4>Полезные ресурсы</h4>
+                    <ul class="resources-list">
+                        <li>
+                            <a href="#">
+                                <i class="fas fa-book"></i>
+                                <span>Операторы в Python</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fas fa-code"></i>
+                                <span>Методы списков</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fas fa-video"></i>
+                                <span>Видео: Циклы в Python</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Пифагор</h3>
+                    <p>Образовательная платформа, которая делает сложное простым, а обучение — увлекательным.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-vk"></i></a>
+                        <a href="#"><i class="fab fa-gitlab"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Курсы</h3>
+                    <ul>
+                        <li><a href="#">Математика</a></li>
+                        <li><a href="#">Физика</a></li>
+                        <li><a href="#">Информатика</a></li>
+                        <li><a href="#">Подготовка к ЕГЭ</a></li>
+                        <li><a href="#">Высшая математика</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Компания</h3>
+                    <ul>
+                        <li><a href="#">О нас</a></li>
+                        <li><a href="#">Преподаватели</a></li>
+                        <li><a href="#">Новости</a></li>
+                        <li><a href="#">Контакты</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Помощь</h3>
+                    <ul>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Поддержка</a></li>
+                        <li><a href="#">Политика конфиденциальности</a></li>
+                        <li><a href="#">Условия использования</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Образовательная платформа "Пифагор". Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="/frontend/static/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+{% extends 'base_auth.html' %}
+{% load static %}
+
+{% block content %}
+    <section class="logout"  data-index-url="{% url 'main:index' %}">
+        <div class="container logout-container">
+            <div class="logout-content">
+                <img src="{% static 'assets/image/logo/logo.svg' %}" alt="Пифагор" class="platform-logo">
+                <h1>Выход из системы</h1>
+                <p>Вы успешно вышли из своей учетной записи на образовательной платформе "Пифагор".</p>
+                
+                <div class="logout-message">
+                    <p>Для обеспечения безопасности все сеансы на других устройствах также были завершены.</p>
+                    <p>Для продолжения работы с платформой необходимо снова войти в систему.</p>
+                </div>
+                
+                <ul class="benefits-list">
+                    <li>
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Ваши данные в безопасности</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-history"></i>
+                        <span>Прогресс обучения сохранен</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-sync-alt"></i>
+                        <span>Всегда можно вернуться</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="logout-form-container">
+                <div class="logout-form" id="logout-form">
+                    <h2 class="form-title">Выход из системы</h2>
+                    
+                    <div class="user-info">
+                        <div class="user-avatar" id="userAvatar">
+                            <img src="{% static 'assets/image/denizer1305.png' %}" alt="users">
+                        </div>
+                        <div class="user-details">
+                            <div class="user-name" id="userName">Денис Быков</div>
+                            <div class="user-email" id="userEmail">denizer1305@yandex.ru</div>
+                        </div>
+                    </div>
+                    
+                    <div class="logout-timer">
+                        <div class="timer" id="countdown">10</div>
+                        <div class="timer-text">Автоматический переход на главную страницу через <span id="seconds">10</span> секунд</div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <a href="{% url 'authorization:login' %}" class="btn">
+                            <i class="fas fa-sign-in-alt"></i> Войти снова
+                        </a>
+                        <a href="{% url 'main:index' %}" class="btn btn-light">
+                            <i class="fas fa-home"></i> На главную
+                        </a>
+                    </div>
+                    
+                    <div class="auto-redirect">
+                        <p>Если автоматический переход не сработал, <a href="{% url 'main:index' %}">нажмите здесь</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

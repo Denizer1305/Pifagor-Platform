@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Анастасия - Чат-помощник</title>
+    <link rel="icon" href="/frontend/static/assets/image/logo/icons.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Forum&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/frontend/static/css/main.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo-header">
+                <a href="/frontend/templates/main/index.html">
+                    <!-- Логотип Анастасии -->
+                    <img src="/frontend/static/assets/image/logo/logo.svg" alt="Анастасия">
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/frontend/templates/main/about.html">О платформе</a></li>
+                <li><a href="/frontend/templates/courses/courses.html">Курсы</a></li>
+                <li><a href="/frontend/templates/main/teachers.html">Преподаватели</a></li>
+                <li><a href="/frontend/templates/main/contact.html">Контакты</a></li>
+            </ul>
+            <div class="header-actions">
+                <div class="user-menu">
+                    <div class="user-avatar">
+                        <img src="/frontend/static/assets/image/partner/foto_teachers.jpg" alt="avatar">
+                    </div>
+                    <div class="user-name">Елена Плеханова</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Dashboard -->
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <ul class="sidebar-menu">
+                <li><a href="/frontend/templates/users/teacher-dashboard.html"><i class="fas fa-home"></i> <span>Главная</span></a></li>
+                <li><a href="/frontend/templates/anastasia/chat-interface.html" class="active"><i class="fas fa-comments"></i> <span>Чат с Анастасией</span></a></li>
+                <li><a href="/frontend/templates/anastasia/test-generation.html"><i class="fas fa-question-circle"></i> <span>Генерация тестов</span></a></li>
+                <li><a href="/frontend/templates/anastasia/practice-review.html"><i class="fas fa-check-double"></i> <span>Проверка работ</span></a></li>
+                <li><a href="/frontend/templates/anastasia/settings.html"><i class="fas fa-cog"></i> <span>Настройки Анастасии</span></a></li>
+                <li><a href="/frontend/templates/users/profile-edit.html"><i class="fas fa-user-cog"></i> <span>Настройки профиля</span></a></li>
+                <li><a href="/frontend/templates/auth/logout.html"><i class="fas fa-sign-out-alt"></i> <span>Выйти</span></a></li>                
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="chat-container">
+                <!-- Chat Header -->
+                <div class="chat-header">
+                    <div class="chat-avatar">
+                        <img src="/frontend/static/assets/image/logo/Anastasia.png" alt="Анастасия">
+                    </div>
+                    <div class="chat-info">
+                        <h2>Анастасия</h2>
+                    </div>
+                </div>
+
+                <!-- Chat Messages -->
+                <div class="chat-messages" id="chatMessages">
+                    <!-- Welcome message -->
+                    <div class="message anastasia">
+                        <div class="message-content">
+                            <div class="message-text">
+                                Здравствуйте, Елена Александровна! Я - Анастасия, ваш помощник в обучении. 
+                                Готова ответить на ваши вопросы, помочь с созданием тестов или проверкой работ. 
+                                Чем могу помочь сегодня?
+                            </div>
+                            <div class="message-time">10:00</div>
+                        </div>
+                    </div>
+
+                    <!-- User message -->
+                    <div class="message user">
+                        <div class="message-content">
+                            <div class="message-text">
+                                Привет, Анастасия! Мне нужна помощь с созданием теста по основам программирования на Python для начинающих.
+                            </div>
+                            <div class="message-time">10:02</div>
+                        </div>
+                    </div>
+
+                    <!-- Anastasia response -->
+                    <div class="message anastasia">
+                        <div class="message-content">
+                            <div class="message-text">
+                                Конечно! Я могу помочь вам с созданием теста по Python. 
+                                Для начала, скажите, какие темы вы хотели бы включить в тест? 
+                                Например: синтаксис, переменные, типы данных, условные операторы, циклы, функции и т.д.
+                            </div>
+                            <div class="message-time">10:03</div>
+                        </div>
+                    </div>
+
+                    <!-- Quick actions -->
+                    <div class="quick-actions">
+                        <div class="quick-action" onclick="quickAction('variables')">Переменные и типы данных</div>
+                        <div class="quick-action" onclick="quickAction('syntax')">Базовый синтаксис</div>
+                        <div class="quick-action" onclick="quickAction('functions')">Функции</div>
+                        <div class="quick-action" onclick="quickAction('all')">Все основные темы</div>
+                    </div>
+
+                    <!-- User message -->
+                    <div class="message user">
+                        <div class="message-content">
+                            <div class="message-text">
+                                Давай начнем с переменных, типов данных и базового синтаксиса.
+                            </div>
+                            <div class="message-time">10:04</div>
+                        </div>
+                    </div>
+
+                    <!-- Anastasia response -->
+                    <div class="message anastasia">
+                        <div class="message-content">
+                            <div class="message-text">
+                                Отлично! Я подготовила тест из 10 вопросов по выбранным темам. 
+                                В него вошли вопросы на определение типов данных, объявление переменных, 
+                                базовые операции и простые конструкции Python.
+                                <br><br>
+                                Хотите просмотреть вопросы перед сохранением?
+                            </div>
+                            <div class="message-time">10:05</div>
+                        </div>
+                    </div>
+
+                    <!-- Quick actions -->
+                    <div class="quick-actions">
+                        <div class="quick-action" onclick="quickAction('preview')">Просмотреть тест</div>
+                        <div class="quick-action" onclick="quickAction('save')">Сохранить тест</div>
+                        <div class="quick-action" onclick="quickAction('modify')">Изменить параметры</div>
+                    </div>
+                </div>
+
+                <!-- Chat Input -->
+                <div class="chat-input-container">
+                    <textarea class="chat-input" id="messageInput" placeholder="Введите ваше сообщение..." rows="1"></textarea>
+                    <button class="send-button" id="sendButton">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="/frontend/static/js/main.js"></script>
+</body>
+</html>

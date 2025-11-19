@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Анастасия - Панель управления</title>
+    <link rel="icon" href="/frontend/static/assets/image/logo/icons.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Forum&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/frontend/static/css/main.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo-header">
+                <a href="/frontend/templates/main/index.html">
+                    <!-- Логотип Анастасии -->
+                    <img src="/frontend/static/assets/image/logo/logo.svg" alt="Анастасия">
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/frontend/templates/main/about.html">О платформе</a></li>
+                <li><a href="/frontend/templates/courses/courses.html">Курсы</a></li>
+                <li><a href="/frontend/templates/main/teachers.html">Преподаватели</a></li>
+                <li><a href="/frontend/templates/main/contact.html">Контакты</a></li>
+            </ul>
+            <div class="header-actions">
+                <div class="user-menu">
+                    <div class="user-avatar">
+                        <img src="/frontend/static/assets/image/partner/foto_teachers.jpg" alt="avatar">
+                    </div>
+                    <div class="user-name">Елена Плеханова</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Dashboard -->
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <ul class="sidebar-menu">
+                <li><a href="/frontend/templates/users/teacher-dashboard.html"><i class="fas fa-home"></i> <span>Главная</span></a></li>
+                <li><a href="/frontend/templates/courses/courses-list.html"><i class="fas fa-book-open"></i> <span>Мои курсы</span></a></li>
+                <li><a href="/frontend/templates/practic/practic-list.html"><i class="fas fa-tasks"></i> <span>Задания</span></a></li>
+                <li><a href="/frontend/templates/journal/classes.html"><i class="fas fa-users"></i> <span>Классы</span></a></li>
+                <li><a href="/frontend/templates/practic/practic-check.html"><i class="fas fa-check-circle"></i> <span>Проверка работ</span></a></li>
+                <li><a href="/frontend/templates/analytics/statistics.html"><i class="fas fa-chart-line"></i> <span>Аналитика</span></a></li>
+                <li><a href="/frontend/templates/journal/schedule.html"><i class="fas fa-calendar-alt"></i> <span>Расписание</span></a></li>
+                <li><a href="/frontend/templates/journal/journal.html"><i class="fas fa-book"></i> <span>Журнал</span></a></li>
+                <li><a href="/frontend/templates/analytics/attendance.html"><i class="fas fa-clipboard-check"></i> <span>Посещаемость</span></a></li>
+                <li><a href="/frontend/templates/journal/grades.html"><i class="fas fa-star"></i> <span>Успеваемость</span></a></li>
+                <li><a href="/frontend/templates/analytics/progress.html"><i class="fas fa-chart-bar"></i> <span>Прогресс</span></a></li>
+                <li><a href="/frontend/templates/journal/schedule-create.html"><i class="fas fa-plus-circle"></i> <span>Создать расписание</span></a></li>
+                <li><a href="/frontend/templates/classes/class-students.html"><i class="fas fa-user-graduate"></i> <span>Ученики класса</span></a></li>
+                <li><a href="/frontend/templates/classes/class-teachers.html"><i class="fas fa-chalkboard-teacher"></i> <span>Преподаватели класса</span></a></li>
+                <li><a href="/frontend/templates/classes/class-schedule.html"><i class="fas fa-calendar-week"></i> <span>Расписание класса</span></a></li>
+                <li><a href="/frontend/templates/users/profile-edit.html"><i class="fas fa-cog"></i> <span>Настройки</span></a></li>
+                <li><a href="/frontend/templates/auth/logout.html"><i class="fas fa-sign-out"></i> <span>Выйти</span></a></li>                
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Welcome Section -->
+            <section class="welcome-section">
+                <div class="anastasia-hero">
+                    <div class="avatar-section">
+                        <img src="/frontend/static/assets/image/logo/Anastasia.svg" alt="Анастасия">
+                    </div>
+                    <div class="greeting">
+                        <h1>Здравствуйте, Елена Александровна!</h1>
+                        <p>Я - Анастасия, ваш помощник в обучении. Чем я могу вам помочь?</p>
+                        <a href="/frontend/templates/anastasia/chat-interface.html" class="btn">Начать общение</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon chats">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>24</h3>
+                        <p>Диалогов за неделю</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon tests">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>12</h3>
+                        <p>Созданных тестов</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon reviews">
+                        <i class="fas fa-check-double"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>8</h3>
+                        <p>Проверенных работ</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions Section -->
+            <section class="quick-actions-section">
+                <div class="section-header">
+                    <h2>Основные действия</h2>
+                </div>
+                <div class="quick-actions-grid">
+                    <a href="/frontend/templates/anastasia/chat-interface.html" class="action-card">
+                        <div class="action-icon">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <h3>Задать вопрос</h3>
+                        <p>Обсудить тему или получить объяснение</p>
+                    </a>
+                    <a href="/frontend/templates/anastasia/test-generation.html" class="action-card">
+                        <div class="action-icon">
+                            <i class="fas fa-question-circle"></i>
+                        </div>
+                        <h3>Создать тест</h3>
+                        <p>Сгенерировать вопросы по материалам</p>
+                    </a>
+                    <a href="/frontend/templates/anastasia/practice-review.html" class="action-card">
+                        <div class="action-icon">
+                            <i class="fas fa-check-double"></i>
+                        </div>
+                        <h3>Проверить работу</h3>
+                        <p>Получить feedback по практическому заданию</p>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Dashboard Grid -->
+            <div class="dashboard-grid">
+                <!-- Left Column -->
+                <div class="left-column">
+                    <!-- Usage Stats -->
+                    <div class="usage-stats">
+                        <div class="usage-stat-card">
+                            <span class="number">12</span>
+                            <span class="label">Созданных тестов</span>
+                        </div>
+                        <div class="usage-stat-card">
+                            <span class="number">8</span>
+                            <span class="label">Проверенных работ</span>
+                        </div>
+                        <div class="usage-stat-card">
+                            <span class="number">24</span>
+                            <span class="label">Заданных вопросов</span>
+                        </div>
+                    </div>
+
+                    <!-- Activity Section -->
+                    <section class="activity-section">
+                        <div class="section-header">
+                            <h2>Последняя активность</h2>
+                        </div>
+                        <ul class="activity-list">
+                            <li class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-question-circle"></i>
+                                </div>
+                                <div class="activity-info">
+                                    <h4>Создан тест по Python</h4>
+                                    <p>Сгенерирован тест по основам программирования на Python</p>
+                                    <div class="activity-time">2 часа назад</div>
+                                </div>
+                            </li>
+                            <li class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-check-double"></i>
+                                </div>
+                                <div class="activity-info">
+                                    <h4>Проверена лабораторная работа</h4>
+                                    <p>Проанализирована работа студента по теме "Функции в Python"</p>
+                                    <div class="activity-time">5 часов назад</div>
+                                </div>
+                            </li>
+                            <li class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-comments"></i>
+                                </div>
+                                <div class="activity-info">
+                                    <h4>Обсуждение темы ООП</h4>
+                                    <p>Ответ на вопрос о принципах объектно-ориентированного программирования</p>
+                                    <div class="activity-time">Вчера, 16:30</div>
+                                </div>
+                            </li>
+                            <li class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-question-circle"></i>
+                                </div>
+                                <div class="activity-info">
+                                    <h4>Создан тест по алгоритмам</h4>
+                                    <p>Сгенерированы вопросы по алгоритмам сортировки</p>
+                                    <div class="activity-time">Вчера, 14:15</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </section>
+                </div>
+
+                <!-- Right Column -->
+                <div class="right-column">
+                    <!-- Recent Tests Section -->
+                    <section class="activity-section">
+                        <div class="section-header">
+                            <h2>Недавние тесты</h2>
+                        </div>
+                        <ul class="activity-list">
+                            <li class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-code"></i>
+                                </div>
+                                <div class="activity-info">
+                                    <h4>Основы Python</h4>
+                                    <p>15 вопросов по синтаксису и базовым конструкциям</p>
+                                    <div class="activity-time">2 дня назад</div>
+                                </div>
+                            </li>
+                            <li class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-sitemap"></i>
+                                </div>
+                                <div class="activity-info">
+                                    <h4>ООП в Python</h4>
+                                    <p>10 вопросов по классам и объектам</p>
+                                    <div class="activity-time">3 дня назад</div>
+                                </div>
+                            </li>
+                            <li class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-project-diagram"></i>
+                                </div>
+                                <div class="activity-info">
+                                    <h4>Алгоритмы сортировки</h4>
+                                    <p>12 вопросов по алгоритмам и их сложности</p>
+                                    <div class="activity-time">5 дней назад</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </section>
+
+                    <!-- Recent Reviews Section -->
+                    <section class="activity-section">
+                        <div class="section-header">
+                            <h2>Недавние проверки</h2>
+                        </div>
+                        <ul class="activity-list">
+                            <li class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-file-code"></i>
+                                </div>
+                                <div class="activity-info">
+                                    <h4>Лабораторная работа #3</h4>
+                                    <p>Проверена работа студента Ивана Сидорова</p>
+                                    <div class="activity-time">Вчера</div>
+                                </div>
+                            </li>
+                            <li class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-laptop-code"></i>
+                                </div>
+                                <div class="activity-info">
+                                    <h4>Проект "Калькулятор"</h4>
+                                    <p>Проанализирован код проекта Марии Петровой</p>
+                                    <div class="activity-time">2 дня назад</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="/frontend/static/js/main.js"></script>
+</body>
+</html>

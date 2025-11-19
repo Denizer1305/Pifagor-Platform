@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пифагор - Проверка домашних заданий</title>
+    <link rel="icon" href="/frontend/static/assets/image/logo/icons.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Forum&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/frontend/static/css/main.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo-header">
+                <a href="/frontend/templates/main/index.html">
+                    <img src="/frontend/static/assets/image/logo/logo.svg" alt="logo">
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/frontend/templates/courses/courses.html">Курсы</a></li>
+                <li><a href="/frontend/templates/test/tests.html">Тестирование</a></li>
+                <li><a href="/frontend/templates/practic/practic.html">Практические задания</a></li>
+                <li><a href="/frontend/templates/materials/materials.html">Учебные материалы</a></li>
+                <li><a href="/frontend/templates/homework/homework.html" class="active">Домашняя работа</a></li>
+            </ul>
+            <div class="header-actions">
+                <a href="/frontend/templates/auth/registration.html" class="btn btn-primary login-btn">Вход в кабинет</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-page">
+        <div class="bg-shapes">
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+        <div class="container hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">Проверка домашних заданий</h1>
+                <p class="hero-subtitle">Оценивайте работы студентов, оставляйте обратную связь и управляйте процессом проверки</p>
+                
+                <div class="stats-container">
+                    <div class="stat-item">
+                        <div class="stat-value">24</div>
+                        <div class="stat-label">Ожидают проверки</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">56</div>
+                        <div class="stat-label">Проверено за неделю</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">4.2</div>
+                        <div class="stat-label">Средняя оценка</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">92%</div>
+                        <div class="stat-label">Вовремя сдано</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filters Section -->
+    <section class="filters">
+        <div class="container">
+            <div class="filters-container">
+                <div class="filter-group">
+                    <div class="filter-item">
+                        <label for="subject">Предмет</label>
+                        <select id="subject">
+                            <option value="all">Все предметы</option>
+                            <option value="math">Математика</option>
+                            <option value="physics">Физика</option>
+                            <option value="informatics">Информатика</option>
+                            <option value="russian">Русский язык</option>
+                            <option value="english">Английский язык</option>
+                        </select>
+                    </div>
+                    <div class="filter-item">
+                        <label for="status">Статус</label>
+                        <select id="status">
+                            <option value="all">Все статусы</option>
+                            <option value="pending">Ожидает проверки</option>
+                            <option value="reviewed">Проверено</option>
+                            <option value="returned">Возвращено</option>
+                        </select>
+                    </div>
+                    <div class="filter-item">
+                        <label for="group">Группа</label>
+                        <select id="group">
+                            <option value="all">Все группы</option>
+                            <option value="group1">Группа 1</option>
+                            <option value="group2">Группа 2</option>
+                            <option value="group3">Группа 3</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="search-box">
+                    <input type="text" placeholder="Поиск по студенту или заданию...">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Review Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Работы студентов</h2>
+            
+            <div class="review-container">
+                <!-- Sidebar with submissions list -->
+                <div class="submissions-sidebar">
+                    <h3>Список работ</h3>
+                    
+                    <div class="submissions-list">
+                        <!-- Submission 1 -->
+                        <div class="submission-item active" data-submission="1">
+                            <div class="submission-header">
+                                <div>
+                                    <div class="student-name">Иванов Алексей</div>
+                                    <div class="submission-date">20.10.2023, 14:30</div>
+                                </div>
+                                <span class="submission-status status-pending">Ожидает</span>
+                            </div>
+                            <div class="assignment-title">Решение квадратных уравнений</div>
+                            <div class="submission-preview">Решил 8 из 10 уравнений. Пропущены уравнения с отрицательным дискриминантом...</div>
+                        </div>
+                        
+                        <!-- Submission 2 -->
+                        <div class="submission-item" data-submission="2">
+                            <div class="submission-header">
+                                <div>
+                                    <div class="student-name">Петрова Мария</div>
+                                    <div class="submission-date">19.10.2023, 16:45</div>
+                                </div>
+                                <span class="submission-status status-reviewed">Проверено</span>
+                            </div>
+                            <div class="assignment-title">Законы Ньютона</div>
+                            <div class="submission-preview">Полное решение всех задач. Хорошие пояснения...</div>
+                        </div>
+                        
+                        <!-- Submission 3 -->
+                        <div class="submission-item" data-submission="3">
+                            <div class="submission-header">
+                                <div>
+                                    <div class="student-name">Сидоров Дмитрий</div>
+                                    <div class="submission-date">18.10.2023, 10:20</div>
+                                </div>
+                                <span class="submission-status status-returned">Возвращено</span>
+                            </div>
+                            <div class="assignment-title">Алгоритмы сортировки</div>
+                            <div class="submission-preview">Реализованы не все алгоритмы. Требуется доработка...</div>
+                        </div>
+                        
+                        <!-- Submission 4 -->
+                        <div class="submission-item" data-submission="4">
+                            <div class="submission-header">
+                                <div>
+                                    <div class="student-name">Козлова Анна</div>
+                                    <div class="submission-date">17.10.2023, 18:15</div>
+                                </div>
+                                <span class="submission-status status-pending">Ожидает</span>
+                            </div>
+                            <div class="assignment-title">Анализ текста</div>
+                            <div class="submission-preview">Проведен поверхностный анализ. Не все художественные средства определены...</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Review content area -->
+                <div class="review-content">
+                    <div class="review-header">
+                        <div class="student-info">
+                            <div class="student-avatar">ИА</div>
+                            <div class="student-details">
+                                <h3>Иванов Алексей</h3>
+                                <div class="student-group">Группа 1</div>
+                            </div>
+                        </div>
+                        <div class="assignment-info">
+                            <div class="assignment-name">Решение квадратных уравнений</div>
+                            <div class="assignment-subject">Математика</div>
+                        </div>
+                    </div>
+                    
+                    <div class="review-tabs">
+                        <div class="review-tab active" data-tab="submission">Работа студента</div>
+                        <div class="review-tab" data-tab="assignment">Исходное задание</div>
+                        <div class="review-tab" data-tab="review">Оценка и комментарии</div>
+                    </div>
+                    
+                    <!-- Submission Tab -->
+                    <div class="tab-content active" id="submission-tab">
+                        <div class="submission-content">
+                            <div class="submission-text">
+1. Уравнение: x² - 5x + 6 = 0
+   Решение:
+   D = b² - 4ac = (-5)² - 4*1*6 = 25 - 24 = 1
+   x₁ = (5 + 1) / 2 = 3
+   x₂ = (5 - 1) / 2 = 2
+   Ответ: x₁ = 3, x₂ = 2
+
+2. Уравнение: 2x² + 3x - 2 = 0
+   Решение:
+   D = 3² - 4*2*(-2) = 9 + 16 = 25
+   x₁ = (-3 + 5) / 4 = 0.5
+   x₂ = (-3 - 5) / 4 = -2
+   Ответ: x₁ = 0.5, x₂ = -2
+
+3. Уравнение: x² - 4x + 4 = 0
+   Решение:
+   D = (-4)² - 4*1*4 = 16 - 16 = 0
+   x = 4 / 2 = 2
+   Ответ: x = 2
+
+4. Уравнение: x² + 2x + 5 = 0
+   Решение:
+   D = 2² - 4*1*5 = 4 - 20 = -16
+   Ответ: Действительных корней нет
+
+5. Уравнение: 3x² - 7x + 2 = 0
+   Решение:
+   D = (-7)² - 4*3*2 = 49 - 24 = 25
+   x₁ = (7 + 5) / 6 = 2
+   x₂ = (7 - 5) / 6 = 1/3
+   Ответ: x₁ = 2, x₂ = 1/3
+
+... и так далее до 8 уравнения
+                            </div>
+                        </div>
+                        
+                        <div class="file-preview">
+                            <i class="fas fa-file-pdf"></i>
+                            <h4>Решение_квадратных_уравнений.pdf</h4>
+                            <p>Дополнительные расчеты и графики</p>
+                            <a href="#" class="btn btn-small">Скачать файл</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Assignment Tab -->
+                    <div class="tab-content" id="assignment-tab">
+                        <div class="submission-content">
+                            <div class="submission-text">
+Задание: Решение квадратных уравнений
+
+Решите 10 квадратных уравнений различными методами. Для каждого уравнения предоставьте полное решение с пояснениями каждого шага. Проверьте корни, подставив их в исходное уравнение.
+
+Уравнения:
+1. x² - 5x + 6 = 0
+2. 2x² + 3x - 2 = 0
+3. x² - 4x + 4 = 0
+4. x² + 2x + 5 = 0
+5. 3x² - 7x + 2 = 0
+6. x² - x - 6 = 0
+7. 4x² - 12x + 9 = 0
+8. x² + 6x + 9 = 0
+9. 2x² - 5x - 3 = 0
+10. x² + 4x + 13 = 0
+
+Требования:
+- Решите все 10 уравнений
+- Для каждого уравнения укажите использованный метод решения
+- Предоставьте полное решение с пояснениями каждого шага
+- Проверьте корни, подставив их в исходное уравнение
+- Оформите решение аккуратно и разборчиво
+
+Критерии оценки:
+- Правильность решения уравнений (5 баллов)
+- Полнота объяснений (3 балла)
+- Аккуратность оформления (2 балла)
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Review Tab -->
+                    <div class="tab-content" id="review-tab">
+                        <div class="review-form">
+                            <div class="form-group">
+                                <label for="overall-score">Общая оценка</label>
+                                <div class="score-input">
+                                    <input type="number" id="overall-score" min="0" max="10" value="7">
+                                    <span class="max-score">/ 10</span>
+                                </div>
+                            </div>
+                            
+                            <div class="criteria-list">
+                                <h4>Критерии оценки</h4>
+                                
+                                <div class="criteria-item">
+                                    <div class="criteria-name">Правильность решения уравнений</div>
+                                    <div class="criteria-score">
+                                        <input type="number" class="criteria-input" min="0" max="5" value="4">
+                                        <span>/ 5</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="criteria-item">
+                                    <div class="criteria-name">Полнота объяснений</div>
+                                    <div class="criteria-score">
+                                        <input type="number" class="criteria-input" min="0" max="3" value="2">
+                                        <span>/ 3</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="criteria-item">
+                                    <div class="criteria-name">Аккуратность оформления</div>
+                                    <div class="criteria-score">
+                                        <input type="number" class="criteria-input" min="0" max="2" value="1">
+                                        <span>/ 2</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="total-score">
+                                    <span>Итоговый балл:</span>
+                                    <span id="total-score-value">7 / 10</span>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="feedback">Обратная связь</label>
+                                <textarea id="feedback" placeholder="Напишите комментарий к работе студента...">Алексей, вы хорошо справились с решением большинства уравнений. Однако, в уравнениях с отрицательным дискриминантом вы не указали, что действительных корней нет, а просто пропустили их. Также обратите внимание на оформление решений - старайтесь быть более аккуратными.</textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="teacher-comment">Внутренний комментарий (не виден студенту)</label>
+                                <textarea id="teacher-comment" placeholder="Заметки для себя или других преподавателей...">Студент показал хорошее понимание материала, но нуждается в дополнительной практике с комплексными числами.</textarea>
+                            </div>
+                            
+                            <div class="review-actions">
+                                <button class="btn btn-light" id="save-draft-btn">
+                                    <i class="fas fa-save"></i> Сохранить черновик
+                                </button>
+                                <button class="btn btn-warning" id="return-btn">
+                                    <i class="fas fa-redo"></i> Вернуть на доработку
+                                </button>
+                                <button class="btn btn-success" id="submit-review-btn">
+                                    <i class="fas fa-check"></i> Отправить оценку
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Success Modal -->
+    <div class="modal-overlay" id="success-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-icon">
+                    <i class="fas fa-check"></i>
+                </div>
+                <h3 class="modal-title">Оценка отправлена!</h3>
+            </div>
+            <div class="modal-content">
+                <p>Оценка и обратная связь успешно отправлены студенту.</p>
+                <p>Студент получит уведомление о результатах проверки.</p>
+            </div>
+            <div class="modal-actions">
+                <button class="btn" id="next-submission-btn">Следующая работа</button>
+                <a href="/frontend/templates/homework/homework.html" class="btn btn-light">К списку заданий</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Пифагор</h3>
+                    <p>Образовательная платформа, которая делает сложное простым, а обучение — увлекательным.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-vk"></i></a>
+                        <a href="#"><i class="fab fa-gitlab"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Курсы</h3>
+                    <ul>
+                        <li><a href="#">Математика</a></li>
+                        <li><a href="#">Физика</a></li>
+                        <li><a href="#">Информатика</a></li>
+                        <li><a href="#">Подготовка к ЕГЭ</a></li>
+                        <li><a href="#">Высшая математика</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Компания</h3>
+                    <ul>
+                        <li><a href="#">О нас</a></li>
+                        <li><a href="#">Преподаватели</a></li>
+                        <li><a href="#">Новости</a></li>
+                        <li><a href="#">Контакты</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Помощь</h3>
+                    <ul>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Поддержка</a></li>
+                        <li><a href="#">Политика конфиденциальности</a></li>
+                        <li><a href="#">Условия использования</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Образовательная платформа "Пифагор". Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="/frontend/static/js/main.js"></script>
+</body>
+</html>

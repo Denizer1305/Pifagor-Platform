@@ -1,0 +1,41 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-pt-sans);
+    color: var(--primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+    transition: var(--transition-standard);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+@media print {
+    body * {
+        visibility: hidden;
+    }
+    #printContent, #printContent * {
+        visibility: visible;
+    }
+    #printContent {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+    }
+    .export-container {
+        box-shadow: none;
+        margin: 0;
+        padding: var(--spacing-lg);
+    }
+    
+    .export-chart-container {
+        page-break-inside: avoid;
+    }
+}

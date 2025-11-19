@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Анастасия - Генерация тестов</title>
+    <link rel="icon" href="/frontend/static/assets/image/logo/icons.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Forum&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/frontend/static/css/main.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo-header">
+                <a href="/frontend/templates/main/index.html">
+                    <!-- Логотип Анастасии -->
+                    <img src="/frontend/static/assets/image/logo/logo.svg" alt="Анастасия">
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/frontend/templates/main/about.html">О платформе</a></li>
+                <li><a href="/frontend/templates/courses/courses.html">Курсы</a></li>
+                <li><a href="/frontend/templates/main/teachers.html">Преподаватели</a></li>
+                <li><a href="/frontend/templates/main/contact.html">Контакты</a></li>
+            </ul>
+            <div class="header-actions">
+                <div class="user-menu">
+                    <div class="user-avatar">
+                        <img src="/frontend/static/assets/image/partner/foto_teachers.jpg" alt="avatar">
+                    </div>
+                    <div class="user-name">Елена Плеханова</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Dashboard -->
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <ul class="sidebar-menu">
+                <li><a href="/frontend/templates/anastasia/dashboard.html"><i class="fas fa-home"></i> <span>Главная</span></a></li>
+                <li><a href="/frontend/templates/anastasia/chat-interface.html"><i class="fas fa-comments"></i> <span>Чат с Анастасией</span></a></li>
+                <li><a href="/frontend/templates/anastasia/test-generation.html" class="active"><i class="fas fa-question-circle"></i> <span>Генерация тестов</span></a></li>
+                <li><a href="/frontend/templates/anastasia/practice-review.html"><i class="fas fa-check-double"></i> <span>Проверка работ</span></a></li>
+                <li><a href="/frontend/templates/anastasia/settings.html"><i class="fas fa-cog"></i> <span>Настройки Анастасии</span></a></li>
+                <li><a href="/frontend/templates/users/profile-edit.html"><i class="fas fa-user-cog"></i> <span>Настройки профиля</span></a></li>
+                <li><a href="/frontend/templates/auth/logout.html"><i class="fas fa-sign-out-alt"></i> <span>Выйти</span></a></li>                
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Welcome Section -->
+            <section class="welcome-section">
+                <div class="welcome-content">
+                    <h1>Генерация тестов</h1>
+                    <p>Создавайте персонализированные тесты для ваших студентов с помощью Анастасии</p>
+                </div>
+            </section>
+
+            <!-- Test Generation Container -->
+            <div class="test-generation-container">
+                <!-- Form Section -->
+                <section class="form-section">
+                    <div class="section-header">
+                        <h2>Параметры теста</h2>
+                    </div>
+                    
+                    <form id="testForm">
+                        <div class="form-group">
+                            <label class="form-label" for="testTitle">Название теста</label>
+                            <input type="text" class="form-control" id="testTitle" placeholder="Введите название теста" value="Основы программирования на Python">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="testSubject">Предмет</label>
+                            <select class="form-control form-select" id="testSubject">
+                                <option value="programming">Программирование</option>
+                                <option value="math">Математика</option>
+                                <option value="physics">Физика</option>
+                                <option value="biology">Биология</option>
+                                <option value="history">История</option>
+                                <option value="literature">Литература</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="testLevel">Уровень сложности</label>
+                            <select class="form-control form-select" id="testLevel">
+                                <option value="beginner">Начальный</option>
+                                <option value="intermediate" selected>Средний</option>
+                                <option value="advanced">Продвинутый</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Количество вопросов: <span id="questionCountValue">10</span></label>
+                            <div class="range-container">
+                                <input type="range" class="range-slider" id="questionCount" min="5" max="30" value="10">
+                                <div class="range-value" id="questionCountDisplay">10</div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Типы вопросов</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="questionType" value="multiple" checked> Множественный выбор
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="questionType" value="truefalse"> Верно/Неверно
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="questionType" value="short"> Краткий ответ
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="questionType" value="matching"> Соответствие
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Темы</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="topic" value="syntax" checked> Синтаксис
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="topic" value="variables" checked> Переменные и типы данных
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="topic" value="operators"> Операторы
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="topic" value="conditions"> Условные операторы
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="topic" value="loops"> Циклы
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="topic" value="functions"> Функции
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="timeLimit">Ограничение по времени (минут)</label>
+                            <input type="number" class="form-control" id="timeLimit" min="0" value="30">
+                        </div>
+                    </form>
+                </section>
+                
+                <!-- Preview Section -->
+                <section class="preview-section">
+                    <div class="section-header">
+                        <h2>Предпросмотр теста</h2>
+                    </div>
+                    
+                    <div class="preview-content" id="previewContent">
+                        <div class="preview-placeholder">
+                            <i class="fas fa-file-alt"></i>
+                            <p>Настройте параметры теста и нажмите "Сгенерировать" для предпросмотра</p>
+                        </div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="btn btn-light" id="resetButton">
+                            <i class="fas fa-redo"></i> Сбросить
+                        </button>
+                        <button class="btn" id="generateButton">
+                            <i class="fas fa-magic"></i> Сгенерировать тест
+                        </button>
+                        <button class="btn btn-success" id="saveButton" disabled>
+                            <i class="fas fa-save"></i> Сохранить тест
+                        </button>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+    <script type="module" src="/frontend/static/js/main.js"></script>
+</body>
+</html>

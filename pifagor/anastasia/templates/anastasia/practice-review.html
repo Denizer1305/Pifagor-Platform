@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Анастасия - Проверка работ</title>
+    <link rel="icon" href="/frontend/static/assets/image/logo/icons.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Forum&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/frontend/static/css/main.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo-header">
+                <a href="/frontend/templates/main/index.html">
+                    <!-- Логотип Анастасии -->
+                    <img src="/frontend/static/assets/image/logo/logo.svg" alt="Анастасия">
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/frontend/templates/main/about.html">О платформе</a></li>
+                <li><a href="/frontend/templates/courses/courses.html">Курсы</a></li>
+                <li><a href="/frontend/templates/main/teachers.html">Преподаватели</a></li>
+                <li><a href="/frontend/templates/main/contact.html">Контакты</a></li>
+            </ul>
+            <div class="header-actions">
+                <div class="user-menu">
+                    <div class="user-avatar">
+                        <img src="/frontend/static/assets/image/partner/foto_teachers.jpg" alt="avatar">
+                    </div>
+                    <div class="user-name">Елена Плеханова</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Dashboard -->
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <ul class="sidebar-menu">
+                <li><a href="/frontend/templates/anastasia/dashboard.html"><i class="fas fa-home"></i> <span>Главная</span></a></li>
+                <li><a href="/frontend/templates/anastasia/chat-interface.html"><i class="fas fa-comments"></i> <span>Чат с Анастасией</span></a></li>
+                <li><a href="/frontend/templates/anastasia/test-generation.html"><i class="fas fa-question-circle"></i> <span>Генерация тестов</span></a></li>
+                <li><a href="/frontend/templates/anastasia/practice-review.html" class="active"><i class="fas fa-check-double"></i> <span>Проверка работ</span></a></li>
+                <li><a href="/frontend/templates/users/profile-edit.html"><i class="fas fa-user-cog"></i> <span>Настройки профиля</span></a></li>
+                <li><a href="/frontend/templates/auth/logout.html"><i class="fas fa-sign-out-alt"></i> <span>Выйти</span></a></li>                
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Welcome Section -->
+            <section class="welcome-section">
+                <div class="welcome-content">
+                    <h1>Проверка работ</h1>
+                    <p>Используйте возможности Анастасии для быстрой проверки студенческих работ</p>
+                </div>
+            </section>
+
+            <!-- Practice Review Container -->
+            <div class="practice-review-container">
+                <!-- Submissions List -->
+                <section class="submissions-section">
+                    <div class="section-header">
+                        <h2>Работы на проверку</h2>
+                    </div>
+                    
+                    <div class="filter-options">
+                        <button class="filter-btn active">Все</button>
+                        <button class="filter-btn">Ожидают проверки</button>
+                        <button class="filter-btn">Проверенные</button>
+                    </div>
+                    
+                    <div class="submissions-list" id="submissionsList">
+                        <!-- Submission 1 -->
+                        <div class="submission-item active" data-id="1">
+                            <div class="submission-info">
+                                <h4>Иван Сидоров</h4>
+                                <p>Лабораторная работа #3: Функции в Python</p>
+                                <div class="submission-meta">
+                                    <span>Основы программирования</span>
+                                    <span>12.12.2023</span>
+                                </div>
+                            </div>
+                            <div class="submission-status status-pending">На проверке</div>
+                        </div>
+                        
+                        <!-- Submission 2 -->
+                        <div class="submission-item" data-id="2">
+                            <div class="submission-info">
+                                <h4>Мария Петрова</h4>
+                                <p>Проект "Калькулятор"</p>
+                                <div class="submission-meta">
+                                    <span>Продвинутое программирование</span>
+                                    <span>11.12.2023</span>
+                                </div>
+                            </div>
+                            <div class="submission-status status-pending">На проверке</div>
+                        </div>
+                        
+                        <!-- Submission 3 -->
+                        <div class="submission-item" data-id="3">
+                            <div class="submission-info">
+                                <h4>Алексей Козлов</h4>
+                                <p>Алгоритмы сортировки</p>
+                                <div class="submission-meta">
+                                    <span>Продвинутое программирование</span>
+                                    <span>10.12.2023</span>
+                                </div>
+                            </div>
+                            <div class="submission-status status-pending">На проверке</div>
+                        </div>
+                        
+                        <!-- Submission 4 -->
+                        <div class="submission-item" data-id="4">
+                            <div class="submission-info">
+                                <h4>Ольга Новикова</h4>
+                                <p>Лабораторная работа #2: Циклы</p>
+                                <div class="submission-meta">
+                                    <span>Основы программирования</span>
+                                    <span>09.12.2023</span>
+                                </div>
+                            </div>
+                            <div class="submission-status status-reviewed">Проверено</div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Review Section -->
+                <section class="review-section">
+                    <div id="reviewContent">
+                        <!-- Review Header -->
+                        <div class="review-header">
+                            <div class="student-info">
+                                <div class="student-avatar">ИС</div>
+                                <div class="student-details">
+                                    <h3>Иван Сидоров</h3>
+                                    <p>Основы программирования</p>
+                                    <p>Группа: ПРОГ-21-1</p>
+                                </div>
+                            </div>
+                            <div class="assignment-info">
+                                <h4>Лабораторная работа #3: Функции в Python</h4>
+                                <p>Сдана: 12.12.2023</p>
+                                <p class="deadline">Дедлайн: 15.12.2023</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Code Review -->
+                        <div class="code-review">
+                            <div class="code-header">
+                                <h4>solution.py</h4>
+                            </div>
+                            <div class="code-content">
+<div class="code-line">def calculate_average(numbers):</div>
+<div class="code-line">    # Вычисление среднего значения списка чисел</div>
+<div class="code-line">    total = 0</div>
+<div class="code-line">    for num in numbers:</div>
+<div class="code-line">        total += num</div>
+<div class="code-line">    average = total / len(numbers)</div>
+<div class="code-line">    return average</div>
+<div class="code-line"></div>
+<div class="code-line">def find_max(numbers):</div>
+<div class="code-line">    # Поиск максимального значения в списке</div>
+<div class="code-line">    max_value = numbers[0]</div>
+<div class="code-line">    for num in numbers:</div>
+<div class="code-line">        if num > max_value:</div>
+<div class="code-line">            max_value = num</div>
+<div class="code-line">    return max_value</div>
+<div class="code-line"></div>
+<div class="code-line highlight">def factorial(n):</div>
+<div class="code-line highlight">    # Вычисление факториала числа</div>
+<div class="code-line highlight">    if n == 0:</div>
+<div class="code-line highlight">        return 0  # Ошибка: факториал 0 равен 1</div>
+<div class="code-line highlight">    result = 1</div>
+<div class="code-line highlight">    for i in range(1, n+1):</div>
+<div class="code-line highlight">        result *= i</div>
+<div class="code-line highlight">    return result</div>
+<div class="code-line"></div>
+<div class="code-line"># Пример использования функций</div>
+<div class="code-line">numbers = [5, 2, 8, 1, 9]</div>
+<div class="code-line">print("Среднее:", calculate_average(numbers))</div>
+<div class="code-line">print("Максимум:", find_max(numbers))</div>
+<div class="code-line">print("Факториал 5:", factorial(5))</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Anastasia Suggestions -->
+                        <div class="anastasia-suggestions">
+                            <div class="suggestion-header">
+                                <h4>Рекомендации от Анастасии</h4>
+                            </div>
+                            <div class="suggestion-item">
+                                <strong>Ошибка в функции factorial:</strong> Факториал числа 0 должен равняться 1, а не 0.
+                            </div>
+                            <div class="suggestion-item">
+                                <strong>Оптимизация:</strong> Функция find_max может быть заменена на встроенную функцию max().
+                            </div>
+                            <div class="suggestion-item">
+                                <strong>Обработка ошибок:</strong> Рекомендуется добавить проверку на пустой список в функциях calculate_average и find_max.
+                            </div>
+                        </div>
+                        
+                        <!-- Review Controls -->
+                        <div class="review-controls">
+                            <div class="grade-section">
+                                <span class="grade-label">Оценка:</span>
+                                <input type="number" class="grade-input" id="gradeInput" min="0" max="10" value="8">
+                                <span class="max-grade">/ 10</span>
+                            </div>
+                            
+                            <div class="feedback-section">
+                                <label class="feedback-label" for="feedbackText">Комментарии и рекомендации:</label>
+                                <textarea class="feedback-textarea" id="feedbackText" placeholder="Введите ваши комментарии к работе...">Работа выполнена хорошо, но есть несколько замечаний:
+1. Исправьте ошибку в функции factorial (факториал 0 = 1)
+2. Рассмотрите использование встроенных функций Python для упрощения кода
+3. Добавьте обработку крайних случаев (пустые списки)
+
+В остальном код читаемый и логически правильный.</textarea>
+                            </div>
+                        </div>
+                        
+                        <!-- Action Buttons -->
+                        <div class="action-buttons">
+                            <button class="btn btn-light" id="skipButton">
+                                <i class="fas fa-forward"></i> Пропустить
+                            </button>
+                            <button class="btn btn-success" id="submitButton">
+                                <i class="fas fa-check"></i> Завершить проверку
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Empty State -->
+                    <div id="emptyState" class="empty-state" style="display: none;">
+                        <i class="fas fa-check-circle"></i>
+                        <h3>Все работы проверены!</h3>
+                        <p>Новых работ для проверки нет. Вы великолепны!</p>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="/frontend/static/js/main.js"></script>
+</body>
+</html>

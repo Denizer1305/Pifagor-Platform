@@ -1,0 +1,209 @@
+/* Базовые стили карточек аналитики */
+.analytics-card {
+    background-color: var(--white);
+    border-radius: var(--card-border-radius-sm);
+    padding: var(--card-padding-md);
+    box-shadow: var(--card-shadow);
+    transition: var(--transition-standard);
+    position: relative;
+    overflow: hidden;
+}
+
+.analytics-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--card-shadow-hover);
+}
+
+/* Цвета иконок статистики */
+.stat-icon.total,
+.stat-icon.roles,
+.stat-icon.subjects {
+    background-color: rgba(74, 111, 165, 0.2);
+    color: var(--accent);
+}
+
+.stat-icon.active,
+.stat-icon.permissions {
+    background-color: rgba(46, 204, 113, 0.2);
+    color: var(--success);
+}
+
+.stat-icon.teachers,
+.stat-icon.users,
+.stat-icon.courses {
+    background-color: rgba(243, 156, 18, 0.2);
+    color: var(--warning);
+}
+
+.stat-icon.parents,
+.stat-icon.system {
+    background-color: rgba(52, 152, 219, 0.2);
+    color: var(--info);
+}
+
+.stat-icon.students {
+    background-color: rgba(155, 89, 182, 0.2);
+    color: #9B59B6;
+}
+
+/* Информация статистики */
+.stat-info h3 {
+    font-size: var(--text-5xl);
+    margin-bottom: var(--spacing-xs);
+    color: var(--primary);
+    line-height: 1;
+}
+
+.stat-info p {
+    color: var(--secondary);
+    font-size: var(--text-md);
+    margin: 0;
+}
+
+/* Числовые статистики */
+.stat-number {
+    font-size: var(--text-6xl);
+    font-weight: bold;
+    margin-bottom: var(--spacing-xs);
+    line-height: 1;
+}
+
+.stat-label {
+    color: var(--secondary);
+    font-size: var(--text-md);
+}
+
+/* Варианты статистик */
+.stat-pending .stat-number {
+    color: var(--warning);
+}
+
+.stat-reviewed .stat-number {
+    color: var(--success);
+}
+
+.stat-total .stat-number {
+    color: var(--accent);
+}
+
+/* Сетки аналитики */
+.analytics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--spacing-lg);
+    margin: var(--spacing-lg) 0;
+}
+
+.stats-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+}
+
+/* Карточки с трендами */
+.trend-card {
+    background-color: var(--white);
+    border-radius: var(--card-border-radius-sm);
+    padding: var(--card-padding-md);
+    box-shadow: var(--card-shadow);
+    transition: var(--transition-standard);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+.trend-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--card-shadow-hover);
+}
+
+.trend-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--text-xl);
+    flex-shrink: 0;
+}
+
+.trend-content {
+    flex: 1;
+}
+
+.trend-value {
+    font-size: var(--text-3xl);
+    font-weight: bold;
+    margin-bottom: var(--spacing-xs);
+}
+
+.trend-label {
+    color: var(--secondary);
+    font-size: var(--text-sm);
+    margin-bottom: var(--spacing-xs);
+}
+
+.trend-indicator {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    font-size: var(--text-sm);
+    font-weight: bold;
+}
+
+.trend-up {
+    color: var(--success);
+}
+
+.trend-down {
+    color: var(--danger);
+}
+
+.trend-neutral {
+    color: var(--secondary);
+}
+
+/* Мини-карточки аналитики */
+.mini-stat-card {
+    background-color: var(--white);
+    border-radius: var(--card-border-radius-sm);
+    padding: var(--spacing-md);
+    box-shadow: var(--card-shadow);
+    transition: var(--transition-standard);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+.mini-stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--card-shadow-hover);
+}
+
+.mini-stat-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--text-lg);
+    flex-shrink: 0;
+}
+
+.mini-stat-content {
+    flex: 1;
+}
+
+.mini-stat-value {
+    font-size: var(--text-xl);
+    font-weight: bold;
+    margin-bottom: 2px;
+}
+
+.mini-stat-label {
+    color: var(--secondary);
+    font-size: var(--text-sm);
+}

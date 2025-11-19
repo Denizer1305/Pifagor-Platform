@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пифагор - Практическое задание: Переменные и типы данных</title>
+    <link rel="icon" href="/frontend/static/assets/image/logo/icons.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Forum&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/frontend/static/css/main.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo-header">
+                <a href="/frontend/templates/main/index.html">
+                    <img src="/frontend/static/assets/image/logo/logo.svg" alt="logo">
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/frontend/templates/courses/courses.html">Курсы</a></li>
+                <li><a href="/frontend/templates/test/tests.html">Тестирование</a></li>
+                <li><a href="/frontend/templates/practic/practic.html" class="active">Практические задания</a></li>
+                <li><a href="/frontend/templates/materials/materials.html">Учебные материалы</a></li>
+            </ul>
+            <div class="header-actions">
+                <a href="/frontend/templates/auth/registration.html" class="btn btn-primary login-btn">Вход в кабинет</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-page">
+        <div class="bg-shapes">
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+        <div class="container hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">Задание 1: Работа с переменными</h1>
+                <p class="hero-subtitle">Научитесь создавать переменные и работать с основными типами данных в Python</p>
+                <div class="task-meta">
+                    <div class="meta-item">
+                        <i class="far fa-clock"></i>
+                        <span>15-25 минут</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="fas fa-signal"></i>
+                        <span class="difficulty difficulty-easy">Начальный уровень</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="fas fa-code"></i>
+                        <span>Python</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!-- Task Section -->
+    <section class="section task">
+        <div class="container">
+            <div class="task-container">
+                <div class="task-content">
+                    <h2 class="section-title">Описание задания</h2>
+                    
+                    <div class="task-description">
+                        <p>В этом задании вы научитесь создавать переменные и работать с основными типами данных в Python. Вам нужно будет создать несколько переменных, выполнить с ними операции и вывести результат.</p>
+                        
+                        <div class="task-requirements">
+                            <div class="requirements-title">Требования к решению:</div>
+                            <ul class="requirements-list">
+                                <li>Создайте переменную <code>name</code> и присвойте ей ваше имя (строка)</li>
+                                <li>Создайте переменную <code>age</code> и присвойте ей ваш возраст (целое число)</li>
+                                <li>Создайте переменную <code>height</code> и присвойте ей ваш рост в метрах (дробное число)</li>
+                                <li>Создайте переменную <code>is_student</code> и присвойте ей значение <code>True</code> (логическое значение)</li>
+                                <li>Выведите все переменные на экран в формате: "Меня зовут [name], мне [age] лет, мой рост [height] м, студент: [is_student]"</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="task-example">
+                            <div class="example-title">Пример вывода:</div>
+                            <div class="code-block">
+Меня зовут Анна, мне 20 лет, мой рост 1.65 м, студент: True
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <div class="editor-title">Редактор кода</div>
+                            <div class="editor-actions">
+                                <button class="btn btn-light btn-small" id="reset-btn">
+                                    <i class="fas fa-redo"></i> Сбросить
+                                </button>
+                                <button class="btn btn-warning btn-small" id="hint-btn">
+                                    <i class="fas fa-lightbulb"></i> Подсказка
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="editor-container">
+                            <div class="editor-toolbar">
+                                <div class="toolbar-item toolbar-close"></div>
+                                <div class="toolbar-item toolbar-minimize"></div>
+                                <div class="toolbar-item toolbar-maximize"></div>
+                                <div class="editor-language">Python</div>
+                            </div>
+                            <textarea class="code-input" id="code-input" placeholder="Введите ваш код здесь..."># Ваш код здесь
+name = "Анна"
+age = 20
+height = 1.65
+is_student = True
+
+# Вывод результата
+print(f"Меня зовут {name}, мне {age} лет, мой рост {height} м, студент: {is_student}")</textarea>
+                        </div>
+                    </div>
+
+                    <!-- Секция прикрепления файлов -->
+                    <div class="file-attachment-section" id="file-attachment-section">
+                        <div class="file-attachment-header">
+                            <h4 class="file-attachment-title">Прикрепленные файлы</h4>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Файлы решения (опционально)</label>
+                            <div class="file-upload">
+                                <input type="file" class="file-upload-input" id="file-input" multiple accept=".pdf,.doc,.docx,.txt,.py,.jpg,.png,.zip">
+                                <label for="file-input" class="file-upload-label">
+                                    <div>
+                                        <i class="fas fa-cloud-upload-alt"></i>
+                                        <span id="file-label-text">Загрузите файлы решения</span>
+                                        <span style="font-size: 0.8rem;" id="file-type-info">Максимум 5 файлов, каждый до 10 MB. Разрешенные форматы: PDF, DOC, DOCX, TXT, PY, JPG, PNG, ZIP</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="file-list" id="file-list">
+                            <!-- Список файлов будет добавляться динамически -->
+                        </div>
+                        
+                        <div class="file-requirements">
+                            <strong>Требования к файлам:</strong>
+                            <ul>
+                                <li>Максимальный размер файла: 10 MB</li>
+                                <li>Разрешенные форматы: PDF, DOC, DOCX, TXT, PY, JPG, PNG, ZIP</li>
+                                <li>Можно прикрепить до 5 файлов</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="attachment-actions">
+                            <button class="btn btn-success btn-small" id="save-attachments-btn">
+                                <i class="fas fa-save"></i> Сохранить файлы
+                            </button>
+                            <button class="btn btn-light btn-small" id="hide-attachments-btn">
+                                <i class="fas fa-eye-slash"></i> Скрыть
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="task-actions">
+                        <button class="btn btn-practice" id="run-btn">
+                            <i class="fas fa-play"></i> Запустить
+                        </button>
+                        <button class="btn btn-attach" id="attach-file-btn">
+                            <i class="fas fa-paperclip"></i> Прикрепить файл
+                        </button>
+                        <button class="btn btn-submit" id="submit-btn">
+                            <i class="fas fa-paper-plane"></i> Отправить
+                        </button>
+                        <a href="/frontend/templates/practic/practic-list.html" class="btn btn-light">
+                            <i class="fas fa-arrow-left"></i> Назад
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="task-sidebar">
+                    <h3 class="sidebar-title">Информация о задании</h3>
+                    
+                    <div class="task-info">
+                        <div class="info-item">
+                            <span class="info-label">Тема:</span>
+                            <span class="info-value">Переменные и типы данных</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Сложность:</span>
+                            <span class="info-value">Начальная</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Попытки:</span>
+                            <span class="info-value">3 из 3</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Время выполнения:</span>
+                            <span class="info-value">15-25 мин</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Дедлайн:</span>
+                            <span class="info-value">25.10.2025 23:59</span>
+                        </div>
+                    </div>
+                    
+                    <div class="task-tips">
+                        <h4 class="tips-title">Советы по выполнению</h4>
+                        <ul class="tips-list">
+                            <li>Используйте правильные имена переменных</li>
+                            <li>Проверьте типы данных для каждой переменной</li>
+                            <li>Используйте f-строки для форматирования вывода</li>
+                            <li>Убедитесь, что логическое значение отображается как True/False</li>
+                            <li>Проверьте вывод на соответствие примеру</li>
+                        </ul>
+                    </div>
+                    
+                    <h4>Полезные ресурсы</h4>
+                    <ul class="resources-list">
+                        <li>
+                            <a href="/frontend/templates/materials/materials.html">
+                                <i class="fas fa-book"></i>
+                                <span>Учебные материалы</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fas fa-code"></i>
+                                <span>Документация Python</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/frontend/templates/support/support.html">
+                                <i class="fas fa-question-circle"></i>
+                                <span>Помощь и поддержка</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Results Section -->
+    <section id="results" class="section results">
+        <div class="container">
+            <h2 class="section-title">Результат отправки</h2>
+            
+            <div class="result-card fade-in">
+                <div class="result-header">
+                    <h3 class="result-title">Решение отправлено</h3>
+                    <span class="result-status status-success" id="result-status">Отправлено</span>
+                </div>
+                
+                <div class="submission-info">
+                    <div class="info-item">
+                        <span class="info-label">Время отправки:</span>
+                        <span class="info-value" id="submission-time">--:--</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Статус проверки:</span>
+                        <span class="info-value">В очереди</span>
+                    </div>
+                    <div class="submitted-files" id="submitted-files">
+                        <!-- Информация о прикрепленных файлах -->
+                    </div>
+                </div>
+                
+                <div class="result-output" id="output-display">
+                    <!-- Вывод кода будет здесь -->
+                </div>
+                
+                <div class="result-feedback">
+                    <div class="feedback-title">Статус:</div>
+                    <p id="feedback-text">Ваше решение успешно отправлено на проверку. Результаты будут доступны после проверки преподавателем.</p>
+                </div>
+                
+                <div class="result-actions">
+                    <button class="btn btn-practice" id="next-task-btn">
+                        <i class="fas fa-arrow-right"></i> Следующее задание
+                    </button>
+                    <button class="btn btn-light" id="try-again-btn">
+                        <i class="fas fa-redo"></i> Решить еще раз
+                    </button>
+                    <a href="/frontend/templates/practic/python-topics.html" class="btn btn-light">
+                        <i class="fas fa-list"></i> К списку заданий
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Пифагор</h3>
+                    <p>Образовательная платформа, которая делает сложное простым, а обучение — увлекательным.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-vk"></i></a>
+                        <a href="#"><i class="fab fa-gitlab"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Курсы</h3>
+                    <ul>
+                        <li><a href="#">Математика</a></li>
+                        <li><a href="#">Физика</a></li>
+                        <li><a href="#">Информатика</a></li>
+                        <li><a href="#">Подготовка к ЕГЭ</a></li>
+                        <li><a href="#">Высшая математика</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Компания</h3>
+                    <ul>
+                        <li><a href="#">О нас</a></li>
+                        <li><a href="#">Преподаватели</a></li>
+                        <li><a href="#">Новости</a></li>
+                        <li><a href="#">Контакты</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Помощь</h3>
+                    <ul>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Поддержка</a></li>
+                        <li><a href="#">Политика конфиденциальности</a></li>
+                        <li><a href="#">Условия использования</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Образовательная платформа "Пифагор". Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="/frontend/static/js/main.js"></script>
+</body>
+</html>

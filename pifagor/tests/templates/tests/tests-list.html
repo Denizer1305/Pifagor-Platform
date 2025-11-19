@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пифагор - Тесты по Python</title>
+    <link rel="icon" href="/frontend/static/assets/image/logo/icons.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Forum&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/frontend/static/css/main.css">
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="logo-header">
+                <a href="/frontend/templates/main/index.html">
+                    <img src="/frontend/static/assets/image/logo/logo.svg" alt="logo">
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/frontend/templates/courses/courses.html">Курсы</a></li>
+                <li><a href="/frontend/templates/test/tests.html">Тестирование</a></li>
+                <li><a href="/frontend/templates/practic/practic.html">Практические задания</a></li>
+                <li><a href="/frontend/templates/materials/materials.html">Учебные материалы</a></li>
+            </ul>
+            <div class="header-actions">
+                <a href="/frontend/templates/auth/registration.html" class="btn btn-primary login-btn">Вход в кабинет</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-page">
+        <div class="bg-shapes">
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+        <div class="container hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">Тесты по Python</h1>
+                <p class="hero-subtitle">Проверьте свои знания языка программирования Python</p>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">12</span>
+                        <span class="stat-label">доступных тестов</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">84%</span>
+                        <span class="stat-label">средний результат</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">7</span>
+                        <span class="stat-label">продолжить тесты</span>
+                    </div>
+                </div>
+                <p class="hero-description">Выберите тест для проверки ваших знаний Python. Тесты охватывают различные темы от основ синтаксиса до продвинутых концепций. После прохождения вы получите детальный анализ ваших результатов.</p>
+                <div class="hero-actions">
+                    <a href="#tests" class="btn">Начать тестирование</a>
+                    <a href="/frontend/templates/courses/courses-list.html" class="btn btn-light">Вернуться к курсу</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tests Section -->
+    <section id="tests" class="section tests">
+        <div class="container">
+            <h2 class="section-title">Доступные тесты</h2>
+            <div class="tests-container">
+                <div class="tests-list">
+                    <!-- Тест 1 -->
+                    <div class="tests-card fade-in" style="padding: 25px;">
+                        <div class="test-header">
+                            <div>
+                                <h3 class="test-title">Основы синтаксиса Python</h3>
+                                <div class="test-meta">
+                                    <span><i class="far fa-clock"></i> 20 минут</span>
+                                    <span><i class="far fa-question-circle"></i> 15 вопросов</span>
+                                    <span><i class="fas fa-signal"></i> Начальный уровень</span>
+                                </div>
+                            </div>
+                            <span class="test-status status-completed">Пройден</span>
+                        </div>
+                        <p class="test-description">Тест проверяет знание базового синтаксиса Python: переменные, типы данных, основные операторы и структуры управления.</p>
+                        <div class="test-actions">
+                            <a href="/frontend/templates/test/test-result.html" class="btn btn-success btn-small">Посмотреть результаты</a>
+                            <a href="/frontend/templates/test/tests-detail.html" class="btn btn-small">Пройти еще раз</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="tests-sidebar">
+                    <h3 class="sidebar-title">Фильтры</h3>
+                    
+                    <div class="filter-section">
+                        <h4 class="filter-title">Уровень сложности</h4>
+                        <div class="filter-options">
+                            <div class="filter-option">
+                                <input type="checkbox" id="level-beginner" checked>
+                                <label for="level-beginner">Начальный</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="level-intermediate" checked>
+                                <label for="level-intermediate">Средний</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="level-advanced" checked>
+                                <label for="level-advanced">Продвинутый</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="filter-section">
+                        <h4 class="filter-title">Статус</h4>
+                        <div class="filter-options">
+                            <div class="filter-option">
+                                <input type="checkbox" id="status-not-started" checked>
+                                <label for="status-not-started">Не начат</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="status-in-progress" checked>
+                                <label for="status-in-progress">В процессе</label>
+                            </div>
+                            <div class="filter-option">
+                                <input type="checkbox" id="status-completed" checked>
+                                <label for="status-completed">Пройден</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-summary">
+                        <h4 class="filter-title">Ваш прогресс</h4>
+                        <div class="summary-item">
+                            <span class="summary-label">Пройдено тестов:</span>
+                            <span class="summary-value">2 из 5</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Средний результат:</span>
+                            <span class="summary-value">85%</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Общее время:</span>
+                            <span class="summary-value">50 мин</span>
+                        </div>
+                    </div>
+                    
+                    <h4>Полезные ресурсы</h4>
+                    <ul class="resources-list">
+                        <li>
+                            <a href="#">
+                                <i class="fas fa-book"></i>
+                                <span>Официальная документация Python</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fas fa-code"></i>
+                                <span>Примеры кода</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fas fa-video"></i>
+                                <span>Видеоуроки по Python</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fas fa-tasks"></i>
+                                <span>Практические задания</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Practice Section -->
+    <section class="section practice">
+        <div class="container">
+            <h2 class="section-title">Дополнительные возможности</h2>
+            <div class="practice-container">
+                <div class="practice-card fade-in">
+                    <div class="practice-icon icon-practice">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3>Практические задания</h3>
+                    <p>Решите практические задачи по Python для закрепления материала. Задания разного уровня сложности помогут вам лучше понять язык.</p>
+                    <a href="#" class="btn btn-success">Начать практику</a>
+                </div>
+                
+                <div class="practice-card fade-in">
+                    <div class="test-icon icon-exam">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h3>Итоговый экзамен</h3>
+                    <p>Пройдите итоговый экзамен по Python, чтобы проверить все свои знания. Экзамен охватывает все темы и дает комплексную оценку.</p>
+                    <a href="#" class="btn btn-warning">Начать экзамен</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Пифагор</h3>
+                    <p>Образовательная платформа, которая делает сложное простым, а обучение — увлекательным.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-vk"></i></a>
+                        <a href="#"><i class="fab fa-gitlab"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Курсы</h3>
+                    <ul>
+                        <li><a href="#">Математика</a></li>
+                        <li><a href="#">Физика</a></li>
+                        <li><a href="#">Информатика</a></li>
+                        <li><a href="#">Подготовка к ЕГЭ</a></li>
+                        <li><a href="#">Высшая математика</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Компания</h3>
+                    <ul>
+                        <li><a href="#">О нас</a></li>
+                        <li><a href="#">Преподаватели</a></li>
+                        <li><a href="#">Новости</a></li>
+                        <li><a href="#">Контакты</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Помощь</h3>
+                    <ul>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Поддержка</a></li>
+                        <li><a href="#">Политика конфиденциальности</a></li>
+                        <li><a href="#">Условия использования</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Образовательная платформа "Пифагор". Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="/frontend/static/js/main.js"></script>
+</body>
+</html>

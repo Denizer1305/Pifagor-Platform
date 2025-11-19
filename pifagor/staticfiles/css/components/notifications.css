@@ -1,0 +1,46 @@
+.submission-status {
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: bold;
+}
+
+.status-pending {
+    background-color: rgba(243, 156, 18, 0.2);
+    color: var(--warning);
+}
+
+.status-reviewed {
+    background-color: rgba(46, 204, 113, 0.2);
+    color: var(--success);
+}
+
+.grade-badge, .attendance-badge, .status-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    min-width: 40px;
+    text-align: center;
+}
+
+.grade-excellent, .attendance-high, .status-available {
+    background-color: rgba(46, 204, 113, 0.2);
+    color: var(--success);
+}
+
+.grade-good {
+    background-color: rgba(52, 152, 219, 0.2);
+    color: var(--info);
+}
+
+.grade-average, .attendance-medium, .status-busy {
+    background-color: rgba(243, 156, 18, 0.2);
+    color: var(--warning);
+}
+
+.grade-poor, .attendance-low, .status-unavailable {
+    background-color: rgba(231, 76, 60, 0.2);
+    color: var(--danger);
+}

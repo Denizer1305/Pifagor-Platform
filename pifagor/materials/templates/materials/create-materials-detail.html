@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пифагор - Создание материала</title>
+    <link rel="icon" href="/frontend/static/assets/image/logo/icons.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Forum&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/frontend/static/css/main.css">
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="logo-header">
+                <a href="/frontend/templates/main/index.html">
+                    <img src="/frontend/static/assets/image/logo/logo.svg" alt="logo">
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/frontend/templates/courses/courses.html">Курсы</a></li>
+                <li><a href="/frontend/templates/test/tests.html">Тестирование</a></li>
+                <li><a href="/frontend/templates/practic/practic.html">Практические задания</a></li>
+                <li><a href="/frontend/templates/materials/materials.html">Учебные материалы</a></li>
+            </ul>
+            <div class="header-actions">
+                <a href="/frontend/templates/auth/registration.html" class="btn btn-primary login-btn">Вход в кабинет</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-page">
+        <div class="bg-shapes">
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+        <div class="container hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">Создание материала</h1>
+                <p class="hero-subtitle">Добавьте новый материал к лекции "Условные операторы"</p>
+                <p class="hero-description">Создайте новый учебный материал для студентов. Вы можете добавить видео, документы, презентации, практические задания или тесты.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Form Section -->
+    <section class="section form-section">
+        <div class="container">
+            <h2 class="section-title">Информация о материале</h2>
+            <div class="form-container">
+                <div class="form-content">
+                    <form id="material-form">
+                        <div class="form-group">
+                            <label for="material-title" class="form-label">Название материала *</label>
+                            <input type="text" id="material-title" class="form-control" placeholder="Введите название материала" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="material-desc" class="form-label">Описание материала *</label>
+                            <textarea id="material-desc" class="form-control" placeholder="Подробное описание материала, что студенты узнают из него" required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Тип материала *</label>
+                            <div class="material-type-selector">
+                                <div class="type-option active" data-type="video">
+                                    <div class="type-icon icon-video">
+                                        <i class="fas fa-play"></i>
+                                    </div>
+                                    <span class="type-name">Видео</span>
+                                </div>
+                                <div class="type-option" data-type="document">
+                                    <div class="type-icon icon-document">
+                                        <i class="far fa-file-pdf"></i>
+                                    </div>
+                                    <span class="type-name">Документ</span>
+                                </div>
+                                <div class="type-option" data-type="presentation">
+                                    <div class="type-icon icon-presentation">
+                                        <i class="far fa-file-powerpoint"></i>
+                                    </div>
+                                    <span class="type-name">Презентация</span>
+                                </div>
+                                <div class="type-option" data-type="code">
+                                    <div class="type-icon icon-code">
+                                        <i class="fas fa-code"></i>
+                                    </div>
+                                    <span class="type-name">Код/Примеры</span>
+                                </div>
+                                <!-- Добавляем новый тип для ссылок -->
+                                <div class="type-option" data-type="link">
+                                    <div class="type-icon icon-link">
+                                        <i class="fas fa-link"></i>
+                                    </div>
+                                    <span class="type-name">Ссылка</span>
+                                </div>
+                            </div>
+                            <input type="hidden" id="material-type" value="video" required>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="material-duration" class="form-label">Продолжительность (минут)</label>
+                                <input type="number" id="material-duration" class="form-control" min="1" max="500" placeholder="Например: 25">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="material-order" class="form-label">Порядковый номер *</label>
+                                <input type="number" id="material-order" class="form-control" min="1" max="100" placeholder="Порядок в списке материалов" required>
+                            </div>
+                        </div>
+
+                        <!-- Поле для загрузки файла -->
+                        <div class="form-group" id="file-upload-group">
+                            <label class="form-label">Файл материала *</label>
+                            <div class="file-upload">
+                                <input type="file" id="material-file" class="file-upload-input" accept="*" required>
+                                <label for="material-file" class="file-upload-label">
+                                    <div>
+                                        <i class="fas fa-cloud-upload-alt"></i>
+                                        <span id="file-label-text">Загрузите файл материала</span>
+                                        <span style="font-size: 0.8rem;" id="file-type-info">Поддерживаются видео, PDF, PPT, архивные файлы</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Поле для ввода ссылки -->
+                        <div class="form-group link-input-group" id="link-input-group">
+                            <label for="material-url" class="form-label">Ссылка на материал *</label>
+                            <input type="url" id="material-url" class="form-control" placeholder="https://example.com/video" pattern="https?://.+" title="Введите корректный URL (начинается с http:// или https://)">
+                            <div class="url-preview" id="url-preview">
+                                Предпросмотр: <a href="#" id="preview-url" target="_blank"></a>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="material-thumbnail" class="form-label">Превью (опционально)</label>
+                            <div class="file-upload">
+                                <input type="file" id="material-thumbnail" class="file-upload-input" accept="image/*">
+                                <label for="material-thumbnail" class="file-upload-label">
+                                    <div>
+                                        <i class="far fa-image"></i>
+                                        <span>Загрузите изображение для превью</span>
+                                        <span style="font-size: 0.8rem;">Рекомендуемый размер: 400x300px</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="material-thumbnail" class="form-label">Превью (опционально)</label>
+                            <div class="file-upload">
+                                <input type="file" id="material-thumbnail" class="file-upload-input" accept="image/*">
+                                <label for="material-thumbnail" class="file-upload-label">
+                                    <div>
+                                        <i class="far fa-image"></i>
+                                        <span>Загрузите изображение для превью</span>
+                                        <span style="font-size: 0.8rem;">Рекомендуемый размер: 400x300px</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="additional-options">
+                            <h4>Дополнительные настройки</h4>
+                            
+                            <div class="form-group">
+                                <label for="material-tags" class="form-label">Теги</label>
+                                <input type="text" id="material-tags" class="form-control" placeholder="Введите теги через запятую">
+                                <small style="color: var(--secondary);">Теги помогут студентам быстрее найти материал</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Видимость</label>
+                                <div>
+                                    <label style="display: flex; align-items: center; margin-bottom: 10px;">
+                                        <input type="radio" name="visibility" value="public" checked style="margin-right: 10px;">
+                                        <span>Публичный (доступен всем студентам)</span>
+                                    </label>
+                                    <label style="display: flex; align-items: center;">
+                                        <input type="radio" name="visibility" value="private" style="margin-right: 10px;">
+                                        <span>Приватный (только для выбранных студентов)</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <input type="checkbox" id="allow-download" style="margin-right: 10px;">
+                                    Разрешить скачивание материала
+                                </label>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <input type="checkbox" id="allow-comments" style="margin-right: 10px;" checked>
+                                    Разрешить комментарии к материалу
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-light">Сохранить черновик</button>
+                            <button type="submit" class="btn btn-success">Создать материал</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="form-sidebar">
+                    <h3 class="sidebar-title">Предпросмотр</h3>
+                    
+                    <div class="preview-card">
+                        <div class="preview-header">
+                            <div class="preview-icon icon-video" id="preview-icon">
+                                <i class="fas fa-play"></i>
+                            </div>
+                            <div>
+                                <h4 class="preview-title" id="preview-title">Название материала</h4>
+                                <div class="preview-meta">
+                                    <span id="preview-type">Тип: </span>
+                                    <span id="preview-duration">Время: -</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="preview-description" id="preview-desc">Описание материала появится здесь</p>
+                        <!-- Добавляем отображение ссылки в предпросмотре -->
+                        <div class="url-preview" id="preview-link">
+                            Ссылка: <a href="#" id="preview-link-url" target="_blank"></a>
+                        </div>
+                    </div>
+                    
+                    <h4>Советы по созданию материала</h4>
+                    <ul class="tips-list">
+                        <li>
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Выберите понятное и информативное название</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Подробно опишите содержание материала</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Выберите подходящий тип материала</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Укажите реалистичную продолжительность</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Используйте теги для лучшей навигации</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Для ссылок используйте надежные источники и проверяйте URL</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Пифагор</h3>
+                    <p>Образовательная платформа, которая делает сложное простым, а обучение — увлекательным.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-vk"></i></a>
+                        <a href="#"><i class="fab fa-gitlab"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Курсы</h3>
+                    <ul>
+                        <li><a href="#">Математика</a></li>
+                        <li><a href="#">Физика</a></li>
+                        <li><a href="#">Информатика</a></li>
+                        <li><a href="#">Подготовка к ЕГЭ</a></li>
+                        <li><a href="#">Высшая математика</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Компания</h3>
+                    <ul>
+                        <li><a href="#">О нас</a></li>
+                        <li><a href="#">Преподаватели</a></li>
+                        <li><a href="#">Новости</a></li>
+                        <li><a href="#">Контакты</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Помощь</h3>
+                    <ul>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Поддержка</a></li>
+                        <li><a href="#">Политика конфиденциальности</a></li>
+                        <li><a href="#">Условия использования</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Образовательная платформа "Пифагор". Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="/frontend/static/js/main.js"></script>
+</body>
+</html>

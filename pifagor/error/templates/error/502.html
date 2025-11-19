@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ошибка 502 - Пифагор</title>
+    <link rel="icon" href="/frontend/static/assets/image/logo/icons.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Forum&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/frontend/static/css/main.css">
+</head>
+<body class="error-page-502">
+    <div class="bg-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <!-- Floating elements -->
+    <div class="floating-element" style="top: 15%; right: 8%; width: 40px; height: 40px; background: var(--accent-orange); border-radius: 50%;"></div>
+    <div class="floating-element" style="top: 70%; left: 5%; width: 30px; height: 30px; background: var(--primary-dark); border-radius: 50%; animation-delay: 0.5s;"></div>
+    <div class="floating-element" style="top: 40%; right: 15%; width: 25px; height: 25px; background: var(--accent-amber); border-radius: 50%; animation-delay: 1s;"></div>
+    
+    <!-- Particle Background -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Error Content -->
+    <div class="container-error">
+        <div class="content-left">
+            <div class="logo-container">
+                <div class="logo">
+                    <img src="/frontend/static/assets/image/logo/logo.svg" alt="Пифагор">
+                </div>
+            </div>
+            
+            <div class="error-code">502</div>
+            
+            <h1 class="error-title">Ошибка шлюза</h1>
+            
+            <p class="error-description">
+                Сервер, выступая в роли шлюза или прокси-сервера, получил недопустимый ответ от вышестоящего сервера. 
+                Это может быть временной проблемой, связанной с обслуживанием или перегрузкой серверов.
+            </p>
+            
+            <div class="reassurance-warning">
+                <p>
+                    <i class="fas fa-sync-alt"></i> 
+                    <strong>Не переживайте! Это временная проблема с подключением. Наши специалисты уже работают над ее решением. Попробуйте обновить страницу через несколько минут.</strong>
+                </p>
+            </div>
+            
+            <div class="gateway-info">
+                <h3><i class="fas fa-network-wired"></i> Статус подключения</h3>
+                <div class="connection-status">
+                    <div class="status-dot"></div>
+                    <span class="status-text">Проблема с подключением к вышестоящему серверу</span>
+                </div>
+                <p>Сервер временно не может получить корректный ответ от вышестоящего сервиса.</p>
+            </div>
+            
+            <div class="support-team">
+                <p><i class="fas fa-headset"></i> Если проблема сохраняется длительное время, свяжитесь со службой поддержки.</p>
+            </div>
+            
+            <div class="auto-refresh-info">
+                <p><i class="fas fa-clock"></i> Страница автоматически обновится через <span id="countdown">30</span> секунд</p>
+            </div>
+            
+            <div class="error-actions">
+                <button onclick="window.location.reload()" class="btn btn-warning" id="refresh-btn">
+                    <i class="fas fa-redo"></i> Обновить сейчас
+                </button>
+                <a href="/frontend/templates/main/index.html" class="btn">
+                    <i class="fas fa-home"></i> На главную
+                </a>
+                <button onclick="history.back()" class="btn btn-light">
+                    <i class="fas fa-arrow-left"></i> Назад
+                </button>
+            </div>
+        </div>
+        
+        <div class="illustration-right">
+            <div class="error-illustration error-illustration-502" id="error-illustration">
+                <i class="fas fa-satellite-dish"></i>
+                <h3 class="illustration-title">Ошибка 502</h3>
+                <p>Ошибка шлюза</p>
+                <p>Проблема с подключением к серверу</p>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="/frontend/static/js/main.js"></script>
+</body>
+</html>

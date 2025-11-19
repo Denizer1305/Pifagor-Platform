@@ -1,0 +1,75 @@
+{% extends 'base_auth.html' %}
+{% load static %}
+
+{% block content %}
+    <section class="verification">
+        <div class="container verification-container">
+            <div class="verification-content">
+                <img src="{% static 'assets/image/logo/logo.svg' %}" alt="Пифагор" class="platform-logo">
+                <h1>Подтвердите ваш email</h1>
+                <p>Мы отправили код подтверждения на вашу электронную почту для завершения регистрации на платформе "Пифагор".</p>
+                
+                <div class="instructions">
+                    <p>Для завершения регистрации введите 6-значный код, который мы отправили на указанный email.</p>
+                    <p>Если вы не видите письмо, проверьте папку "Спам" или "Нежелательная почта".</p>
+                </div>
+                
+                <ul class="benefits-list">
+                    <li>
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Безопасность вашего аккаунта</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-bell"></i>
+                        <span>Уведомления о новых курсах и мероприятиях</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-key"></i>
+                        <span>Восстановление доступа при необходимости</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-user-check"></i>
+                        <span>Персонализированные рекомендации</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="verification-form-container">
+                <div class="verification-form" id="verification-form">
+                    <h2 class="form-title">Подтверждение email</h2>
+                    
+                    <div class="email-display" id="userEmail">user@example.com</div>
+                    
+                    <div class="code-input-container">
+                        <div class="code-input">
+                            <input type="text" class="code-digit" maxlength="1" data-index="0">
+                            <input type="text" class="code-digit" maxlength="1" data-index="1">
+                            <input type="text" class="code-digit" maxlength="1" data-index="2">
+                            <input type="text" class="code-digit" maxlength="1" data-index="3">
+                            <input type="text" class="code-digit" maxlength="1" data-index="4">
+                            <input type="text" class="code-digit" maxlength="1" data-index="5">
+                        </div>
+                        <button type="button" class="btn" id="verifyCode" style="width: 100%;">Подтвердить код</button>
+                    </div>
+                    
+                    <div class="timer-container">
+                        <div class="timer" id="countdown">05:00</div>
+                        <div class="timer-text">Код действителен в течение 5 минут</div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button type="button" class="btn" id="resendCode">
+                            <i class="fas fa-redo"></i> Отправить код повторно
+                        </button>
+                        <a href="{% url 'authorization:registration' %}" class="btn btn-light">
+                            <i class="fas fa-edit"></i> Изменить email
+                        </a>
+                    </div>
+                    <div class="registration-link">
+                        <p>Уже есть аккаунт? <a href="{% url 'authorization:login' %}">Войдите</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

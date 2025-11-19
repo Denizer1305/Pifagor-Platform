@@ -1,0 +1,149 @@
+{% extends 'base_auth.html' %}
+{% load static %}
+
+{% block content %}
+    <section class="registration">
+        <div class="container registration-container">
+            <div class="registration-content">
+                <img src="{% static 'assets/image/logo/logo.svg' %}" alt="Пифагор" class="platform-logo">
+                <h1>Присоединяйтесь к образовательной платформе "Пифагор"</h1>
+                <p>Откройте мир современных знаний с Пифагором! Создайте аккаунт и получите 
+                доступ к интерактивным курсам, поддержке опытных преподавателей 
+                и актуальным методам обучения. Ваш образовательный путь станет увлекательным 
+                и результативным!</p>
+                
+                <ul class="benefits-list">
+                    <li><i class="fas fa-check-circle"></i> Бесплатный доступ ко всем курсам</li>
+                    <li><i class="fas fa-check-circle"></i> Доступ к интерактивным материалам и тестам</li>
+                    <li><i class="fas fa-check-circle"></i> Возможность отслеживать свой прогресс</li>
+                    <li><i class="fas fa-check-circle"></i> Обратная связь с преподавателем</li>
+                    <li><i class="fas fa-check-circle"></i> Доступ с любых устройств</li>
+                </ul>
+            </div>
+            
+            <div class="registration-form-container">
+                <div class="registration-form" id="register-form">
+                    <h2 class="form-title">Создать аккаунт</h2>
+                    
+                    <form id="register-form" method="post" action="{% url 'authorization:registration' %}" novalidate>
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="{{ form.fullname.id_for_label }}" class="form-label">Полное имя</label>
+                            {{ form.fullname }}
+                            {% if form.fullname.errors %}
+                                <div class="error-message">{{ form.fullname.errors }}</div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="{{ form.email.id_for_label }}" class="form-label">Электронная почта</label>
+                            {{ form.email }}
+                            <div class="error-message" style="display: none;"></div>
+                            {% if form.email.errors %}
+                                <div class="error-message">{{ form.email.errors }}</div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="{{ form.password1.id_for_label }}" class="form-label">Пароль</label>
+                            <div class="password-input-container">
+                                {{ form.password1 }}
+                                <button type="button" class="password-toggle" data-target="{{ form.password1.id_for_label }}">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                            <div class="password-strength" data-visible="true">
+                                <div class="password-strength-bar" id="passwordStrengthBar" data-visible="true"></div>
+                            </div>
+                            <div class="password-requirements" id="passwordRequirements" data-visible="true">
+                                <div class="requirement invalid" id="lengthReq" data-requirement="length">
+                                    <i class="fas fa-times"></i> Не менее 8 символов
+                                </div>
+                                <div class="requirement invalid" id="uppercaseReq" data-requirement="uppercase">
+                                    <i class="fas fa-times"></i> Заглавная буква
+                                </div>
+                                <div class="requirement invalid" id="numberReq" data-requirement="number">
+                                    <i class="fas fa-times"></i> Хотя бы одна цифра
+                                </div>
+                                <div class="requirement invalid" id="specialReq" data-requirement="special">
+                                    <i class="fas fa-times"></i> Специальный символ
+                                </div>
+                            </div>
+                            {% if form.password1.errors %}
+                                <div class="error-message">{{ form.password1.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Подтверждение пароля -->
+                        <div class="form-group">
+                            <label for="{{ form.password2.id_for_label }}" class="form-label">Подтвердите пароль</label>
+                            <div class="password-input-container">
+                                {{ form.password2 }}
+                                <button type="button" class="password-toggle" data-target="{{ form.password2.id_for_label }}">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                            <div class="password-match" id="passwordMatch" style="display: none;">
+                                <i class="fas fa-times"></i> Пароли не совпадают
+                            </div>
+                            {% if form.password2.errors %}
+                                <div class="error-message">{{ form.password2.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Роль -->
+                        <div class="form-group">
+                            <label class="form-label">Выберите роль</label>
+                            <div class="role-selector">
+                                <div class="role-option">
+                                    <input type="radio" id="id_role_student" name="role" value="student" {% if form.role.value == "student" %}checked{% endif %}>
+                                    <label for="id_role_student" class="role-label">
+                                        <div class="role-icon">
+                                            <i class="fas fa-user-graduate"></i>
+                                        </div>
+                                        <div class="role-name">Студент</div>
+                                    </label>
+                                </div>
+                                <div class="role-option">
+                                    <input type="radio" id="id_role_teacher" name="role" value="teacher" {% if form.role.value == "teacher" %}checked{% endif %}>
+                                    <label for="id_role_teacher" class="role-label">
+                                        <div class="role-icon">
+                                            <i class="fas fa-chalkboard-teacher"></i>
+                                        </div>
+                                        <div class="role-name">Преподаватель</div>
+                                    </label>
+                                </div>
+                                <div class="role-option">
+                                    <input type="radio" id="id_role_parent" name="role" value="parent" {% if form.role.value == "parent" %}checked{% endif %}>
+                                    <label for="id_role_parent" class="role-label">
+                                        <div class="role-icon">
+                                            <i class="fas fa-user-friends"></i>
+                                        </div>
+                                        <div class="role-name">Родитель</div>
+                                    </label>
+                                </div>
+                            </div>
+                            {% if form.role.errors %}
+                                <div class="error-message">{{ form.role.errors }}</div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="terms-checkbox">
+                            <input type="checkbox" id="terms" required>
+                            <label for="terms" class="terms-text">
+                                Я соглашаюсь с <a href="#">условиями использования</a> и 
+                                <a href="#">политикой конфиденциальности</a> платформы "Пифагор"
+                            </label>
+                        </div>
+                        
+                        <button type="submit" class="btn form-submit" disabled>Зарегистрироваться</button>
+                    </form>
+                    
+                    <div class="login-link">
+                        Уже есть аккаунт? <a href="{% url 'authorization:login' %}">Войдите здесь</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

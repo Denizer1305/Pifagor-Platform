@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пифагор - Основы программирования: Темы курса</title>
+    <link rel="icon" href="/frontend/static/assets/image/logo/icons.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Forum&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/frontend/static/css/main.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo-header">
+                <a href="/frontend/templates/main/index.html">
+                    <img src="/frontend/static/assets/image/logo/logo.svg" alt="logo">
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/frontend/templates/courses/courses.html">Курсы</a></li>
+                <li><a href="/frontend/templates/test/tests.html">Тестирование</a></li>
+                <li><a href="/frontend/templates/practic/practic.html">Практические задания</a></li>
+                <li><a href="/frontend/templates/homework/homework.html">Домашние задания</a></li>
+                <li><a href="/frontend/templates/materials/materials.html">Учебные материалы</a></li>
+            </ul>
+            <div class="header-actions">
+                <a href="/frontend/templates/auth/registration.html" class="btn btn-primary login-btn">Вход в кабинет</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-page">
+        <div class="bg-shapes">
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+        <div class="container hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">Основы программирования</h1>
+                <p class="hero-subtitle">Изучите базовые концепции программирования на Python с нуля</p>
+                <div class="course-meta">
+                    <div class="meta-item">
+                        <i class="far fa-clock"></i>
+                        <span>60 часов</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="far fa-user"></i>
+                        <span>20 уроков</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="fas fa-signal"></i>
+                        <span>Начальный уровень</span>
+                    </div>
+                </div>
+                <div class="progress-text">Прогресс курса: 30%</div>
+                <div class="progress-container">
+                    <div class="progress-bar"></div>
+                </div>
+                <p class="hero-description">Этот курс познакомит вас с основами программирования на языке Python. Вы научитесь писать простые программы, работать с данными и понимать основные алгоритмы.</p>
+                <div class="hero-actions">
+                    <a href="#topics" class="btn">Продолжить обучение</a>
+                    <a href="/frontend/templates/courses/courses.html" class="btn btn-light">Все курсы</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Topics Section -->
+    <section id="topics" class="section topics">
+        <div class="container">
+            <h2 class="section-title">Темы курса</h2>
+            <div class="topics-container">
+                <div class="topics-list">
+                    <!-- Тема 1 -->
+                    <div class="topic-card fade-in">
+                        <div class="topic-header">
+                            <div>
+                                <h3 class="topic-title">1. Введение в программирование</h3>
+                                <div class="topic-meta">
+                                    <span><i class="far fa-clock"></i> 3 часа</span>
+                                    <span><i class="far fa-file-alt"></i> 5 уроков</span>
+                                </div>
+                            </div>
+                            <span class="topic-status status-completed">Пройдено</span>
+                        </div>
+                        <p class="topic-description">Знакомство с основами программирования, установка Python и написание первой программы.</p>
+                        <div class="topic-actions">
+                            <a href="/frontend/templates/courses/courses-detail.html" class="btn btn-small">Повторить</a>
+                            <a href="/frontend/templates/courses/materials.html" class="btn btn-small">Материалы</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="course-sidebar">
+                    <h3 class="sidebar-title">Информация о курсе</h3>
+                    
+                    <div class="instructor-card">
+                        <div class="instructor-info">
+                            <h4>Плеханова Елена</h4>
+                            <p class="instructor-subject">Преподаватель программирования</p>
+                        </div>
+                    </div>
+                    
+                    <div class="course-stats">
+                        <div class="stat-item">
+                            <span class="stat-label">Прогресс:</span>
+                            <span class="stat-value">30%</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Пройдено тем:</span>
+                            <span class="stat-value">2 из 10</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Дата начала:</span>
+                            <span class="stat-value">15.03.2025</span>
+                        </div>
+                    </div>
+                    
+                    <h4>Дополнительные материалы</h4>
+                    <ul class="resources-list">
+                        <li>
+                            <a href="/frontend/templates/courses/materials.html">
+                                <i class="far fa-file-pdf"></i>
+                                <span>Методические материалы</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/frontend/templates/practic/practic-list.html">
+                                <i class="fas fa-tasks"></i>
+                                <span>Практические задания</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Пифагор</h3>
+                    <p>Образовательная платформа, которая делает сложное простым, а обучение — увлекательным.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-vk"></i></a>
+                        <a href="#"><i class="fab fa-gitlab"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Курсы</h3>
+                    <ul>
+                        <li><a href="#">Математика</a></li>
+                        <li><a href="#">Физика</a></li>
+                        <li><a href="#">Информатика</a></li>
+                        <li><a href="#">Подготовка к ЕГЭ</a></li>
+                        <li><a href="#">Высшая математика</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Компания</h3>
+                    <ul>
+                        <li><a href="#">О нас</a></li>
+                        <li><a href="#">Преподаватели</a></li>
+                        <li><a href="#">Новости</a></li>
+                        <li><a href="#">Контакты</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Помощь</h3>
+                    <ul>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Поддержка</a></li>
+                        <li><a href="#">Политика конфиденциальности</a></li>
+                        <li><a href="#">Условия использования</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Образовательная платформа "Пифагор". Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="/frontend/static/js/main.js"></script>
+</body>
+</html>

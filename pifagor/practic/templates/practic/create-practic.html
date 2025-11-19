@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пифагор - Создание практического задания</title>
+    <link rel="icon" href="/frontend/static/assets/image/logo/icons.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Forum&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/frontend/static/css/main.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo-header">
+                <a href="/frontend/templates/main/index.html">
+                    <img src="/frontend/static/assets/image/logo/logo.svg" alt="logo">
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/frontend/templates/courses/courses.html">Курсы</a></li>
+                <li><a href="/frontend/templates/test/tests.html">Тестирование</a></li>
+                <li><a href="/frontend/templates/practic/practic.html" class="active">Практические задания</a></li>
+                <li><a href="/frontend/templates/materials/materials.html">Учебные материалы</a></li>
+            </ul>
+            <div class="header-actions">
+                <a href="/frontend/templates/auth/registration.html" class="btn btn-primary login-btn">Вход в кабинет</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-page">
+        <div class="bg-shapes">
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+        <div class="container hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">Создание практического задания</h1>
+                <p class="hero-subtitle">Создайте увлекательные задания по разным предметам для отработки навыков</p>
+                <p class="hero-description">Создавайте практические задания с четкими требованиями, примерами и полезными подсказками. Настройте уровень сложности и время выполнения для разных предметов.</p>
+                <div class="hero-actions">
+                    <a href="#practice-creation" class="btn btn-practice">Начать создание</a>
+                    <a href="/frontend/templates/practic/practic.html" class="btn btn-light">Вернуться к заданиям</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Practice Creation Section -->
+    <section id="practice-creation" class="section practice-creation">
+        <div class="container">
+            <h2 class="section-title">Создание задания</h2>
+            <div class="practice-creation-container">
+                <div class="practice-creation-content">
+                    <div class="practice-creation-header">
+                        <div>
+                            <h2 class="practice-creation-title">Новое задание</h2>
+                            <p>Заполните информацию о задании</p>
+                        </div>
+                    </div>
+
+                    <!-- Basic Settings -->
+                    <div class="form-group">
+                        <label class="form-label" for="practice-title">Название задания</label>
+                        <input type="text" id="practice-title" class="form-control" placeholder="Введите название задания">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="practice-description">Описание задания</label>
+                        <textarea id="practice-description" class="form-control" placeholder="Опишите задание, поставленную задачу и контекст"></textarea>
+                    </div>
+
+                    <div class="practice-settings">
+                        <div class="form-group">
+                            <label class="form-label" for="practice-subject">Предмет</label>
+                            <select id="practice-subject" class="form-control form-select">
+                                <option value="russian">Русский язык</option>
+                                <option value="literature">Литература</option>
+                                <option value="math">Математика</option>
+                                <option value="economics">Экономика</option>
+                                <option value="programming">Программирование</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group" id="programming-language-group">
+                            <label class="form-label" for="practice-language">Язык программирования</label>
+                            <select id="practice-language" class="form-control form-select">
+                                <option value="python">Python</option>
+                                <option value="javascript">JavaScript</option>
+                                <option value="java">Java</option>
+                                <option value="cpp">C#</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="practice-difficulty">Уровень сложности</label>
+                            <select id="practice-difficulty" class="form-control form-select">
+                                <option value="beginner">Начальный</option>
+                                <option value="intermediate" selected>Средний</option>
+                                <option value="advanced">Продвинутый</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="test-due-date">Дата сдачи</label>
+                            <input type="date" id="test-due-date" class="form-control" value="">
+                            <div id="due-date-info" class="due-date-info" style="display: none;">
+                                <i class="fas fa-calendar-alt"></i>
+                                <span id="due-date-text"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Subject-specific sections -->
+                    <div id="subject-specific-sections">
+                        <!-- Russian Language Section -->
+                        <div class="subject-specific-section subject-russian active" id="russian-section">
+                            <h3>Задание по русскому языку</h3>
+                            <div class="form-group">
+                                <label class="form-label" for="russian-task-type">Тип задания</label>
+                                <select id="russian-task-type" class="form-control form-select">
+                                    <option value="grammar">Грамматика</option>
+                                    <option value="orthography">Орфография</option>
+                                    <option value="punctuation">Пунктуация</option>
+                                    <option value="composition">Сочинение</option>
+                                    <option value="analysis">Анализ текста</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="russian-text">Текст для задания</label>
+                                <textarea id="russian-text" class="form-control" placeholder="Введите текст для задания" rows="6"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="russian-questions">Вопросы к тексту</label>
+                                <textarea id="russian-questions" class="form-control" placeholder="Введите вопросы к тексту" rows="4"></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Literature Section -->
+                        <div class="subject-specific-section subject-literature" id="literature-section">
+                            <h3>Задание по литературе</h3>
+                            <div class="form-group">
+                                <label class="form-label" for="literature-task-type">Тип задания</label>
+                                <select id="literature-task-type" class="form-control form-select">
+                                    <option value="analysis">Анализ произведения</option>
+                                    <option value="character">Характеристика персонажа</option>
+                                    <option value="composition">Сочинение</option>
+                                    <option value="comparison">Сравнительный анализ</option>
+                                    <option value="interpretation">Интерпретация текста</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="literature-work">Произведение/автор</label>
+                                <input type="text" id="literature-work" class="form-control" placeholder="Укажите произведение и автора">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="literature-task">Текст задания</label>
+                                <textarea id="literature-task" class="form-control" placeholder="Сформулируйте задание" rows="6"></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Mathematics Section -->
+                        <div class="subject-specific-section subject-math" id="math-section">
+                            <h3>Задание по математике</h3>
+                            <div class="form-group">
+                                <label class="form-label" for="math-task-type">Тип задания</label>
+                                <select id="math-task-type" class="form-control form-select">
+                                    <option value="algebra">Алгебра</option>
+                                    <option value="geometry">Геометрия</option>
+                                    <option value="calculus">Математический анализ</option>
+                                    <option value="probability">Теория вероятностей</option>
+                                    <option value="problem">Текстовая задача</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="math-problem">Условие задачи</label>
+                                <textarea id="math-problem" class="form-control" placeholder="Сформулируйте условие задачи" rows="4"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="math-solution">Решение (опционально)</label>
+                                <textarea id="math-solution" class="form-control" placeholder="Опишите решение или укажите ответ" rows="4"></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Economics Section -->
+                        <div class="subject-specific-section subject-economics" id="economics-section">
+                            <h3>Задание по экономике</h3>
+                            <div class="form-group">
+                                <label class="form-label" for="economics-task-type">Тип задания</label>
+                                <select id="economics-task-type" class="form-control form-select">
+                                    <option value="micro">Микроэкономика</option>
+                                    <option value="macro">Макроэкономика</option>
+                                    <option value="finance">Финансы</option>
+                                    <option value="accounting">Бухгалтерский учет</option>
+                                    <option value="analysis">Анализ данных</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="economics-task">Текст задания</label>
+                                <textarea id="economics-task" class="form-control" placeholder="Сформулируйте задание" rows="6"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="economics-data">Данные для анализа (опционально)</label>
+                                <textarea id="economics-data" class="form-control" placeholder="Введите данные для анализа" rows="4"></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Programming Section -->
+                        <div class="subject-specific-section subject-programming" id="programming-section">
+                            <h3>Задание по программированию</h3>
+                            <div class="form-group">
+                                <label class="form-label" for="programming-task-type">Тип задания</label>
+                                <select id="programming-task-type" class="form-control form-select">
+                                    <option value="algorithm">Алгоритмы</option>
+                                    <option value="data-structures">Структуры данных</option>
+                                    <option value="oop">ООП</option>
+                                    <option value="web">Веб-разработка</option>
+                                    <option value="database">Базы данных</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="practice-initial-code">Начальный код (опционально)</label>
+                                <textarea id="practice-initial-code" class="form-control code-block" rows="6"># Ваш код здесь
+def calculate_area(length, width):
+    # Вычислите площадь прямоугольника
+    pass
+
+# Получите входные данные
+length = float(input("Введите длину: "))
+width = float(input("Введите ширину: "))
+
+# Вычислите и выведите площадь
+area = calculate_area(length, width)
+print(f"Площадь прямоугольника: {area}")</textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Requirements -->
+                    <div class="requirements">
+                        <div class="requirements-header">
+                            <h3>Требования к решению</h3>
+                            <button class="btn btn-practice btn-small" id="add-requirement-btn">
+                                <i class="fas fa-plus"></i> Добавить требование
+                            </button>
+                        </div>
+                        <ul class="requirements-list" id="requirements-list">
+                            <li class="requirement-item">
+                                <div class="requirement-text">
+                                    <input type="text" class="form-control" value="Соблюдайте правила оформления работы" placeholder="Введите требование">
+                                </div>
+                                <div class="requirement-actions">
+                                    <button class="btn btn-light btn-small move-up"><i class="fas fa-arrow-up"></i></button>
+                                    <button class="btn btn-light btn-small move-down"><i class="fas fa-arrow-down"></i></button>
+                                    <button class="btn btn-danger btn-small delete-requirement"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </li>
+                            <li class="requirement-item">
+                                <div class="requirement-text">
+                                    <input type="text" class="form-control" value="Укажите все использованные источники" placeholder="Введите требование">
+                                </div>
+                                <div class="requirement-actions">
+                                    <button class="btn btn-light btn-small move-up"><i class="fas fa-arrow-up"></i></button>
+                                    <button class="btn btn-light btn-small move-down"><i class="fas fa-arrow-down"></i></button>
+                                    <button class="btn btn-danger btn-small delete-requirement"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Test Cases / Examples -->
+                    <div class="test-cases">
+                        <div class="test-cases-header">
+                            <h3 id="examples-title">Примеры</h3>
+                            <button class="btn btn-practice btn-small" id="add-test-case-btn">
+                                <i class="fas fa-plus"></i> Добавить пример
+                            </button>
+                        </div>
+                        
+                        <div class="test-case-card">
+                            <div class="test-case-header">
+                                <div class="test-case-title">Пример 1</div>
+                                <div>
+                                    <button class="btn btn-light btn-small toggle-visibility"><i class="fas fa-eye"></i> Показать студентам</button>
+                                </div>
+                            </div>
+                            <div class="test-case-content">
+                                <div>
+                                    <div class="form-label" id="input-label-1">Условие</div>
+                                    <div class="test-case-input">Пример условия задачи</div>
+                                </div>
+                                <div>
+                                    <div class="form-label" id="output-label-1">Решение</div>
+                                    <div class="test-case-output">Пример решения или ответа</div>
+                                </div>
+                            </div>
+                            <div class="test-case-actions">
+                                <button class="btn btn-light btn-small edit-test-case"><i class="fas fa-edit"></i> Редактировать</button>
+                                <button class="btn btn-danger btn-small delete-test-case"><i class="fas fa-trash"></i> Удалить</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hints -->
+                    <div class="form-group">
+                        <label class="form-label" for="practice-hints">Подсказки (опционально)</label>
+                        <textarea id="practice-hints" class="form-control" placeholder="Добавьте подсказки для студентов, которые могут помочь в решении"></textarea>
+                    </div>
+
+                    <div class="practice-creation-navigation">
+                        <button class="btn btn-light">
+                            <i class="fas fa-eye"></i> Предварительный просмотр
+                        </button>
+                        <button class="btn btn-success" id="save-practice-btn">
+                            <i class="fas fa-save"></i> Сохранить задание
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="practice-creation-sidebar">
+                    <h3 class="sidebar-title">Навигация</h3>
+                    
+                    <div class="practice-creation-actions">
+                        <button class="action-btn" id="settings-btn">
+                            <i class="fas fa-cog"></i>
+                            <span>Настройки задания</span>
+                        </button>
+                        <button class="action-btn" id="requirements-btn">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Требования</span>
+                        </button>
+                        <button class="action-btn" id="examples-btn">
+                            <i class="fas fa-vial"></i>
+                            <span>Примеры</span>
+                        </button>
+                        <button class="action-btn" id="hints-btn">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Подсказки</span>
+                        </button>
+                        <button class="action-btn" id="code-btn">
+                            <i class="fas fa-code"></i>
+                            <span>Начальный код</span>
+                        </button>
+                    </div>
+                    
+                    <div class="practice-creation-summary">
+                        <div class="summary-item">
+                            <span class="summary-label">Статус:</span>
+                            <span class="summary-value">Черновик</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Предмет:</span>
+                            <span class="summary-value" id="current-subject">Русский язык</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Примеры:</span>
+                            <span class="summary-value">1</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Требования:</span>
+                            <span class="summary-value">2</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Уровень:</span>
+                            <span class="summary-value">Средний</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Дата сдачи:</span>
+                            <span class="summary-value">25.10.2025</span>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-practice" style="width: 100%; margin-bottom: 20px;">
+                        <i class="fas fa-rocket"></i> Опубликовать
+                    </button>
+                    
+                    <h4>Справка</h4>
+                    <ul class="resources-list">
+                        <li>
+                            <a href="#">
+                                <i class="fas fa-book"></i>
+                                <span>Руководство по созданию заданий</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fas fa-question-circle"></i>
+                                <span>Как писать хорошие примеры</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fas fa-chart-bar"></i>
+                                <span>Аналитика выполнения заданий</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Пифагор</h3>
+                    <p>Образовательная платформа, которая делает сложное простым, а обучение — увлекательным.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-vk"></i></a>
+                        <a href="#"><i class="fab fa-gitlab"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Курсы</h3>
+                    <ul>
+                        <li><a href="#">Математика</a></li>
+                        <li><a href="#">Физика</a></li>
+                        <li><a href="#">Информатика</a></li>
+                        <li><a href="#">Подготовка к ЕГЭ</a></li>
+                        <li><a href="#">Высшая математика</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Компания</h3>
+                    <ul>
+                        <li><a href="#">О нас</a></li>
+                        <li><a href="#">Преподаватели</a></li>
+                        <li><a href="#">Новости</a></li>
+                        <li><a href="#">Контакты</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Помощь</h3>
+                    <ul>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Поддержка</a></li>
+                        <li><a href="#">Политика конфиденциальности</a></li>
+                        <li><a href="#">Условия использования</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Образовательная платформа "Пифагор". Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal Windows -->
+    <!-- Settings Modal -->
+    <div class="modal-overlay" id="settings-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Настройки задания</h3>
+                <button class="modal-close" id="settings-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="settings-grid">
+                    <div class="setting-item">
+                        <label class="setting-label">Автопроверка</label>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <label class="setting-label">Ограничение по времени</label>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <label class="setting-label">Показывать решения</label>
+                        <label class="toggle-switch">
+                            <input type="checkbox">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <label class="setting-label">Разрешить повторные попытки</label>
+                        <label class="toggle-switch">
+                            <input type="checkbox">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <label class="setting-label">Требовать регистрацию</label>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="require-registration" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <label class="setting-label">Отправлять уведомления</label>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Поле для пароля (показывается только когда активно "Требовать регистрацию") -->
+                <div class="form-group" id="password-field">
+                    <label class="form-label" for="practice-password">Пароль для доступа</label>
+                    <input type="password" id="practice-password" class="form-control" placeholder="Введите пароль для доступа к заданию">
+                    <small class="form-text text-muted">Студенты должны будут ввести этот пароль для доступа к заданию</small>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Максимальное количество попыток</label>
+                    <input type="number" class="form-control" value="3" min="1" max="10">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Проходной балл (%)</label>
+                    <input type="number" class="form-control" value="70" min="0" max="100">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Инструкции для студентов</label>
+                    <textarea class="form-control" rows="3" placeholder="Добавьте инструкции для студентов..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-light" id="settings-cancel">Отмена</button>
+                <button class="btn btn-success" id="settings-save">Сохранить настройки</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Requirements Modal -->
+    <div class="modal-overlay" id="requirements-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Требования к решению</h3>
+                <button class="modal-close" id="requirements-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Добавить требование</label>
+                    <div class="input-group" style="display: flex; gap: 10px;">
+                        <input type="text" class="form-control" placeholder="Введите требование">
+                        <button class="btn btn-practice btn-small">
+                            <i class="fas fa-plus"></i> Добавить
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="requirements-modal-list">
+                    <div class="requirement-modal-item">
+                        <div class="requirement-modal-text">
+                            <input type="text" class="form-control" value="Соблюдайте правила оформления работы">
+                        </div>
+                        <div class="requirement-modal-actions">
+                            <button class="btn btn-light btn-small"><i class="fas fa-arrow-up"></i></button>
+                            <button class="btn btn-light btn-small"><i class="fas fa-arrow-down"></i></button>
+                            <button class="btn btn-danger btn-small"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                    <div class="requirement-modal-item">
+                        <div class="requirement-modal-text">
+                            <input type="text" class="form-control" value="Укажите все использованные источники">
+                        </div>
+                        <div class="requirement-modal-actions">
+                            <button class="btn btn-light btn-small"><i class="fas fa-arrow-up"></i></button>
+                            <button class="btn btn-light btn-small"><i class="fas fa-arrow-down"></i></button>
+                            <button class="btn btn-danger btn-small"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-light" id="requirements-cancel">Отмена</button>
+                <button class="btn btn-success" id="requirements-save">Сохранить требования</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Examples Modal -->
+    <div class="modal-overlay" id="examples-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Примеры и тестовые случаи</h3>
+                <button class="modal-close" id="examples-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <button class="btn btn-practice btn-small">
+                        <i class="fas fa-plus"></i> Добавить пример
+                    </button>
+                </div>
+                
+                <div class="examples-modal-list">
+                    <div class="example-modal-card">
+                        <div class="example-modal-header">
+                            <div class="example-modal-title">Пример 1</div>
+                            <div>
+                                <button class="btn btn-light btn-small"><i class="fas fa-eye"></i> Показать студентам</button>
+                            </div>
+                        </div>
+                        <div class="example-modal-content">
+                            <div>
+                                <div class="form-label">Условие</div>
+                                <textarea class="form-control" rows="3">Пример условия задачи</textarea>
+                            </div>
+                            <div>
+                                <div class="form-label">Решение</div>
+                                <textarea class="form-control" rows="3">Пример решения или ответа</textarea>
+                            </div>
+                        </div>
+                        <div class="test-case-actions">
+                            <button class="btn btn-light btn-small"><i class="fas fa-edit"></i> Редактировать</button>
+                            <button class="btn btn-danger btn-small"><i class="fas fa-trash"></i> Удалить</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-light" id="examples-cancel">Отмена</button>
+                <button class="btn btn-success" id="examples-save">Сохранить примеры</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hints Modal -->
+    <div class="modal-overlay" id="hints-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Подсказки для студентов</h3>
+                <button class="modal-close" id="hints-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Добавить подсказку</label>
+                    <div class="input-group" style="display: flex; gap: 10px;">
+                        <input type="text" class="form-control" placeholder="Введите подсказку">
+                        <button class="btn btn-practice btn-small">
+                            <i class="fas fa-plus"></i> Добавить
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="hints-modal-list">
+                    <div class="hint-modal-item">
+                        <div class="hint-modal-text">
+                            <input type="text" class="form-control" value="Внимательно прочитайте условие задачи">
+                        </div>
+                        <div class="hint-modal-actions">
+                            <button class="btn btn-light btn-small"><i class="fas fa-arrow-up"></i></button>
+                            <button class="btn btn-light btn-small"><i class="fas fa-arrow-down"></i></button>
+                            <button class="btn btn-danger btn-small"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                    <div class="hint-modal-item">
+                        <div class="hint-modal-text">
+                            <input type="text" class="form-control" value="Проверьте свои вычисления">
+                        </div>
+                        <div class="hint-modal-actions">
+                            <button class="btn btn-light btn-small"><i class="fas fa-arrow-up"></i></button>
+                            <button class="btn btn-light btn-small"><i class="fas fa-arrow-down"></i></button>
+                            <button class="btn btn-danger btn-small"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-light" id="hints-cancel">Отмена</button>
+                <button class="btn btn-success" id="hints-save">Сохранить подсказки</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Code Modal -->
+    <div class="modal-overlay" id="code-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Начальный код</h3>
+                <button class="modal-close" id="code-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Язык программирования</label>
+                    <select class="form-control form-select">
+                        <option value="python">Python</option>
+                        <option value="javascript">JavaScript</option>
+                        <option value="java">Java</option>
+                        <option value="cpp">C#</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Начальный код</label>
+                    <div class="code-modal-editor">
+                        <div class="code-modal-toolbar">
+                            <button type="button">Python</button>
+                            <button type="button">JavaScript</button>
+                            <button type="button">HTML</button>
+                        </div>
+                        <textarea class="form-control code-block" rows="10"># Ваш код здесь
+def calculate_area(length, width):
+    # Вычислите площадь прямоугольника
+    pass
+
+# Получите входные данные
+length = float(input("Введите длину: "))
+width = float(input("Введите ширину: "))
+
+# Вычислите и выведите площадь
+area = calculate_area(length, width)
+print(f"Площадь прямоугольника: {area}")</textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-light" id="code-cancel">Отмена</button>
+                <button class="btn btn-success" id="code-save">Сохранить код</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="/frontend/static/js/main.js"></script>
+</body>
+</html>

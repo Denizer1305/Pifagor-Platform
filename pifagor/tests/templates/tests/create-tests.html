@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пифагор - Создание теста</title>
+    <link rel="icon" href="/frontend/static/assets/image/logo/icons.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Forum&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/frontend/static/css/main.css">
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="logo-header">
+                <a href="/frontend/templates/main/index.html">
+                    <img src="/frontend/static/assets/image/logo/logo.svg" alt="logo">
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/frontend/templates/courses/courses.html">Курсы</a></li>
+                <li><a href="/frontend/templates/test/tests.html">Тестирование</a></li>
+                <li><a href="/frontend/templates/practic/practic.html">Практические задания</a></li>
+                <li><a href="/frontend/templates/materials/materials.html">Учебные материалы</a></li>
+            </ul>
+            <div class="header-actions">
+                <a href="/frontend/templates/auth/registration.html" class="btn btn-primary login-btn">Вход в кабинет</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-page">
+        <div class="bg-shapes">
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+        <div class="container hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">Создание нового теста</h1>
+                <p class="hero-subtitle">Создайте собственный тест для проверки знаний студентов</p>
+                <p class="hero-description">Создайте тест с вопросами разных типов: выбор одного или нескольких ответов, ввод текста, написание кода. Настройте параметры тестирования и время выполнения.</p>
+                <div class="hero-actions">
+                    <a href="#test-creation" class="btn">Начать создание</a>
+                    <a href="/frontend/templates/tests/tests.html" class="btn btn-light">Вернуться к тестам</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Test Creation Section -->
+    <section id="test-creation" class="section test-creation">
+        <div class="container">
+            <h2 class="section-title">Создание теста</h2>
+            <div class="test-creation-container">
+                <div class="test-creation-content">
+                    <div class="test-creation-header">
+                        <div>
+                            <h2 class="test-creation-title">Основы синтаксиса Python</h2>
+                            <div class="test-progress">
+                                <div class="progress-info">
+                                    <span>Вопрос <span id="current-question">1</span> из <span id="total-questions">3</span></span>
+                                    <span id="progress-percent">33%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Basic Test Settings -->
+                    <div class="form-group">
+                        <label class="form-label" for="test-title">Название теста</label>
+                        <input type="text" id="test-title" class="form-control" value="Основы синтаксиса Python">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="test-description">Описание теста</label>
+                        <textarea id="test-description" class="form-control">Этот тест проверяет знание базового синтаксиса Python: переменные, типы данных, операторы, условные операторы и циклы.</textarea>
+                    </div>
+
+                    <!-- Новый блок: Выбор типа теста -->
+                    <div class="form-group">
+                        <label class="form-label">Тип теста</label>
+                        <div class="test-type-selector">
+                            <div class="test-type-option" data-type="evaluative">
+                                <div class="test-type-icon">
+                                    <i class="fas fa-clipboard-check"></i>
+                                </div>
+                                <h4>Оценочный</h4>
+                            </div>
+                            <div class="test-type-option selected" data-type="training">
+                                <div class="test-type-icon">
+                                    <i class="fas fa-dumbbell"></i>
+                                </div>
+                                <h4>Тренировочный</h4>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ai-assistant" id="ai-assistant">
+                        <div class="ai-header">
+                            <div class="ai-avatar">
+                                <img src="/frontend/static/assets/image/logo/Anastasia.svg" alt="Нася">
+                            </div>
+                            <div>
+                                <div class="ai-name">ИИ "Анастасия"</div>
+                                <div class="ai-status">Готова к работе</div>
+                            </div>
+                        </div>
+                        <p>Я могу помочь вам сгенерировать вопросы для теста. Просто введите запрос в формате:</p>
+                        <div class="ai-example">
+                            <strong>Пример:</strong> /test Python основы 10
+                        </div>
+                        <div class="ai-request-form">
+                            <input type="text" class="form-control ai-request-input" placeholder="/test &lt;тема&gt; [сложность] [количество_вопросов]">
+                            <button class="btn btn-success" id="ai-request-btn">
+                                <i class="fas fa-paper-plane"></i> Отправить
+                            </button>
+                        </div>
+                        <div class="ai-response" id="ai-response">
+                            <div class="ai-generated-questions">
+                                <h4>Сгенерированные вопросы:</h4>
+                                <div class="ai-question-item" data-question="1">
+                                    <strong>Вопрос 1:</strong> Что выведет код: print(2 + 3 * 4)?
+                                </div>
+                                <div class="ai-question-item" data-question="2">
+                                    <strong>Вопрос 2:</strong> Какой оператор используется для проверки равенства в Python?
+                                </div>
+                                <div class="ai-question-item" data-question="3">
+                                    <strong>Вопрос 3:</strong> Как объявить переменную в Python?
+                                </div>
+                            </div>
+                            <div class="ai-actions">
+                                <button class="btn btn-success" id="ai-add-all">
+                                    <i class="fas fa-plus-circle"></i> Добавить все вопросы
+                                </button>
+                                <button class="btn btn-light" id="ai-cancel">
+                                    <i class="fas fa-times"></i> Отмена
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="test-settings">
+                        <div class="form-group">
+                            <label class="form-label" for="test-subject">Предмет</label>
+                            <select id="test-subject" class="form-control form-select">
+                                <option value="russian">Русский язык</option>
+                                <option value="literature">Литература</option>
+                                <option value="math">Математика</option>
+                                <option value="economics">Экономика</option>
+                                <option value="programming" selected>Программирование</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="test-time">Время выполнения (минуты)</label>
+                            <input type="number" id="test-time" class="form-control" value="20" min="1">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="test-level">Уровень сложности</label>
+                            <select id="test-level" class="form-control form-select">
+                                <option value="beginner">Начальный</option>
+                                <option value="intermediate" selected>Средний</option>
+                                <option value="advanced">Продвинутый</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="test-due-date">Дата сдачи</label>
+                            <input type="date" id="test-due-date" class="form-control" value="">
+                            <div id="due-date-info" class="due-date-info" style="display: none;">
+                                <i class="fas fa-calendar-alt"></i>
+                                <span id="due-date-text"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Question 1 -->
+                    <div class="question-card">
+                        <div class="question-header">
+                            <div>
+                                <div class="question-number">Вопрос 1</div>
+                                <div class="question-text">Что выведет следующий код?</div>
+                            </div>
+                            <button class="btn btn-danger btn-small" onclick="removeQuestion(1)">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="question-text-1">Текст вопроса</label>
+                            <textarea id="question-text-1" class="form-control">Что выведет следующий код?</textarea>
+                        </div>
+
+                        <div class="form-group programming-only">
+                            <label class="form-label">Код (опционально)</label>
+                            <div class="code-editor">
+                                <div class="code-toolbar">
+                                    <button type="button">Python</button>
+                                    <button type="button">JavaScript</button>
+                                    <button type="button">HTML</button>
+                                </div>
+                                <textarea class="form-control code-block" rows="4">print(5 + 3 * 2)</textarea>
+                            </div>
+                        </div>
+
+                        <div class="question-card">
+                            <div class="question-header">
+                                <div>
+                                    <div class="question-number">Вопрос 1</div>
+                                    <div class="question-text">Что выведет следующий код?</div>
+                                </div>
+                                <button class="btn btn-danger btn-small" onclick="removeQuestion(1)">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="question-text-1">Текст вопроса</label>
+                                <textarea id="question-text-1" class="form-control">Что выведет следующий код?</textarea>
+                            </div>
+
+                            <div class="form-group programming-only">
+                                <label class="form-label">Код (опционально)</label>
+                                <div class="code-editor">
+                                    <div class="code-toolbar">
+                                        <button type="button">Python</button>
+                                        <button type="button">JavaScript</button>
+                                        <button type="button">HTML</button>
+                                    </div>
+                                    <textarea class="form-control code-block" rows="4">print(5 + 3 * 2)</textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Тип вопроса</label>
+                                <select class="form-control form-select question-type-select">
+                                    <option value="single" selected>Один правильный ответ</option>
+                                    <option value="multiple">Несколько правильных ответов</option>
+                                    <option value="text">Текстовый ответ</option>
+                                    <option value="code" class="programming-only">Написание кода</option>
+                                </select>
+                            </div>
+
+                            <!-- Контейнер для вариантов ответов -->
+                            <div class="form-group options-container">
+                                <label class="form-label">Варианты ответов</label>
+                                <div class="options-list">
+                                    <div class="option-item selected">
+                                        <div class="option-marker"></div>
+                                        <div class="option-text">
+                                            <input type="text" class="form-control" value="11">
+                                        </div>
+                                        <div class="option-actions">
+                                            <button class="btn btn-small btn-success option-correct-btn">
+                                                <i class="fas fa-check"></i>
+                                            </button>
+                                            <button class="btn btn-small btn-danger option-delete-btn">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="option-item">
+                                        <div class="option-marker"></div>
+                                        <div class="option-text">
+                                            <input type="text" class="form-control" value="16">
+                                        </div>
+                                        <div class="option-actions">
+                                            <button class="btn btn-small btn-success option-correct-btn">
+                                                <i class="fas fa-check"></i>
+                                            </button>
+                                            <button class="btn btn-small btn-danger option-delete-btn">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="option-item">
+                                        <div class="option-marker"></div>
+                                        <div class="option-text">
+                                            <input type="text" class="form-control" value="13">
+                                        </div>
+                                        <div class="option-actions">
+                                            <button class="btn btn-small btn-success option-correct-btn">
+                                                <i class="fas fa-check"></i>
+                                            </button>
+                                            <button class="btn btn-small btn-danger option-delete-btn">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="btn btn-light add-option-btn">
+                                    <i class="fas fa-plus"></i> Добавить вариант ответа
+                                </button>
+                            </div>
+
+                            <!-- Контейнер для текстового ответа -->
+                            <div class="form-group text-answer-container">
+                                <label class="form-label">Текстовый ответ</label>
+                                <textarea class="form-control" rows="4" placeholder="Студент введет ответ здесь..."></textarea>
+                            </div>
+
+                            <!-- Контейнер для ответа кодом -->
+                            <div class="form-group code-answer-container programming-only">
+                                <label class="form-label">Редактор кода</label>
+                                <div class="code-editor">
+                                    <div class="code-toolbar">
+                                        <button type="button" class="active">Python</button>
+                                        <button type="button">JavaScript</button>
+                                        <button type="button">Java</button>
+                                        <button type="button">C++</button>
+                                    </div>
+                                    <textarea class="form-control code-block" rows="6" placeholder="// Студент напишет код здесь..."></textarea>
+                                </div>
+                            </div>
+
+                            <div class="question-actions">
+                                <button class="btn btn-light duplicate-question-btn">
+                                    <i class="fas fa-copy"></i> Дублировать вопрос
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="question-actions">
+                            <button class="btn btn-light">
+                                <i class="fas fa-copy"></i> Дублировать вопрос
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Add New Question Button -->
+                    <button class="btn btn-light add-question-btn">
+                        <i class="fas fa-plus"></i> Добавить новый вопрос
+                    </button>
+
+                    <div class="test-creation-navigation">
+                        <button class="btn btn-light">
+                            <i class="fas fa-eye"></i> Предварительный просмотр
+                        </button>
+                        <button class="btn btn-success" id="save-test-btn">
+                            <i class="fas fa-save"></i> Сохранить тест
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="test-creation-sidebar">
+                    <h3 class="sidebar-title">Навигация</h3>
+                    
+                    <div class="questions-nav">
+                        <div class="question-nav-item current">1</div>
+                        <div class="question-nav-item">2</div>
+                        <div class="question-nav-item">3</div>
+                        <div class="question-nav-item">+</div>
+                    </div>
+                    
+                    <div class="test-creation-actions">
+                        <button class="action-btn" id="settings-btn">
+                            <i class="fas fa-cog"></i>
+                            <span>Настройки теста</span>
+                        </button>
+                        <button class="action-btn" id="share-btn">
+                            <i class="fas fa-share-alt"></i>
+                            <span>Поделиться</span>
+                        </button>
+                    </div>
+                    
+                    <div class="test-creation-summary">
+                        <div class="summary-item">
+                            <span class="summary-label">Предмет:</span>
+                            <span class="summary-value" id="current-subject">Программирование</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Вопросы:</span>
+                            <span class="summary-value">3/20</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Время:</span>
+                            <span class="summary-value">20 мин</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Уровень:</span>
+                            <span class="summary-value">Средний</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Статус:</span>
+                            <span class="summary-value">Черновик</span>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-success" style="width: 100%; margin-bottom: 20px;">
+                        <i class="fas fa-rocket"></i> Опубликовать
+                    </button>
+                    
+                    <h4>Справка</h4>
+                    <ul class="resources-list">
+                        <li>
+                            <a href="#" id="help-guide-link">
+                                <i class="fas fa-book"></i>
+                                <span>Руководство по созданию тестов</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" id="help-types-link">
+                                <i class="fas fa-question-circle"></i>
+                                <span>Типы вопросов</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" id="help-analytics-link">
+                                <i class="fas fa-chart-bar"></i>
+                                <span>Аналитика результатов</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Пифагор</h3>
+                    <p>Образовательная платформа, которая делает сложное простым, а обучение — увлекательным.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-vk"></i></a>
+                        <a href="#"><i class="fab fa-gitlab"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Курсы</h3>
+                    <ul>
+                        <li><a href="#">Математика</a></li>
+                        <li><a href="#">Физика</a></li>
+                        <li><a href="#">Информатика</a></li>
+                        <li><a href="#">Подготовка к ЕГЭ</a></li>
+                        <li><a href="#">Высшая математика</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Компания</h3>
+                    <ul>
+                        <li><a href="#">О нас</a></li>
+                        <li><a href="#">Преподаватели</a></li>
+                        <li><a href="#">Новости</a></li>
+                        <li><a href="#">Контакты</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Помощь</h3>
+                    <ul>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Поддержка</a></li>
+                        <li><a href="#">Политика конфиденциальности</a></li>
+                        <li><a href="#">Условия использования</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Образовательная платформа "Пифагор". Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal Windows -->
+    <!-- Settings Modal -->
+    <div class="modal-overlay" id="settings-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Настройки теста</h3>
+                <button class="modal-close" id="settings-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="settings-grid">
+                    <div class="setting-item">
+                        <label class="setting-label">Случайный порядок вопросов</label>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <label class="setting-label">Ограничение по времени</label>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <label class="setting-label">Показывать результаты сразу</label>
+                        <label class="toggle-switch">
+                            <input type="checkbox">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <label class="setting-label">Разрешить повторные попытки</label>
+                        <label class="toggle-switch">
+                            <input type="checkbox">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <label class="setting-label">Требовать регистрацию</label>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="require-registration" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <label class="setting-label">Отправлять уведомления</label>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Поле для пароля, которое появляется при активации "Требовать регистрацию" -->
+                <div class="password-field" id="password-field">
+                    <div class="form-group">
+                        <label class="form-label">Пароль для доступа к тесту</label>
+                        <input type="password" class="form-control" id="test-password" placeholder="Введите пароль">
+                        <small>Этот пароль потребуется для доступа к тесту</small>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Максимальное количество попыток</label>
+                    <input type="number" class="form-control" value="1" min="1" max="10">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Проходной балл (%)</label>
+                    <input type="number" class="form-control" value="60" min="0" max="100">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Инструкции для студентов</label>
+                    <textarea class="form-control" rows="3" placeholder="Добавьте инструкции для студентов..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-light" id="settings-cancel">Отмена</button>
+                <button class="btn btn-success" id="settings-save">Сохранить настройки</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Share Modal -->
+    <div class="modal-overlay" id="share-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Поделиться тестом</h3>
+                <button class="modal-close" id="share-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Ссылка для доступа к тесту</label>
+                    <div class="share-link">
+                        <input type="text" class="form-control" value="https://pifagor.ru/tests/abc123" readonly>
+                        <button class="btn btn-success" id="copy-link">
+                            <i class="fas fa-copy"></i> Копировать
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Настройки доступа</label>
+                    <select class="form-control form-select">
+                        <option value="private" selected>Только по ссылке</option>
+                        <option value="public">Публичный доступ</option>
+                        <option value="restricted">Только для зарегистрированных</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Поделиться через</label>
+                    <div class="share-actions">
+                        <div class="share-action" id="share-facebook">
+                            <div class="share-icon share-facebook">
+                                <i class="fab fa-facebook-f"></i>
+                            </div>
+                            <span>Facebook</span>
+                        </div>
+                        <div class="share-action" id="share-telegram">
+                            <div class="share-icon share-telegram">
+                                <i class="fab fa-telegram"></i>
+                            </div>
+                            <span>Telegram</span>
+                        </div>
+                        <div class="share-action" id="share-vk">
+                            <div class="share-icon share-vk">
+                                <i class="fab fa-vk"></i>
+                            </div>
+                            <span>ВКонтакте</span>
+                        </div>
+                        <div class="share-action" id="share-email">
+                            <div class="share-icon share-email">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <span>Email</span>
+                        </div>
+                        <div class="share-action" id="share-copy">
+                            <div class="share-icon share-copy">
+                                <i class="fas fa-link"></i>
+                            </div>
+                            <span>Скопировать</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">QR-код для быстрого доступа</label>
+                    <div class="qrcode-container">
+                        <p>Отсканируйте QR-код для доступа к тесту</p>
+                        <div class="qrcode-wrapper">
+                            <div class="qrcode">
+                                <!-- Здесь будет сгенерированный QR-код -->
+                                <canvas id="qrcode-canvas"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-light" id="share-cancel">Закрыть</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальные окна для справки -->
+    <!-- Руководство по созданию тестов -->
+    <div class="modal-overlay" id="help-guide-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Руководство по созданию тестов</h3>
+                <button class="modal-close" id="help-guide-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <h4>Как создать эффективный тест</h4>
+                <p>Создание теста требует тщательного планирования и подготовки. Вот несколько рекомендаций:</p>
+                <ul>
+                    <li>Определите цели тестирования и критерии оценки</li>
+                    <li>Составьте вопросы разного уровня сложности</li>
+                    <li>Используйте различные типы вопросов</li>
+                    <li>Установите реалистичное время выполнения</li>
+                    <li>Протестируйте тест перед публикацией</li>
+                </ul>
+                <h4>Советы по формулировке вопросов</h4>
+                <p>Вопросы должны быть четкими, однозначными и проверять конкретные знания.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-light" id="help-guide-cancel">Закрыть</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Типы вопросов -->
+    <div class="modal-overlay" id="help-types-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Типы вопросов</h3>
+                <button class="modal-close" id="help-types-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <h4>Доступные типы вопросов</h4>
+                <div class="question-type-info">
+                    <div class="question-type-item">
+                        <h5>Один правильный ответ</h5>
+                        <p>Студент выбирает один вариант из нескольких предложенных. Подходит для проверки конкретных фактов.</p>
+                    </div>
+                    <div class="question-type-item">
+                        <h5>Несколько правильных ответов</h5>
+                        <p>Студент выбирает несколько верных вариантов из предложенных. Подходит для проверки комплексных знаний.</p>
+                    </div>
+                    <div class="question-type-item">
+                        <h5>Текстовый ответ</h5>
+                        <p>Студент вводит ответ в текстовом поле. Подходит для проверки умения формулировать мысли.</p>
+                    </div>
+                    <div class="question-type-item">
+                        <h5>Написание кода</h5>
+                        <p>Студент пишет код в специальном редакторе. Доступно только для тестов по программированию.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-light" id="help-types-cancel">Закрыть</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Аналитика результатов -->
+    <div class="modal-overlay" id="help-analytics-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Аналитика результатов</h3>
+                <button class="modal-close" id="help-analytics-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <h4>Что вы можете узнать из аналитики</h4>
+                <p>После завершения тестирования вы получите детальную аналитику по результатам:</p>
+                <ul>
+                    <li>Общая статистика по тесту</li>
+                    <li>Процент правильных ответов для каждого вопроса</li>
+                    <li>Средний балл и распределение результатов</li>
+                    <li>Время, затраченное на выполнение теста</li>
+                    <li>Сравнительный анализ по группам студентов</li>
+                </ul>
+                <h4>Как использовать аналитику</h4>
+                <p>Аналитика поможет выявить слабые места в знаниях студентов и скорректировать учебный процесс.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-light" id="help-analytics-cancel">Закрыть</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="/frontend/static/js/main.js"></script>
+</body>
+</html>
