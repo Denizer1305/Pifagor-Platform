@@ -240,7 +240,7 @@ input:checked + .toggle-slider:before {
     display: block;
     margin-bottom: 8px;
     font-weight: bold;
-    color: var(--primary);
+    color: var(--secondary);
 }
 
 .form-control {

@@ -247,12 +247,24 @@ var init_ui = __esm({
 
 // static/js/modules/auth.js
 function initAuth() {
-  initLogin();
-  initPasswordReset();
-  initEmailVerification();
-  initLogout();
-  initCreateNewPassword();
-  initRegistration();
+  if (document.getElementById("loginForm")) {
+    initLogin();
+  }
+  if (document.getElementById("resetForm")) {
+    initPasswordReset();
+  }
+  if (document.getElementById("countdown") && document.getElementById("resendCode")) {
+    initEmailVerification();
+  }
+  if (document.getElementById("countdown") && document.getElementById("seconds")) {
+    initLogout();
+  }
+  if (document.getElementById("resetPasswordForm")) {
+    initCreateNewPassword();
+  }
+  if (document.querySelector("form#register-form")) {
+    initRegistration();
+  }
 }
 function initLogin() {
   const loginForm = document.getElementById("loginForm");
@@ -364,27 +376,45 @@ function initRegistration() {
     return { strength: strength2, requirements: requirements2 };
   }
   function checkPasswordMatch() {
-    const password1 = document.getElementById("id_password1")?.value || "";
-    const password2 = document.getElementById("id_password2")?.value || "";
-    const passwordMatch = document.getElementById("passwordMatch");
-    if (!passwordMatch) return false;
-    if (password2.length > 0) {
-      if (password1 === password2) {
-        passwordMatch.style.display = "block";
-        passwordMatch.innerHTML = '<i class="fas fa-check"></i> \u041F\u0430\u0440\u043E\u043B\u0438 \u0441\u043E\u0432\u043F\u0430\u0434\u0430\u044E\u0442';
-        passwordMatch.classList.remove("invalid");
-        passwordMatch.classList.add("valid");
-        return true;
-      } else {
-        passwordMatch.style.display = "block";
-        passwordMatch.innerHTML = '<i class="fas fa-times"></i> \u041F\u0430\u0440\u043E\u043B\u0438 \u043D\u0435 \u0441\u043E\u0432\u043F\u0430\u0434\u0430\u044E\u0442';
-        passwordMatch.classList.remove("valid");
-        passwordMatch.classList.add("invalid");
-        return false;
-      }
+    const password1Input2 = document.getElementById("id_password1");
+    const password2Input2 = document.getElementById("id_password2");
+    const termsCheckbox2 = document.getElementById("terms");
+    const roleInputs2 = document.querySelectorAll('input[name="role"]');
+    if (password1Input2) {
+      password1Input2.addEventListener("input", function() {
+        const password = this.value;
+        const { strength: strength2, requirements: requirements2 } = checkPasswordStrength(password);
+        updatePasswordStrengthBar(strength2);
+        updatePasswordRequirements(requirements2);
+        checkPasswordMatch();
+        updateSubmitButton();
+      });
     } else {
-      passwordMatch.style.display = "none";
-      return false;
+      console.warn("Password1 input not found");
+    }
+    if (password2Input2) {
+      password2Input2.addEventListener("input", function() {
+        checkPasswordMatch();
+        updateSubmitButton();
+      });
+    } else {
+      console.warn("Password2 input not found");
+    }
+    if (termsCheckbox2) {
+      termsCheckbox2.addEventListener("change", function() {
+        updateSubmitButton();
+      });
+    } else {
+      console.warn("Terms checkbox not found");
+    }
+    if (roleInputs2 && roleInputs2.length > 0) {
+      roleInputs2.forEach((input) => {
+        input.addEventListener("change", function() {
+          updateSubmitButton();
+        });
+      });
+    } else {
+      console.warn("Role inputs not found");
     }
   }
   function updatePasswordRequirements(requirements2) {
@@ -619,94 +649,99 @@ function initRegistration() {
   updatePasswordRequirements(requirements);
 }
 function showAlert(title, message, type = "info", options = {}) {
-  const existingAlert = document.querySelector(".alert-overlay");
-  if (existingAlert) {
-    document.body.removeChild(existingAlert);
-  }
-  const overlay = document.createElement("div");
-  overlay.className = "alert-overlay";
-  const alertBox = document.createElement("div");
-  alertBox.className = `alert-box ${type}`;
-  const iconEl = document.createElement("div");
-  iconEl.className = "alert-icon";
-  switch (type) {
-    case "success":
-      iconEl.innerHTML = '<i class="fas fa-check-circle"></i>';
-      break;
-    case "error":
-      iconEl.innerHTML = '<i class="fas fa-exclamation-circle"></i>';
-      break;
-    case "warning":
-      iconEl.innerHTML = '<i class="fas fa-exclamation-triangle"></i>';
-      break;
-    default:
-      iconEl.innerHTML = '<i class="fas fa-info-circle"></i>';
-  }
-  const titleEl = document.createElement("div");
-  titleEl.className = "alert-title";
-  titleEl.textContent = title;
-  const messageEl = document.createElement("div");
-  messageEl.className = "alert-message";
-  messageEl.textContent = message;
-  const buttonContainer = document.createElement("div");
-  buttonContainer.className = "alert-buttons";
-  buttonContainer.style.display = "flex";
-  buttonContainer.style.gap = "10px";
-  buttonContainer.style.justifyContent = "center";
-  buttonContainer.style.marginTop = "1.5rem";
-  const confirmButton = document.createElement("button");
-  confirmButton.className = "alert-button";
-  confirmButton.textContent = options.confirmText || "\u041F\u043E\u043D\u044F\u0442\u043D\u043E";
-  alertBox.appendChild(iconEl);
-  alertBox.appendChild(titleEl);
-  alertBox.appendChild(messageEl);
-  buttonContainer.appendChild(confirmButton);
-  if (options.showCancel) {
-    const cancelButton = document.createElement("button");
-    cancelButton.className = "alert-button btn-light";
-    cancelButton.textContent = options.cancelText || "\u041E\u0442\u043C\u0435\u043D\u0430";
-    cancelButton.style.background = "transparent";
-    cancelButton.style.border = "2px solid var(--primary)";
-    cancelButton.style.color = "var(--primary)";
-    cancelButton.onclick = () => {
-      document.body.removeChild(overlay);
-      if (options.onCancel) options.onCancel();
-    };
-    buttonContainer.appendChild(cancelButton);
-  }
-  alertBox.appendChild(buttonContainer);
-  overlay.appendChild(alertBox);
-  document.body.appendChild(overlay);
-  confirmButton.focus();
-  const closeAlert = () => {
-    if (document.body.contains(overlay)) {
-      document.body.removeChild(overlay);
+  try {
+    const existingAlert = document.querySelector(".alert-overlay");
+    if (existingAlert) {
+      document.body.removeChild(existingAlert);
     }
-    if (options.onConfirm) options.onConfirm();
-  };
-  confirmButton.onclick = closeAlert;
-  overlay.onclick = (e) => {
-    if (e.target === overlay && !options.disableOverlayClose) {
-      closeAlert();
+    const overlay = document.createElement("div");
+    overlay.className = "alert-overlay";
+    const alertBox = document.createElement("div");
+    alertBox.className = `alert-box ${type}`;
+    const iconEl = document.createElement("div");
+    iconEl.className = "alert-icon";
+    switch (type) {
+      case "success":
+        iconEl.innerHTML = '<i class="fas fa-check-circle"></i>';
+        break;
+      case "error":
+        iconEl.innerHTML = '<i class="fas fa-exclamation-circle"></i>';
+        break;
+      case "warning":
+        iconEl.innerHTML = '<i class="fas fa-exclamation-triangle"></i>';
+        break;
+      default:
+        iconEl.innerHTML = '<i class="fas fa-info-circle"></i>';
     }
-  };
-  const handleEscape = (e) => {
-    if (e.key === "Escape") {
-      closeAlert();
-      document.removeEventListener("keydown", handleEscape);
+    const titleEl = document.createElement("div");
+    titleEl.className = "alert-title";
+    titleEl.textContent = title;
+    const messageEl = document.createElement("div");
+    messageEl.className = "alert-message";
+    messageEl.textContent = message;
+    const buttonContainer = document.createElement("div");
+    buttonContainer.className = "alert-buttons";
+    buttonContainer.style.display = "flex";
+    buttonContainer.style.gap = "10px";
+    buttonContainer.style.justifyContent = "center";
+    buttonContainer.style.marginTop = "1.5rem";
+    const confirmButton = document.createElement("button");
+    confirmButton.className = "alert-button";
+    confirmButton.textContent = options.confirmText || "\u041F\u043E\u043D\u044F\u0442\u043D\u043E";
+    alertBox.appendChild(iconEl);
+    alertBox.appendChild(titleEl);
+    alertBox.appendChild(messageEl);
+    buttonContainer.appendChild(confirmButton);
+    if (options.showCancel) {
+      const cancelButton = document.createElement("button");
+      cancelButton.className = "alert-button btn-light";
+      cancelButton.textContent = options.cancelText || "\u041E\u0442\u043C\u0435\u043D\u0430";
+      cancelButton.style.background = "transparent";
+      cancelButton.style.border = "2px solid var(--primary)";
+      cancelButton.style.color = "var(--primary)";
+      cancelButton.onclick = () => {
+        document.body.removeChild(overlay);
+        if (options.onCancel) options.onCancel();
+      };
+      buttonContainer.appendChild(cancelButton);
     }
-  };
-  document.addEventListener("keydown", handleEscape);
-  if (options.autoClose) {
-    setTimeout(() => {
+    alertBox.appendChild(buttonContainer);
+    overlay.appendChild(alertBox);
+    document.body.appendChild(overlay);
+    confirmButton.focus();
+    const closeAlert = () => {
       if (document.body.contains(overlay)) {
+        document.body.removeChild(overlay);
+      }
+      if (options.onConfirm) options.onConfirm();
+    };
+    confirmButton.onclick = closeAlert;
+    overlay.onclick = (e) => {
+      if (e.target === overlay && !options.disableOverlayClose) {
         closeAlert();
       }
-    }, options.autoClose);
+    };
+    const handleEscape = (e) => {
+      if (e.key === "Escape") {
+        closeAlert();
+        document.removeEventListener("keydown", handleEscape);
+      }
+    };
+    document.addEventListener("keydown", handleEscape);
+    if (options.autoClose) {
+      setTimeout(() => {
+        if (document.body.contains(overlay)) {
+          closeAlert();
+        }
+      }, options.autoClose);
+    }
+    return {
+      close: closeAlert
+    };
+  } catch (error) {
+    console.error("Error showing alert:", error);
+    alert(`${title}: ${message}`);
   }
-  return {
-    close: closeAlert
-  };
 }
 function initPasswordReset() {
   const resetForm3 = document.getElementById("resetForm");

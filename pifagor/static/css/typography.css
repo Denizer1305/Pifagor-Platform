@@ -61,10 +61,6 @@ h1, h2, h3, h4, h5, h6 {
     z-index: 2;
 }
 
-.cta .section-title {
-    color: var(--white);
-}
-
 .cta-description {
     max-width: 700px;
     margin: 0 auto var(--spacing-xl);
@@ -116,7 +112,6 @@ h1, h2, h3, h4, h5, h6 {
 .progress-card h3 {
     font-size: var(--text-4xl);
     margin-bottom: var(--typography-spacing-sm);
-    color: var(--primary);
 }
 
 .social-links-contact a {
@@ -127,7 +122,7 @@ h1, h2, h3, h4, h5, h6 {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--white);
+    color: var(--primary-text);
     transition: var(--transition-standard);
     text-decoration: none;
 }
@@ -141,15 +136,7 @@ h1, h2, h3, h4, h5, h6 {
     font-size: var(--text-5xl);
     margin-bottom: var(--typography-spacing-xl);
     text-align: center;
-    color: var(--primary);
-}
-
-.subject-list li {
-    background-color: var(--light-bg);
-    padding: var(--typography-spacing-xs) var(--typography-spacing-sm);
-    border-radius: var(--border-radius-xl);
-    font-size: var(--text-sm);
-    color: var(--primary);
+    color: var(--primary-text);
 }
 
 .benefits-list {
@@ -291,7 +278,6 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Карточки информации */
 .testing-results h4 {
-    color: #1f2937;
     font-size: 1.2rem;
     font-weight: 600;
     margin-bottom: 1rem;

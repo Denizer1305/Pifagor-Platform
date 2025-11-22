@@ -5,7 +5,7 @@ export function initThemeSwitcher() {
     if (themeButtons.length === 0) return;
     
     // Загрузка сохраненной темы
-    const savedTheme = localStorage.getItem('theme') || 'default';
+    const savedTheme = localStorage.getItem('theme') || 'light';
     setTheme(savedTheme);
     
     themeButtons.forEach(btn => {
@@ -31,11 +31,23 @@ export function initThemeSwitcher() {
             existingTheme.remove();
         }
         
-        // Создаем новую ссылку на тему
+        // Используем window.STATIC_URL для формирования правильного пути
+        const staticBase = window.STATIC_URL || '/static/';
         const themeLink = document.createElement('link');
         themeLink.id = 'dynamic-theme';
         themeLink.rel = 'stylesheet';
-        themeLink.href = `/frontend/static/css/themes/${theme}.css`;
+        themeLink.href = `${staticBase}css/themes/${theme}.css`;
+        
+        // Обработка ошибки загрузки темы
+        themeLink.onerror = function() {
+            console.error(`Не удалось загрузить тему: ${theme}`);
+            this.remove();
+            // Загружаем тему по умолчанию если выбранная не найдена
+            if (theme !== 'light') {
+                setTheme('light');
+            }
+        };
+        
         document.head.appendChild(themeLink);
         
         // Обновляем активную кнопку
@@ -60,8 +72,9 @@ export function initThemeSwitcher() {
             case 'dark':
                 themeColor = '#1E293B';
                 break;
-            case 'high-contrast':
-                themeColor = '#000000';
+            case 'light':
+            default:
+                themeColor = '#394458';
                 break;
         }
         

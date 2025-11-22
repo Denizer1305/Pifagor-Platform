@@ -316,6 +316,7 @@ header {
     padding: 0;
     margin: 0;
     flex: 1;
+    
 }
 
 .mobile-nav-link {
@@ -329,6 +330,7 @@ header {
     transition: var(--transition-standard);
     position: relative;
 }
+
 
 .mobile-nav-link:hover,
 .mobile-nav-link:focus {

@@ -86,30 +86,6 @@
     color: var(--primary);
 }
 
-.detail-list {
-    list-style: none;
-}
-
-.detail-item {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 0;
-    border-bottom: 1px solid var(--light-bg);
-}
-
-.detail-item:last-child {
-    border-bottom: none;
-}
-
-.detail-label {
-    color: var(--secondary);
-}
-
-.detail-value {
-    font-weight: bold;
-    color: var(--primary);
-}
-
 /* Родители */
 .parents-section {
     background-color: var(--white);

@@ -146,7 +146,7 @@ var init_animations = __esm({
 function initThemeSwitcher() {
   const themeButtons = document.querySelectorAll(".theme-btn");
   if (themeButtons.length === 0) return;
-  const savedTheme = localStorage.getItem("theme") || "default";
+  const savedTheme = localStorage.getItem("theme") || "light";
   setTheme(savedTheme);
   themeButtons.forEach((btn) => {
     btn.addEventListener("click", function() {
@@ -166,10 +166,18 @@ function initThemeSwitcher() {
     if (existingTheme) {
       existingTheme.remove();
     }
+    const staticBase = window.STATIC_URL || "/static/";
     const themeLink = document.createElement("link");
     themeLink.id = "dynamic-theme";
     themeLink.rel = "stylesheet";
-    themeLink.href = `/frontend/static/css/themes/${theme}.css`;
+    themeLink.href = `${staticBase}css/themes/${theme}.css`;
+    themeLink.onerror = function() {
+      console.error(`\u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u0437\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C \u0442\u0435\u043C\u0443: ${theme}`);
+      this.remove();
+      if (theme !== "light") {
+        setTheme("light");
+      }
+    };
     document.head.appendChild(themeLink);
     themeButtons.forEach((btn) => {
       btn.classList.remove("active");
@@ -186,8 +194,9 @@ function initThemeSwitcher() {
       case "dark":
         themeColor = "#1E293B";
         break;
-      case "high-contrast":
-        themeColor = "#000000";
+      case "light":
+      default:
+        themeColor = "#394458";
         break;
     }
     let themeColorMeta = document.querySelector('meta[name="theme-color"]');

@@ -26,6 +26,19 @@ import { initHomeworkPages } from './pages/homework-pages.js';
 
 import { initTestTaking, initTestResultsPage } from './modules/tests.js';
 
+import themeManager from './theme-manager.js';
+
+document.addEventListener('DOMContentLoaded', function() {
+    initThemeSwitcher();
+    
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    themeManager.applyTheme(savedTheme);
+});
+
+document.addEventListener('themeChanged', (event) => {
+    console.log('Тема изменена на:', event.detail.theme);
+});
+
 document.addEventListener('DOMContentLoaded', function() {
     const currentPath = window.location.pathname;
 

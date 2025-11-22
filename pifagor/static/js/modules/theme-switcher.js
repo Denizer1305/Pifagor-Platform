@@ -1,73 +1,20 @@
-// Модуль переключения тем
+import themeManager from './theme-manager.js';
+
+// Модуль переключения тем (теперь просто инициализирует кнопки)
 export function initThemeSwitcher() {
     const themeButtons = document.querySelectorAll('.theme-btn');
     
     if (themeButtons.length === 0) return;
     
-    // Загрузка сохраненной темы
-    const savedTheme = localStorage.getItem('theme') || 'default';
-    setTheme(savedTheme);
+    // Устанавливаем активное состояние для кнопок
+    const currentTheme = themeManager.getCurrentTheme();
+    themeManager.updateActiveButtons(currentTheme);
     
+    // Обработчики уже настроены в ThemeManager, но можно добавить дополнительные
     themeButtons.forEach(btn => {
         btn.addEventListener('click', function() {
             const theme = this.getAttribute('data-theme');
-            setTheme(theme);
-            
-            // Микровзаимодействие
-            this.style.transform = 'scale(0.9)';
-            setTimeout(() => {
-                this.style.transform = 'scale(1.1)';
-            }, 100);
-            setTimeout(() => {
-                this.style.transform = 'scale(1)';
-            }, 200);
+            // Тема переключится через глобальный менеджер
         });
     });
-    
-    function setTheme(theme) {
-        // Удаляем предыдущую тему
-        const existingTheme = document.getElementById('dynamic-theme');
-        if (existingTheme) {
-            existingTheme.remove();
-        }
-        
-        // Создаем новую ссылку на тему
-        const themeLink = document.createElement('link');
-        themeLink.id = 'dynamic-theme';
-        themeLink.rel = 'stylesheet';
-        themeLink.href = `/theme/${theme}/`;
-        document.head.appendChild(themeLink);
-        
-        // Обновляем активную кнопку
-        themeButtons.forEach(btn => {
-            btn.classList.remove('active');
-            if (btn.getAttribute('data-theme') === theme) {
-                btn.classList.add('active');
-            }
-        });
-        
-        // Сохраняем в localStorage
-        localStorage.setItem('theme', theme);
-        
-        // Обновляем мета-тег theme-color
-        updateThemeColor(theme);
-    }
-    
-    function updateThemeColor(theme) {
-        let themeColor = '#394458';
-        
-        switch(theme) {
-            case 'dark':
-                themeColor = '#1E293B';
-                break;
-        }
-        
-        let themeColorMeta = document.querySelector('meta[name="theme-color"]');
-        if (!themeColorMeta) {
-            themeColorMeta = document.createElement('meta');
-            themeColorMeta.name = 'theme-color';
-            document.head.appendChild(themeColorMeta);
-        }
-        themeColorMeta.setAttribute('content', themeColor);
-    }
 }

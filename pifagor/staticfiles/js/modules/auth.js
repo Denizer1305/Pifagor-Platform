@@ -1,10 +1,27 @@
 export function initAuth() {
-    initLogin();
-    initPasswordReset();
-    initEmailVerification();
-    initLogout();
-    initCreateNewPassword();
-    initRegistration();
+    if (document.getElementById('loginForm')) {
+        initLogin();
+    }
+    
+    if (document.getElementById('resetForm')) {
+        initPasswordReset();
+    }
+    
+    if (document.getElementById('countdown') && document.getElementById('resendCode')) {
+        initEmailVerification();
+    }
+    
+    if (document.getElementById('countdown') && document.getElementById('seconds')) {
+        initLogout();
+    }
+    
+    if (document.getElementById('resetPasswordForm')) {
+        initCreateNewPassword();
+    }
+
+    if (document.querySelector('form#register-form')) {
+        initRegistration();
+    }
 }
 
 function initLogin() {
@@ -148,29 +165,50 @@ function initRegistration() {
     }
 
     function checkPasswordMatch() {
-        const password1 = document.getElementById('id_password1')?.value || '';
-        const password2 = document.getElementById('id_password2')?.value || '';
-        const passwordMatch = document.getElementById('passwordMatch');
+        const password1Input = document.getElementById('id_password1');
+        const password2Input = document.getElementById('id_password2');
+        const termsCheckbox = document.getElementById('terms');
+        const roleInputs = document.querySelectorAll('input[name="role"]');
         
-        if (!passwordMatch) return false;
-        
-        if (password2.length > 0) {
-            if (password1 === password2) {
-                passwordMatch.style.display = 'block';
-                passwordMatch.innerHTML = '<i class="fas fa-check"></i> Пароли совпадают';
-                passwordMatch.classList.remove('invalid');
-                passwordMatch.classList.add('valid');
-                return true;
-            } else {
-                passwordMatch.style.display = 'block';
-                passwordMatch.innerHTML = '<i class="fas fa-times"></i> Пароли не совпадают';
-                passwordMatch.classList.remove('valid');
-                passwordMatch.classList.add('invalid');
-                return false;
-            }
+        if (password1Input) {
+            password1Input.addEventListener('input', function() {
+                const password = this.value;
+                const { strength, requirements } = checkPasswordStrength(password);
+                
+                updatePasswordStrengthBar(strength);
+                updatePasswordRequirements(requirements);
+                checkPasswordMatch();
+                updateSubmitButton();
+            });
         } else {
-            passwordMatch.style.display = 'none';
-            return false;
+            console.warn('Password1 input not found');
+        }
+        
+        if (password2Input) {
+            password2Input.addEventListener('input', function() {
+                checkPasswordMatch();
+                updateSubmitButton();
+            });
+        } else {
+            console.warn('Password2 input not found');
+        }
+        
+        if (termsCheckbox) {
+            termsCheckbox.addEventListener('change', function() {
+                updateSubmitButton();
+            });
+        } else {
+            console.warn('Terms checkbox not found');
+        }
+        
+        if (roleInputs && roleInputs.length > 0) {
+            roleInputs.forEach(input => {
+                input.addEventListener('change', function() {
+                    updateSubmitButton();
+                });
+            });
+        } else {
+            console.warn('Role inputs not found');
         }
     }
     
@@ -446,117 +484,124 @@ registerForm.addEventListener('submit', function(e) {
 }
 
 function showAlert(title, message, type = 'info', options = {}) {
-    const existingAlert = document.querySelector('.alert-overlay');
-    if (existingAlert) {
-        document.body.removeChild(existingAlert);
-    }
-    
-    const overlay = document.createElement('div');
-    overlay.className = 'alert-overlay';
-    
-    const alertBox = document.createElement('div');
-    alertBox.className = `alert-box ${type}`;
-    
-    const iconEl = document.createElement('div');
-    iconEl.className = 'alert-icon';
-    
-    switch(type) {
-        case 'success':
-            iconEl.innerHTML = '<i class="fas fa-check-circle"></i>';
-            break;
-        case 'error':
-            iconEl.innerHTML = '<i class="fas fa-exclamation-circle"></i>';
-            break;
-        case 'warning':
-            iconEl.innerHTML = '<i class="fas fa-exclamation-triangle"></i>';
-            break;
-        default:
-            iconEl.innerHTML = '<i class="fas fa-info-circle"></i>';
-    }
-    
-    const titleEl = document.createElement('div');
-    titleEl.className = 'alert-title';
-    titleEl.textContent = title;
-    
-    const messageEl = document.createElement('div');
-    messageEl.className = 'alert-message';
-    messageEl.textContent = message;
-    
-    const buttonContainer = document.createElement('div');
-    buttonContainer.className = 'alert-buttons';
-    buttonContainer.style.display = 'flex';
-    buttonContainer.style.gap = '10px';
-    buttonContainer.style.justifyContent = 'center';
-    buttonContainer.style.marginTop = '1.5rem';
-    
-    const confirmButton = document.createElement('button');
-    confirmButton.className = 'alert-button';
-    confirmButton.textContent = options.confirmText || 'Понятно';
-    
-    alertBox.appendChild(iconEl);
-    alertBox.appendChild(titleEl);
-    alertBox.appendChild(messageEl);
-    
-    buttonContainer.appendChild(confirmButton);
-    
-    if (options.showCancel) {
-        const cancelButton = document.createElement('button');
-        cancelButton.className = 'alert-button btn-light';
-        cancelButton.textContent = options.cancelText || 'Отмена';
-        cancelButton.style.background = 'transparent';
-        cancelButton.style.border = '2px solid var(--primary)';
-        cancelButton.style.color = 'var(--primary)';
+    try{
+        const existingAlert = document.querySelector('.alert-overlay');
+        if (existingAlert) {
+            document.body.removeChild(existingAlert);
+        }
         
-        cancelButton.onclick = () => {
-            document.body.removeChild(overlay);
-            if (options.onCancel) options.onCancel();
+        const overlay = document.createElement('div');
+        overlay.className = 'alert-overlay';
+        
+        const alertBox = document.createElement('div');
+        alertBox.className = `alert-box ${type}`;
+        
+        const iconEl = document.createElement('div');
+        iconEl.className = 'alert-icon';
+        
+        switch(type) {
+            case 'success':
+                iconEl.innerHTML = '<i class="fas fa-check-circle"></i>';
+                break;
+            case 'error':
+                iconEl.innerHTML = '<i class="fas fa-exclamation-circle"></i>';
+                break;
+            case 'warning':
+                iconEl.innerHTML = '<i class="fas fa-exclamation-triangle"></i>';
+                break;
+            default:
+                iconEl.innerHTML = '<i class="fas fa-info-circle"></i>';
+        }
+        
+        const titleEl = document.createElement('div');
+        titleEl.className = 'alert-title';
+        titleEl.textContent = title;
+        
+        const messageEl = document.createElement('div');
+        messageEl.className = 'alert-message';
+        messageEl.textContent = message;
+        
+        const buttonContainer = document.createElement('div');
+        buttonContainer.className = 'alert-buttons';
+        buttonContainer.style.display = 'flex';
+        buttonContainer.style.gap = '10px';
+        buttonContainer.style.justifyContent = 'center';
+        buttonContainer.style.marginTop = '1.5rem';
+        
+        const confirmButton = document.createElement('button');
+        confirmButton.className = 'alert-button';
+        confirmButton.textContent = options.confirmText || 'Понятно';
+        
+        alertBox.appendChild(iconEl);
+        alertBox.appendChild(titleEl);
+        alertBox.appendChild(messageEl);
+        
+        buttonContainer.appendChild(confirmButton);
+        
+        if (options.showCancel) {
+            const cancelButton = document.createElement('button');
+            cancelButton.className = 'alert-button btn-light';
+            cancelButton.textContent = options.cancelText || 'Отмена';
+            cancelButton.style.background = 'transparent';
+            cancelButton.style.border = '2px solid var(--primary)';
+            cancelButton.style.color = 'var(--primary)';
+            
+            cancelButton.onclick = () => {
+                document.body.removeChild(overlay);
+                if (options.onCancel) options.onCancel();
+            };
+            
+            buttonContainer.appendChild(cancelButton);
+        }
+        
+        alertBox.appendChild(buttonContainer);
+        overlay.appendChild(alertBox);
+        
+        document.body.appendChild(overlay);
+        
+        confirmButton.focus();
+        
+        const closeAlert = () => {
+            if (document.body.contains(overlay)) {
+                document.body.removeChild(overlay);
+            }
+            if (options.onConfirm) options.onConfirm();
         };
         
-        buttonContainer.appendChild(cancelButton);
-    }
-    
-    alertBox.appendChild(buttonContainer);
-    overlay.appendChild(alertBox);
-    
-    document.body.appendChild(overlay);
-    
-    confirmButton.focus();
-    
-    const closeAlert = () => {
-        if (document.body.contains(overlay)) {
-            document.body.removeChild(overlay);
-        }
-        if (options.onConfirm) options.onConfirm();
-    };
-    
-    confirmButton.onclick = closeAlert;
-    
-    overlay.onclick = (e) => {
-        if (e.target === overlay && !options.disableOverlayClose) {
-            closeAlert();
-        }
-    };
-    
-    const handleEscape = (e) => {
-        if (e.key === 'Escape') {
-            closeAlert();
-            document.removeEventListener('keydown', handleEscape);
-        }
-    };
-    
-    document.addEventListener('keydown', handleEscape);
-    
-    if (options.autoClose) {
-        setTimeout(() => {
-            if (document.body.contains(overlay)) {
+        confirmButton.onclick = closeAlert;
+        
+        overlay.onclick = (e) => {
+            if (e.target === overlay && !options.disableOverlayClose) {
                 closeAlert();
             }
-        }, options.autoClose);
+        };
+        
+        const handleEscape = (e) => {
+            if (e.key === 'Escape') {
+                closeAlert();
+                document.removeEventListener('keydown', handleEscape);
+            }
+        };
+        
+        document.addEventListener('keydown', handleEscape);
+        
+        if (options.autoClose) {
+            setTimeout(() => {
+                if (document.body.contains(overlay)) {
+                    closeAlert();
+                }
+            }, options.autoClose);
+        }
+        
+        return {
+            close: closeAlert
+        };
+    }
+    catch (error) {
+        console.error('Error showing alert:', error);
+        alert(`${title}: ${message}`);
     }
     
-    return {
-        close: closeAlert
-    };
 }
 
 function initPasswordReset() {
