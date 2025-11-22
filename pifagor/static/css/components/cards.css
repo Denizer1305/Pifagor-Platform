@@ -154,49 +154,6 @@
     background: rgba(255, 255, 255, 0.15);
 }
 
-/* AI Features */
-.ai-features {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--grid-gap-md);
-    margin-top: var(--spacing-lg);
-}
-
-.ai-feature {
-    background: var(--white);
-    padding: var(--card-padding-md);
-    border-radius: var(--border-radius-lg);
-    box-shadow: var(--card-shadow);
-    display: flex;
-    align-items: center;
-    gap: var(--grid-gap-sm);
-    transition: var(--transition-standard);
-    position: relative;
-    overflow: hidden;
-}
-
-.ai-feature:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: var(--card-border-left-width);
-    height: 100%;
-    background: var(--gradient-card-vertical);
-    transform: scaleY(0);
-    transform-origin: bottom;
-    transition: transform var(--animation-duration-fast) var(--animation-timing-ease);
-}
-
-.ai-feature:hover:before {
-    transform: scaleY(1);
-}
-
-.ai-feature:hover {
-    transform: var(--card-hover-transform-sm);
-    box-shadow: var(--card-shadow-hover);
-}
-
 /* Команда */
 .team-member {
     text-align: center;

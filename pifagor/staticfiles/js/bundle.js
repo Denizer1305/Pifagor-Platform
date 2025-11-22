@@ -304,20 +304,12 @@ function getCSRFToken() {
 }
 function initRegistration() {
   const registerForm = document.querySelector("form#register-form");
-  if (!registerForm) {
-    console.log("Registration form not found");
-    return;
-  }
-  console.log("Registration form found:", registerForm);
   const requirementIds = ["lengthReq", "uppercaseReq", "numberReq", "specialReq"];
   requirementIds.forEach((id) => {
     const element = document.getElementById(id);
-    console.log(`Element ${id}:`, element, "Content:", element ? element.innerHTML : "NOT FOUND");
   });
   function initPasswordToggles() {
-    console.log("Initializing password toggles...");
     const passwordToggles = document.querySelectorAll(".password-toggle");
-    console.log("Found password toggles:", passwordToggles.length);
     passwordToggles.forEach((toggle) => {
       const newToggle = toggle.cloneNode(true);
       toggle.parentNode.replaceChild(newToggle, toggle);
@@ -327,27 +319,19 @@ function initRegistration() {
         const targetId = this.getAttribute("data-target");
         console.log("Target ID:", targetId);
         const passwordInput = document.getElementById(targetId);
-        console.log("Password input found:", !!passwordInput);
-        if (passwordInput) {
-          const currentType = passwordInput.getAttribute("type");
-          const newType = currentType === "password" ? "text" : "password";
-          console.log("Changing input type from", currentType, "to", newType);
-          passwordInput.setAttribute("type", newType);
-          const icon = this.querySelector("i");
-          if (icon) {
-            if (newType === "password") {
-              icon.className = "fas fa-eye";
-            } else {
-              icon.className = "fas fa-eye-slash";
-            }
-            console.log("Icon changed to:", icon.className);
+        const currentType = passwordInput.getAttribute("type");
+        const newType = currentType === "password" ? "text" : "password";
+        passwordInput.setAttribute("type", newType);
+        const icon = this.querySelector("i");
+        if (icon) {
+          if (newType === "password") {
+            icon.className = "fas fa-eye";
+          } else {
+            icon.className = "fas fa-eye-slash";
           }
-        } else {
-          console.error("Password input not found for target:", targetId);
         }
       });
     });
-    console.log("Password toggles initialization completed");
   }
   initPasswordToggles();
   function checkPasswordStrength(password) {
@@ -404,7 +388,6 @@ function initRegistration() {
     }
   }
   function updatePasswordRequirements(requirements2) {
-    console.log("Updating password requirements:", requirements2);
     const requirementsConfig = {
       "length": {
         elementId: "lengthReq",
@@ -426,21 +409,17 @@ function initRegistration() {
     Object.keys(requirementsConfig).forEach((requirementType) => {
       const config = requirementsConfig[requirementType];
       const element = document.getElementById(config.elementId);
-      if (element) {
-        const isValid = requirements2[requirementType];
-        if (isValid) {
-          element.classList.remove("invalid");
-          element.classList.add("valid");
-          const currentText = element.textContent || config.text;
-          element.innerHTML = '<i class="fas fa-check"></i> ' + currentText.replace(/^.*?(\s|$)/, "");
-        } else {
-          element.classList.remove("valid");
-          element.classList.add("invalid");
-          const currentText = element.textContent || config.text;
-          element.innerHTML = '<i class="fas fa-times"></i> ' + currentText.replace(/^.*?(\s|$)/, "");
-        }
+      const isValid = requirements2[requirementType];
+      if (isValid) {
+        element.classList.remove("invalid");
+        element.classList.add("valid");
+        const currentText = element.textContent || config.text;
+        element.innerHTML = '<i class="fas fa-check"></i> ' + currentText.replace(/^.*?(\s|$)/, "");
       } else {
-        console.warn("Element not found:", config.elementId);
+        element.classList.remove("valid");
+        element.classList.add("invalid");
+        const currentText = element.textContent || config.text;
+        element.innerHTML = '<i class="fas fa-times"></i> ' + currentText.replace(/^.*?(\s|$)/, "");
       }
     });
   }
@@ -545,7 +524,6 @@ function initRegistration() {
     const originalText = submitButton.textContent;
     submitButton.textContent = "\u0420\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044F...";
     submitButton.disabled = true;
-    console.log("Sending registration request...");
     fetch(registerForm.action, {
       method: "POST",
       body: formData,
@@ -554,23 +532,17 @@ function initRegistration() {
         "X-CSRFToken": getCSRFToken()
       }
     }).then((response) => {
-      console.log("Response status:", response.status);
       const contentType = response.headers.get("content-type");
-      if (!contentType || !contentType.includes("application/json")) {
+      if (contentType && contentType.includes("application/json")) {
+        return response.json().then((data) => {
+          return { data, status: response.status, ok: response.ok };
+        });
+      } else {
         throw new Error("Server returned non-JSON response");
       }
-      return response.json().then((data) => {
-        if (!response.ok) {
-          return { error: true, data };
-        }
-        return data;
-      });
-    }).then((data) => {
+    }).then(({ data, status, ok }) => {
       console.log("Response data:", data);
-      if (data.error) {
-        throw new Error(JSON.stringify(data.data));
-      }
-      if (data.success) {
+      if (ok && data.success) {
         showAlert(
           "\u0423\u0441\u043F\u0435\u0448\u043D\u0430\u044F \u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044F!",
           "\u0412\u0430\u0448 \u0430\u043A\u043A\u0430\u0443\u043D\u0442 \u0431\u044B\u043B \u0443\u0441\u043F\u0435\u0448\u043D\u043E \u0441\u043E\u0437\u0434\u0430\u043D. \u0422\u0435\u043F\u0435\u0440\u044C \u0432\u044B \u043C\u043E\u0436\u0435\u0442\u0435 \u0432\u043E\u0439\u0442\u0438 \u0432 \u0441\u0438\u0441\u0442\u0435\u043C\u0443.",
@@ -583,37 +555,42 @@ function initRegistration() {
           }
         );
       } else {
+        document.querySelectorAll(".error-message").forEach((el) => {
+          el.style.display = "none";
+          el.textContent = "";
+        });
         if (data.errors) {
-          document.querySelectorAll(".error-message").forEach((el) => {
-            el.style.display = "none";
-            el.textContent = "";
-          });
+          let hasFieldErrors = false;
           Object.keys(data.errors).forEach((field) => {
             let errorElement;
-            if (field === "password1") {
-              errorElement = document.querySelector("#id_password1").closest(".form-group").querySelector(".error-message");
-            } else if (field === "password2") {
-              errorElement = document.querySelector("#id_password2").closest(".form-group").querySelector(".error-message");
-            } else if (field === "email") {
-              errorElement = document.querySelector("#id_email").closest(".form-group").querySelector(".error-message");
-            } else if (field === "fullname") {
-              errorElement = document.querySelector("#id_fullname").closest(".form-group").querySelector(".error-message");
+            if (field === "password1" || field === "id_password1") {
+              errorElement = document.querySelector("#id_password1")?.closest(".form-group")?.querySelector(".error-message");
+            } else if (field === "password2" || field === "id_password2") {
+              errorElement = document.querySelector("#id_password2")?.closest(".form-group")?.querySelector(".error-message");
+            } else if (field === "email" || field === "id_email") {
+              errorElement = document.querySelector("#id_email")?.closest(".form-group")?.querySelector(".error-message");
+            } else if (field === "fullname" || field === "id_fullname") {
+              errorElement = document.querySelector("#id_fullname")?.closest(".form-group")?.querySelector(".error-message");
             } else if (field === "role") {
-              errorElement = document.querySelector(".role-selector").closest(".form-group").querySelector(".error-message");
+              errorElement = document.querySelector(".role-selector")?.closest(".form-group")?.querySelector(".error-message");
             } else if (field === "__all__") {
-              showAlert("\u041E\u0448\u0438\u0431\u043A\u0430 \u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u0438", data.errors[field][0], "error");
+              showAlert("\u041E\u0448\u0438\u0431\u043A\u0430 \u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u0438", Array.isArray(data.errors[field]) ? data.errors[field][0] : data.errors[field], "error");
               return;
             }
             if (errorElement) {
-              errorElement.textContent = Array.isArray(data.errors[field]) ? data.errors[field][0] : data.errors[field];
+              const errorText = Array.isArray(data.errors[field]) ? data.errors[field][0] : data.errors[field];
+              errorElement.textContent = errorText;
               errorElement.style.display = "block";
+              hasFieldErrors = true;
             }
           });
-          showAlert(
-            "\u041E\u0448\u0438\u0431\u043A\u0430 \u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u0438",
-            "\u041F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430, \u0438\u0441\u043F\u0440\u0430\u0432\u044C\u0442\u0435 \u043E\u0448\u0438\u0431\u043A\u0438 \u0432 \u0444\u043E\u0440\u043C\u0435.",
-            "error"
-          );
+          if (!hasFieldErrors) {
+            showAlert(
+              "\u041E\u0448\u0438\u0431\u043A\u0430 \u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u0438",
+              "\u041F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430, \u0438\u0441\u043F\u0440\u0430\u0432\u044C\u0442\u0435 \u043E\u0448\u0438\u0431\u043A\u0438 \u0432 \u0444\u043E\u0440\u043C\u0435.",
+              "error"
+            );
+          }
         } else {
           showAlert(
             "\u041E\u0448\u0438\u0431\u043A\u0430 \u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u0438",
@@ -623,20 +600,12 @@ function initRegistration() {
         }
       }
     }).catch((error) => {
-      console.error("Error:", error);
+      console.error("Fetch error:", error);
       let errorMessage = "\u041F\u0440\u043E\u0438\u0437\u043E\u0448\u043B\u0430 \u043E\u0448\u0438\u0431\u043A\u0430 \u043F\u0440\u0438 \u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u0438. ";
-      try {
-        const errorData = JSON.parse(error.message);
-        if (errorData.errors) {
-          const firstError = Object.values(errorData.errors)[0];
-          errorMessage += Array.isArray(firstError) ? firstError[0] : firstError;
-        }
-      } catch (e2) {
-        if (error.message.includes("non-JSON")) {
-          errorMessage += "\u0421\u0435\u0440\u0432\u0435\u0440 \u0432\u0435\u0440\u043D\u0443\u043B \u043D\u0435\u043A\u043E\u0440\u0440\u0435\u043A\u0442\u043D\u044B\u0439 \u043E\u0442\u0432\u0435\u0442.";
-        } else {
-          errorMessage += "\u041F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430, \u043F\u043E\u043F\u0440\u043E\u0431\u0443\u0439\u0442\u0435 \u0435\u0449\u0435 \u0440\u0430\u0437.";
-        }
+      if (error.message.includes("non-JSON")) {
+        errorMessage += "\u0421\u0435\u0440\u0432\u0435\u0440 \u0432\u0435\u0440\u043D\u0443\u043B \u043D\u0435\u043A\u043E\u0440\u0440\u0435\u043A\u0442\u043D\u044B\u0439 \u043E\u0442\u0432\u0435\u0442.";
+      } else {
+        errorMessage += "\u041F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430, \u043F\u043E\u043F\u0440\u043E\u0431\u0443\u0439\u0442\u0435 \u0435\u0449\u0435 \u0440\u0430\u0437.";
       }
       showAlert("\u041E\u0448\u0438\u0431\u043A\u0430", errorMessage, "error");
     }).finally(() => {
@@ -788,7 +757,6 @@ function initEmailVerification() {
       showAlert("\u041A\u043E\u0434 \u043E\u0442\u043F\u0440\u0430\u0432\u043B\u0435\u043D", `\u041D\u043E\u0432\u044B\u0439 \u043A\u043E\u0434 \u043F\u043E\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043D\u0438\u044F \u0431\u044B\u043B \u043E\u0442\u043F\u0440\u0430\u0432\u043B\u0435\u043D \u043D\u0430 ${email}`, "info", {
         autoClose: 3e3
       });
-      console.log("Resending verification code to:", email);
       setTimeout(() => {
         if (timeLeft > 0) {
           resendButton.disabled = false;
@@ -865,7 +833,6 @@ function initEmailVerification() {
       if (code === "123456") {
         showAlert("\u0423\u0441\u043F\u0435\u0448\u043D\u0430\u044F \u0432\u0435\u0440\u0438\u0444\u0438\u043A\u0430\u0446\u0438\u044F!", "\u0412\u0430\u0448 email \u0443\u0441\u043F\u0435\u0448\u043D\u043E \u043F\u043E\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043D. \u0422\u0435\u043F\u0435\u0440\u044C \u0432\u044B \u043C\u043E\u0436\u0435\u0442\u0435 \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u044C\u0441\u044F \u0432\u0441\u0435\u043C\u0438 \u0444\u0443\u043D\u043A\u0446\u0438\u044F\u043C\u0438 \u043F\u043B\u0430\u0442\u0444\u043E\u0440\u043C\u044B.", "success", {
           autoClose: 3e3,
-          // Исправлено с 300000 на 3000
           onConfirm: () => {
             window.location.href = "/authorization/login/";
           }
@@ -906,7 +873,7 @@ function initPasswordResetCode() {
   if (userEmailElement) {
     userEmailElement.textContent = email;
   }
-  let timeLeft = 1800;
+  let timeLeft = 300;
   const countdownElement = document.getElementById("countdown");
   const resendButton = document.getElementById("resendCode");
   function updateTimer() {

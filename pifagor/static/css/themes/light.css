@@ -1,0 +1,509 @@
+:root {
+    /* Основные цвета */
+    --primary: #394458;
+    --primary-light: #EEF1F6;
+    --secondary: #8A8A9F;
+    --primary-text: #2F2F2F;
+    --light-bg: #EEF1F6;
+    --white: #FFFFFF;
+
+    /* Акцентные цвета */
+    --accent: #4A6FA5;
+    --accent-blue: #4A6FA5;
+    --accent-light-blue: #3498DB;
+    --accent-gray: #8A8A9F;
+    --accent-gold: #D4AF37;
+    --accent-green: #2ECC71;
+    --accent-orange: #F39C12;
+    --accent-yellow: #F1C40F;
+    --accent-amber: #FFA500;
+    --accent-red: #E74C3C;
+    --accent-purple: #9B59B6;
+    --accent-pink: #E84393;
+
+    /* Семантические цвета */
+    --success: #2ECC71;
+    --warning: #F39C12;
+    --danger: #E74C3C;
+    --error: #E74C3C;
+    --info: #3498DB;
+
+    /* Цвета предметов */
+    --russian: #e78f3c;
+    --literature: #345bdb;
+    --math: #12f3b0;
+    --economics: #752ecc;
+    --programming: #1c0f22;
+
+    /* Фоны для страниц/пользователей */
+    --anastasia-bg: #f0f7ff;
+    --user-bg: #e6f2ff;
+
+    /* Тени и эффекты */
+    --shadow-color: rgba(57, 68, 88, 0.2);
+    --shadow-sm: 0 2px 5px var(--shadow-color);
+    --shadow-md: 0 5px 15px var(--shadow-color);
+    --shadow-lg: 0 10px 30px var(--shadow-color);
+
+    /* Шрифты */
+    --font-forum: 'Forum', serif;
+    --font-pt-sans: 'PT Sans', sans-serif;
+
+    /* Размеры шрифтов */
+    --text-xs: 0.7rem;
+    --text-sm: 0.8rem;
+    --text-md: 0.9rem;
+    --text-base: 1rem;
+    --text-lg: 1.1rem;
+    --text-xl: 1.2rem;
+    --text-2xl: 1.3rem;
+    --text-3xl: 1.4rem;
+    --text-4xl: 1.5rem;
+    --text-5xl: 1.8rem;
+    --text-6xl: 2.2rem;
+    --text-7xl: 2.5rem;
+    --text-8xl: 2.8rem;
+    --text-9xl: 3rem;
+    --text-10xl: 3.5rem;
+
+    /* Высоты строк */
+    --line-height-tight: 1.2;
+    --line-height-base: 1.6;
+    --line-height-loose: 1.8;
+
+    /* Отступы */
+    --spacing-xs: 5px;
+    --spacing-sm: 10px;
+    --spacing-md: 15px;
+    --spacing-lg: 20px;
+    --spacing-xl: 25px;
+    --spacing-xxl: 30px;
+
+    /* Специфические отступы для типографики */
+    --typography-spacing-xs: var(--spacing-xs);
+    --typography-spacing-sm: var(--spacing-sm);
+    --typography-spacing-md: var(--spacing-md);
+    --typography-spacing-lg: var(--spacing-lg);
+    --typography-spacing-xl: var(--spacing-xl);
+    --typography-spacing-xxl: var(--spacing-xxl);
+
+    /* Скругления */
+    --border-radius: 8px;
+    --border-radius-lg: 10px;
+    --border-radius-xl: 20px;
+
+    /* Анимации */
+    --transition-standard: all 0.3s ease;
+    --transition-slow: all 0.6s ease;
+    --animation-duration-slow: 10s;
+    --animation-duration-medium: 2s;
+    --animation-duration-fast: 0.6s;
+    --animation-timing-ease: ease;
+    --animation-timing-ease-in-out: ease-in-out;
+
+    /* Анимационные значения */
+    --animation-float-distance: -20px;
+    --animation-rotate-full: 360deg;
+    --animation-scale-small: 0.8;
+    --animation-scale-medium: 1.05;
+    --animation-scale-large: 1.1;
+    --animation-scale-xl: 1.15;
+    --animation-opacity-low: 0.5;
+    --animation-opacity-medium: 0.7;
+    --animation-opacity-high: 0.8;
+    --animation-opacity-full: 1;
+    --animation-translate-distance: 50px;
+    --animation-translate-y: 20px;
+    --animation-translate-y-large: 30px;
+    --animation-particle-distance: 100px;
+    --animation-shake-distance: 5px;
+
+    /* Z-index уровни */
+    --z-dropdown: 1000;
+    --z-sticky: 1020;
+    --z-fixed: 1030;
+    --z-modal-backdrop: 1040;
+    --z-modal: 1050;
+    --z-popover: 1060;
+    --z-tooltip: 1070;
+
+    /* Градиенты */
+    --gradient-primary-accent: linear-gradient(90deg, var(--primary), var(--accent));
+    --gradient-success: linear-gradient(135deg, rgba(46, 204, 113, 0.1), rgba(46, 204, 113, 0.3));
+    --gradient-error: linear-gradient(135deg, rgba(231, 76, 60, 0.1), rgba(231, 76, 60, 0.3));
+    --gradient-overlay: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+
+    /* Breakpoints */
+    --breakpoint-4k: 2560px;
+    --breakpoint-2k: 1920px;
+    --breakpoint-xl: 1440px;
+    --breakpoint-lg: 1200px;
+    --breakpoint-md: 992px;
+    --breakpoint-sm: 768px;
+    --breakpoint-xs: 576px;
+    --breakpoint-xxs: 480px;
+    --breakpoint-mobile: 375px;
+    --breakpoint-small-mobile: 320px;
+    --breakpoint-tablet-landscape: 1024px;
+    --breakpoint-tablet-portrait: 768px;
+    --breakpoint-mobile-landscape: 667px;
+    --breakpoint-fold: 700px;
+
+    /* Адаптивные размеры */
+    --responsive-logo-4k: 600px;
+    --responsive-logo-2k: 500px;
+    --responsive-logo-xl: 400px;
+    --responsive-logo-lg: 300px;
+    --responsive-logo-md: 250px;
+    --responsive-logo-sm: 200px;
+    --responsive-sidebar-width: 70px;
+    --responsive-gap-xs: 5px;
+    --responsive-gap-sm: 10px;
+    --responsive-gap-md: 15px;
+    --responsive-gap-lg: 20px;
+    --responsive-gap-xl: 25px;
+    --responsive-padding-xs: 10px;
+    --responsive-padding-sm: 15px;
+    --responsive-padding-md: 20px;
+    --responsive-padding-lg: 25px;
+    --responsive-padding-xl: 30px;
+    --responsive-padding-xxl: 40px;
+    --responsive-padding-3xl: 60px;
+    --responsive-padding-section: 80px;
+    --responsive-padding-section-mobile: 100px 0 60px;
+
+    /* Мобильное меню */
+    --mobile-menu-width: 320px;
+    --mobile-menu-bg: #ffffff;
+    --mobile-menu-shadow: -5px 0 25px rgba(0, 0, 0, 0.15);
+    --burger-width: 24px;
+    --burger-height: 18px;
+    --burger-color: #394458;
+    --burger-transition: all 0.3s ease;
+    --mobile-link-padding: 20px;
+    --mobile-link-border: 1px solid rgba(57, 68, 88, 0.1);
+
+    /* Размеры иконок */
+    --icon-size-sm: 20px;
+    --icon-size-md: 30px;
+    --icon-size-lg: 45px;
+
+    /* Специфические значения для компонентов */
+    --section-title-after-width: 80px;
+    --section-title-after-height: 3px;
+    --section-title-after-bottom: -15px;
+    --testimonial-quote-font-size: var(--text-7xl);
+    --status-indicator-size: 10px;
+    --sidebar-menu-border-left: 4px;
+    --error-description-border-left: 4px;
+
+    /* Размеры аватаров */
+    --avatar-size-sm: 32px;
+    --avatar-size-md: 40px;
+    --avatar-size-lg: 50px;
+    --avatar-size-xl: 60px;
+    --avatar-size-xxl: 170px;
+
+    /* Анимации карточек */
+    --card-hover-transform: translateY(-10px);
+    --card-hover-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    --card-hover-transform-sm: translateY(-5px);
+    --card-hover-shadow-sm: 0 10px 25px rgba(0, 0, 0, 0.1);
+
+    /* Градиенты для кнопок */
+    --gradient-primary: linear-gradient(135deg, var(--primary) 0%, #2d3649 100%);
+    --gradient-success: linear-gradient(135deg, var(--success) 0%, #27ae60 100%);
+    --gradient-warning: linear-gradient(135deg, var(--warning) 0%, #e67e22 100%);
+    --gradient-danger: linear-gradient(135deg, var(--danger) 0%, #c0392b 100%);
+    --gradient-accent: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+
+    /* Отступы для карточек */
+    --card-padding-sm: 20px;
+    --card-padding-md: 25px;
+    --card-padding-lg: 30px;
+    --card-padding-xl: 40px;
+
+    /* Тени карточек */
+    --card-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    --card-shadow-hover: 0 15px 30px rgba(0, 0, 0, 0.15);
+    --card-shadow-light: 0 3px 10px rgba(0, 0, 0, 0.05);
+
+    /* Бордеры карточек */
+    --card-border-radius: 15px;
+    --card-border-radius-sm: 10px;
+    --card-border-width: 5px;
+
+    /* Цвета социальных кнопок */
+    --social-vk: #4C75A3;
+    --social-telegram: #0088CC;
+    --social-yandex: #DB4437;
+
+    /* Градиенты импорта */
+    --gradient-word: linear-gradient(135deg, #1e6fba 0%, #2a5298 100%);
+    --gradient-pdf: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+
+    /* Размеры специальных кнопок */
+    --send-button-size: 50px;
+    --nav-btn-size: 40px;
+    --social-btn-size: 50px;
+
+    /* Анимации кнопок */
+    --btn-hover-transform: translateY(-5px) scale(1.05);
+    --btn-hover-shadow: 0 15px 30px var(--shadow-color);
+    --btn-social-hover-transform: translateY(-3px);
+
+    /* Админ панель */
+    --admin-page-padding: 20px 0;
+    --page-header-margin: 30px;
+    --page-header-padding: 20px;
+    
+    /* Сетки */
+    --admin-grid-gap: 20px;
+    --quick-actions-gap: 15px;
+    
+    /* Карточки статистики */
+    --admin-stat-number: 2.2rem;
+    --admin-stat-label: 0.9rem;
+
+    /* Аналитика и статистика */
+    --stat-icon-size: 60px;
+    --stat-icon-size-mini: 40px;
+    --stat-number-size: 2.2rem;
+    --stat-number-size-mini: 1.4rem;
+    
+    /* Посещаемость */
+    --attendance-badge-width: 80px;
+    --student-avatar-size: 35px;
+    --attendance-action-size: 30px;
+    
+    /* Цвета статусов посещаемости */
+    --status-present-bg: rgba(46, 204, 113, 0.2);
+    --status-present-color: var(--success);
+    --status-absent-bg: rgba(231, 76, 60, 0.2);
+    --status-absent-color: var(--danger);
+    --status-late-bg: rgba(243, 156, 18, 0.2);
+    --status-late-color: var(--warning);
+    --status-excused-bg: rgba(52, 152, 219, 0.2);
+    --status-excused-color: var(--accent-blue);
+
+    /* Границы статусов */
+    --status-present-border: rgba(46, 204, 113, 0.3);
+    --status-absent-border: rgba(231, 76, 60, 0.3);
+    --status-late-border: rgba(243, 156, 18, 0.3);
+    --status-excused-border: rgba(52, 152, 219, 0.3);
+
+    /* Бейджи */
+    --badge-padding-xs: 4px 8px;
+    --badge-padding-sm: var(--spacing-xs) var(--spacing-sm);
+    --badge-padding-md: var(--spacing-sm) var(--spacing-md);
+    --badge-padding-lg: var(--spacing-md) var(--spacing-lg);
+    
+    /* Размеры шрифтов бейджей */
+    --badge-font-xs: var(--text-xs);
+    --badge-font-sm: var(--text-sm);
+    --badge-font-md: var(--text-base);
+    --badge-font-lg: var(--text-lg);
+
+    /* Цвета статусов для бейджей */
+    --status-not-started-bg: rgba(149, 165, 166, 0.2);
+    --status-not-started-color: #7f8c8d;
+    --status-in-progress-bg: rgba(52, 152, 219, 0.2);
+    --status-in-progress-color: #2980b9;
+    --status-completed-bg: rgba(46, 204, 113, 0.2);
+    --status-completed-color: #27ae60;
+
+    /* Цвета типов материалов */
+    --type-pdf-bg: rgba(231, 76, 60, 0.2);
+    --type-pdf-color: #C0392B;
+    --type-video-bg: rgba(52, 152, 219, 0.2);
+    --type-video-color: #2980B9;
+    --type-presentation-bg: rgba(155, 89, 182, 0.2);
+    --type-presentation-color: #8E44AD;
+    --type-code-bg: rgba(26, 188, 156, 0.2);
+    --type-code-color: #16A085;
+    --type-text-bg: rgba(243, 156, 18, 0.2);
+    --type-text-color: #E67E22;
+
+    /* Уровни сложности */
+    --difficulty-easy-bg: rgba(46, 204, 113, 0.2);
+    --difficulty-easy-color: #27ae60;
+    --difficulty-medium-bg: rgba(52, 152, 219, 0.2);
+    --difficulty-medium-color: #2980b9;
+    --difficulty-hard-bg: rgba(231, 76, 60, 0.2);
+    --difficulty-hard-color: #c0392b;
+
+    /* Новые переменные для карточек */
+    --card-padding-xs: 12px;
+    --card-padding-sm: 20px;
+    --card-padding-md: 25px;
+    --card-padding-lg: 30px;
+    --card-padding-xl: 40px;
+    
+    /* Переменные для отступов сеток */
+    --grid-gap-xs: 10px;
+    --grid-gap-sm: 15px;
+    --grid-gap-md: 20px;
+    --grid-gap-lg: 30px;
+    --grid-gap-xl: 40px;
+    
+    /* Переменные для размеров карточек */
+    --card-min-width-xs: 200px;
+    --card-min-width-sm: 250px;
+    --card-min-width-md: 280px;
+    --card-min-width-lg: 300px;
+    --card-min-width-xl: 350px;
+    --card-min-width-xxl: 380px;
+    
+    /* Анимации карточек */
+    --card-hover-transform: translateY(-10px);
+    --card-hover-transform-sm: translateY(-5px);
+    --card-hover-transform-lg: translateY(-15px);
+    
+    /* Градиенты для карточек */
+    --gradient-card-accent: linear-gradient(90deg, var(--primary), var(--accent));
+    --gradient-card-vertical: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    
+    /* Статусы карточек */
+    --card-border-width: 5px;
+    --card-border-left-width: 4px;
+
+    --ai-card-bg: linear-gradient(135deg, var(--white) 0%, #f8f9fa 100%);
+    --ai-card-shadow: 0 15px 40px rgba(57, 68, 88, 0.15);
+    --ai-card-shadow-hover: 0 25px 60px rgba(57, 68, 88, 0.2);
+    --ai-tag-shadow: 0 3px 10px rgba(57, 68, 88, 0.3);
+
+     /* Переменные для troubleshooting */
+    --troubleshooting-border: 4px solid var(--accent-blue);
+    --troubleshooting-bg: var(--white);
+    
+    /* Переменные для error illustration */
+    --error-illustration-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    
+    /* Переменные для summary cards */
+    --summary-number-size: 2rem;
+    --summary-card-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+    --summary-card-shadow-hover: 0 10px 25px rgba(0, 0, 0, 0.1);
+    
+    /* Новые переменные для результатов */
+    --results-summary-gap: 20px;
+    --badge-padding-large: 15px 30px;
+    --badge-font-large: 1.5rem;
+    
+    /* Переменные для ответов */
+    --answer-border: 2px solid #e0e0e0;
+    --answer-border-radius: 8px;
+    --explanation-border: 4px solid var(--accent);
+
+    /* Анимации форм */
+    --form-hover-transform: translateY(-10px);
+    --form-transition: all 0.4s ease;
+
+    /* Переменные для списков */
+    --list-item-padding: 15px;
+    --list-item-margin: 10px;
+    --list-border-color: rgba(57, 68, 88, 0.1);
+
+    /* Дополнительные переменныe из forms.css */
+    --input-border-color: rgba(57, 68, 88, 0.1);
+    --input-focus-shadow: 0 0 0 3px rgba(74, 111, 165, 0.1);
+    --input-padding: 12px 15px;
+    --textarea-min-height: 120px;
+
+    /* Переменные футера */
+    --footer-padding: 60px 0 30px;
+    --footer-border-color: rgba(255, 255, 255, 0.1);
+    --footer-link-color: rgba(255, 255, 255, 0.7);
+
+    /* Добавлены новые переменные */
+    --border-radius-20: 20px;
+    --border-radius-50: 50px;
+    --card-border-radius: 15px;
+    --white-transparent-50: rgba(255, 255, 255, 0.5);
+    --white-transparent-40: rgba(255, 255, 255, 0.4);
+    --white-transparent-20: rgba(255, 255, 255, 0.2);
+    --primary-transparent-5: rgba(57, 68, 88, 0.05);
+    --primary-transparent-6: rgba(57, 68, 88, 0.6);
+    --success-transparent-20: rgba(46, 204, 113, 0.2);
+    --success-transparent-5: rgba(46, 204, 113, 0.05);
+    --danger-transparent-20: rgba(231, 76, 60, 0.2);
+    --danger-transparent-5: rgba(231, 76, 60, 0.05);
+    --warning-transparent-20: rgba(243, 156, 18, 0.2);
+    --warning-transparent-10: rgba(243, 156, 18, 0.1);
+    --info-transparent-20: rgba(52, 152, 219, 0.2);
+    --info-transparent-10: rgba(52, 152, 219, 0.1);
+    --accent-blue-transparent-20: rgba(74, 111, 165, 0.2);
+    --accent-blue-transparent-5: rgba(74, 111, 165, 0.05);
+    --gray-transparent-10: rgba(149, 165, 166, 0.1);
+    --shadow-transparent-10: rgba(0, 0, 0, 0.1);
+    --shadow-transparent-15: rgba(0, 0, 0, 0.15);
+
+    /* Новые переменные для секций */
+    --section-padding: 80px 0;
+    --section-padding-large: 100px 0;
+    --section-padding-small: 60px 0;
+    --section-padding-hero: 120px 0 80px;
+
+    --bg-gradient-light: linear-gradient(135deg, #f5f7fa 0%, #eef1f6 100%);
+    --bg-gradient-light-alt: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    --bg-gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    --bg-gradient-primary-light: linear-gradient(135deg, var(--light-bg) 0%, #dde2ea 100%);
+
+    --card-bg: var(--white);
+    --card-radius: 15px;
+    --card-radius-small: 10px;
+
+    --border-light: 1px solid var(--light-bg);
+    --border-dashed: 2px dashed #ddd;
+    --border-accent-left: 4px solid var(--accent);
+    --border-success-left: 4px solid var(--success);
+
+    --grid-gap-medium: 40px;
+    --grid-gap-small: 30px;
+    --grid-gap-xs: 20px;
+
+    --text-secondary: var(--secondary);
+    --text-primary: var(--primary-text);
+
+    --icon-size-large: 4rem;
+    --icon-size-medium: 3rem;
+    --icon-size-small: 2rem;
+
+    --status-success-bg: rgba(46, 204, 113, 0.2);
+    --status-success-color: var(--success);
+    --status-warning-bg: rgba(243, 156, 18, 0.2);
+    --status-warning-color: var(--warning);
+    --status-error-bg: rgba(231, 76, 60, 0.2);
+    --status-error-color: var(--danger);
+    --status-info-bg: rgba(52, 152, 219, 0.2);
+    --status-info-color: var(--info);
+
+    --file-upload-bg: rgba(255, 255, 255, 0.7);
+    --file-upload-border: 1px dashed var(--accent);
+
+    /* Новые переменные для кнопок */
+    --btn-padding: 14px 32px;
+    --btn-padding-sm: 8px 16px;
+    --btn-padding-lg: var(--spacing-lg) var(--spacing-xxl);
+    --btn-radius: 50px;
+    --btn-shadow: var(--shadow-md);
+
+    --btn-light-bg: transparent;
+    --btn-light-border: 2px solid var(--primary);
+    --btn-light-hover-bg: rgba(74, 111, 165, 0.05);
+
+    --send-btn-size: 50px;
+
+    --gradient-info: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-light-blue) 100%);
+    --gradient-info-hover: linear-gradient(135deg, var(--accent-light-blue) 0%, var(--accent-blue) 100%);
+    --gradient-amber: linear-gradient(135deg, var(--accent-amber) 0%, var(--accent-orange) 100%);
+    --gradient-amber-hover: linear-gradient(135deg, var(--accent-orange) 0%, var(--accent-amber) 100%);
+
+    --social-vk-hover: #4C75A3;
+    --social-telegram-hover: #0088CC;
+    --social-yandex-hover: #DB4437;
+
+    --import-word-gradient: linear-gradient(135deg, #1e6fba 0%, #2a5298 100%);
+    --import-pdf-gradient: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+
+    --btn-disabled-opacity: 0.6;
+}

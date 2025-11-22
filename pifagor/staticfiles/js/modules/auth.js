@@ -24,40 +24,33 @@ function initLogin() {
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
         const remember = document.getElementById('remember').checked;
-        
-        // Валидация email
+
         if (!email || !isValidEmail(email)) {
             showAlert('Ошибка входа', 'Пожалуйста, введите корректный email адрес', 'error');
             return;
         }
         
-        // Валидация пароля
         if (!password) {
             showAlert('Ошибка входа', 'Пожалуйста, введите пароль', 'error');
             return;
         }
         
-        // Имитация проверки учетных данных
         if (password.length < 6) {
             showAlert('Ошибка входа', 'Неверный email или пароль. Проверьте правильность введенных данных', 'error');
             return;
         }
         
-        // Показываем загрузку
         const submitButton = loginForm.querySelector('button[type="submit"]');
         const originalText = submitButton.textContent;
         submitButton.textContent = 'Вход...';
         submitButton.disabled = true;
         
-        // Имитация запроса к серверу
         setTimeout(() => {
             showAlert('Вход выполнен!', `Добро пожаловать! Вы успешно вошли в систему.${remember ? ' Ваши данные сохранены.' : ''}`, 'success');
             
-            // Восстанавливаем кнопку
             submitButton.textContent = originalText;
             submitButton.disabled = false;
             
-            // Перенаправление на главную страницу через 2 секунды
             setTimeout(() => {
                 window.location.href = indexUrl;
             }, 2000);
@@ -66,49 +59,30 @@ function initLogin() {
     });
 }
 
-// Функция валидации email
 function isValidEmail(email) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
 }
 
-// Функция для получения CSRF токена
 function getCSRFToken() {
     const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]');
     return csrfToken ? csrfToken.value : '';
 }
 
 function initRegistration() {
-    // Находим форму по её ID
     const registerForm = document.querySelector('form#register-form');
-    if (!registerForm) {
-        console.log('Registration form not found');
-        return;
-    }
-
-    console.log('Registration form found:', registerForm);
-
-    // Проверяем, существуют ли элементы требований
     const requirementIds = ['lengthReq', 'uppercaseReq', 'numberReq', 'specialReq'];
     requirementIds.forEach(id => {
         const element = document.getElementById(id);
-        console.log(`Element ${id}:`, element, 'Content:', element ? element.innerHTML : 'NOT FOUND');
     });
 
-    // Упрощенная и надежная функция для переключения видимости пароля
     function initPasswordToggles() {
-        console.log('Initializing password toggles...');
-        
-        // Находим все переключатели пароля
         const passwordToggles = document.querySelectorAll('.password-toggle');
-        console.log('Found password toggles:', passwordToggles.length);
         
         passwordToggles.forEach(toggle => {
-            // Удаляем старые обработчики и добавляем новые
             const newToggle = toggle.cloneNode(true);
             toggle.parentNode.replaceChild(newToggle, toggle);
             
-            // Добавляем обработчик клика для каждого переключателя
             newToggle.addEventListener('click', function(e) {
                 e.preventDefault();
                 console.log('Password toggle clicked');
@@ -117,38 +91,26 @@ function initRegistration() {
                 console.log('Target ID:', targetId);
                 
                 const passwordInput = document.getElementById(targetId);
-                console.log('Password input found:', !!passwordInput);
                 
-                if (passwordInput) {
-                    const currentType = passwordInput.getAttribute('type');
-                    const newType = currentType === 'password' ? 'text' : 'password';
-                    
-                    console.log('Changing input type from', currentType, 'to', newType);
-                    
-                    passwordInput.setAttribute('type', newType);
-                    
-                    const icon = this.querySelector('i');
-                    if (icon) {
-                        if (newType === 'password') {
-                            icon.className = 'fas fa-eye';
-                        } else {
-                            icon.className = 'fas fa-eye-slash';
-                        }
-                        console.log('Icon changed to:', icon.className);
+                const currentType = passwordInput.getAttribute('type');
+                const newType = currentType === 'password' ? 'text' : 'password';
+                
+                passwordInput.setAttribute('type', newType);
+                
+                const icon = this.querySelector('i');
+                if (icon) {
+                    if (newType === 'password') {
+                        icon.className = 'fas fa-eye';
+                    } else {
+                        icon.className = 'fas fa-eye-slash';
                     }
-                } else {
-                    console.error('Password input not found for target:', targetId);
                 }
             });
         });
-        
-        console.log('Password toggles initialization completed');
     }
 
-    // Инициализируем переключатели пароля
     initPasswordToggles();
 
-    // Password strength checker
     function checkPasswordStrength(password) {
         let strength = 0;
         const requirements = {
@@ -161,26 +123,22 @@ function initRegistration() {
         if (!password) {
             return { strength: 0, requirements };
         }
-        
-        // Length requirement
+
         if (password.length >= 8) {
             strength += 25;
             requirements.length = true;
         }
         
-        // Uppercase requirement
         if (/[A-Z]/.test(password)) {
             strength += 25;
             requirements.uppercase = true;
         }
         
-        // Number requirement
         if (/[0-9]/.test(password)) {
             strength += 25;
             requirements.number = true;
         }
         
-        // Special character requirement
         if (/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
             strength += 25;
             requirements.special = true;
@@ -188,8 +146,7 @@ function initRegistration() {
         
         return { strength, requirements };
     }
-    
-    // Check if passwords match
+
     function checkPasswordMatch() {
         const password1 = document.getElementById('id_password1')?.value || '';
         const password2 = document.getElementById('id_password2')?.value || '';
@@ -218,8 +175,6 @@ function initRegistration() {
     }
     
     function updatePasswordRequirements(requirements) {
-        console.log('Updating password requirements:', requirements);
-        
         const requirementsConfig = {
             'length': { 
                 elementId: 'lengthReq', 
@@ -243,27 +198,23 @@ function initRegistration() {
             const config = requirementsConfig[requirementType];
             const element = document.getElementById(config.elementId);
             
-            if (element) {
-                const isValid = requirements[requirementType];
-                
-                if (isValid) {
-                    element.classList.remove('invalid');
-                    element.classList.add('valid');
-                    const currentText = element.textContent || config.text;
-                    element.innerHTML = '<i class="fas fa-check"></i> ' + currentText.replace(/^.*?(\s|$)/, '');
-                } else {
-                    element.classList.remove('valid');
-                    element.classList.add('invalid');
-                    const currentText = element.textContent || config.text;
-                    element.innerHTML = '<i class="fas fa-times"></i> ' + currentText.replace(/^.*?(\s|$)/, '');
-                }
+            const isValid = requirements[requirementType];
+            
+            if (isValid) {
+                element.classList.remove('invalid');
+                element.classList.add('valid');
+                const currentText = element.textContent || config.text;
+                element.innerHTML = '<i class="fas fa-check"></i> ' + currentText.replace(/^.*?(\s|$)/, '');
             } else {
-                console.warn('Element not found:', config.elementId);
+                element.classList.remove('valid');
+                element.classList.add('invalid');
+                const currentText = element.textContent || config.text;
+                element.innerHTML = '<i class="fas fa-times"></i> ' + currentText.replace(/^.*?(\s|$)/, '');
             }
+
         });
     }
     
-    // Update password strength bar
     function updatePasswordStrengthBar(strength) {
         const strengthBar = document.getElementById('passwordStrengthBar');
         if (!strengthBar) return;
@@ -288,7 +239,6 @@ function initRegistration() {
         }
     }
     
-    // Enable/disable submit button based on form validity
     function updateSubmitButton() {
         const password1 = document.getElementById('id_password1')?.value || '';
         const password2 = document.getElementById('id_password2')?.value || '';
@@ -319,7 +269,6 @@ function initRegistration() {
         }
     }
     
-    // Event listeners
     const password1Input = document.getElementById('id_password1');
     const password2Input = document.getElementById('id_password2');
     const termsCheckbox = document.getElementById('terms');
@@ -356,188 +305,152 @@ function initRegistration() {
         });
     });
 
-    // Form submission handler
-        // Form submission handler with better error handling
-    registerForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const password1 = document.getElementById('id_password1')?.value || '';
-        const password2 = document.getElementById('id_password2')?.value || '';
-        const terms = document.getElementById('terms')?.checked || false;
-        const roleSelected = document.querySelector('input[name="role"]:checked');
-        
-        // Client-side validation
-        if (password1 !== password2) {
-            showAlert('Ошибка', 'Пароли не совпадают!', 'error');
-            return;
-        }
-        
-        const { requirements } = checkPasswordStrength(password1);
-        const allRequirementsMet = requirements.length && requirements.uppercase && 
-                                  requirements.number && requirements.special;
-        
-        if (!allRequirementsMet) {
-            showAlert('Ошибка', 'Пароль не соответствует требованиям безопасности!', 'error');
-            return;
-        }
-        
-        if (!terms) {
-            showAlert('Ошибка', 'Пожалуйста, примите условия использования!', 'error');
-            return;
-        }
-        
-        if (!roleSelected) {
-            showAlert('Ошибка', 'Пожалуйста, выберите роль!', 'error');
-            return;
-        }
+registerForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const password1 = document.getElementById('id_password1')?.value || '';
+    const password2 = document.getElementById('id_password2')?.value || '';
+    const terms = document.getElementById('terms')?.checked || false;
+    const roleSelected = document.querySelector('input[name="role"]:checked');
+    
+    if (password1 !== password2) {
+        showAlert('Ошибка', 'Пароли не совпадают!', 'error');
+        return;
+    }
+    
+    const { requirements } = checkPasswordStrength(password1);
+    const allRequirementsMet = requirements.length && requirements.uppercase && 
+                              requirements.number && requirements.special;
+    
+    if (!allRequirementsMet) {
+        showAlert('Ошибка', 'Пароль не соответствует требованиям безопасности!', 'error');
+        return;
+    }
+    
+    if (!terms) {
+        showAlert('Ошибка', 'Пожалуйста, примите условия использования!', 'error');
+        return;
+    }
+    
+    if (!roleSelected) {
+        showAlert('Ошибка', 'Пожалуйста, выберите роль!', 'error');
+        return;
+    }
 
-        // Если все проверки пройдены, отправляем форму
-        const formData = new FormData(registerForm);
-        const submitButton = registerForm.querySelector('button[type="submit"]');
-        const originalText = submitButton.textContent;
+    const formData = new FormData(registerForm);
+    const submitButton = registerForm.querySelector('button[type="submit"]');
+    const originalText = submitButton.textContent;
 
-        // Показываем загрузку
-        submitButton.textContent = 'Регистрация...';
-        submitButton.disabled = true;
+    submitButton.textContent = 'Регистрация...';
+    submitButton.disabled = true;
 
-        console.log('Sending registration request...');
-
-        // Отправляем AJAX запрос
-        fetch(registerForm.action, {  // <- Ошибка здесь
-            method: 'POST',
-            body: formData,
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest',
-                'X-CSRFToken': getCSRFToken()
-            }
-        })
-        .then(response => {
-            console.log('Response status:', response.status);
-            
-            // Проверяем Content-Type чтобы убедиться что это JSON
-            const contentType = response.headers.get('content-type');
-            if (!contentType || !contentType.includes('application/json')) {
-                throw new Error('Server returned non-JSON response');
-            }
-            
+    fetch(registerForm.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'X-CSRFToken': getCSRFToken()
+        }
+    })
+    .then(response => {
+        const contentType = response.headers.get('content-type');
+        if (contentType && contentType.includes('application/json')) {
             return response.json().then(data => {
-                // Если статус не 200, но есть JSON данные, возвращаем их с флагом ошибки
-                if (!response.ok) {
-                    return { error: true, data };
-                }
-                return data;
+                return { data, status: response.status, ok: response.ok };
             });
-        })
-        .then(data => {
-            console.log('Response data:', data);
+        } else {
+            throw new Error('Server returned non-JSON response');
+        }
+    })
+    .then(({ data, status, ok }) => {
+        console.log('Response data:', data);
+        
+        if (ok && data.success) {
+            showAlert('Успешная регистрация!', 
+                     'Ваш аккаунт был успешно создан. Теперь вы можете войти в систему.', 
+                     'success', {
+                autoClose: 5000,
+                onConfirm: () => {
+                    window.location.href = data.redirect_url || '/authorization/login/';
+                }
+            });
+        } else {
+            document.querySelectorAll('.error-message').forEach(el => {
+                el.style.display = 'none';
+                el.textContent = '';
+            });
             
-            // Если есть флаг ошибки, обрабатываем как ошибку
-            if (data.error) {
-                throw new Error(JSON.stringify(data.data));
-            }
-            
-            if (data.success) {
-                showAlert('Успешная регистрация!', // <- Ошибка здесь
-                         'Ваш аккаунт был успешно создан. Теперь вы можете войти в систему.', 
-                         'success', {
-                    autoClose: 5000,
-                    onConfirm: () => {
-                        window.location.href = data.redirect_url || '/authorization/login/';
+            if (data.errors) {
+                let hasFieldErrors = false;
+                
+                Object.keys(data.errors).forEach(field => {
+                    let errorElement;
+                    
+                    if (field === 'password1' || field === 'id_password1') {
+                        errorElement = document.querySelector('#id_password1')?.closest('.form-group')?.querySelector('.error-message');
+                    } else if (field === 'password2' || field === 'id_password2') {
+                        errorElement = document.querySelector('#id_password2')?.closest('.form-group')?.querySelector('.error-message');
+                    } else if (field === 'email' || field === 'id_email') {
+                        errorElement = document.querySelector('#id_email')?.closest('.form-group')?.querySelector('.error-message');
+                    } else if (field === 'fullname' || field === 'id_fullname') {
+                        errorElement = document.querySelector('#id_fullname')?.closest('.form-group')?.querySelector('.error-message');
+                    } else if (field === 'role') {
+                        errorElement = document.querySelector('.role-selector')?.closest('.form-group')?.querySelector('.error-message');
+                    } else if (field === '__all__') {
+                        showAlert('Ошибка регистрации', Array.isArray(data.errors[field]) ? data.errors[field][0] : data.errors[field], 'error');
+                        return;
+                    }
+                    
+                    if (errorElement) {
+                        const errorText = Array.isArray(data.errors[field]) ? data.errors[field][0] : data.errors[field];
+                        errorElement.textContent = errorText;
+                        errorElement.style.display = 'block';
+                        hasFieldErrors = true;
                     }
                 });
-            } else {
-                // Показываем ошибки формы
-                if (data.errors) {
-                    // Сначала скрываем все предыдущие ошибки
-                    document.querySelectorAll('.error-message').forEach(el => {
-                        el.style.display = 'none';
-                        el.textContent = '';
-                    });
-                    
-                    // Показываем новые ошибки
-                    Object.keys(data.errors).forEach(field => {
-                        let errorElement;
-                        
-                        // Ищем соответствующий элемент для ошибки
-                        if (field === 'password1') {
-                            errorElement = document.querySelector('#id_password1').closest('.form-group').querySelector('.error-message');
-                        } else if (field === 'password2') {
-                            errorElement = document.querySelector('#id_password2').closest('.form-group').querySelector('.error-message');
-                        } else if (field === 'email') {
-                            errorElement = document.querySelector('#id_email').closest('.form-group').querySelector('.error-message');
-                        } else if (field === 'fullname') {
-                            errorElement = document.querySelector('#id_fullname').closest('.form-group').querySelector('.error-message');
-                        } else if (field === 'role') {
-                            errorElement = document.querySelector('.role-selector').closest('.form-group').querySelector('.error-message');
-                        } else if (field === '__all__') {
-                            // Общие ошибки
-                            showAlert('Ошибка регистрации', data.errors[field][0], 'error');
-                            return;
-                        }
-                        
-                        if (errorElement) {
-                            errorElement.textContent = Array.isArray(data.errors[field]) ? data.errors[field][0] : data.errors[field];
-                            errorElement.style.display = 'block';
-                        }
-                    });
-                    
+                if (!hasFieldErrors) {
                     showAlert('Ошибка регистрации', 
                              'Пожалуйста, исправьте ошибки в форме.', 
                              'error');
-                } else {
-                    showAlert('Ошибка регистрации', 
-                             'Произошла неизвестная ошибка. Пожалуйста, попробуйте еще раз.', 
-                             'error');
                 }
+            } else {
+                showAlert('Ошибка регистрации', 
+                         'Произошла неизвестная ошибка. Пожалуйста, попробуйте еще раз.', 
+                         'error');
             }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            
-            // Более информативное сообщение об ошибке
-            let errorMessage = 'Произошла ошибка при регистрации. ';
-            
-            try {
-                const errorData = JSON.parse(error.message);
-                if (errorData.errors) {
-                    const firstError = Object.values(errorData.errors)[0];
-                    errorMessage += Array.isArray(firstError) ? firstError[0] : firstError;
-                }
-            } catch (e) {
-                // Если не удалось распарсить JSON, используем стандартное сообщение
-                if (error.message.includes('non-JSON')) {
-                    errorMessage += 'Сервер вернул некорректный ответ.';
-                } else {
-                    errorMessage += 'Пожалуйста, попробуйте еще раз.';
-                }
-            }
-            
-            showAlert('Ошибка', errorMessage, 'error');
-        })
-        .finally(() => {
-            submitButton.textContent = originalText;
-            submitButton.disabled = false;
-        });
+        }
+    })
+    .catch(error => {
+        console.error('Fetch error:', error);
+        
+        let errorMessage = 'Произошла ошибка при регистрации. ';
+        
+        if (error.message.includes('non-JSON')) {
+            errorMessage += 'Сервер вернул некорректный ответ.';
+        } else {
+            errorMessage += 'Пожалуйста, попробуйте еще раз.';
+        }
+        
+        showAlert('Ошибка', errorMessage, 'error');
+    })
+    .finally(() => {
+        submitButton.textContent = originalText;
+        submitButton.disabled = false;
     });
+});
 
-    // Initialize form state
     updateSubmitButton();
-    
-    // Initialize password requirements display
     const { strength, requirements } = checkPasswordStrength('');
     updatePasswordStrengthBar(strength);
     updatePasswordRequirements(requirements);
 }
 
-// Улучшенная функция кастомного alert
 function showAlert(title, message, type = 'info', options = {}) {
-    // Если уже есть открытый alert, сначала закрываем его
     const existingAlert = document.querySelector('.alert-overlay');
     if (existingAlert) {
         document.body.removeChild(existingAlert);
     }
     
-    // Создаем элементы
     const overlay = document.createElement('div');
     overlay.className = 'alert-overlay';
     
@@ -547,7 +460,6 @@ function showAlert(title, message, type = 'info', options = {}) {
     const iconEl = document.createElement('div');
     iconEl.className = 'alert-icon';
     
-    // Выбираем иконку в зависимости от типа
     switch(type) {
         case 'success':
             iconEl.innerHTML = '<i class="fas fa-check-circle"></i>';
@@ -581,14 +493,12 @@ function showAlert(title, message, type = 'info', options = {}) {
     confirmButton.className = 'alert-button';
     confirmButton.textContent = options.confirmText || 'Понятно';
     
-    // Собираем структуру
     alertBox.appendChild(iconEl);
     alertBox.appendChild(titleEl);
     alertBox.appendChild(messageEl);
     
     buttonContainer.appendChild(confirmButton);
     
-    // Добавляем кнопку отмены если нужно
     if (options.showCancel) {
         const cancelButton = document.createElement('button');
         cancelButton.className = 'alert-button btn-light';
@@ -608,13 +518,10 @@ function showAlert(title, message, type = 'info', options = {}) {
     alertBox.appendChild(buttonContainer);
     overlay.appendChild(alertBox);
     
-    // Добавляем в DOM
     document.body.appendChild(overlay);
     
-    // Фокусируем на кнопке для доступности
     confirmButton.focus();
     
-    // Обработчик закрытия
     const closeAlert = () => {
         if (document.body.contains(overlay)) {
             document.body.removeChild(overlay);
@@ -624,14 +531,12 @@ function showAlert(title, message, type = 'info', options = {}) {
     
     confirmButton.onclick = closeAlert;
     
-    // Закрытие по клику на оверлей
     overlay.onclick = (e) => {
         if (e.target === overlay && !options.disableOverlayClose) {
             closeAlert();
         }
     };
     
-    // Закрытие по клавише Escape
     const handleEscape = (e) => {
         if (e.key === 'Escape') {
             closeAlert();
@@ -641,7 +546,6 @@ function showAlert(title, message, type = 'info', options = {}) {
     
     document.addEventListener('keydown', handleEscape);
     
-    // Автозакрытие если указано
     if (options.autoClose) {
         setTimeout(() => {
             if (document.body.contains(overlay)) {
@@ -663,18 +567,13 @@ function initPasswordReset() {
         e.preventDefault();
         
         const email = document.getElementById('email').value;
-        
-        // In a real application, you would send the data to a server here
         document.getElementById('successMessage').style.display = 'block';
-        
-        // Reset form
         this.reset();
     });
 }
 
 function initEmailVerification() {
-    // Timer functionality
-    let timeLeft = 300; // 5 minutes in seconds
+    let timeLeft = 300;
     const countdownElement = document.getElementById('countdown');
     const resendButton = document.getElementById('resendCode');
     const verifyButton = document.getElementById('verifyCode');
@@ -682,7 +581,6 @@ function initEmailVerification() {
     
     if (!countdownElement || !resendButton || !verifyButton) return;
 
-    // Получаем email из URL или используем значение по умолчанию
     const urlParams = new URLSearchParams(window.location.search);
     const email = urlParams.get('email') || 'user@example.com';
     const userEmailElement = document.getElementById('userEmail');
@@ -690,7 +588,6 @@ function initEmailVerification() {
         userEmailElement.textContent = email;
     }
 
-    // Функция обновления таймера
     function updateTimer() {
         const minutes = Math.floor(timeLeft / 60);
         const seconds = timeLeft % 60;
@@ -708,10 +605,8 @@ function initEmailVerification() {
         }
     }
 
-    // Функция для повторной отправки кода
     function resendCode() {
         if (timeLeft <= 0) {
-            // Сброс таймера
             timeLeft = 300;
             updateTimer();
             resendButton.disabled = true;
@@ -719,15 +614,10 @@ function initEmailVerification() {
             resendButton.innerHTML = '<i class="fas fa-clock"></i> Код отправлен';
             countdownElement.style.color = 'var(--text)';
 
-            // Показываем уведомление об отправке
             showAlert('Код отправлен', `Новый код подтверждения был отправлен на ${email}`, 'info', {
                 autoClose: 3000
             });
 
-            // В реальном приложении здесь был бы запрос на сервер
-            console.log('Resending verification code to:', email);
-
-            // Включаем кнопку через 30 секунд
             setTimeout(() => {
                 if (timeLeft > 0) {
                     resendButton.disabled = false;
@@ -738,26 +628,20 @@ function initEmailVerification() {
         }
     }
 
-    // Обработчик для кнопки повторной отправки
     resendButton.addEventListener('click', resendCode);
 
-    // Функционал ввода кода
     codeDigits.forEach((digit, index) => {
         digit.addEventListener('input', function() {
             if (this.value.length === 1) {
-                // Автопереход к следующему полю
                 if (index < codeDigits.length - 1) {
                     codeDigits[index + 1].focus();
                 } else {
-                    // Если последняя цифра, убираем фокус
                     this.blur();
                 }
                 
-                // Проверяем, заполнен ли весь код
                 checkCodeCompletion();
             }
             
-            // Валидация - только цифры
             this.value = this.value.replace(/[^0-9]/g, '');
         });
         
@@ -766,7 +650,6 @@ function initEmailVerification() {
                 codeDigits[index - 1].focus();
             }
             
-            // Навигация стрелками
             if (e.key === 'ArrowLeft' && index > 0) {
                 codeDigits[index - 1].focus();
             }
@@ -790,7 +673,6 @@ function initEmailVerification() {
         });
     });
 
-    // Функция проверки заполнения кода
     function checkCodeCompletion() {
         let code = '';
         codeDigits.forEach(digit => {
@@ -806,7 +688,6 @@ function initEmailVerification() {
         }
     }
 
-    // Функция верификации кода
     function verifyCode() {
         let code = '';
         codeDigits.forEach(digit => {
@@ -818,26 +699,21 @@ function initEmailVerification() {
             return;
         }
 
-        // Показываем состояние загрузки
         const originalText = verifyButton.innerHTML;
         verifyButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Проверка...';
         verifyButton.disabled = true;
 
-        // Имитация запроса к серверу
         setTimeout(() => {
-            // В реальном приложении здесь была бы проверка кода на сервере
-            if (code === '123456') { // Тестовый код для демонстрации
+            if (code === '123456') {
                 showAlert('Успешная верификация!', 'Ваш email успешно подтвержден. Теперь вы можете пользоваться всеми функциями платформы.', 'success', {
-                    autoClose: 3000, // Исправлено с 300000 на 3000
+                    autoClose: 3000,
                     onConfirm: () => {
-                        // Перенаправление после успешной верификации
-                        window.location.href = '/authorization/login/'; // Исправлен путь
+                        window.location.href = '/authorization/login/';
                     }
                 });
             } else {
                 showAlert('Ошибка', 'Неверный код подтверждения. Пожалуйста, проверьте код и попробуйте снова.', 'error');
                 
-                // Сброс полей ввода
                 codeDigits.forEach(digit => {
                     digit.value = '';
                 });
@@ -849,10 +725,8 @@ function initEmailVerification() {
         }, 2000);
     }
 
-    // Обработчик для кнопки подтверждения
     verifyButton.addEventListener('click', verifyCode);
 
-    // Обработчик нажатия Enter в любом поле ввода
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Enter') {
             let code = '';
@@ -866,28 +740,23 @@ function initEmailVerification() {
         }
     });
 
-    // Запускаем таймер
     updateTimer();
     
-    // Фокусируемся на первом поле ввода
     if (codeDigits.length > 0) {
         codeDigits[0].focus();
     }
 }
 
-// Функция для инициализации страницы сброса пароля
 function initPasswordResetCode() {
     const urlParams = new URLSearchParams(window.location.search);
     const email = urlParams.get('email') || 'user@example.com';
     
-    // Обновляем email на странице
     const userEmailElement = document.getElementById('userEmail');
     if (userEmailElement) {
         userEmailElement.textContent = email;
     }
     
-    // Таймер обратного отсчета (30 минут)
-    let timeLeft = 1800; // 30 минут в секундах
+    let timeLeft = 300;
     const countdownElement = document.getElementById('countdown');
     const resendButton = document.getElementById('resendCode');
     
@@ -907,10 +776,8 @@ function initPasswordResetCode() {
         }
     }
     
-    // Запуск таймера
     updateTimer();
     
-    // Обработчик повторной отправки кода
     if (resendButton) {
         resendButton.addEventListener('click', function() {
             if (timeLeft <= 0) {
@@ -919,13 +786,11 @@ function initPasswordResetCode() {
                 resendButton.disabled = true;
                 resendButton.innerHTML = '<i class="fas fa-clock"></i> Код отправлен';
                 
-                // Показываем уведомление
                 showAlert('Код отправлен', 'Новый код подтверждения был отправлен на ваш email', 'info');
             }
         });
     }
     
-    // Обработка ввода кода
     const codeDigits = document.querySelectorAll('.code-digit');
     const verifyButton = document.getElementById('verifyCode');
     
@@ -955,7 +820,6 @@ function initPasswordResetCode() {
         }
     }
     
-    // Обработка подтверждения кода
     if (verifyButton) {
         verifyButton.addEventListener('click', function() {
             let code = '';
@@ -964,14 +828,11 @@ function initPasswordResetCode() {
             });
             
             if (code.length === 6) {
-                // Показываем загрузку
                 const originalText = verifyButton.innerHTML;
                 verifyButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Проверка...';
                 verifyButton.disabled = true;
                 
-                // Имитация проверки кода
                 setTimeout(() => {
-                    // Перенаправление на страницу создания нового пароля
                     window.location.href = '/authorization/create-new-password/?email=' + encodeURIComponent(email); // Исправлен путь
                 }, 2000);
             } else {
@@ -981,7 +842,6 @@ function initPasswordResetCode() {
     }
 }
 
-// Инициализация при загрузке страницы
 document.addEventListener('DOMContentLoaded', function() {
     if (document.querySelector('.password-reset-code-form')) {
         initPasswordResetCode();
@@ -989,7 +849,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function initLogout() {
-    // Timer functionality for auto-redirect
     let timeLeft = 10;
     const countdownElement = document.getElementById('countdown');
     const secondsElement = document.getElementById('seconds');
@@ -1004,15 +863,12 @@ function initLogout() {
             timeLeft--;
             setTimeout(updateTimer, 1000);
         } else {
-            // Redirect to main page
-            window.location.href = '/'; // Исправлен путь
+            window.location.href = '/'; 
         }
     }
     
-    // Start the timer
     updateTimer();
 
-    // Simulate user data
     const userName = "Денис Быков";
     const userEmail = "denizer1305@yandex.ru";
     
@@ -1024,7 +880,6 @@ function initCreateNewPassword() {
     const createPasswordForm = document.getElementById('resetPasswordForm');
     if (!createPasswordForm) return;
 
-    // Password visibility toggle
     const toggleNewPassword = document.getElementById('toggleNewPassword');
     const newPasswordInput = document.getElementById('newPassword');
     const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
@@ -1046,7 +901,6 @@ function initCreateNewPassword() {
         });
     }
 
-    // Password strength checker
     function checkPasswordStrength(password) {
         let strength = 0;
         const requirements = {
@@ -1056,25 +910,21 @@ function initCreateNewPassword() {
             special: false
         };
         
-        // Length requirement
         if (password.length >= 8) {
             strength += 25;
             requirements.length = true;
         }
         
-        // Uppercase requirement
         if (/[A-Z]/.test(password)) {
             strength += 25;
             requirements.uppercase = true;
         }
         
-        // Number requirement
         if (/[0-9]/.test(password)) {
             strength += 25;
             requirements.number = true;
         }
         
-        // Special character requirement
         if (/[^A-Za-z0-9]/.test(password)) {
             strength += 25;
             requirements.special = true;
@@ -1083,7 +933,6 @@ function initCreateNewPassword() {
         return { strength, requirements };
     }
     
-    // Update password requirements UI
     function updatePasswordRequirements(requirements) {
         const lengthReq = document.getElementById('lengthReq');
         const uppercaseReq = document.getElementById('uppercaseReq');
@@ -1131,7 +980,6 @@ function initCreateNewPassword() {
         }
     }
     
-    // Update password strength bar
     function updatePasswordStrengthBar(strength) {
         const strengthBar = document.getElementById('passwordStrengthBar');
         if (!strengthBar) return;
@@ -1149,7 +997,6 @@ function initCreateNewPassword() {
         }
     }
     
-    // Check if passwords match
     function checkPasswordMatch() {
         const newPassword = newPasswordInput ? newPasswordInput.value : '';
         const confirmPassword = confirmPasswordInput ? confirmPasswordInput.value : '';
@@ -1170,8 +1017,7 @@ function initCreateNewPassword() {
             return false;
         }
     }
-    
-    // Enable/disable submit button based on form validity
+
     function updateSubmitButton() {
         const newPassword = newPasswordInput ? newPasswordInput.value : '';
         const confirmPassword = confirmPasswordInput ? confirmPasswordInput.value : '';
@@ -1194,7 +1040,6 @@ function initCreateNewPassword() {
         }
     }
     
-    // Event listeners for password inputs
     if (newPasswordInput) {
         newPasswordInput.addEventListener('input', function() {
             const password = this.value;
@@ -1212,7 +1057,6 @@ function initCreateNewPassword() {
         });
     }
     
-    // Form submission
     if (createPasswordForm) {
         createPasswordForm.addEventListener('submit', function(e) {
             e.preventDefault();
@@ -1223,22 +1067,17 @@ function initCreateNewPassword() {
             
             if (!submitButton) return;
             
-            // Show loading state
             const originalText = submitButton.innerHTML;
             submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Обновление...';
             submitButton.disabled = true;
             
-            // Simulate API call
             setTimeout(() => {
                 showAlert('Пароль обновлен!', 'Ваш пароль был успешно изменен. Теперь вы можете войти в систему с новым паролем.', 'success', {
                     autoClose: 3000,
                     onConfirm: () => {
-                        // Redirect to login page
-                        window.location.href = '/authorization/login/'; // Исправлен путь
+                        window.location.href = '/authorization/login/';
                     }
                 });
-                
-                // Reset button state (though redirect will happen)
                 submitButton.innerHTML = originalText;
                 submitButton.disabled = false;
             }, 2000);

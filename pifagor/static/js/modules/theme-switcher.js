@@ -35,7 +35,7 @@ export function initThemeSwitcher() {
         const themeLink = document.createElement('link');
         themeLink.id = 'dynamic-theme';
         themeLink.rel = 'stylesheet';
-        themeLink.href = `/frontend/static/css/themes/${theme}.css`;
+        themeLink.href = `/theme/${theme}/`;
         document.head.appendChild(themeLink);
         
         // Обновляем активную кнопку
@@ -59,9 +59,6 @@ export function initThemeSwitcher() {
         switch(theme) {
             case 'dark':
                 themeColor = '#1E293B';
-                break;
-            case 'high-contrast':
-                themeColor = '#000000';
                 break;
         }
         

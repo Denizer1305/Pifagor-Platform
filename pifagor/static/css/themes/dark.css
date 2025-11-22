@@ -1,6 +1,6 @@
-/* Темная тема на основе дефолтной цветовой схемы */
+/* Темная тема на основе variable.css - без градиентов */
 :root {
-    /* Основные цвета - инвертированные для темной темы */
+    /* Основные цвета для темной темы */
     --primary: #1a1f2d;
     --primary-light: #2d3447;
     --secondary: #8A8A9F;
@@ -42,15 +42,54 @@
 
     /* Тени и эффекты */
     --shadow-color: rgba(0, 0, 0, 0.5);
+    --shadow-sm: 0 2px 5px var(--shadow-color);
+    --shadow-md: 0 5px 15px var(--shadow-color);
+    --shadow-lg: 0 10px 30px var(--shadow-color);
 
-    /* Градиенты для темной темы */
-    --gradient-primary-accent: linear-gradient(90deg, var(--primary), var(--accent));
-    --gradient-success: linear-gradient(135deg, rgba(54, 217, 125, 0.15), rgba(54, 217, 125, 0.25));
-    --gradient-error: linear-gradient(135deg, rgba(240, 94, 94, 0.15), rgba(240, 94, 94, 0.25));
-    --gradient-overlay: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+    /* Градиенты заменены на сплошные цвета */
+    --gradient-primary-accent: var(--accent);
+    --gradient-success: var(--success-transparent-20);
+    --gradient-error: var(--danger-transparent-20);
+    --gradient-overlay: rgba(255, 255, 255, 0.05);
+
+    /* Новые переменные прозрачности для темной темы */
+    --white-transparent-50: rgba(255, 255, 255, 0.5);
+    --white-transparent-40: rgba(255, 255, 255, 0.4);
+    --white-transparent-20: rgba(255, 255, 255, 0.2);
+    --primary-transparent-5: rgba(26, 31, 45, 0.05);
+    --primary-transparent-6: rgba(26, 31, 45, 0.6);
+    --success-transparent-20: rgba(54, 217, 125, 0.2);
+    --success-transparent-5: rgba(54, 217, 125, 0.05);
+    --danger-transparent-20: rgba(240, 94, 94, 0.2);
+    --danger-transparent-5: rgba(240, 94, 94, 0.05);
+    --warning-transparent-20: rgba(245, 166, 35, 0.2);
+    --warning-transparent-10: rgba(245, 166, 35, 0.1);
+    --info-transparent-20: rgba(91, 140, 217, 0.2);
+    --info-transparent-10: rgba(91, 140, 217, 0.1);
+    --accent-blue-transparent-20: rgba(91, 140, 217, 0.2);
+    --accent-blue-transparent-5: rgba(91, 140, 217, 0.05);
+
+    /* Фоновые градиенты заменены на сплошные цвета */
+    --bg-gradient-light: var(--primary);
+    --bg-gradient-light-alt: var(--primary-light);
+    --bg-gradient-primary: var(--primary);
+    --bg-gradient-primary-light: var(--primary-light);
+
+    /* Градиенты для кнопок заменены на сплошные цвета */
+    --gradient-primary: var(--primary);
+    --gradient-success: var(--success);
+    --gradient-warning: var(--warning);
+    --gradient-danger: var(--danger);
+    --gradient-accent: var(--accent);
+    --gradient-info: var(--accent-blue);
+    --gradient-info-hover: var(--accent-light-blue);
+    --gradient-amber: var(--accent-amber);
+    --gradient-amber-hover: var(--accent-orange);
+    --gradient-word: #2a5298;
+    --gradient-pdf: #c0392b;
 }
 
-/* Дополнительные стили для темной темы */
+/* Основные стили для темной темы */
 body {
     background-color: var(--light-bg);
     color: var(--primary-text);
@@ -58,14 +97,13 @@ body {
 
 /* Header */
 header {
-    background: rgba(26, 31, 45, 0.95);
-    backdrop-filter: blur(10px);
+    background: var(--primary);
     border-bottom: 1px solid var(--primary-light);
 }
 
 header.scrolled {
     background: var(--primary);
-    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
+    box-shadow: var(--shadow-md);
 }
 
 .nav-links a {
@@ -82,17 +120,16 @@ header.scrolled {
 
 /* Hero секция */
 .hero {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--light-bg) 100%);
+    background: var(--primary);
 }
 
 .bg-shapes .shape {
-    background: rgba(91, 140, 217, 0.1);
-    border: 1px solid rgba(91, 140, 217, 0.2);
+    background: var(--accent-blue-transparent-20);
+    border: 1px solid var(--accent-blue-transparent-20);
 }
 
 .hero-title {
     color: var(--primary-text);
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 .hero-subtitle,
@@ -115,11 +152,11 @@ header.scrolled {
     background: var(--primary);
     border-color: var(--accent);
     transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    box-shadow: var(--shadow-lg);
 }
 
 .feature-icon {
-    background: rgba(91, 140, 217, 0.1);
+    background: var(--accent-blue-transparent-20);
     color: var(--accent);
 }
 
@@ -148,13 +185,13 @@ header.scrolled {
 }
 
 .architecture-icon {
-    background: rgba(91, 140, 217, 0.1);
+    background: var(--accent-blue-transparent-20);
     color: var(--accent);
 }
 
 /* AI Assistant секция */
 .ai-assistant {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--light-bg) 100%);
+    background: var(--primary);
 }
 
 .ai-main-card {
@@ -178,7 +215,7 @@ header.scrolled {
 }
 
 .ai-feature-icon {
-    background: rgba(91, 140, 217, 0.1);
+    background: var(--accent-blue-transparent-20);
     color: var(--accent);
 }
 
@@ -201,11 +238,6 @@ header.scrolled {
 /* CTA секция */
 .cta {
     background: var(--light-bg);
-}
-
-.cta-content {
-    background: var(--primary);
-    border: 1px solid var(--primary-light);
 }
 
 .cta-description {
@@ -246,7 +278,7 @@ footer {
     color: var(--primary-text);
 }
 
-.footer-column a {
+.footer-column a, p{
     color: var(--secondary);
 }
 
@@ -288,6 +320,7 @@ footer {
     background: transparent;
     color: var(--primary-text);
     border: 1px solid var(--primary-light);
+    background-color: var(--primary-light);
 }
 
 .btn-light:hover {
@@ -323,10 +356,10 @@ footer {
     color: var(--accent);
 }
 
-/* Переключатель тем в темной теме */
+/* Переключатель тем */
 .theme-switcher {
     background: var(--primary-light);
-    border-color: rgba(255, 255, 255, 0.1);
+    border-color: var(--primary-light);
 }
 
 .theme-btn {
@@ -350,12 +383,25 @@ input:focus,
 textarea:focus,
 select:focus {
     border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(91, 140, 217, 0.1);
+    box-shadow: 0 0 0 3px var(--accent-blue-transparent-20);
 }
 
 input::placeholder,
 textarea::placeholder {
     color: var(--secondary);
+}
+
+/* Карточки */
+.card {
+    background: var(--primary-light);
+    border: 1px solid var(--primary-light);
+    color: var(--primary-text);
+}
+
+.card:hover {
+    border-color: var(--accent);
+    transform: var(--card-hover-transform);
+    box-shadow: var(--card-shadow-hover);
 }
 
 /* Состояния загрузки */
@@ -364,20 +410,9 @@ textarea::placeholder {
     border-top-color: var(--accent);
 }
 
-.skeleton-loader {
-    background: linear-gradient(90deg, var(--primary-light) 25%, var(--primary) 50%, var(--primary-light) 75%);
-}
-
 /* Улучшения для читаемости */
-body {
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-
 .section-title {
     color: var(--primary-text);
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 /* Плавные переходы между темами */
@@ -438,14 +473,6 @@ tr:hover {
     border-color: var(--accent);
 }
 
-/* Логотипы и изображения - добавляем фильтр для лучшей видимости */
-.logo-header img,
-.hero-logo img,
-.partner-logo img,
-.author-avatar img {
-    filter: brightness(0.9) contrast(1.1);
-}
-
 /* Улучшенная видимость фокуса */
 *:focus {
     outline: 2px solid var(--accent);
@@ -464,57 +491,5 @@ tr:hover {
     
     .mobile-nav-link:hover {
         background: var(--primary-light);
-    }
-}
-
-/* Темная тема для чата */
-@media (prefers-color-scheme: dark) {
-    .chat-messages {
-        background-color: rgba(var(--primary), 0.1);
-    }
-    
-    .message-content {
-        background-color: var(--white);
-    }
-    
-    .message.anastasia .message-content {
-        background-color: var(--anastasia-bg);
-    }
-    
-    .message.user .message-content {
-        background-color: var(--user-bg);
-    }
-    
-    .chat-input-container {
-        background-color: var(--white);
-        border-top-color: var(--input-border-color);
-    }
-    
-    .chat-input {
-        background-color: var(--white);
-        color: var(--primary-text);
-    }
-}
-
-/* Темная тема для хедера */
-@media (prefers-color-scheme: dark) {
-    header {
-        background-color: rgba(57, 68, 88, 0.95);
-    }
-    
-    .nav-links a {
-        color: var(--white);
-    }
-    
-    .mobile-menu {
-        background: var(--primary);
-    }
-    
-    .mobile-nav-link {
-        color: var(--white);
-    }
-    
-    .mobile-nav-link:hover {
-        background: rgba(255, 255, 255, 0.1);
     }
 }

@@ -1,36 +1,7 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Пифагор - Основы программирования</title>
-    <link rel="icon" href="/frontend/static/assets/image/logo/icons.svg">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Forum&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/frontend/static/css/main.css">
-</head>
-<body>
-    <!-- Header -->
-    <header>
-        <div class="container header-container">
-            <div class="logo-header">
-                <a href="/frontend/templates/main/index.html">
-                    <img src="/frontend/static/assets/image/logo/logo.svg" alt="logo">
-                </a>
-            </div>
-            <ul class="nav-links">
-                <li><a href="/frontend/templates/courses/courses.html">Курсы</a></li>
-                <li><a href="/frontend/templates/test/tests.html">Тестирование</a></li>
-                <li><a href="/frontend/templates/practic/practic.html">Практические задания</a></li>
-                <li><a href="/frontend/templates/materials/materials.html">Учебные материалы</a></li>
-            </ul>
-            <div class="header-actions">
-                <a href="/frontend/templates/auth/registration.html" class="btn btn-primary login-btn">Вход в кабинет</a>
-            </div>
-        </div>
-    </header>
+{% extends 'base_materials.html' %}
+{% load static %}
 
-    <!-- Hero Section -->
+{% block content %}
     <section class="hero-page">
         <div class="bg-shapes">
             <div class="shape"></div>
@@ -58,7 +29,7 @@
                 <p class="hero-description">Этот раздел содержит материалы по основам программирования на Python: переменные, типы данных, условные операторы, циклы и функции. Идеально подходит для начинающих программистов.</p>
                 <div class="hero-actions">
                     <a href="#materials" class="btn">Смотреть материалы</a>
-                    <a href="/frontend/templates/courses/courses.html" class="btn btn-light">Перейти к курсам</a>
+                    <a href="{% url 'materials:materials' %}" class="btn btn-light">Перейти к курсам</a>
                 </div>
             </div>
         </div>
@@ -162,179 +133,10 @@
                                 <a href="/frontend/templates/materials/materials-detail.html" class="btn btn-light btn-small" style="margin-top: 15px; width: 100%;">Открыть</a>
                             </div>
                         </div>
-
-                        <!-- Материал 2 -->
-                        <div class="material-card fade-in" data-topic="variables" data-type="pdf">
-                            <div class="material-image pdf">
-                                <i class="fas fa-file-pdf"></i>
-                            </div>
-                            <div class="material-info">
-                                <h3>Типы данных в Python</h3>
-                                <p class="material-description">Подробное руководство по основным типам данных: числа, строки, булевы значения.</p>
-                                <div class="material-meta">
-                                    <span><i class="far fa-clock"></i> 25 мин</span>
-                                    <span><i class="far fa-calendar"></i> 10.03.2023</span>
-                                </div>
-                                <div class="material-type type-pdf">PDF</div>
-                                <button class="btn btn-light btn-small" style="margin-top: 15px; width: 100%;">Открыть</button>
-                            </div>
-                        </div>
-
-                        <!-- Материал 3 -->
-                        <div class="material-card fade-in" data-topic="operators" data-type="presentation">
-                            <div class="material-image presentation">
-                                <i class="fa-solid fa-square-root-variable"></i>
-                            </div>
-                            <div class="material-info">
-                                <h3>Арифметические операторы</h3>
-                                <p class="material-description">Презентация об основных арифметических операциях в Python.</p>
-                                <div class="material-meta">
-                                    <span><i class="far fa-clock"></i> 20 мин</span>
-                                    <span><i class="far fa-calendar"></i> 08.03.2023</span>
-                                </div>
-                                <div class="material-type type-presentation">Презентация</div>
-                                <button class="btn btn-light btn-small" style="margin-top: 15px; width: 100%;">Открыть</button>
-                            </div>
-                        </div>
-
-                        <!-- Материал 4 -->
-                        <div class="material-card fade-in" data-topic="conditionals" data-type="code">
-                            <div class="material-image code">
-                                <i class="fas fa-laptop-code"></i>
-                            </div>
-                            <div class="material-info">
-                                <h3>Условные операторы: if-else</h3>
-                                <p class="material-description">Практические примеры использования условных операторов в Python.</p>
-                                <div class="material-meta">
-                                    <span><i class="far fa-clock"></i> 30 мин</span>
-                                    <span><i class="far fa-calendar"></i> 05.03.2023</span>
-                                </div>
-                                <div class="material-type type-code">Примеры кода</div>
-                                <button class="btn btn-light btn-small" style="margin-top: 15px; width: 100%;">Открыть</button>
-                            </div>
-                        </div>
-
-                        <!-- Материал 5 -->
-                        <div class="material-card fade-in" data-topic="loops" data-type="video">
-                            <div class="material-image video">
-                                <i class="fas fa-play-circle"></i>
-                            </div>
-                            <div class="material-info">
-                                <h3>Циклы for и while</h3>
-                                <p class="material-description">Видеоурок о том, как использовать циклы для повторения действий.</p>
-                                <div class="material-meta">
-                                    <span><i class="far fa-clock"></i> 22 мин</span>
-                                    <span><i class="far fa-calendar"></i> 03.03.2023</span>
-                                </div>
-                                <div class="material-type type-video">Видео</div>
-                                <button class="btn btn-light btn-small" style="margin-top: 15px; width: 100%;">Открыть</button>
-                            </div>
-                        </div>
-
-                        <!-- Материал 6 -->
-                        <div class="material-card fade-in" data-topic="functions" data-type="text">
-                            <div class="material-image text">
-                                <i class="fas fa-file-alt"></i>
-                            </div>
-                            <div class="material-info">
-                                <h3>Создание функций</h3>
-                                <p class="material-description">Текстовый материал о том, как создавать и использовать функции в Python.</p>
-                                <div class="material-meta">
-                                    <span><i class="far fa-clock"></i> 35 мин</span>
-                                    <span><i class="far fa-calendar"></i> 01.03.2023</span>
-                                </div>
-                                <div class="material-type type-text">Текст</div>
-                                <button class="btn btn-light btn-small" style="margin-top: 15px; width: 100%;">Открыть</button>
-                            </div>
-                        </div>
-
-                        <!-- Материал 7 -->
-                        <div class="material-card fade-in" data-topic="collections" data-type="pdf">
-                            <div class="material-image pdf">
-                                <i class="fas fa-file-pdf"></i>
-                            </div>
-                            <div class="material-info">
-                                <h3>Списки и кортежи</h3>
-                                <p class="material-description">Руководство по работе с коллекциями данных: списки, кортежи, словари.</p>
-                                <div class="material-meta">
-                                    <span><i class="far fa-clock"></i> 40 мин</span>
-                                    <span><i class="far fa-calendar"></i> 28.02.2023</span>
-                                </div>
-                                <div class="material-type type-pdf">PDF</div>
-                                <button class="btn btn-light btn-small" style="margin-top: 15px; width: 100%;">Открыть</button>
-                            </div>
-                        </div>
-
-                        <!-- Материал 8 -->
-                        <div class="material-card fade-in" data-topic="collections" data-type="code">
-                            <div class="material-image code">
-                                <i class="fas fa-laptop-code"></i>
-                            </div>
-                            <div class="material-info">
-                                <h3>Работа со словарями</h3>
-                                <p class="material-description">Примеры использования словарей для хранения данных в Python.</p>
-                                <div class="material-meta">
-                                    <span><i class="far fa-clock"></i> 25 мин</span>
-                                    <span><i class="far fa-calendar"></i> 25.02.2023</span>
-                                </div>
-                                <div class="material-type type-code">Примеры кода</div>
-                                <button class="btn btn-light btn-small" style="margin-top: 15px; width: 100%;">Открыть</button>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>Пифагор</h3>
-                    <p>Образовательная платформа, которая делает сложное простым, а обучение — увлекательным.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-github"></i></a>
-                        <a href="#"><i class="fab fa-vk"></i></a>
-                        <a href="#"><i class="fab fa-gitlab"></i></a>
-                    </div>
-                </div>
-                <div class="footer-column">
-                    <h3>Курсы</h3>
-                    <ul>
-                        <li><a href="#">Математика</a></li>
-                        <li><a href="#">Физика</a></li>
-                        <li><a href="#">Информатика</a></li>
-                        <li><a href="#">Подготовка к ЕГЭ</a></li>
-                        <li><a href="#">Высшая математика</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Компания</h3>
-                    <ul>
-                        <li><a href="#">О нас</a></li>
-                        <li><a href="#">Преподаватели</a></li>
-                        <li><a href="#">Новости</a></li>
-                        <li><a href="#">Контакты</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Помощь</h3>
-                    <ul>
-                        <li><a href="#">FAQ</a></li>
-                        <li><a href="#">Поддержка</a></li>
-                        <li><a href="#">Политика конфиденциальности</a></li>
-                        <li><a href="#">Условия использования</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 Образовательная платформа "Пифагор". Все права защищены.</p>
-            </div>
-        </div>
-    </footer>
-
-    <script type="module" src="/frontend/static/js/main.js"></script>
-</body>
-</html>
+{% endblock %}

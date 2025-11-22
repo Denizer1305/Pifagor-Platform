@@ -26,20 +26,17 @@
                 <li><a href="{% url 'main:about' %}">О платформе</a></li>
                 <li><a href="{% url 'main:teachers' %}">Преподаватели</a></li>
                 <li><a href="{% url 'main:contact' %}">Контакты</a></li>
-                <li><a href="{% url 'main:about' %}">Курсы</a></li>
             </ul>
 
             <div class="theme-switcher">
                 <i class="fas fa-sun theme-btn" data-theme="light"></i>
                 <i class="fas fa-moon theme-btn" data-theme="dark"></i>
-                <i class="fas fa-low-vision theme-btn" data-theme="high-contrast"></i>
             </div>
             
             <div class="header-actions">
                 <a href="{% url 'authorization:registration' %}" class="btn btn-primary login-btn">Регистрация</a>
             </div>
 
-            <!-- Мобильное меню -->
             <button class="burger-menu" aria-label="Открыть меню" aria-expanded="false">
                 <i class="fa fa-bars" aria-hidden="true"></i>
             </button>
@@ -59,20 +56,18 @@
                 </div>
                 
                 <ul class="mobile-nav-links">
-                    <li><a href="{% url 'main:about' %}">О платформе</a></li>
-                    <li><a href="{% url 'main:about' %}">Курсы</a></li>
-                    <li><a href="{% url 'main:teachers' %}">Преподаватели</a></li>
-                    <li><a href="{% url 'main:contact' %}">Контакты</a></li>
+                    <li><a href="{% url 'main:about' %}" class="mobile-nav-link">О платформе</a></li>
+                    <li><a href="{% url 'main:teachers' %}" class="mobile-nav-link">Преподаватели</a></li>
+                    <li><a href="{% url 'main:contact' %}" class="mobile-nav-link">Контакты</a></li>
                 </ul>
+
+                <div class="header-actions">
+                    <a href="{% url 'authorization:registration' %}" class="btn btn-primary">Регистрация</a>
+                </div>
 
                 <div class="theme-switcher mobile-theme-switcher">
                     <i class="fas fa-sun theme-btn" data-theme="light"></i>
                     <i class="fas fa-moon theme-btn" data-theme="dark"></i>
-                    <i class="fas fa-low-vision theme-btn" data-theme="high-contrast"></i>
-                </div>
-                
-                <div class="mobile-menu-actions">
-                    <a href="{% url 'authorization:registration' %}" class="btn btn-primary btn-mobile">Регистрация</a>
                 </div>
             </nav>
         </div>

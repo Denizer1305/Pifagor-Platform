@@ -1,36 +1,7 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Пифагор - Учебные материалы</title>
-    <link rel="icon" href="/frontend/static/assets/image/logo/icons.svg">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Forum&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/frontend/static/css/main.css">
-</head>
-<body>
-    <!-- Header -->
-    <header>
-        <div class="container header-container">
-            <div class="logo-header">
-                <a href="/frontend/templates/main/index.html">
-                    <img src="/frontend/static/assets/image/logo/logo.svg" alt="logo">
-                </a>
-            </div>
-            <ul class="nav-links">
-                <li><a href="/frontend/templates/courses/courses.html">Курсы</a></li>
-                <li><a href="/frontend/templates/test/tests.html">Тестирование</a></li>
-                <li><a href="/frontend/templates/practic/practic.html">Практические задания</a></li>
-                <li><a href="/frontend/templates/materials/materials.html" class="active">Учебные материалы</a></li>
-            </ul>
-            <div class="header-actions">
-                <a href="/frontend/templates/auth/registration.html" class="btn btn-primary login-btn">Вход в кабинет</a>
-            </div>
-        </div>
-    </header>
+{% extends 'base_materials.html' %}
+{% load static %}
 
-    <!-- Hero Section -->
+{% block content %}
     <section class="hero-page">
         <div class="bg-shapes">
             <div class="shape"></div>
@@ -45,18 +16,16 @@
                 <p class="hero-description">Наша библиотека содержит учебные материалы по различным предметам: лекции, презентации, видеоуроки, практические задания и многое другое. Выберите интересующий вас предмет и начните изучать материалы в удобном для вас формате.</p>
                 <div class="hero-actions">
                     <a href="#materials" class="btn">Смотреть материалы</a>
-                    <a href="/frontend/templates/courses/courses.html" class="btn btn-light">Перейти к курсам</a>
+                    <a href="{% url 'materials:materials' %}" class="btn btn-light">Перейти к курсам</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Materials Section -->
     <section id="materials" class="section materials">
         <div class="container">
             <h2 class="section-title">Выберите предмет</h2>
             <div class="materials-grid">
-                <!-- Математика -->
                 <div class="subject-card fade-in" data-subject="math">
                     <div class="subject-image">
                         <i class="fas fa-square-root-alt"></i>
@@ -69,62 +38,11 @@
                             <span><i class="far fa-clock"></i> Обновлено сегодня</span>
                         </div>
                         <div class="materials-count">15 новых</div>
-                        <a href="/frontend/templates/materials/materials-list.html" class="btn" style="margin-top: 15px; width: 100%; text-align: center;">Смотреть материалы</a>
+                        <a href="{% url 'materials:materials-list' %}" class="btn" style="margin-top: 15px; width: 100%; text-align: center;">Смотреть материалы</a>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>Пифагор</h3>
-                    <p>Образовательная платформа, которая делает сложное простым, а обучение — увлекательным.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-github"></i></a>
-                        <a href="#"><i class="fab fa-vk"></i></a>
-                        <a href="#"><i class="fab fa-gitlab"></i></a>
-                    </div>
-                </div>
-                <div class="footer-column">
-                    <h3>Курсы</h3>
-                    <ul>
-                        <li><a href="#">Математика</a></li>
-                        <li><a href="#">Физика</a></li>
-                        <li><a href="#">Информатика</a></li>
-                        <li><a href="#">Подготовка к ЕГЭ</a></li>
-                        <li><a href="#">Высшая математика</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Компания</h3>
-                    <ul>
-                        <li><a href="#">О нас</a></li>
-                        <li><a href="#">Преподаватели</a></li>
-                        <li><a href="#">Новости</a></li>
-                        <li><a href="#">Контакты</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Помощь</h3>
-                    <ul>
-                        <li><a href="#">FAQ</a></li>
-                        <li><a href="#">Поддержка</a></li>
-                        <li><a href="#">Политика конфиденциальности</a></li>
-                        <li><a href="#">Условия использования</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 Образовательная платформа "Пифагор". Все права защищены.</p>
-            </div>
-        </div>
-    </footer>
-
-    <script type="module" src="/frontend/static/js/main.js"></script>
-</body>
-</html>
+{% endblock %}

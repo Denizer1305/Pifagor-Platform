@@ -1,35 +1,7 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Пифагор - Создание материала</title>
-    <link rel="icon" href="/frontend/static/assets/image/logo/icons.svg">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Forum&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/frontend/static/css/main.css">
-</head>
-<body>
-    <header>
-        <div class="container header-container">
-            <div class="logo-header">
-                <a href="/frontend/templates/main/index.html">
-                    <img src="/frontend/static/assets/image/logo/logo.svg" alt="logo">
-                </a>
-            </div>
-            <ul class="nav-links">
-                <li><a href="/frontend/templates/courses/courses.html">Курсы</a></li>
-                <li><a href="/frontend/templates/test/tests.html">Тестирование</a></li>
-                <li><a href="/frontend/templates/practic/practic.html">Практические задания</a></li>
-                <li><a href="/frontend/templates/materials/materials.html">Учебные материалы</a></li>
-            </ul>
-            <div class="header-actions">
-                <a href="/frontend/templates/auth/registration.html" class="btn btn-primary login-btn">Вход в кабинет</a>
-            </div>
-        </div>
-    </header>
+{% extends 'base_materials.html' %}
+{% load static %}
 
-    <!-- Hero Section -->
+{% block content %}
     <section class="hero-page">
         <div class="bg-shapes">
             <div class="shape"></div>
@@ -89,7 +61,6 @@
                                     </div>
                                     <span class="type-name">Код/Примеры</span>
                                 </div>
-                                <!-- Добавляем новый тип для ссылок -->
                                 <div class="type-option" data-type="link">
                                     <div class="type-icon icon-link">
                                         <i class="fas fa-link"></i>
@@ -112,7 +83,6 @@
                             </div>
                         </div>
 
-                        <!-- Поле для загрузки файла -->
                         <div class="form-group" id="file-upload-group">
                             <label class="form-label">Файл материала *</label>
                             <div class="file-upload">
@@ -127,7 +97,6 @@
                             </div>
                         </div>
 
-                        <!-- Поле для ввода ссылки -->
                         <div class="form-group link-input-group" id="link-input-group">
                             <label for="material-url" class="form-label">Ссылка на материал *</label>
                             <input type="url" id="material-url" class="form-control" placeholder="https://example.com/video" pattern="https?://.+" title="Введите корректный URL (начинается с http:// или https://)">
@@ -209,7 +178,6 @@
                     </form>
                 </div>
 
-                <!-- Sidebar -->
                 <div class="form-sidebar">
                     <h3 class="sidebar-title">Предпросмотр</h3>
                     
@@ -227,7 +195,6 @@
                             </div>
                         </div>
                         <p class="preview-description" id="preview-desc">Описание материала появится здесь</p>
-                        <!-- Добавляем отображение ссылки в предпросмотре -->
                         <div class="url-preview" id="preview-link">
                             Ссылка: <a href="#" id="preview-link-url" target="_blank"></a>
                         </div>
@@ -265,54 +232,4 @@
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>Пифагор</h3>
-                    <p>Образовательная платформа, которая делает сложное простым, а обучение — увлекательным.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-github"></i></a>
-                        <a href="#"><i class="fab fa-vk"></i></a>
-                        <a href="#"><i class="fab fa-gitlab"></i></a>
-                    </div>
-                </div>
-                <div class="footer-column">
-                    <h3>Курсы</h3>
-                    <ul>
-                        <li><a href="#">Математика</a></li>
-                        <li><a href="#">Физика</a></li>
-                        <li><a href="#">Информатика</a></li>
-                        <li><a href="#">Подготовка к ЕГЭ</a></li>
-                        <li><a href="#">Высшая математика</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Компания</h3>
-                    <ul>
-                        <li><a href="#">О нас</a></li>
-                        <li><a href="#">Преподаватели</a></li>
-                        <li><a href="#">Новости</a></li>
-                        <li><a href="#">Контакты</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Помощь</h3>
-                    <ul>
-                        <li><a href="#">FAQ</a></li>
-                        <li><a href="#">Поддержка</a></li>
-                        <li><a href="#">Политика конфиденциальности</a></li>
-                        <li><a href="#">Условия использования</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 Образовательная платформа "Пифагор". Все права защищены.</p>
-            </div>
-        </div>
-    </footer>
-
-    <script type="module" src="/frontend/static/js/main.js"></script>
-</body>
-</html>
+{% endblock %}

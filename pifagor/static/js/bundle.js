@@ -247,12 +247,24 @@ var init_ui = __esm({
 
 // static/js/modules/auth.js
 function initAuth() {
-  initLogin();
-  initPasswordReset();
-  initEmailVerification();
-  initLogout();
-  initCreateNewPassword();
-  initRegistration();
+  if (document.getElementById("loginForm")) {
+    initLogin();
+  }
+  if (document.getElementById("resetForm")) {
+    initPasswordReset();
+  }
+  if (document.getElementById("countdown") && document.getElementById("resendCode")) {
+    initEmailVerification();
+  }
+  if (document.getElementById("countdown") && document.getElementById("seconds")) {
+    initLogout();
+  }
+  if (document.getElementById("resetPasswordForm")) {
+    initCreateNewPassword();
+  }
+  if (document.querySelector("form#register-form")) {
+    initRegistration();
+  }
 }
 function initLogin() {
   const loginForm = document.getElementById("loginForm");
@@ -304,20 +316,12 @@ function getCSRFToken() {
 }
 function initRegistration() {
   const registerForm = document.querySelector("form#register-form");
-  if (!registerForm) {
-    console.log("Registration form not found");
-    return;
-  }
-  console.log("Registration form found:", registerForm);
   const requirementIds = ["lengthReq", "uppercaseReq", "numberReq", "specialReq"];
   requirementIds.forEach((id) => {
     const element = document.getElementById(id);
-    console.log(`Element ${id}:`, element, "Content:", element ? element.innerHTML : "NOT FOUND");
   });
   function initPasswordToggles() {
-    console.log("Initializing password toggles...");
     const passwordToggles = document.querySelectorAll(".password-toggle");
-    console.log("Found password toggles:", passwordToggles.length);
     passwordToggles.forEach((toggle) => {
       const newToggle = toggle.cloneNode(true);
       toggle.parentNode.replaceChild(newToggle, toggle);
@@ -327,27 +331,19 @@ function initRegistration() {
         const targetId = this.getAttribute("data-target");
         console.log("Target ID:", targetId);
         const passwordInput = document.getElementById(targetId);
-        console.log("Password input found:", !!passwordInput);
-        if (passwordInput) {
-          const currentType = passwordInput.getAttribute("type");
-          const newType = currentType === "password" ? "text" : "password";
-          console.log("Changing input type from", currentType, "to", newType);
-          passwordInput.setAttribute("type", newType);
-          const icon = this.querySelector("i");
-          if (icon) {
-            if (newType === "password") {
-              icon.className = "fas fa-eye";
-            } else {
-              icon.className = "fas fa-eye-slash";
-            }
-            console.log("Icon changed to:", icon.className);
+        const currentType = passwordInput.getAttribute("type");
+        const newType = currentType === "password" ? "text" : "password";
+        passwordInput.setAttribute("type", newType);
+        const icon = this.querySelector("i");
+        if (icon) {
+          if (newType === "password") {
+            icon.className = "fas fa-eye";
+          } else {
+            icon.className = "fas fa-eye-slash";
           }
-        } else {
-          console.error("Password input not found for target:", targetId);
         }
       });
     });
-    console.log("Password toggles initialization completed");
   }
   initPasswordToggles();
   function checkPasswordStrength(password) {
@@ -380,31 +376,48 @@ function initRegistration() {
     return { strength: strength2, requirements: requirements2 };
   }
   function checkPasswordMatch() {
-    const password1 = document.getElementById("id_password1")?.value || "";
-    const password2 = document.getElementById("id_password2")?.value || "";
-    const passwordMatch = document.getElementById("passwordMatch");
-    if (!passwordMatch) return false;
-    if (password2.length > 0) {
-      if (password1 === password2) {
-        passwordMatch.style.display = "block";
-        passwordMatch.innerHTML = '<i class="fas fa-check"></i> \u041F\u0430\u0440\u043E\u043B\u0438 \u0441\u043E\u0432\u043F\u0430\u0434\u0430\u044E\u0442';
-        passwordMatch.classList.remove("invalid");
-        passwordMatch.classList.add("valid");
-        return true;
-      } else {
-        passwordMatch.style.display = "block";
-        passwordMatch.innerHTML = '<i class="fas fa-times"></i> \u041F\u0430\u0440\u043E\u043B\u0438 \u043D\u0435 \u0441\u043E\u0432\u043F\u0430\u0434\u0430\u044E\u0442';
-        passwordMatch.classList.remove("valid");
-        passwordMatch.classList.add("invalid");
-        return false;
-      }
+    const password1Input2 = document.getElementById("id_password1");
+    const password2Input2 = document.getElementById("id_password2");
+    const termsCheckbox2 = document.getElementById("terms");
+    const roleInputs2 = document.querySelectorAll('input[name="role"]');
+    if (password1Input2) {
+      password1Input2.addEventListener("input", function() {
+        const password = this.value;
+        const { strength: strength2, requirements: requirements2 } = checkPasswordStrength(password);
+        updatePasswordStrengthBar(strength2);
+        updatePasswordRequirements(requirements2);
+        checkPasswordMatch();
+        updateSubmitButton();
+      });
     } else {
-      passwordMatch.style.display = "none";
-      return false;
+      console.warn("Password1 input not found");
+    }
+    if (password2Input2) {
+      password2Input2.addEventListener("input", function() {
+        checkPasswordMatch();
+        updateSubmitButton();
+      });
+    } else {
+      console.warn("Password2 input not found");
+    }
+    if (termsCheckbox2) {
+      termsCheckbox2.addEventListener("change", function() {
+        updateSubmitButton();
+      });
+    } else {
+      console.warn("Terms checkbox not found");
+    }
+    if (roleInputs2 && roleInputs2.length > 0) {
+      roleInputs2.forEach((input) => {
+        input.addEventListener("change", function() {
+          updateSubmitButton();
+        });
+      });
+    } else {
+      console.warn("Role inputs not found");
     }
   }
   function updatePasswordRequirements(requirements2) {
-    console.log("Updating password requirements:", requirements2);
     const requirementsConfig = {
       "length": {
         elementId: "lengthReq",
@@ -426,21 +439,17 @@ function initRegistration() {
     Object.keys(requirementsConfig).forEach((requirementType) => {
       const config = requirementsConfig[requirementType];
       const element = document.getElementById(config.elementId);
-      if (element) {
-        const isValid = requirements2[requirementType];
-        if (isValid) {
-          element.classList.remove("invalid");
-          element.classList.add("valid");
-          const currentText = element.textContent || config.text;
-          element.innerHTML = '<i class="fas fa-check"></i> ' + currentText.replace(/^.*?(\s|$)/, "");
-        } else {
-          element.classList.remove("valid");
-          element.classList.add("invalid");
-          const currentText = element.textContent || config.text;
-          element.innerHTML = '<i class="fas fa-times"></i> ' + currentText.replace(/^.*?(\s|$)/, "");
-        }
+      const isValid = requirements2[requirementType];
+      if (isValid) {
+        element.classList.remove("invalid");
+        element.classList.add("valid");
+        const currentText = element.textContent || config.text;
+        element.innerHTML = '<i class="fas fa-check"></i> ' + currentText.replace(/^.*?(\s|$)/, "");
       } else {
-        console.warn("Element not found:", config.elementId);
+        element.classList.remove("valid");
+        element.classList.add("invalid");
+        const currentText = element.textContent || config.text;
+        element.innerHTML = '<i class="fas fa-times"></i> ' + currentText.replace(/^.*?(\s|$)/, "");
       }
     });
   }
@@ -545,7 +554,6 @@ function initRegistration() {
     const originalText = submitButton.textContent;
     submitButton.textContent = "\u0420\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044F...";
     submitButton.disabled = true;
-    console.log("Sending registration request...");
     fetch(registerForm.action, {
       method: "POST",
       body: formData,
@@ -554,7 +562,6 @@ function initRegistration() {
         "X-CSRFToken": getCSRFToken()
       }
     }).then((response) => {
-      console.log("Response status:", response.status);
       const contentType = response.headers.get("content-type");
       if (contentType && contentType.includes("application/json")) {
         return response.json().then((data) => {
@@ -578,7 +585,6 @@ function initRegistration() {
           }
         );
       } else {
-        console.log("Registration error:", data);
         document.querySelectorAll(".error-message").forEach((el) => {
           el.style.display = "none";
           el.textContent = "";
@@ -606,7 +612,6 @@ function initRegistration() {
               errorElement.textContent = errorText;
               errorElement.style.display = "block";
               hasFieldErrors = true;
-              console.log(`Showing error for field ${field}:`, errorText);
             }
           });
           if (!hasFieldErrors) {
@@ -644,94 +649,99 @@ function initRegistration() {
   updatePasswordRequirements(requirements);
 }
 function showAlert(title, message, type = "info", options = {}) {
-  const existingAlert = document.querySelector(".alert-overlay");
-  if (existingAlert) {
-    document.body.removeChild(existingAlert);
-  }
-  const overlay = document.createElement("div");
-  overlay.className = "alert-overlay";
-  const alertBox = document.createElement("div");
-  alertBox.className = `alert-box ${type}`;
-  const iconEl = document.createElement("div");
-  iconEl.className = "alert-icon";
-  switch (type) {
-    case "success":
-      iconEl.innerHTML = '<i class="fas fa-check-circle"></i>';
-      break;
-    case "error":
-      iconEl.innerHTML = '<i class="fas fa-exclamation-circle"></i>';
-      break;
-    case "warning":
-      iconEl.innerHTML = '<i class="fas fa-exclamation-triangle"></i>';
-      break;
-    default:
-      iconEl.innerHTML = '<i class="fas fa-info-circle"></i>';
-  }
-  const titleEl = document.createElement("div");
-  titleEl.className = "alert-title";
-  titleEl.textContent = title;
-  const messageEl = document.createElement("div");
-  messageEl.className = "alert-message";
-  messageEl.textContent = message;
-  const buttonContainer = document.createElement("div");
-  buttonContainer.className = "alert-buttons";
-  buttonContainer.style.display = "flex";
-  buttonContainer.style.gap = "10px";
-  buttonContainer.style.justifyContent = "center";
-  buttonContainer.style.marginTop = "1.5rem";
-  const confirmButton = document.createElement("button");
-  confirmButton.className = "alert-button";
-  confirmButton.textContent = options.confirmText || "\u041F\u043E\u043D\u044F\u0442\u043D\u043E";
-  alertBox.appendChild(iconEl);
-  alertBox.appendChild(titleEl);
-  alertBox.appendChild(messageEl);
-  buttonContainer.appendChild(confirmButton);
-  if (options.showCancel) {
-    const cancelButton = document.createElement("button");
-    cancelButton.className = "alert-button btn-light";
-    cancelButton.textContent = options.cancelText || "\u041E\u0442\u043C\u0435\u043D\u0430";
-    cancelButton.style.background = "transparent";
-    cancelButton.style.border = "2px solid var(--primary)";
-    cancelButton.style.color = "var(--primary)";
-    cancelButton.onclick = () => {
-      document.body.removeChild(overlay);
-      if (options.onCancel) options.onCancel();
-    };
-    buttonContainer.appendChild(cancelButton);
-  }
-  alertBox.appendChild(buttonContainer);
-  overlay.appendChild(alertBox);
-  document.body.appendChild(overlay);
-  confirmButton.focus();
-  const closeAlert = () => {
-    if (document.body.contains(overlay)) {
-      document.body.removeChild(overlay);
+  try {
+    const existingAlert = document.querySelector(".alert-overlay");
+    if (existingAlert) {
+      document.body.removeChild(existingAlert);
     }
-    if (options.onConfirm) options.onConfirm();
-  };
-  confirmButton.onclick = closeAlert;
-  overlay.onclick = (e) => {
-    if (e.target === overlay && !options.disableOverlayClose) {
-      closeAlert();
+    const overlay = document.createElement("div");
+    overlay.className = "alert-overlay";
+    const alertBox = document.createElement("div");
+    alertBox.className = `alert-box ${type}`;
+    const iconEl = document.createElement("div");
+    iconEl.className = "alert-icon";
+    switch (type) {
+      case "success":
+        iconEl.innerHTML = '<i class="fas fa-check-circle"></i>';
+        break;
+      case "error":
+        iconEl.innerHTML = '<i class="fas fa-exclamation-circle"></i>';
+        break;
+      case "warning":
+        iconEl.innerHTML = '<i class="fas fa-exclamation-triangle"></i>';
+        break;
+      default:
+        iconEl.innerHTML = '<i class="fas fa-info-circle"></i>';
     }
-  };
-  const handleEscape = (e) => {
-    if (e.key === "Escape") {
-      closeAlert();
-      document.removeEventListener("keydown", handleEscape);
+    const titleEl = document.createElement("div");
+    titleEl.className = "alert-title";
+    titleEl.textContent = title;
+    const messageEl = document.createElement("div");
+    messageEl.className = "alert-message";
+    messageEl.textContent = message;
+    const buttonContainer = document.createElement("div");
+    buttonContainer.className = "alert-buttons";
+    buttonContainer.style.display = "flex";
+    buttonContainer.style.gap = "10px";
+    buttonContainer.style.justifyContent = "center";
+    buttonContainer.style.marginTop = "1.5rem";
+    const confirmButton = document.createElement("button");
+    confirmButton.className = "alert-button";
+    confirmButton.textContent = options.confirmText || "\u041F\u043E\u043D\u044F\u0442\u043D\u043E";
+    alertBox.appendChild(iconEl);
+    alertBox.appendChild(titleEl);
+    alertBox.appendChild(messageEl);
+    buttonContainer.appendChild(confirmButton);
+    if (options.showCancel) {
+      const cancelButton = document.createElement("button");
+      cancelButton.className = "alert-button btn-light";
+      cancelButton.textContent = options.cancelText || "\u041E\u0442\u043C\u0435\u043D\u0430";
+      cancelButton.style.background = "transparent";
+      cancelButton.style.border = "2px solid var(--primary)";
+      cancelButton.style.color = "var(--primary)";
+      cancelButton.onclick = () => {
+        document.body.removeChild(overlay);
+        if (options.onCancel) options.onCancel();
+      };
+      buttonContainer.appendChild(cancelButton);
     }
-  };
-  document.addEventListener("keydown", handleEscape);
-  if (options.autoClose) {
-    setTimeout(() => {
+    alertBox.appendChild(buttonContainer);
+    overlay.appendChild(alertBox);
+    document.body.appendChild(overlay);
+    confirmButton.focus();
+    const closeAlert = () => {
       if (document.body.contains(overlay)) {
+        document.body.removeChild(overlay);
+      }
+      if (options.onConfirm) options.onConfirm();
+    };
+    confirmButton.onclick = closeAlert;
+    overlay.onclick = (e) => {
+      if (e.target === overlay && !options.disableOverlayClose) {
         closeAlert();
       }
-    }, options.autoClose);
+    };
+    const handleEscape = (e) => {
+      if (e.key === "Escape") {
+        closeAlert();
+        document.removeEventListener("keydown", handleEscape);
+      }
+    };
+    document.addEventListener("keydown", handleEscape);
+    if (options.autoClose) {
+      setTimeout(() => {
+        if (document.body.contains(overlay)) {
+          closeAlert();
+        }
+      }, options.autoClose);
+    }
+    return {
+      close: closeAlert
+    };
+  } catch (error) {
+    console.error("Error showing alert:", error);
+    alert(`${title}: ${message}`);
   }
-  return {
-    close: closeAlert
-  };
 }
 function initPasswordReset() {
   const resetForm3 = document.getElementById("resetForm");
@@ -782,7 +792,6 @@ function initEmailVerification() {
       showAlert("\u041A\u043E\u0434 \u043E\u0442\u043F\u0440\u0430\u0432\u043B\u0435\u043D", `\u041D\u043E\u0432\u044B\u0439 \u043A\u043E\u0434 \u043F\u043E\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043D\u0438\u044F \u0431\u044B\u043B \u043E\u0442\u043F\u0440\u0430\u0432\u043B\u0435\u043D \u043D\u0430 ${email}`, "info", {
         autoClose: 3e3
       });
-      console.log("Resending verification code to:", email);
       setTimeout(() => {
         if (timeLeft > 0) {
           resendButton.disabled = false;
@@ -859,7 +868,6 @@ function initEmailVerification() {
       if (code === "123456") {
         showAlert("\u0423\u0441\u043F\u0435\u0448\u043D\u0430\u044F \u0432\u0435\u0440\u0438\u0444\u0438\u043A\u0430\u0446\u0438\u044F!", "\u0412\u0430\u0448 email \u0443\u0441\u043F\u0435\u0448\u043D\u043E \u043F\u043E\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043D. \u0422\u0435\u043F\u0435\u0440\u044C \u0432\u044B \u043C\u043E\u0436\u0435\u0442\u0435 \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u044C\u0441\u044F \u0432\u0441\u0435\u043C\u0438 \u0444\u0443\u043D\u043A\u0446\u0438\u044F\u043C\u0438 \u043F\u043B\u0430\u0442\u0444\u043E\u0440\u043C\u044B.", "success", {
           autoClose: 3e3,
-          // Исправлено с 300000 на 3000
           onConfirm: () => {
             window.location.href = "/authorization/login/";
           }
@@ -900,7 +908,7 @@ function initPasswordResetCode() {
   if (userEmailElement) {
     userEmailElement.textContent = email;
   }
-  let timeLeft = 1800;
+  let timeLeft = 300;
   const countdownElement = document.getElementById("countdown");
   const resendButton = document.getElementById("resendCode");
   function updateTimer() {

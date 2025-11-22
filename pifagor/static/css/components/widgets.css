@@ -1484,3 +1484,11 @@
 .password-requirements {
     margin-top: 8px;
 }
+
+
+/* @media (max-width: 768px) {
+    .ai-features {
+        grid-template-columns: 1fr;
+        gap: var(--grid-gap-sm);
+    }
+} */
