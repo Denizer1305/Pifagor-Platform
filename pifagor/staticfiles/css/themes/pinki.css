@@ -1,0 +1,53 @@
+/* Розовая тема */
+:root {
+    /* Основные цвета */
+    --primary: #B76E79;
+    --primary-dark: #62313a;
+    --primary-light: #F8BBD0;
+    --secondary: #C9A8B2;
+    --primary-text: #4A2A30;
+    --light-bg: #FFF5F7;
+    --white: #FFFFFF;
+
+    /* Акцентные цвета */
+    --accent: #E91E63;
+    --accent-blue: #a35966;
+    --accent-light-blue: #F48FB1;
+    --accent-gray: #C9A8B2;
+    --accent-gold: #D4AF37;
+    --accent-green: #81C784;
+    --accent-orange: #FFB74D;
+    --accent-yellow: #FFF176;
+    --accent-amber: #FFD54F;
+    --accent-red: #F44336;
+    --accent-purple: #CE93D8;
+    --accent-pink: #F06292;
+
+    /* Семантические цвета */
+    --success: #81C784;
+    --warning: #FFB74D;
+    --danger: #F44336;
+    --error: #F44336;
+    --info: #E91E63;
+
+    /* Цвета предметов */
+    --russian: #FFB74D;
+    --literature: #E91E63;
+    --math: #81C784;
+    --economics: #CE93D8;
+    --programming: #4A2A30;
+
+    /* Фоны */
+    --anastasia-bg: #FCE4EC;
+    --user-bg: #F8BBD0;
+
+    /* Тени */
+    --shadow-color: rgba(183, 110, 121, 0.15);
+
+    /* Градиенты */
+    --gradient-primary-accent: linear-gradient(90deg, var(--primary), var(--primary-light));
+    --gradient-success: linear-gradient(135deg, rgba(129, 199, 132, 0.15), rgba(129, 199, 132, 0.25));
+    --gradient-error: linear-gradient(135deg, rgba(244, 67, 54, 0.15), rgba(244, 67, 54, 0.25));
+    --gradient-overlay: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.08));
+
+}

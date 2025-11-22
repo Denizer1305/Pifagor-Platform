@@ -1,16 +1,3 @@
-var __defProp = Object.defineProperty;
-var __getOwnPropNames = Object.getOwnPropertyNames;
-var __esm = (fn, res) => function __init() {
-  return fn && (res = (0, fn[__getOwnPropNames(fn)[0]])(fn = 0)), res;
-};
-var __commonJS = (cb, mod) => function __require() {
-  return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
-};
-var __export = (target, all) => {
-  for (var name in all)
-    __defProp(target, name, { get: all[name], enumerable: true });
-};
-
 // static/js/modules/mobile-menu.js
 function initMobileMenu() {
   console.log("Mobile menu initialized");
@@ -55,10 +42,6 @@ function initMobileMenu() {
     }
   });
 }
-var init_mobile_menu = __esm({
-  "static/js/modules/mobile-menu.js"() {
-  }
-});
 
 // static/js/modules/animations.js
 function initScrollAnimations() {
@@ -137,72 +120,6 @@ function initPracticeAnimations() {
     }, 500);
   });
 }
-var init_animations = __esm({
-  "static/js/modules/animations.js"() {
-  }
-});
-
-// static/js/modules/theme-switcher.js
-function initThemeSwitcher() {
-  const themeButtons = document.querySelectorAll(".theme-btn");
-  if (themeButtons.length === 0) return;
-  const savedTheme = localStorage.getItem("theme") || "default";
-  setTheme(savedTheme);
-  themeButtons.forEach((btn) => {
-    btn.addEventListener("click", function() {
-      const theme = this.getAttribute("data-theme");
-      setTheme(theme);
-      this.style.transform = "scale(0.9)";
-      setTimeout(() => {
-        this.style.transform = "scale(1.1)";
-      }, 100);
-      setTimeout(() => {
-        this.style.transform = "scale(1)";
-      }, 200);
-    });
-  });
-  function setTheme(theme) {
-    const existingTheme = document.getElementById("dynamic-theme");
-    if (existingTheme) {
-      existingTheme.remove();
-    }
-    const themeLink = document.createElement("link");
-    themeLink.id = "dynamic-theme";
-    themeLink.rel = "stylesheet";
-    themeLink.href = `/frontend/static/css/themes/${theme}.css`;
-    document.head.appendChild(themeLink);
-    themeButtons.forEach((btn) => {
-      btn.classList.remove("active");
-      if (btn.getAttribute("data-theme") === theme) {
-        btn.classList.add("active");
-      }
-    });
-    localStorage.setItem("theme", theme);
-    updateThemeColor(theme);
-  }
-  function updateThemeColor(theme) {
-    let themeColor = "#394458";
-    switch (theme) {
-      case "dark":
-        themeColor = "#1E293B";
-        break;
-      case "high-contrast":
-        themeColor = "#000000";
-        break;
-    }
-    let themeColorMeta = document.querySelector('meta[name="theme-color"]');
-    if (!themeColorMeta) {
-      themeColorMeta = document.createElement("meta");
-      themeColorMeta.name = "theme-color";
-      document.head.appendChild(themeColorMeta);
-    }
-    themeColorMeta.setAttribute("content", themeColor);
-  }
-}
-var init_theme_switcher = __esm({
-  "static/js/modules/theme-switcher.js"() {
-  }
-});
 
 // static/js/modules/ui.js
 function initSmoothScroll() {
@@ -240,10 +157,6 @@ function initParticles() {
     particlesContainer.appendChild(particle);
   }
 }
-var init_ui = __esm({
-  "static/js/modules/ui.js"() {
-  }
-});
 
 // static/js/modules/auth.js
 function initAuth() {
@@ -980,6 +893,11 @@ function initPasswordResetCode() {
     });
   }
 }
+document.addEventListener("DOMContentLoaded", function() {
+  if (document.querySelector(".password-reset-code-form")) {
+    initPasswordResetCode();
+  }
+});
 function initLogout() {
   let timeLeft = 10;
   const countdownElement = document.getElementById("countdown");
@@ -1175,15 +1093,3357 @@ function initCreateNewPassword() {
     });
   }
 }
-var init_auth = __esm({
-  "static/js/modules/auth.js"() {
-    document.addEventListener("DOMContentLoaded", function() {
-      if (document.querySelector(".password-reset-code-form")) {
-        initPasswordResetCode();
+
+// static/js/modules/progress.js
+function initProgress() {
+  const userName2 = "\u0415\u043B\u0435\u043D\u0430 \u041F\u043B\u0435\u0445\u0430\u043D\u043E\u0432\u0430";
+  const userEmail = "elena.plekhanova@example.com";
+  document.getElementById("userName").textContent = userName2;
+  const nameParts = userName2.split(" ");
+  const initials = nameParts.map((part) => part[0]).join("").toUpperCase();
+  document.getElementById("userAvatar").textContent = initials;
+  const prevBtn = document.querySelector(".period-navigation .nav-btn:first-child");
+  const nextBtn = document.querySelector(".period-navigation .nav-btn:last-child");
+  const currentPeriodElement = document.querySelector(".current-period");
+  const periods = ["I \u0447\u0435\u0442\u0432\u0435\u0440\u0442\u044C", "II \u0447\u0435\u0442\u0432\u0435\u0440\u0442\u044C", "III \u0447\u0435\u0442\u0432\u0435\u0440\u0442\u044C", "IV \u0447\u0435\u0442\u0432\u0435\u0440\u0442\u044C"];
+  let currentPeriodIndex = 0;
+  function updatePeriod() {
+    currentPeriodElement.textContent = periods[currentPeriodIndex];
+    updateChart();
+  }
+  prevBtn.addEventListener("click", function() {
+    currentPeriodIndex--;
+    if (currentPeriodIndex < 0) {
+      currentPeriodIndex = periods.length - 1;
+    }
+    updatePeriod();
+  });
+  nextBtn.addEventListener("click", function() {
+    currentPeriodIndex++;
+    if (currentPeriodIndex >= periods.length) {
+      currentPeriodIndex = 0;
+    }
+    updatePeriod();
+  });
+  const actionButtons = document.querySelectorAll(".action-btn");
+  actionButtons.forEach((button) => {
+    button.addEventListener("click", function() {
+      const icon = this.querySelector("i");
+      if (icon.classList.contains("fa-chart-line")) {
+        alert("\u041E\u0442\u043A\u0440\u044B\u0442\u044C \u0434\u0435\u0442\u0430\u043B\u044C\u043D\u0443\u044E \u0441\u0442\u0430\u0442\u0438\u0441\u0442\u0438\u043A\u0443 \u0441\u0442\u0443\u0434\u0435\u043D\u0442\u0430");
+      } else if (icon.classList.contains("fa-envelope")) {
+        alert("\u041E\u0442\u043F\u0440\u0430\u0432\u0438\u0442\u044C \u0441\u043E\u043E\u0431\u0449\u0435\u043D\u0438\u0435 \u0441\u0442\u0443\u0434\u0435\u043D\u0442\u0443");
+      }
+    });
+  });
+  let performanceChart = null;
+  const chartTypeButtons = document.querySelectorAll(".chart-type-btn");
+  const chartPeriodSelect = document.getElementById("chartPeriod");
+  function initChart() {
+    const ctx = document.getElementById("performanceChart").getContext("2d");
+    const activeType = document.querySelector(".chart-type-btn.active").getAttribute("data-type");
+    if (performanceChart) {
+      performanceChart.destroy();
+    }
+    const { labels, datasets } = getChartData(chartPeriodSelect.value, activeType);
+    performanceChart = new Chart(ctx, {
+      type: activeType,
+      data: {
+        labels,
+        datasets
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: "top"
+          },
+          title: {
+            display: true,
+            text: "\u0414\u0438\u043D\u0430\u043C\u0438\u043A\u0430 \u0443\u0441\u043F\u0435\u0432\u0430\u0435\u043C\u043E\u0441\u0442\u0438 \u0441\u0442\u0443\u0434\u0435\u043D\u0442\u043E\u0432"
+          }
+        },
+        scales: activeType === "radar" ? {
+          r: {
+            angleLines: {
+              display: true
+            },
+            suggestedMin: 0,
+            suggestedMax: 5
+          }
+        } : {
+          y: {
+            beginAtZero: true,
+            max: 5,
+            title: {
+              display: true,
+              text: "\u0421\u0440\u0435\u0434\u043D\u0438\u0439 \u0431\u0430\u043B\u043B"
+            }
+          },
+          x: {
+            title: {
+              display: true,
+              text: "\u041F\u0435\u0440\u0438\u043E\u0434 \u043E\u0431\u0443\u0447\u0435\u043D\u0438\u044F"
+            }
+          }
+        }
       }
     });
   }
-});
+  function getChartData(period, type) {
+    let labels = [];
+    let datasets = [];
+    if (period === "\u0417\u0430 \u043F\u043E\u0441\u043B\u0435\u0434\u043D\u0438\u0439 \u043C\u0435\u0441\u044F\u0446") {
+      labels = ["\u041D\u0435\u0434\u0435\u043B\u044F 1", "\u041D\u0435\u0434\u0435\u043B\u044F 2", "\u041D\u0435\u0434\u0435\u043B\u044F 3", "\u041D\u0435\u0434\u0435\u043B\u044F 4"];
+      datasets = [
+        {
+          label: "\u0418\u0432\u0430\u043D \u0418\u0432\u0430\u043D\u043E\u0432",
+          data: [4.2, 4.3, 4.5, 4.6],
+          borderColor: "#4A6FA5",
+          backgroundColor: type === "line" || type === "radar" ? "transparent" : "rgba(74, 111, 165, 0.5)",
+          tension: 0.4
+        },
+        {
+          label: "\u041C\u0430\u0440\u0438\u044F \u041F\u0435\u0442\u0440\u043E\u0432\u0430",
+          data: [4.8, 4.9, 4.9, 5],
+          borderColor: "#2ECC71",
+          backgroundColor: type === "line" || type === "radar" ? "transparent" : "rgba(46, 204, 113, 0.5)",
+          tension: 0.4
+        },
+        {
+          label: "\u0410\u043B\u0435\u043A\u0441\u0435\u0439 \u0421\u0438\u0434\u043E\u0440\u043E\u0432",
+          data: [2.8, 3, 2.9, 3],
+          borderColor: "#E74C3C",
+          backgroundColor: type === "line" || type === "radar" ? "transparent" : "rgba(231, 76, 60, 0.5)",
+          tension: 0.4
+        }
+      ];
+    } else if (period === "\u0417\u0430 \u043F\u043E\u0441\u043B\u0435\u0434\u043D\u0438\u0435 3 \u043C\u0435\u0441\u044F\u0446\u0430") {
+      labels = ["\u042F\u043D\u0432\u0430\u0440\u044C", "\u0424\u0435\u0432\u0440\u0430\u043B\u044C", "\u041C\u0430\u0440\u0442"];
+      datasets = [
+        {
+          label: "\u0421\u0440\u0435\u0434\u043D\u0438\u0439 \u0431\u0430\u043B\u043B \u043A\u043B\u0430\u0441\u0441\u0430",
+          data: [3.9, 4.1, 4.2],
+          borderColor: "#4A6FA5",
+          backgroundColor: type === "line" || type === "radar" ? "transparent" : "rgba(74, 111, 165, 0.5)",
+          tension: 0.4
+        },
+        {
+          label: "\u041B\u0443\u0447\u0448\u0438\u0439 \u0443\u0447\u0435\u043D\u0438\u043A",
+          data: [4.7, 4.8, 5],
+          borderColor: "#2ECC71",
+          backgroundColor: type === "line" || type === "radar" ? "transparent" : "rgba(46, 204, 113, 0.5)",
+          tension: 0.4
+        },
+        {
+          label: "\u0425\u0443\u0434\u0448\u0438\u0439 \u0443\u0447\u0435\u043D\u0438\u043A",
+          data: [2.8, 3, 3],
+          borderColor: "#E74C3C",
+          backgroundColor: type === "line" || type === "radar" ? "transparent" : "rgba(231, 76, 60, 0.5)",
+          tension: 0.4
+        }
+      ];
+    } else if (period === "\u0417\u0430 \u0443\u0447\u0435\u0431\u043D\u044B\u0439 \u0433\u043E\u0434") {
+      labels = ["\u0421\u0435\u043D\u0442\u044F\u0431\u0440\u044C", "\u041E\u043A\u0442\u044F\u0431\u0440\u044C", "\u041D\u043E\u044F\u0431\u0440\u044C", "\u0414\u0435\u043A\u0430\u0431\u0440\u044C", "\u042F\u043D\u0432\u0430\u0440\u044C", "\u0424\u0435\u0432\u0440\u0430\u043B\u044C", "\u041C\u0430\u0440\u0442", "\u0410\u043F\u0440\u0435\u043B\u044C", "\u041C\u0430\u0439"];
+      datasets = [
+        {
+          label: "\u0421\u0440\u0435\u0434\u043D\u0438\u0439 \u0431\u0430\u043B\u043B \u043A\u043B\u0430\u0441\u0441\u0430",
+          data: [3.6, 3.7, 3.8, 3.9, 4, 4.1, 4.2, 4.2, 4.3],
+          borderColor: "#4A6FA5",
+          backgroundColor: type === "line" || type === "radar" ? "transparent" : "rgba(74, 111, 165, 0.5)",
+          tension: 0.4
+        }
+      ];
+    }
+    return { labels, datasets };
+  }
+  chartTypeButtons.forEach((button) => {
+    button.addEventListener("click", function() {
+      chartTypeButtons.forEach((btn) => btn.classList.remove("active"));
+      this.classList.add("active");
+      updateChart();
+    });
+  });
+  chartPeriodSelect.addEventListener("change", updateChart);
+  function updateChart() {
+    initChart();
+  }
+  initChart();
+}
+
+// static/js/modules/chat.js
+function initChat() {
+  const sendButton = document.getElementById("sendButton");
+  const messageInput = document.getElementById("messageInput");
+  if (!sendButton || !messageInput) return;
+  sendButton.addEventListener("click", sendMessage);
+  messageInput.addEventListener("keydown", function(e) {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
+  });
+  messageInput.addEventListener("input", function() {
+    this.style.height = "auto";
+    this.style.height = this.scrollHeight + "px";
+  });
+  scrollToBottom();
+}
+function sendMessage() {
+  const messageInput = document.getElementById("messageInput");
+  const messageText = messageInput.value.trim();
+  if (messageText === "") return;
+  addMessage(messageText, "user");
+  messageInput.value = "";
+  showTypingIndicator();
+  setTimeout(() => {
+    removeTypingIndicator();
+    const response = generateResponse(messageText);
+    addMessage(response, "anastasia");
+    scrollToBottom();
+  }, 1500);
+}
+function addMessage(text, sender) {
+  const chatMessages = document.getElementById("chatMessages");
+  const messageDiv = document.createElement("div");
+  messageDiv.className = `message ${sender}`;
+  const now = /* @__PURE__ */ new Date();
+  const timeString = `${now.getHours()}:${now.getMinutes().toString().padStart(2, "0")}`;
+  if (sender === "anastasia") {
+    messageDiv.innerHTML = `
+            <div class="message-avatar">
+                <img src="/frontend/static/assets/image/logo/Anastasia.svg" alt="\u0410\u043D\u0430\u0441\u0442\u0430\u0441\u0438\u044F">
+            </div>
+            <div class="message-content">
+                <div class="message-text">${text}</div>
+                <div class="message-time">${timeString}</div>
+            </div>
+        `;
+  } else {
+    messageDiv.innerHTML = `
+            <div class="message-content">
+                <div class="message-text">${text}</div>
+                <div class="message-time">${timeString}</div>
+            </div>
+            <div class="message-avatar">
+                <i class="fas fa-user"></i>
+            </div>
+        `;
+  }
+  chatMessages.appendChild(messageDiv);
+  scrollToBottom();
+}
+function showTypingIndicator() {
+  const chatMessages = document.getElementById("chatMessages");
+  const typingDiv = document.createElement("div");
+  typingDiv.className = "typing-indicator";
+  typingDiv.id = "typingIndicator";
+  typingDiv.innerHTML = `
+        <div class="message-avatar">
+            <img src="/frontend/static/assets/image/logo/Anastasia.svg" alt="\u0410\u043D\u0430\u0441\u0442\u0430\u0441\u0438\u044F">
+        </div>
+        <div class="message-content">
+            <div class="typing-dot"></div>
+            <div class="typing-dot"></div>
+            <div class="typing-dot"></div>
+        </div>
+    `;
+  chatMessages.appendChild(typingDiv);
+  scrollToBottom();
+}
+function removeTypingIndicator() {
+  const typingIndicator = document.getElementById("typingIndicator");
+  if (typingIndicator) {
+    typingIndicator.remove();
+  }
+}
+function scrollToBottom() {
+  const chatMessages = document.getElementById("chatMessages");
+  if (chatMessages) {
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+}
+function generateResponse(userMessage) {
+  const lowerMessage = userMessage.toLowerCase();
+  if (lowerMessage.includes("\u043F\u0440\u0438\u0432\u0435\u0442") || lowerMessage.includes("\u0437\u0434\u0440\u0430\u0432\u0441\u0442\u0432\u0443\u0439")) {
+    return "\u0417\u0434\u0440\u0430\u0432\u0441\u0442\u0432\u0443\u0439\u0442\u0435! \u0420\u0430\u0434\u0430 \u0441\u043D\u043E\u0432\u0430 \u0432\u0430\u0441 \u0432\u0438\u0434\u0435\u0442\u044C. \u0427\u0435\u043C \u043C\u043E\u0433\u0443 \u043F\u043E\u043C\u043E\u0447\u044C?";
+  } else if (lowerMessage.includes("\u0442\u0435\u0441\u0442") || lowerMessage.includes("\u0432\u043E\u043F\u0440\u043E\u0441")) {
+    return "\u042F \u043C\u043E\u0433\u0443 \u043F\u043E\u043C\u043E\u0447\u044C \u0432\u0430\u043C \u0441\u043E\u0437\u0434\u0430\u0442\u044C \u0442\u0435\u0441\u0442 \u043F\u043E \u043D\u0443\u0436\u043D\u043E\u0439 \u0442\u0435\u043C\u0435. \u041A\u0430\u043A\u0438\u0435 \u0440\u0430\u0437\u0434\u0435\u043B\u044B \u0432\u044B \u0445\u043E\u0442\u0435\u043B\u0438 \u0431\u044B \u0432\u043A\u043B\u044E\u0447\u0438\u0442\u044C?";
+  } else if (lowerMessage.includes("\u043F\u0440\u043E\u0432\u0435\u0440\u0438\u0442\u044C") || lowerMessage.includes("\u0440\u0430\u0431\u043E\u0442\u0430")) {
+    return "\u0414\u043B\u044F \u043F\u0440\u043E\u0432\u0435\u0440\u043A\u0438 \u0440\u0430\u0431\u043E\u0442\u044B, \u043F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430, \u0437\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u0435 \u0444\u0430\u0439\u043B \u0441 \u0437\u0430\u0434\u0430\u043D\u0438\u0435\u043C, \u0438 \u044F \u043F\u0440\u043E\u0430\u043D\u0430\u043B\u0438\u0437\u0438\u0440\u0443\u044E \u0435\u0433\u043E.";
+  } else if (lowerMessage.includes("python") || lowerMessage.includes("\u043F\u0438\u0442\u043E\u043D")) {
+    return "Python - \u043E\u0442\u043B\u0438\u0447\u043D\u044B\u0439 \u0432\u044B\u0431\u043E\u0440! \u042D\u0442\u043E \u043C\u043E\u0449\u043D\u044B\u0439 \u0438 \u043F\u043E\u043D\u044F\u0442\u043D\u044B\u0439 \u044F\u0437\u044B\u043A \u043F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u044F. \u041F\u043E \u043A\u0430\u043A\u043E\u0439 \u0442\u0435\u043C\u0435 \u0432\u0430\u043C \u043D\u0443\u0436\u043D\u0430 \u043F\u043E\u043C\u043E\u0449\u044C?";
+  } else if (lowerMessage.includes("\u0441\u043F\u0430\u0441\u0438\u0431\u043E")) {
+    return "\u0412\u0441\u0435\u0433\u0434\u0430 \u0440\u0430\u0434\u0430 \u043F\u043E\u043C\u043E\u0447\u044C! \u0415\u0441\u043B\u0438 \u0443 \u0432\u0430\u0441 \u0435\u0441\u0442\u044C \u0435\u0449\u0435 \u0432\u043E\u043F\u0440\u043E\u0441\u044B, \u043E\u0431\u0440\u0430\u0449\u0430\u0439\u0442\u0435\u0441\u044C.";
+  } else {
+    return "\u042F \u043F\u043E\u043D\u044F\u043B\u0430 \u0432\u0430\u0448 \u0432\u043E\u043F\u0440\u043E\u0441. \u0414\u0430\u0432\u0430\u0439\u0442\u0435 \u043E\u0431\u0441\u0443\u0434\u0438\u043C \u044D\u0442\u043E \u043F\u043E\u0434\u0440\u043E\u0431\u043D\u0435\u0435. \u041C\u043E\u0436\u0435\u0442\u0435 \u0443\u0442\u043E\u0447\u043D\u0438\u0442\u044C, \u0447\u0442\u043E \u0438\u043C\u0435\u043D\u043D\u043E \u0432\u0430\u0441 \u0438\u043D\u0442\u0435\u0440\u0435\u0441\u0443\u0435\u0442?";
+  }
+}
+function quickAction(action) {
+  let message = "";
+  switch (action) {
+    case "variables":
+      message = "\u0425\u043E\u0447\u0443 \u0441\u043E\u0437\u0434\u0430\u0442\u044C \u0442\u0435\u0441\u0442 \u043F\u043E \u043F\u0435\u0440\u0435\u043C\u0435\u043D\u043D\u044B\u043C \u0438 \u0442\u0438\u043F\u0430\u043C \u0434\u0430\u043D\u043D\u044B\u0445 \u0432 Python.";
+      break;
+    case "syntax":
+      message = "\u041D\u0443\u0436\u0435\u043D \u0442\u0435\u0441\u0442 \u043F\u043E \u0431\u0430\u0437\u043E\u0432\u043E\u043C\u0443 \u0441\u0438\u043D\u0442\u0430\u043A\u0441\u0438\u0441\u0443 Python.";
+      break;
+    case "functions":
+      message = "\u0418\u043D\u0442\u0435\u0440\u0435\u0441\u0443\u0435\u0442 \u0442\u0435\u0441\u0442 \u043F\u043E \u0444\u0443\u043D\u043A\u0446\u0438\u044F\u043C \u0432 Python.";
+      break;
+    case "all":
+      message = "\u0421\u043E\u0437\u0434\u0430\u0439 \u0442\u0435\u0441\u0442 \u043F\u043E \u0432\u0441\u0435\u043C \u043E\u0441\u043D\u043E\u0432\u043D\u044B\u043C \u0442\u0435\u043C\u0430\u043C Python \u0434\u043B\u044F \u043D\u0430\u0447\u0438\u043D\u0430\u044E\u0449\u0438\u0445.";
+      break;
+    case "preview":
+      message = "\u0414\u0430, \u0445\u043E\u0447\u0443 \u043F\u043E\u0441\u043C\u043E\u0442\u0440\u0435\u0442\u044C \u0432\u043E\u043F\u0440\u043E\u0441\u044B \u0442\u0435\u0441\u0442\u0430 \u043F\u0435\u0440\u0435\u0434 \u0441\u043E\u0445\u0440\u0430\u043D\u0435\u043D\u0438\u0435\u043C.";
+      break;
+    case "save":
+      message = "\u0421\u043E\u0445\u0440\u0430\u043D\u0438 \u0442\u0435\u0441\u0442, \u043F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430.";
+      break;
+    case "modify":
+      message = "\u0425\u043E\u0447\u0443 \u0438\u0437\u043C\u0435\u043D\u0438\u0442\u044C \u043F\u0430\u0440\u0430\u043C\u0435\u0442\u0440\u044B \u0442\u0435\u0441\u0442\u0430.";
+      break;
+    default:
+      message = "\u0412\u044B\u0431\u0440\u0430\u043D\u043E \u0431\u044B\u0441\u0442\u043E\u0435 \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0435: " + action;
+  }
+  addMessage(message, "user");
+  showTypingIndicator();
+  setTimeout(() => {
+    removeTypingIndicator();
+    const response = generateQuickActionResponse(action);
+    addMessage(response, "anastasia");
+    scrollToBottom();
+  }, 1500);
+}
+function generateQuickActionResponse(action) {
+  switch (action) {
+    case "variables":
+      return "\u041E\u0442\u043B\u0438\u0447\u043D\u043E! \u0421\u043E\u0437\u0434\u0430\u043C \u0442\u0435\u0441\u0442 \u043F\u043E \u043F\u0435\u0440\u0435\u043C\u0435\u043D\u043D\u044B\u043C \u0438 \u0442\u0438\u043F\u0430\u043C \u0434\u0430\u043D\u043D\u044B\u0445. \u0412\u043A\u043B\u044E\u0447\u0443 \u0432\u043E\u043F\u0440\u043E\u0441\u044B \u043D\u0430 \u043E\u043F\u0440\u0435\u0434\u0435\u043B\u0435\u043D\u0438\u0435 \u0442\u0438\u043F\u043E\u0432, \u043F\u0440\u0435\u043E\u0431\u0440\u0430\u0437\u043E\u0432\u0430\u043D\u0438\u0435 \u0442\u0438\u043F\u043E\u0432 \u0438 \u043E\u0431\u044A\u044F\u0432\u043B\u0435\u043D\u0438\u0435 \u043F\u0435\u0440\u0435\u043C\u0435\u043D\u043D\u044B\u0445. \u0421\u043A\u043E\u043B\u044C\u043A\u043E \u0432\u043E\u043F\u0440\u043E\u0441\u043E\u0432 \u043D\u0443\u0436\u043D\u043E?";
+    case "syntax":
+      return "\u0425\u043E\u0440\u043E\u0448\u043E! \u041F\u043E\u0434\u0433\u043E\u0442\u043E\u0432\u043B\u044E \u0442\u0435\u0441\u0442 \u043F\u043E \u0431\u0430\u0437\u043E\u0432\u043E\u043C\u0443 \u0441\u0438\u043D\u0442\u0430\u043A\u0441\u0438\u0441\u0443 Python: \u043E\u0442\u0441\u0442\u0443\u043F\u044B, \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0438, \u043E\u0441\u043D\u043E\u0432\u043D\u044B\u0435 \u043A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0446\u0438\u0438. \u041A\u0430\u043A\u043E\u0439 \u0443\u0440\u043E\u0432\u0435\u043D\u044C \u0441\u043B\u043E\u0436\u043D\u043E\u0441\u0442\u0438 \u043F\u0440\u0435\u0434\u043F\u043E\u0447\u0442\u0438\u0442\u0435\u043B\u0435\u043D?";
+    case "functions":
+      return "\u041E\u0442\u043B\u0438\u0447\u043D\u044B\u0439 \u0432\u044B\u0431\u043E\u0440! \u0424\u0443\u043D\u043A\u0446\u0438\u0438 - \u0432\u0430\u0436\u043D\u0430\u044F \u0442\u0435\u043C\u0430. \u0412\u043A\u043B\u044E\u0447\u0443 \u0432\u043E\u043F\u0440\u043E\u0441\u044B \u043D\u0430 \u043E\u043F\u0440\u0435\u0434\u0435\u043B\u0435\u043D\u0438\u0435 \u0444\u0443\u043D\u043A\u0446\u0438\u0439, \u043F\u0430\u0440\u0430\u043C\u0435\u0442\u0440\u044B, \u0432\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u043C\u044B\u0435 \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u044F \u0438 \u043E\u0431\u043B\u0430\u0441\u0442\u0438 \u0432\u0438\u0434\u0438\u043C\u043E\u0441\u0442\u0438.";
+    case "all":
+      return "\u0421\u043E\u0437\u0434\u0430\u043C \u043A\u043E\u043C\u043F\u043B\u0435\u043A\u0441\u043D\u044B\u0439 \u0442\u0435\u0441\u0442 \u043F\u043E \u043E\u0441\u043D\u043E\u0432\u043D\u044B\u043C \u0442\u0435\u043C\u0430\u043C Python \u0434\u043B\u044F \u043D\u0430\u0447\u0438\u043D\u0430\u044E\u0449\u0438\u0445. \u0412\u043A\u043B\u044E\u0447\u0443 \u0432\u043E\u043F\u0440\u043E\u0441\u044B \u043F\u043E \u0441\u0438\u043D\u0442\u0430\u043A\u0441\u0438\u0441\u0443, \u043F\u0435\u0440\u0435\u043C\u0435\u043D\u043D\u044B\u043C, \u0442\u0438\u043F\u0430\u043C \u0434\u0430\u043D\u043D\u044B\u0445, \u043E\u043F\u0435\u0440\u0430\u0442\u043E\u0440\u0430\u043C, \u0443\u0441\u043B\u043E\u0432\u0438\u044F\u043C, \u0446\u0438\u043A\u043B\u0430\u043C \u0438 \u0444\u0443\u043D\u043A\u0446\u0438\u044F\u043C.";
+    case "preview":
+      return "\u0412\u043E\u0442 \u043F\u0440\u0435\u0434\u0432\u0430\u0440\u0438\u0442\u0435\u043B\u044C\u043D\u044B\u0439 \u043F\u0440\u043E\u0441\u043C\u043E\u0442\u0440 \u0442\u0435\u0441\u0442\u0430:\n\n1. \u041A\u0430\u043A\u043E\u0439 \u0442\u0438\u043F \u0434\u0430\u043D\u043D\u044B\u0445 \u0443 \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u044F 3.14?\n2. \u041A\u0430\u043A \u043E\u0431\u044A\u044F\u0432\u0438\u0442\u044C \u043F\u0435\u0440\u0435\u043C\u0435\u043D\u043D\u0443\u044E \u0432 Python?\n3. \u0427\u0442\u043E \u0432\u044B\u0432\u0435\u0434\u0435\u0442 print(2 + 3 * 4)?\n\n\u0425\u043E\u0442\u0438\u0442\u0435 \u0447\u0442\u043E-\u0442\u043E \u0438\u0437\u043C\u0435\u043D\u0438\u0442\u044C?";
+    case "save":
+      return '\u0422\u0435\u0441\u0442 \u0441\u043E\u0445\u0440\u0430\u043D\u0435\u043D! \u0412\u044B \u043C\u043E\u0436\u0435\u0442\u0435 \u043D\u0430\u0439\u0442\u0438 \u0435\u0433\u043E \u0432 \u0440\u0430\u0437\u0434\u0435\u043B\u0435 "\u041C\u043E\u0438 \u0442\u0435\u0441\u0442\u044B". \u0425\u043E\u0442\u0438\u0442\u0435 \u043F\u043E\u0434\u0435\u043B\u0438\u0442\u044C\u0441\u044F \u0438\u043C \u0441\u043E \u0441\u0442\u0443\u0434\u0435\u043D\u0442\u0430\u043C\u0438 \u0441\u0435\u0439\u0447\u0430\u0441?';
+    case "modify":
+      return "\u041A\u0430\u043A\u0438\u0435 \u043F\u0430\u0440\u0430\u043C\u0435\u0442\u0440\u044B \u0432\u044B \u0445\u043E\u0442\u0438\u0442\u0435 \u0438\u0437\u043C\u0435\u043D\u0438\u0442\u044C? \u041A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u0432\u043E\u043F\u0440\u043E\u0441\u043E\u0432, \u0443\u0440\u043E\u0432\u0435\u043D\u044C \u0441\u043B\u043E\u0436\u043D\u043E\u0441\u0442\u0438 \u0438\u043B\u0438 \u0442\u0435\u043C\u044B?";
+    default:
+      return "\u042F \u043E\u0431\u0440\u0430\u0431\u043E\u0442\u0430\u043B\u0430 \u0432\u0430\u0448\u0435 \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0435. \u0427\u0435\u043C \u0435\u0449\u0435 \u043C\u043E\u0433\u0443 \u043F\u043E\u043C\u043E\u0447\u044C?";
+  }
+}
+
+// static/js/lib/utils.js
+var Utils = class {
+  static isMobile() {
+    return window.innerWidth <= 992;
+  }
+  static formatTime(seconds) {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes.toString().padStart(2, "0")}:${remainingSeconds.toString().padStart(2, "0")}`;
+  }
+  static getUrlParam(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+  }
+  static formatFileSize(bytes) {
+    if (bytes === 0) return "0 Bytes";
+    const k = 1024;
+    const sizes = ["Bytes", "KB", "MB", "GB"];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
+  }
+  static validateEmail(email) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+  }
+  static validatePassword(password) {
+    return password.length >= 8;
+  }
+  static showNotification(message, type = "info") {
+    const notification = document.createElement("div");
+    notification.className = `notification notification-${type}`;
+    notification.textContent = message;
+    document.body.appendChild(notification);
+    setTimeout(() => {
+      notification.remove();
+    }, 5e3);
+  }
+  static formatPhone(phone) {
+    return phone.replace(/(\d{1})(\d{3})(\d{3})(\d{2})(\d{2})/, "+$1 ($2) $3-$4-$5");
+  }
+  static debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+      const later = () => {
+        clearTimeout(timeout);
+        func(...args);
+      };
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+    };
+  }
+};
+
+// static/js/modules/theme-manager.js
+var ThemeManager = class {
+  constructor() {
+    this.currentTheme = localStorage.getItem("selectedTheme") || "light";
+    this.themeFolderMap = {
+      "light": "light",
+      "dark": "dark",
+      "blue": "blue",
+      "light-blue": "light-blue",
+      "green": "green",
+      "orange": "orange",
+      "pinki": "pinki",
+      "red": "red",
+      "violett": "violett",
+      "yellow": "yellow"
+    };
+    this.fontSize = localStorage.getItem("selectedFontSize") || "medium";
+    this.density = localStorage.getItem("selectedDensity") || "normal";
+    this.init();
+  }
+  init() {
+    this.applyTheme(this.currentTheme);
+    this.applyAppearanceSettings();
+    this.setupEventListeners();
+    this.initializeThemeOptions();
+    this.initializeAppearanceOptions();
+  }
+  setupEventListeners() {
+    document.addEventListener("click", (e) => {
+      if (e.target.classList.contains("theme-btn")) {
+        const theme = e.target.getAttribute("data-theme");
+        this.switchTheme(theme);
+        this.animateButton(e.target);
+      }
+      if (e.target.classList.contains("theme-option")) {
+        const theme = e.target.getAttribute("data-theme");
+        this.switchTheme(theme);
+        this.animateButton(e.target);
+      }
+      if (e.target.classList.contains("font-size-option")) {
+        const size = e.target.getAttribute("data-size");
+        this.setFontSize(size);
+        document.querySelectorAll(".font-size-option").forEach((opt) => {
+          opt.classList.remove("active");
+        });
+        e.target.classList.add("active");
+      }
+      if (e.target.classList.contains("density-option")) {
+        const density = e.target.getAttribute("data-density");
+        this.setDensity(density);
+        document.querySelectorAll(".density-option").forEach((opt) => {
+          opt.classList.remove("active");
+        });
+        e.target.classList.add("active");
+      }
+    });
+  }
+  // Инициализация опций темы в DOM
+  initializeThemeOptions() {
+    const themeOptions = document.querySelectorAll(".theme-option");
+    themeOptions.forEach((option) => {
+      option.addEventListener("click", function() {
+        const theme = this.getAttribute("data-theme");
+        window.themeManager.switchTheme(theme);
+      });
+    });
+  }
+  // Инициализация настроек внешнего вида в DOM
+  initializeAppearanceOptions() {
+    const savedFontSize = localStorage.getItem("selectedFontSize") || "medium";
+    const savedDensity = localStorage.getItem("selectedDensity") || "normal";
+    const fontSizeOption = document.querySelector(`.font-size-option[data-size="${savedFontSize}"]`);
+    const densityOption = document.querySelector(`.density-option[data-density="${savedDensity}"]`);
+    if (fontSizeOption) {
+      document.querySelectorAll(".font-size-option").forEach((opt) => opt.classList.remove("active"));
+      fontSizeOption.classList.add("active");
+    }
+    if (densityOption) {
+      document.querySelectorAll(".density-option").forEach((opt) => opt.classList.remove("active"));
+      densityOption.classList.add("active");
+    }
+  }
+  switchTheme(theme) {
+    console.log(`\u{1F3A8} \u041F\u0435\u0440\u0435\u043A\u043B\u044E\u0447\u0435\u043D\u0438\u0435 \u0442\u0435\u043C\u044B \u043D\u0430: ${theme}`);
+    this.currentTheme = theme;
+    this.applyTheme(theme);
+    localStorage.setItem("selectedTheme", theme);
+    this.dispatchThemeChangeEvent(theme);
+  }
+  applyTheme(theme) {
+    const existingTheme = document.getElementById("current-theme") || document.getElementById("dynamic-theme");
+    if (existingTheme) {
+      existingTheme.remove();
+    }
+    const staticBase = window.STATIC_URL || "/static/";
+    const themeLink = document.createElement("link");
+    themeLink.id = "current-theme";
+    themeLink.rel = "stylesheet";
+    themeLink.href = `${staticBase}css/themes/${theme}.css`;
+    themeLink.onerror = () => {
+      console.error(`\u274C \u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u0437\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C \u0442\u0435\u043C\u0443: ${theme}`);
+      themeLink.remove();
+      if (theme !== "light") {
+        this.switchTheme("light");
+      }
+    };
+    themeLink.onload = () => {
+      console.log(`\u2705 \u0422\u0435\u043C\u0430 CSS \u0437\u0430\u0433\u0440\u0443\u0436\u0435\u043D\u0430: ${theme}`);
+    };
+    document.head.appendChild(themeLink);
+    this.updateLogos(theme);
+    this.updateActiveButtons(theme);
+    this.updateThemeColor(theme);
+  }
+  // Обновление логотипов согласно теме
+  updateLogos(theme) {
+    const folderName = this.themeFolderMap[theme] || "light";
+    const staticBase = window.STATIC_URL || "/static/";
+    console.log(`\u{1F504} \u041E\u0431\u043D\u043E\u0432\u043B\u0435\u043D\u0438\u0435 \u043B\u043E\u0433\u043E\u0442\u0438\u043F\u043E\u0432 \u0434\u043B\u044F \u0442\u0435\u043C\u044B: ${theme}, \u043F\u0430\u043F\u043A\u0430: ${folderName}`);
+    this.updateMainLogos(folderName, staticBase);
+    this.updateFavicon(folderName, staticBase);
+    this.updateSpecificHeroLogo(folderName, staticBase);
+    this.updateSpecificAiCardLogo(folderName, staticBase);
+    this.diagnoseLogoElements();
+  }
+  // Обновление основных логотипов
+  updateMainLogos(folderName, staticBase) {
+    const mainLogos = document.querySelectorAll(".logo-header img, .mobile-logo img");
+    console.log(`\u{1F4CA} \u041D\u0430\u0439\u0434\u0435\u043D\u043E \u043E\u0441\u043D\u043E\u0432\u043D\u044B\u0445 \u043B\u043E\u0433\u043E\u0442\u0438\u043F\u043E\u0432: ${mainLogos.length}`);
+    mainLogos.forEach((logo, index) => {
+      const newSrc = `${staticBase}assets/image/logo/${folderName}/logo.svg`;
+      console.log(`\u{1F5BC}\uFE0F \u041E\u0441\u043D\u043E\u0432\u043D\u043E\u0439 \u043B\u043E\u0433\u043E\u0442\u0438\u043F ${index + 1}:`, {
+        element: logo,
+        currentSrc: logo.src,
+        newSrc,
+        tagName: logo.tagName
+      });
+      this.updateImageSource(logo, newSrc, "\u041E\u0441\u043D\u043E\u0432\u043D\u043E\u0439 \u043B\u043E\u0433\u043E\u0442\u0438\u043F");
+    });
+  }
+  // Обновление ОСНОВНОГО герой-логотипа (а не всех)
+  updateSpecificHeroLogo(folderName, staticBase) {
+    const mainHeroLogo = document.querySelector('.hero-section .hero-logo, main .hero-logo, [data-logo-type="hero"]');
+    if (!mainHeroLogo) {
+      const allHeroLogos = document.querySelectorAll(".hero-logo");
+      if (allHeroLogos.length > 0) {
+        console.log(`\u26A0\uFE0F \u041D\u0430\u0439\u0434\u0435\u043D\u043E ${allHeroLogos.length} hero-logo, \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0435\u043C \u043F\u0435\u0440\u0432\u044B\u0439`);
+        this.updateSingleHeroLogo(allHeroLogos[0], folderName, staticBase);
+      } else {
+        console.log("\u274C \u041E\u0441\u043D\u043E\u0432\u043D\u043E\u0439 hero-logo \u043D\u0435 \u043D\u0430\u0439\u0434\u0435\u043D");
+      }
+      return;
+    }
+    console.log("\u2705 \u041D\u0430\u0439\u0434\u0435\u043D \u043E\u0441\u043D\u043E\u0432\u043D\u043E\u0439 hero-logo \u043F\u043E \u0441\u043F\u0435\u0446\u0438\u0444\u0438\u0447\u043D\u043E\u043C\u0443 \u0441\u0435\u043B\u0435\u043A\u0442\u043E\u0440\u0443");
+    this.updateSingleHeroLogo(mainHeroLogo, folderName, staticBase);
+  }
+  // Обновление одного герой-логотипа
+  updateSingleHeroLogo(logo, folderName, staticBase) {
+    const possibleSources = [
+      `${staticBase}assets/image/logo/${folderName}/hero-logo.svg`,
+      `${staticBase}assets/image/logo/${folderName}/hero-logo.png`,
+      `${staticBase}assets/image/logo/light/hero-logo.svg`,
+      `${staticBase}assets/image/logo/dark/hero-logo.svg`
+    ];
+    console.log(`\u{1F31F} \u041E\u0441\u043D\u043E\u0432\u043D\u043E\u0439 \u0433\u0435\u0440\u043E\u0439-\u043B\u043E\u0433\u043E\u0442\u0438\u043F:`, {
+      element: logo,
+      currentSrc: logo.src || logo.style.backgroundImage,
+      tagName: logo.tagName,
+      classList: logo.classList
+    });
+    this.tryMultipleSources(logo, possibleSources, "\u041E\u0441\u043D\u043E\u0432\u043D\u043E\u0439 \u0433\u0435\u0440\u043E\u0439-\u043B\u043E\u0433\u043E\u0442\u0438\u043F");
+  }
+  // Обновление ОСНОВНОГО AI Card логотипа (а не всех)
+  updateSpecificAiCardLogo(folderName, staticBase) {
+    const mainAiCardLogo = document.querySelector('.ai-card .ai-card-logo, [data-logo-type="ai-card"], .main-ai-logo');
+    if (!mainAiCardLogo) {
+      const allAiCardLogos = document.querySelectorAll(".ai-card-logo");
+      if (allAiCardLogos.length > 0) {
+        console.log(`\u26A0\uFE0F \u041D\u0430\u0439\u0434\u0435\u043D\u043E ${allAiCardLogos.length} ai-card-logo, \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0435\u043C \u043F\u0435\u0440\u0432\u044B\u0439`);
+        this.updateSingleAiCardLogo(allAiCardLogos[0], folderName, staticBase);
+      } else {
+        console.log("\u274C \u041E\u0441\u043D\u043E\u0432\u043D\u043E\u0439 ai-card-logo \u043D\u0435 \u043D\u0430\u0439\u0434\u0435\u043D");
+      }
+      return;
+    }
+    console.log("\u2705 \u041D\u0430\u0439\u0434\u0435\u043D \u043E\u0441\u043D\u043E\u0432\u043D\u043E\u0439 ai-card-logo \u043F\u043E \u0441\u043F\u0435\u0446\u0438\u0444\u0438\u0447\u043D\u043E\u043C\u0443 \u0441\u0435\u043B\u0435\u043A\u0442\u043E\u0440\u0443");
+    this.updateSingleAiCardLogo(mainAiCardLogo, folderName, staticBase);
+  }
+  // Обновление одного AI Card логотипа
+  updateSingleAiCardLogo(logo, folderName, staticBase) {
+    const possibleSources = [
+      `${staticBase}assets/image/logo/${folderName}/Anastasia.svg`,
+      `${staticBase}assets/image/logo/${folderName}/anastasia.svg`,
+      `${staticBase}assets/image/logo/${folderName}/Anastasia.png`,
+      `${staticBase}assets/image/logo/${folderName}/anastasia.png`,
+      `${staticBase}assets/image/logo/light/Anastasia.svg`,
+      `${staticBase}assets/image/logo/dark/Anastasia.svg`
+    ];
+    console.log(`\u{1F916} \u041E\u0441\u043D\u043E\u0432\u043D\u043E\u0439 AI Card \u043B\u043E\u0433\u043E\u0442\u0438\u043F:`, {
+      element: logo,
+      currentSrc: logo.src || logo.style.backgroundImage,
+      tagName: logo.tagName,
+      classList: logo.classList
+    });
+    this.tryMultipleSources(logo, possibleSources, "\u041E\u0441\u043D\u043E\u0432\u043D\u043E\u0439 AI Card \u043B\u043E\u0433\u043E\u0442\u0438\u043F");
+  }
+  // Попробовать несколько источников для элемента
+  tryMultipleSources(element, sources, logName) {
+    if (!element || !sources.length) {
+      console.warn(`\u274C \u041D\u0435\u0442 \u044D\u043B\u0435\u043C\u0435\u043D\u0442\u0430 \u0438\u043B\u0438 \u0438\u0441\u0442\u043E\u0447\u043D\u0438\u043A\u043E\u0432 \u0434\u043B\u044F ${logName}`);
+      return;
+    }
+    const trySource = (index) => {
+      if (index >= sources.length) {
+        console.error(`\u274C \u0412\u0441\u0435 \u0438\u0441\u0442\u043E\u0447\u043D\u0438\u043A\u0438 \u0434\u043B\u044F ${logName} \u043D\u0435\u0434\u043E\u0441\u0442\u0443\u043F\u043D\u044B`);
+        this.fallbackToDefault(element, logName);
+        return;
+      }
+      const source = sources[index];
+      console.log(`\u{1F50D} \u041F\u0440\u043E\u0431\u0443\u0435\u043C \u0438\u0441\u0442\u043E\u0447\u043D\u0438\u043A ${index + 1}/${sources.length} \u0434\u043B\u044F ${logName}: ${source}`);
+      const tempImage = new Image();
+      tempImage.onload = () => {
+        console.log(`\u2705 \u0418\u0441\u0442\u043E\u0447\u043D\u0438\u043A \u0434\u043E\u0441\u0442\u0443\u043F\u0435\u043D: ${source}`);
+        this.applyImageToElement(element, source, logName);
+      };
+      tempImage.onerror = () => {
+        console.warn(`\u274C \u0418\u0441\u0442\u043E\u0447\u043D\u0438\u043A \u043D\u0435\u0434\u043E\u0441\u0442\u0443\u043F\u0435\u043D: ${source}`);
+        trySource(index + 1);
+      };
+      const cacheBuster = `?t=${Date.now()}`;
+      tempImage.src = source + cacheBuster;
+    };
+    trySource(0);
+  }
+  // Применить изображение к элементу
+  applyImageToElement(element, src, logName) {
+    if (element.classList.contains("ai-card-logo") && element.tagName.toLowerCase() === "div") {
+      element.style.backgroundImage = `url('${src}')`;
+      console.log(`\u2705 ${logName} (div background) \u0443\u0441\u0442\u0430\u043D\u043E\u0432\u043B\u0435\u043D: ${src}`);
+    } else if (element.tagName.toLowerCase() === "img") {
+      element.src = src;
+      console.log(`\u2705 ${logName} (img src) \u0443\u0441\u0442\u0430\u043D\u043E\u0432\u043B\u0435\u043D: ${src}`);
+    } else if (element.style.backgroundImage) {
+      element.style.backgroundImage = `url('${src}')`;
+      console.log(`\u2705 ${logName} (background) \u0443\u0441\u0442\u0430\u043D\u043E\u0432\u043B\u0435\u043D: ${src}`);
+    } else {
+      if (element.tagName.toLowerCase() === "img") {
+        element.src = src;
+      }
+      element.style.backgroundImage = `url('${src}')`;
+      console.log(`\u2705 ${logName} (\u043E\u0431\u0430 \u0441\u043F\u043E\u0441\u043E\u0431\u0430) \u0443\u0441\u0442\u0430\u043D\u043E\u0432\u043B\u0435\u043D: ${src}`);
+    }
+    element.onerror = () => {
+      console.error(`\u274C ${logName} \u043D\u0435 \u0437\u0430\u0433\u0440\u0443\u0437\u0438\u043B\u0441\u044F \u0432 \u044D\u043B\u0435\u043C\u0435\u043D\u0442: ${src}`);
+    };
+    if (element.tagName.toLowerCase() === "img") {
+      element.onload = () => {
+        console.log(`\u{1F389} ${logName} \u0443\u0441\u043F\u0435\u0448\u043D\u043E \u0437\u0430\u0433\u0440\u0443\u0436\u0435\u043D \u0432 \u044D\u043B\u0435\u043C\u0435\u043D\u0442: ${src}`);
+      };
+    } else {
+      const verifyImage = new Image();
+      verifyImage.onload = () => {
+        console.log(`\u{1F389} ${logName} \u0443\u0441\u043F\u0435\u0448\u043D\u043E \u0437\u0430\u0433\u0440\u0443\u0436\u0435\u043D: ${src}`);
+      };
+      verifyImage.onerror = () => {
+        console.error(`\u274C ${logName} \u043D\u0435 \u0437\u0430\u0433\u0440\u0443\u0437\u0438\u043B\u0441\u044F: ${src}`);
+      };
+      verifyImage.src = src;
+    }
+  }
+  // Fallback на изображение по умолчанию
+  fallbackToDefault(element, logName) {
+    const staticBase = window.STATIC_URL || "/static/";
+    let fallbackSrc = "";
+    if (logName.includes("AI Card")) {
+      fallbackSrc = `${staticBase}assets/image/logo/light/Anastasia.svg`;
+    } else if (logName.includes("\u0413\u0435\u0440\u043E\u0439")) {
+      fallbackSrc = `${staticBase}assets/image/logo/light/hero-logo.svg`;
+    } else {
+      fallbackSrc = `${staticBase}assets/image/logo/light/logo.svg`;
+    }
+    console.log(`\u{1F504} \u0418\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0435\u043C fallback \u0434\u043B\u044F ${logName}: ${fallbackSrc}`);
+    this.applyImageToElement(element, fallbackSrc, `${logName} (fallback)`);
+  }
+  // Универсальный метод обновления источника изображения
+  updateImageSource(imgElement, newSrc, logName) {
+    if (!imgElement) {
+      console.warn(`\u274C ${logName}: \u044D\u043B\u0435\u043C\u0435\u043D\u0442 \u043D\u0435 \u043D\u0430\u0439\u0434\u0435\u043D`);
+      return;
+    }
+    console.log(`\u{1F527} \u041E\u0431\u043D\u043E\u0432\u043B\u0435\u043D\u0438\u0435 ${logName}:`, {
+      element: imgElement,
+      currentSrc: imgElement.src,
+      newSrc
+    });
+    const cacheBuster = `?t=${Date.now()}`;
+    const srcWithCacheBuster = newSrc + cacheBuster;
+    const tempImage = new Image();
+    tempImage.onload = () => {
+      imgElement.src = srcWithCacheBuster;
+      console.log(`\u2705 ${logName} \u0443\u0441\u043F\u0435\u0448\u043D\u043E \u043E\u0431\u043D\u043E\u0432\u043B\u0435\u043D: ${newSrc}`);
+      setTimeout(() => {
+        if (imgElement.complete && imgElement.naturalHeight !== 0) {
+          console.log(`\u{1F389} ${logName} \u043F\u043E\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043D \u0432 DOM: ${newSrc}`);
+        } else {
+          console.warn(`\u26A0\uFE0F ${logName} \u043C\u043E\u0436\u0435\u0442 \u043D\u0435 \u043E\u0442\u043E\u0431\u0440\u0430\u0436\u0430\u0442\u044C\u0441\u044F: ${newSrc}`);
+        }
+      }, 100);
+    };
+    tempImage.onerror = () => {
+      console.error(`\u274C ${logName} \u043D\u0435 \u043D\u0430\u0439\u0434\u0435\u043D: ${newSrc}`);
+    };
+    tempImage.src = srcWithCacheBuster;
+  }
+  // Обновление фавикона
+  updateFavicon(folderName, staticBase) {
+    let favicon = document.querySelector('link[rel="icon"]');
+    if (!favicon) {
+      favicon = document.createElement("link");
+      favicon.rel = "icon";
+      document.head.appendChild(favicon);
+    }
+    const faviconSrc = `${staticBase}assets/image/logo/${folderName}/icons.svg`;
+    const cacheBuster = `?t=${Date.now()}`;
+    const tempImage = new Image();
+    tempImage.onload = () => {
+      favicon.href = faviconSrc + cacheBuster;
+      console.log(`\u2705 \u0424\u0430\u0432\u0438\u043A\u043E\u043D \u043E\u0431\u043D\u043E\u0432\u043B\u0435\u043D: ${faviconSrc}`);
+    };
+    tempImage.onerror = () => {
+      console.error(`\u274C \u0424\u0430\u0432\u0438\u043A\u043E\u043D \u043D\u0435 \u043D\u0430\u0439\u0434\u0435\u043D: ${faviconSrc}`);
+      const fallbackFavicon = `${staticBase}assets/image/logo/light/icons.svg`;
+      favicon.href = fallbackFavicon + cacheBuster;
+    };
+    tempImage.src = faviconSrc + cacheBuster;
+  }
+  // Диагностика элементов логотипов
+  diagnoseLogoElements() {
+    console.group("\u{1F50D} \u0414\u0438\u0430\u0433\u043D\u043E\u0441\u0442\u0438\u043A\u0430 \u043B\u043E\u0433\u043E\u0442\u0438\u043F\u043E\u0432");
+    const selectors = [
+      ".logo-header img",
+      ".mobile-logo img",
+      ".hero-logo",
+      ".ai-card-logo",
+      ".hero-section .hero-logo",
+      ".ai-card .ai-card-logo",
+      '[data-logo-type="hero"]',
+      '[data-logo-type="ai-card"]'
+    ];
+    selectors.forEach((selector) => {
+      const elements = document.querySelectorAll(selector);
+      console.log(`${selector}: \u043D\u0430\u0439\u0434\u0435\u043D\u043E ${elements.length} \u044D\u043B\u0435\u043C\u0435\u043D\u0442\u043E\u0432`);
+      elements.forEach((el, index) => {
+        console.log(`  ${selector} [${index}]:`, {
+          tagName: el.tagName,
+          currentSrc: el.src || "N/A",
+          backgroundImage: el.style.backgroundImage || "N/A",
+          classList: Array.from(el.classList),
+          parent: el.parentElement?.tagName || "N/A"
+        });
+      });
+    });
+    console.groupEnd();
+  }
+  // Установка размера шрифта
+  setFontSize(size) {
+    this.fontSize = size;
+    document.documentElement.setAttribute("data-font-size", size);
+    localStorage.setItem("selectedFontSize", size);
+    console.log(`\u{1F4CF} \u0420\u0430\u0437\u043C\u0435\u0440 \u0448\u0440\u0438\u0444\u0442\u0430 \u0443\u0441\u0442\u0430\u043D\u043E\u0432\u043B\u0435\u043D: ${size}`);
+    this.dispatchAppearanceChangeEvent();
+  }
+  // Установка плотности интерфейса
+  setDensity(density) {
+    this.density = density;
+    document.documentElement.setAttribute("data-density", density);
+    localStorage.setItem("selectedDensity", density);
+    console.log(`\u{1F4D0} \u041F\u043B\u043E\u0442\u043D\u043E\u0441\u0442\u044C \u0438\u043D\u0442\u0435\u0440\u0444\u0435\u0439\u0441\u0430 \u0443\u0441\u0442\u0430\u043D\u043E\u0432\u043B\u0435\u043D\u0430: ${density}`);
+    this.dispatchAppearanceChangeEvent();
+  }
+  // Применение всех настроек внешнего вида
+  applyAppearanceSettings() {
+    document.documentElement.setAttribute("data-font-size", this.fontSize);
+    document.documentElement.setAttribute("data-density", this.density);
+    console.log("\u{1F3A8} \u041D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0438 \u0432\u043D\u0435\u0448\u043D\u0435\u0433\u043E \u0432\u0438\u0434\u0430 \u043F\u0440\u0438\u043C\u0435\u043D\u0435\u043D\u044B");
+  }
+  updateActiveButtons(theme) {
+    const buttons = document.querySelectorAll(".theme-btn, .theme-option");
+    console.log(`\u{1F3AF} \u041E\u0431\u043D\u043E\u0432\u043B\u0435\u043D\u0438\u0435 \u0430\u043A\u0442\u0438\u0432\u043D\u044B\u0445 \u043A\u043D\u043E\u043F\u043E\u043A \u0442\u0435\u043C\u044B: \u043D\u0430\u0439\u0434\u0435\u043D\u043E ${buttons.length} \u043A\u043D\u043E\u043F\u043E\u043A`);
+    buttons.forEach((btn) => {
+      btn.classList.remove("active");
+      if (btn.getAttribute("data-theme") === theme) {
+        btn.classList.add("active");
+        console.log(`\u2705 \u041A\u043D\u043E\u043F\u043A\u0430 \u0430\u043A\u0442\u0438\u0432\u0438\u0440\u043E\u0432\u0430\u043D\u0430: ${theme}`, btn);
+      }
+    });
+  }
+  updateThemeColor(theme) {
+    let themeColor = "#394458";
+    switch (theme) {
+      case "dark":
+        themeColor = "#1E293B";
+        break;
+      case "blue":
+        themeColor = "#1e3a8a";
+        break;
+      case "light-blue":
+        themeColor = "#0ea5e9";
+        break;
+      case "green":
+        themeColor = "#065f46";
+        break;
+      case "orange":
+        themeColor = "#ea580c";
+        break;
+      case "pinki":
+        themeColor = "#be185d";
+        break;
+      case "red":
+        themeColor = "#dc2626";
+        break;
+      case "violett":
+        themeColor = "#7c3aed";
+        break;
+      case "yellow":
+        themeColor = "#ca8a04";
+        break;
+      case "light":
+      default:
+        themeColor = "#394458";
+        break;
+    }
+    let themeColorMeta = document.querySelector('meta[name="theme-color"]');
+    if (!themeColorMeta) {
+      themeColorMeta = document.createElement("meta");
+      themeColorMeta.name = "theme-color";
+      document.head.appendChild(themeColorMeta);
+    }
+    themeColorMeta.setAttribute("content", themeColor);
+    console.log(`\u{1F3A8} \u0426\u0432\u0435\u0442 \u0442\u0435\u043C\u044B \u043E\u0431\u043D\u043E\u0432\u043B\u0435\u043D: ${themeColor}`);
+  }
+  // Анимация кнопки при клике
+  animateButton(button) {
+    button.style.transform = "scale(0.9)";
+    setTimeout(() => {
+      button.style.transform = "scale(1.1)";
+    }, 100);
+    setTimeout(() => {
+      button.style.transform = "scale(1)";
+    }, 200);
+  }
+  // События для уведомления других компонентов
+  dispatchThemeChangeEvent(theme) {
+    const event = new CustomEvent("themeChanged", {
+      detail: {
+        theme,
+        themeFolder: this.themeFolderMap[theme] || "light"
+      }
+    });
+    document.dispatchEvent(event);
+    console.log(`\u{1F4E2} \u0421\u043E\u0431\u044B\u0442\u0438\u0435 themeChanged \u043E\u0442\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u043E: ${theme}`);
+  }
+  dispatchAppearanceChangeEvent() {
+    const event = new CustomEvent("appearanceChanged", {
+      detail: {
+        fontSize: this.fontSize,
+        density: this.density
+      }
+    });
+    document.dispatchEvent(event);
+    console.log("\u{1F4E2} \u0421\u043E\u0431\u044B\u0442\u0438\u0435 appearanceChanged \u043E\u0442\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u043E");
+  }
+  // Публичные методы для получения текущих настроек
+  getCurrentTheme() {
+    return this.currentTheme;
+  }
+  getThemeFolder() {
+    return this.themeFolderMap[this.currentTheme] || "light";
+  }
+  getFontSize() {
+    return this.fontSize;
+  }
+  getDensity() {
+    return this.density;
+  }
+  // Принудительное обновление всех логотипов на странице
+  forceUpdateLogos() {
+    console.log("\u{1F504} \u041F\u0440\u0438\u043D\u0443\u0434\u0438\u0442\u0435\u043B\u044C\u043D\u043E\u0435 \u043E\u0431\u043D\u043E\u0432\u043B\u0435\u043D\u0438\u0435 \u0432\u0441\u0435\u0445 \u043B\u043E\u0433\u043E\u0442\u0438\u043F\u043E\u0432");
+    this.updateLogos(this.currentTheme);
+  }
+  // Проверить существование файлов логотипов
+  async checkLogoFiles() {
+    const theme = this.currentTheme;
+    const folderName = this.themeFolderMap[theme] || "light";
+    const staticBase = window.STATIC_URL || "/static/";
+    const filesToCheck = [
+      "logo.svg",
+      "icons.svg",
+      "hero-logo.svg",
+      "Anastasia.svg",
+      "anastasia.svg"
+    ];
+    console.group("\u{1F50D} \u041F\u0440\u043E\u0432\u0435\u0440\u043A\u0430 \u0444\u0430\u0439\u043B\u043E\u0432 \u043B\u043E\u0433\u043E\u0442\u0438\u043F\u043E\u0432");
+    for (const file of filesToCheck) {
+      const url = `${staticBase}assets/image/logo/${folderName}/${file}`;
+      const exists = await this.checkFileExists(url);
+      console.log(`${exists ? "\u2705" : "\u274C"} ${file}: ${url}`);
+    }
+    console.groupEnd();
+  }
+  // Проверить существование файла
+  checkFileExists(url) {
+    return new Promise((resolve) => {
+      const xhr = new XMLHttpRequest();
+      xhr.open("HEAD", url);
+      xhr.onload = () => resolve(xhr.status === 200);
+      xhr.onerror = () => resolve(false);
+      xhr.send();
+    });
+  }
+};
+window.themeManager = new ThemeManager();
+window.debugThemeManager = {
+  checkLogos: () => window.themeManager.checkLogoFiles(),
+  forceUpdate: () => window.themeManager.forceUpdateLogos(),
+  diagnose: () => window.themeManager.diagnoseLogoElements(),
+  getInfo: () => window.themeManager.getSettingsInfo()
+};
+var theme_manager_default = window.themeManager;
+
+// static/js/modules/validation.js
+var ValidationManager = class {
+  constructor() {
+    this.rules = /* @__PURE__ */ new Map();
+    this.customValidators = /* @__PURE__ */ new Map();
+    this.errorMessages = /* @__PURE__ */ new Map();
+    this.isActive = false;
+    this.initializeDefaultRules();
+    this.initializeErrorMessages();
+    this.initializeCustomValidators();
+  }
+  async activate(config = {}) {
+    this.isActive = true;
+    try {
+      this.setupGlobalHandlers();
+      console.log("Validation Manager activated");
+    } catch (error) {
+      console.error("Error activating Validation Manager:", error);
+    }
+  }
+  deactivate() {
+    this.isActive = false;
+    this.cleanupGlobalHandlers();
+    console.log("Validation Manager deactivated");
+  }
+  // ===== МЕТОДЫ ДЛЯ ВАЛИДАЦИИ ФОРМ ПРОФИЛЯ =====
+  /**
+   * Валидация формы личных данных
+   */
+  validatePersonalForm() {
+    const firstName = document.getElementById("firstName");
+    const lastName = document.getElementById("lastName");
+    const email = document.getElementById("email");
+    let isValid = true;
+    const errors = [];
+    this.clearValidationErrors();
+    if (!firstName || !firstName.value.trim()) {
+      this.showFieldError(firstName, "\u0418\u043C\u044F \u043E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u044C\u043D\u043E \u0434\u043B\u044F \u0437\u0430\u043F\u043E\u043B\u043D\u0435\u043D\u0438\u044F");
+      isValid = false;
+      errors.push("\u0418\u043C\u044F \u043E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u044C\u043D\u043E \u0434\u043B\u044F \u0437\u0430\u043F\u043E\u043B\u043D\u0435\u043D\u0438\u044F");
+    } else if (firstName.value.trim().length < 2) {
+      this.showFieldError(firstName, "\u0418\u043C\u044F \u0434\u043E\u043B\u0436\u043D\u043E \u0441\u043E\u0434\u0435\u0440\u0436\u0430\u0442\u044C \u043C\u0438\u043D\u0438\u043C\u0443\u043C 2 \u0441\u0438\u043C\u0432\u043E\u043B\u0430");
+      isValid = false;
+      errors.push("\u0418\u043C\u044F \u0434\u043E\u043B\u0436\u043D\u043E \u0441\u043E\u0434\u0435\u0440\u0436\u0430\u0442\u044C \u043C\u0438\u043D\u0438\u043C\u0443\u043C 2 \u0441\u0438\u043C\u0432\u043E\u043B\u0430");
+    }
+    if (!lastName || !lastName.value.trim()) {
+      this.showFieldError(lastName, "\u0424\u0430\u043C\u0438\u043B\u0438\u044F \u043E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u044C\u043D\u0430 \u0434\u043B\u044F \u0437\u0430\u043F\u043E\u043B\u043D\u0435\u043D\u0438\u044F");
+      isValid = false;
+      errors.push("\u0424\u0430\u043C\u0438\u043B\u0438\u044F \u043E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u044C\u043D\u0430 \u0434\u043B\u044F \u0437\u0430\u043F\u043E\u043B\u043D\u0435\u043D\u0438\u044F");
+    } else if (lastName.value.trim().length < 2) {
+      this.showFieldError(lastName, "\u0424\u0430\u043C\u0438\u043B\u0438\u044F \u0434\u043E\u043B\u0436\u043D\u0430 \u0441\u043E\u0434\u0435\u0440\u0436\u0430\u0442\u044C \u043C\u0438\u043D\u0438\u043C\u0443\u043C 2 \u0441\u0438\u043C\u0432\u043E\u043B\u0430");
+      isValid = false;
+      errors.push("\u0424\u0430\u043C\u0438\u043B\u0438\u044F \u0434\u043E\u043B\u0436\u043D\u0430 \u0441\u043E\u0434\u0435\u0440\u0436\u0430\u0442\u044C \u043C\u0438\u043D\u0438\u043C\u0443\u043C 2 \u0441\u0438\u043C\u0432\u043E\u043B\u0430");
+    }
+    if (!email || !email.value.trim()) {
+      this.showFieldError(email, "Email \u043E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u0435\u043D \u0434\u043B\u044F \u0437\u0430\u043F\u043E\u043B\u043D\u0435\u043D\u0438\u044F");
+      isValid = false;
+      errors.push("Email \u043E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u0435\u043D \u0434\u043B\u044F \u0437\u0430\u043F\u043E\u043B\u043D\u0435\u043D\u0438\u044F");
+    } else if (!this.isValidEmail(email.value)) {
+      this.showFieldError(email, "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043A\u043E\u0440\u0440\u0435\u043A\u0442\u043D\u044B\u0439 email \u0430\u0434\u0440\u0435\u0441");
+      isValid = false;
+      errors.push("\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043A\u043E\u0440\u0440\u0435\u043A\u0442\u043D\u044B\u0439 email \u0430\u0434\u0440\u0435\u0441");
+    }
+    return {
+      isValid,
+      errors,
+      fields: {
+        firstName: { isValid: !!firstName?.value.trim(), errors: [] },
+        lastName: { isValid: !!lastName?.value.trim(), errors: [] },
+        email: { isValid: this.isValidEmail(email?.value), errors: [] }
+      }
+    };
+  }
+  /**
+   * Валидация формы безопасности
+   */
+  validateSecurityForm() {
+    const currentPassword = document.getElementById("currentPassword");
+    const newPassword = document.getElementById("newPassword");
+    const confirmPassword = document.getElementById("confirmPassword");
+    let isValid = true;
+    const errors = [];
+    this.clearValidationErrors();
+    if (newPassword && newPassword.value || confirmPassword && confirmPassword.value) {
+      if (!currentPassword || !currentPassword.value) {
+        this.showFieldError(currentPassword, "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0442\u0435\u043A\u0443\u0449\u0438\u0439 \u043F\u0430\u0440\u043E\u043B\u044C");
+        isValid = false;
+        errors.push("\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0442\u0435\u043A\u0443\u0449\u0438\u0439 \u043F\u0430\u0440\u043E\u043B\u044C");
+      }
+      if (newPassword && newPassword.value.length < 8) {
+        this.showFieldError(newPassword, "\u041F\u0430\u0440\u043E\u043B\u044C \u0434\u043E\u043B\u0436\u0435\u043D \u0441\u043E\u0434\u0435\u0440\u0436\u0430\u0442\u044C \u043D\u0435 \u043C\u0435\u043D\u0435\u0435 8 \u0441\u0438\u043C\u0432\u043E\u043B\u043E\u0432");
+        isValid = false;
+        errors.push("\u041F\u0430\u0440\u043E\u043B\u044C \u0434\u043E\u043B\u0436\u0435\u043D \u0441\u043E\u0434\u0435\u0440\u0436\u0430\u0442\u044C \u043D\u0435 \u043C\u0435\u043D\u0435\u0435 8 \u0441\u0438\u043C\u0432\u043E\u043B\u043E\u0432");
+      }
+      if (newPassword && confirmPassword && newPassword.value !== confirmPassword.value) {
+        this.showFieldError(confirmPassword, "\u041F\u0430\u0440\u043E\u043B\u0438 \u043D\u0435 \u0441\u043E\u0432\u043F\u0430\u0434\u0430\u044E\u0442");
+        isValid = false;
+        errors.push("\u041F\u0430\u0440\u043E\u043B\u0438 \u043D\u0435 \u0441\u043E\u0432\u043F\u0430\u0434\u0430\u044E\u0442");
+      }
+    }
+    return {
+      isValid,
+      errors,
+      fields: {
+        currentPassword: { isValid: !!currentPassword?.value, errors: [] },
+        newPassword: { isValid: !newPassword?.value || newPassword.value.length >= 8, errors: [] },
+        confirmPassword: { isValid: newPassword?.value === confirmPassword?.value, errors: [] }
+      }
+    };
+  }
+  /**
+   * Показать ошибку поля
+   */
+  showFieldError(field, message) {
+    if (!field) return;
+    field.style.borderColor = "#f44336";
+    const errorElement = document.createElement("div");
+    errorElement.className = "field-error";
+    errorElement.textContent = message;
+    errorElement.style.cssText = "color: #f44336; font-size: 12px; margin-top: 5px;";
+    field.parentNode.appendChild(errorElement);
+  }
+  /**
+   * Очистка ошибок валидации
+   */
+  clearValidationErrors() {
+    const fields = document.querySelectorAll(".form-control, input, textarea, select");
+    fields.forEach((field) => {
+      field.style.borderColor = "";
+    });
+    const errors = document.querySelectorAll(".field-error, .validation-error-message");
+    errors.forEach((error) => error.remove());
+  }
+  /**
+   * Проверка валидности email
+   */
+  isValidEmail(email) {
+    if (!email) return false;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
+  // ===== ОСНОВНЫЕ МЕТОДЫ ВАЛИДАЦИИ =====
+  // Инициализация стандартных правил
+  initializeDefaultRules() {
+    this.rules.set("required", (value) => {
+      if (value === null || value === void 0 || value === "") {
+        return false;
+      }
+      if (Array.isArray(value) && value.length === 0) {
+        return false;
+      }
+      return true;
+    });
+    this.rules.set("email", (value) => {
+      if (!value) return true;
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(value);
+    });
+    this.rules.set("phone", (value) => {
+      if (!value) return true;
+      const phoneRegex = /^(\+7|8)?[\s\-]?\(?[0-9]{3}\)?[\s\-]?[0-9]{3}[\s\-]?[0-9]{2}[\s\-]?[0-9]{2}$/;
+      return phoneRegex.test(value.replace(/\s/g, ""));
+    });
+    this.rules.set("minLength", (value, param) => {
+      if (!value) return true;
+      return String(value).length >= param;
+    });
+    this.rules.set("maxLength", (value, param) => {
+      if (!value) return true;
+      return String(value).length <= param;
+    });
+    this.rules.set("exactLength", (value, param) => {
+      if (!value) return true;
+      return String(value).length === param;
+    });
+    this.rules.set("number", (value) => {
+      if (!value) return true;
+      return !isNaN(parseFloat(value)) && isFinite(value);
+    });
+    this.rules.set("min", (value, param) => {
+      if (!value) return true;
+      const num = parseFloat(value);
+      return !isNaN(num) && num >= param;
+    });
+    this.rules.set("max", (value, param) => {
+      if (!value) return true;
+      const num = parseFloat(value);
+      return !isNaN(num) && num <= param;
+    });
+    this.rules.set("range", (value, params) => {
+      if (!value) return true;
+      const num = parseFloat(value);
+      return !isNaN(num) && num >= params[0] && num <= params[1];
+    });
+    this.rules.set("studentId", (value) => {
+      if (!value) return true;
+      const studentIdRegex = /^STU\d{6,8}$/i;
+      return studentIdRegex.test(value);
+    });
+    this.rules.set("teacherId", (value) => {
+      if (!value) return true;
+      const teacherIdRegex = /^TCH\d{6,8}$/i;
+      return teacherIdRegex.test(value);
+    });
+    this.rules.set("courseCode", (value) => {
+      if (!value) return true;
+      const courseCodeRegex = /^[A-Z]{3,4}\d{3,4}$/;
+      return courseCodeRegex.test(value);
+    });
+    this.rules.set("grade", (value) => {
+      if (!value) return true;
+      const grade = parseFloat(value);
+      return !isNaN(grade) && grade >= 1 && grade <= 5 && grade % 0.5 === 0;
+    });
+    this.rules.set("password", (value) => {
+      if (!value) return true;
+      const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+      return passwordRegex.test(value);
+    });
+    this.rules.set("date", (value) => {
+      if (!value) return true;
+      const date = new Date(value);
+      return date instanceof Date && !isNaN(date);
+    });
+    this.rules.set("dateAfter", (value, param) => {
+      if (!value) return true;
+      const date = new Date(value);
+      const compareDate = new Date(param);
+      return date > compareDate;
+    });
+    this.rules.set("dateBefore", (value, param) => {
+      if (!value) return true;
+      const date = new Date(value);
+      const compareDate = new Date(param);
+      return date < compareDate;
+    });
+    this.rules.set("fileType", (value, allowedTypes) => {
+      if (!value) return true;
+      if (!(value instanceof File)) return false;
+      const fileExtension = value.name.split(".").pop().toLowerCase();
+      const mimeType = value.type;
+      return allowedTypes.some((type) => {
+        if (type.startsWith(".")) {
+          return fileExtension === type.slice(1);
+        }
+        return mimeType === type;
+      });
+    });
+    this.rules.set("fileSize", (value, maxSize) => {
+      if (!value) return true;
+      if (!(value instanceof File)) return false;
+      return value.size <= maxSize;
+    });
+    this.rules.set("array", (value) => {
+      return Array.isArray(value);
+    });
+    this.rules.set("minItems", (value, param) => {
+      if (!value) return true;
+      return Array.isArray(value) && value.length >= param;
+    });
+    this.rules.set("maxItems", (value, param) => {
+      if (!value) return true;
+      return Array.isArray(value) && value.length <= param;
+    });
+  }
+  // Инициализация сообщений об ошибках
+  initializeErrorMessages() {
+    this.errorMessages.set("required", "\u041F\u043E\u043B\u0435 \u043E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u044C\u043D\u043E \u0434\u043B\u044F \u0437\u0430\u043F\u043E\u043B\u043D\u0435\u043D\u0438\u044F");
+    this.errorMessages.set("email", "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043A\u043E\u0440\u0440\u0435\u043A\u0442\u043D\u044B\u0439 email \u0430\u0434\u0440\u0435\u0441");
+    this.errorMessages.set("phone", "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043A\u043E\u0440\u0440\u0435\u043A\u0442\u043D\u044B\u0439 \u043D\u043E\u043C\u0435\u0440 \u0442\u0435\u043B\u0435\u0444\u043E\u043D\u0430");
+    this.errorMessages.set("minLength", "\u041C\u0438\u043D\u0438\u043C\u0430\u043B\u044C\u043D\u0430\u044F \u0434\u043B\u0438\u043D\u0430: {param} \u0441\u0438\u043C\u0432\u043E\u043B\u043E\u0432");
+    this.errorMessages.set("maxLength", "\u041C\u0430\u043A\u0441\u0438\u043C\u0430\u043B\u044C\u043D\u0430\u044F \u0434\u043B\u0438\u043D\u0430: {param} \u0441\u0438\u043C\u0432\u043E\u043B\u043E\u0432");
+    this.errorMessages.set("exactLength", "\u0414\u043E\u043B\u0436\u043D\u043E \u0431\u044B\u0442\u044C exactly {param} \u0441\u0438\u043C\u0432\u043E\u043B\u043E\u0432");
+    this.errorMessages.set("number", "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0447\u0438\u0441\u043B\u043E");
+    this.errorMessages.set("min", "\u041C\u0438\u043D\u0438\u043C\u0430\u043B\u044C\u043D\u043E\u0435 \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0435: {param}");
+    this.errorMessages.set("max", "\u041C\u0430\u043A\u0441\u0438\u043C\u0430\u043B\u044C\u043D\u043E\u0435 \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0435: {param}");
+    this.errorMessages.set("range", "\u0417\u043D\u0430\u0447\u0435\u043D\u0438\u0435 \u0434\u043E\u043B\u0436\u043D\u043E \u0431\u044B\u0442\u044C \u043C\u0435\u0436\u0434\u0443 {param[0]} \u0438 {param[1]}");
+    this.errorMessages.set("studentId", "\u041D\u0435\u0432\u0435\u0440\u043D\u044B\u0439 \u0444\u043E\u0440\u043C\u0430\u0442 \u0441\u0442\u0443\u0434\u0435\u043D\u0447\u0435\u0441\u043A\u043E\u0433\u043E ID");
+    this.errorMessages.set("teacherId", "\u041D\u0435\u0432\u0435\u0440\u043D\u044B\u0439 \u0444\u043E\u0440\u043C\u0430\u0442 \u043F\u0440\u0435\u043F\u043E\u0434\u0430\u0432\u0430\u0442\u0435\u043B\u044C\u0441\u043A\u043E\u0433\u043E ID");
+    this.errorMessages.set("courseCode", "\u041D\u0435\u0432\u0435\u0440\u043D\u044B\u0439 \u0444\u043E\u0440\u043C\u0430\u0442 \u043A\u043E\u0434\u0430 \u043A\u0443\u0440\u0441\u0430");
+    this.errorMessages.set("grade", "\u041E\u0446\u0435\u043D\u043A\u0430 \u0434\u043E\u043B\u0436\u043D\u0430 \u0431\u044B\u0442\u044C \u043E\u0442 1 \u0434\u043E 5 \u0441 \u0448\u0430\u0433\u043E\u043C 0.5");
+    this.errorMessages.set("password", "\u041F\u0430\u0440\u043E\u043B\u044C \u0434\u043E\u043B\u0436\u0435\u043D \u0441\u043E\u0434\u0435\u0440\u0436\u0430\u0442\u044C \u043C\u0438\u043D\u0438\u043C\u0443\u043C 8 \u0441\u0438\u043C\u0432\u043E\u043B\u043E\u0432, \u0432\u043A\u043B\u044E\u0447\u0430\u044F \u0437\u0430\u0433\u043B\u0430\u0432\u043D\u044B\u0435 \u0438 \u0441\u0442\u0440\u043E\u0447\u043D\u044B\u0435 \u0431\u0443\u043A\u0432\u044B \u0438 \u0446\u0438\u0444\u0440\u044B");
+    this.errorMessages.set("date", "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043A\u043E\u0440\u0440\u0435\u043A\u0442\u043D\u0443\u044E \u0434\u0430\u0442\u0443");
+    this.errorMessages.set("dateAfter", "\u0414\u0430\u0442\u0430 \u0434\u043E\u043B\u0436\u043D\u0430 \u0431\u044B\u0442\u044C \u043F\u043E\u0441\u043B\u0435 {param}");
+    this.errorMessages.set("dateBefore", "\u0414\u0430\u0442\u0430 \u0434\u043E\u043B\u0436\u043D\u0430 \u0431\u044B\u0442\u044C \u0434\u043E {param}");
+    this.errorMessages.set("fileType", "\u041D\u0435\u0434\u043E\u043F\u0443\u0441\u0442\u0438\u043C\u044B\u0439 \u0442\u0438\u043F \u0444\u0430\u0439\u043B\u0430. \u0420\u0430\u0437\u0440\u0435\u0448\u0435\u043D\u044B: {param}");
+    this.errorMessages.set("fileSize", "\u0420\u0430\u0437\u043C\u0435\u0440 \u0444\u0430\u0439\u043B\u0430 \u043D\u0435 \u0434\u043E\u043B\u0436\u0435\u043D \u043F\u0440\u0435\u0432\u044B\u0448\u0430\u0442\u044C {param}");
+    this.errorMessages.set("array", "\u0417\u043D\u0430\u0447\u0435\u043D\u0438\u0435 \u0434\u043E\u043B\u0436\u043D\u043E \u0431\u044B\u0442\u044C \u043C\u0430\u0441\u0441\u0438\u0432\u043E\u043C");
+    this.errorMessages.set("minItems", "\u041C\u0438\u043D\u0438\u043C\u0430\u043B\u044C\u043D\u043E\u0435 \u043A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u044D\u043B\u0435\u043C\u0435\u043D\u0442\u043E\u0432: {param}");
+    this.errorMessages.set("maxItems", "\u041C\u0430\u043A\u0441\u0438\u043C\u0430\u043B\u044C\u043D\u043E\u0435 \u043A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u044D\u043B\u0435\u043C\u0435\u043D\u0442\u043E\u0432: {param}");
+  }
+  // Инициализация кастомных валидаторов
+  initializeCustomValidators() {
+    this.customValidators.set("uniqueEmail", async (email) => {
+      try {
+        const response = await fetch(`/api/auth/check-email?email=${encodeURIComponent(email)}`);
+        const data = await response.json();
+        return !data.exists;
+      } catch (error) {
+        console.error("Email validation error:", error);
+        return false;
+      }
+    });
+    this.customValidators.set("passwordStrength", (password) => {
+      if (!password) return true;
+      let score = 0;
+      if (password.length >= 8) score++;
+      if (password.length >= 12) score++;
+      if (/[a-z]/.test(password)) score++;
+      if (/[A-Z]/.test(password)) score++;
+      if (/[0-9]/.test(password)) score++;
+      if (/[^a-zA-Z0-9]/.test(password)) score++;
+      return score >= 4;
+    });
+    this.customValidators.set("birthDate", (dateString) => {
+      const birthDate = new Date(dateString);
+      const today = /* @__PURE__ */ new Date();
+      const minAgeDate = new Date(today.getFullYear() - 16, today.getMonth(), today.getDate());
+      return birthDate <= minAgeDate;
+    });
+    this.customValidators.set("academicYear", (year) => {
+      const currentYear = (/* @__PURE__ */ new Date()).getFullYear();
+      return year >= 2e3 && year <= currentYear + 1;
+    });
+  }
+  // Основной метод валидации
+  validate(value, rules, fieldName = "") {
+    const errors = [];
+    for (const rule of rules) {
+      const [ruleName, param] = this.parseRule(rule);
+      const validator = this.rules.get(ruleName);
+      if (!validator) {
+        console.warn(`Unknown validation rule: ${ruleName}`);
+        continue;
+      }
+      const isValid = validator(value, param);
+      if (!isValid) {
+        const errorMessage = this.getErrorMessage(ruleName, param, fieldName);
+        errors.push(errorMessage);
+      }
+    }
+    return {
+      isValid: errors.length === 0,
+      errors,
+      field: fieldName,
+      value
+    };
+  }
+  // Асинхронная валидация
+  async validateAsync(value, rules, fieldName = "") {
+    const errors = [];
+    for (const rule of rules) {
+      const [ruleName, param] = this.parseRule(rule);
+      const standardValidator = this.rules.get(ruleName);
+      if (standardValidator) {
+        const isValid = standardValidator(value, param);
+        if (!isValid) {
+          const errorMessage = this.getErrorMessage(ruleName, param, fieldName);
+          errors.push(errorMessage);
+        }
+        continue;
+      }
+      const asyncValidator = this.customValidators.get(ruleName);
+      if (asyncValidator) {
+        try {
+          const isValid = await asyncValidator(value, param);
+          if (!isValid) {
+            const errorMessage = this.getErrorMessage(ruleName, param, fieldName);
+            errors.push(errorMessage);
+          }
+        } catch (error) {
+          console.error(`Async validation error for ${ruleName}:`, error);
+          errors.push(`\u041E\u0448\u0438\u0431\u043A\u0430 \u043F\u0440\u043E\u0432\u0435\u0440\u043A\u0438 ${fieldName}`);
+        }
+      } else {
+        console.warn(`Unknown validation rule: ${ruleName}`);
+      }
+    }
+    return {
+      isValid: errors.length === 0,
+      errors,
+      field: fieldName,
+      value
+    };
+  }
+  // Валидация формы
+  validateForm(formData, validationSchema) {
+    const results = {};
+    let isValid = true;
+    for (const [fieldName, rules] of Object.entries(validationSchema)) {
+      const value = formData[fieldName];
+      const result = this.validate(value, rules, fieldName);
+      results[fieldName] = result;
+      if (!result.isValid) {
+        isValid = false;
+      }
+    }
+    return {
+      isValid,
+      results,
+      hasErrors: !isValid
+    };
+  }
+  // Асинхронная валидация формы
+  async validateFormAsync(formData, validationSchema) {
+    const results = {};
+    let isValid = true;
+    for (const [fieldName, rules] of Object.entries(validationSchema)) {
+      const value = formData[fieldName];
+      const result = await this.validateAsync(value, rules, fieldName);
+      results[fieldName] = result;
+      if (!result.isValid) {
+        isValid = false;
+      }
+    }
+    return {
+      isValid,
+      results,
+      hasErrors: !isValid
+    };
+  }
+  // Парсинг правил валидации
+  parseRule(rule) {
+    if (typeof rule === "string") {
+      return [rule, null];
+    }
+    if (Array.isArray(rule)) {
+      return [rule[0], rule[1]];
+    }
+    if (typeof rule === "object") {
+      return [rule.name, rule.param];
+    }
+    console.warn("Invalid rule format:", rule);
+    return [rule, null];
+  }
+  // Получение сообщения об ошибке
+  getErrorMessage(ruleName, param, fieldName) {
+    let message = this.errorMessages.get(ruleName) || `\u041D\u0435\u0432\u0435\u0440\u043D\u043E\u0435 \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0435 \u0434\u043B\u044F ${fieldName}`;
+    if (param !== null && param !== void 0) {
+      if (Array.isArray(param)) {
+        message = message.replace("{param[0]}", param[0]).replace("{param[1]}", param[1]);
+      } else {
+        message = message.replace("{param}", param);
+      }
+    }
+    return message;
+  }
+  // Добавление кастомного правила
+  addRule(name, validator, errorMessage = null) {
+    this.rules.set(name, validator);
+    if (errorMessage) {
+      this.errorMessages.set(name, errorMessage);
+    }
+    return this;
+  }
+  // Добавление кастомного асинхронного валидатора
+  addAsyncValidator(name, validator, errorMessage = null) {
+    this.customValidators.set(name, validator);
+    if (errorMessage) {
+      this.errorMessages.set(name, errorMessage);
+    }
+    return this;
+  }
+  // Добавление кастомного сообщения об ошибке
+  addErrorMessage(ruleName, message) {
+    this.errorMessages.set(ruleName, message);
+    return this;
+  }
+  // Валидация специфичных для платформы данных
+  validateStudentData(studentData) {
+    const schema = {
+      firstName: ["required", "minLength:2", "maxLength:50"],
+      lastName: ["required", "minLength:2", "maxLength:50"],
+      email: ["required", "email"],
+      phone: ["phone"],
+      studentId: ["required", "studentId"],
+      birthDate: ["required", "date", "birthDate"],
+      group: ["required", "minLength:3", "maxLength:20"]
+    };
+    return this.validateForm(studentData, schema);
+  }
+  validateTeacherData(teacherData) {
+    const schema = {
+      firstName: ["required", "minLength:2", "maxLength:50"],
+      lastName: ["required", "minLength:2", "maxLength:50"],
+      email: ["required", "email"],
+      phone: ["phone"],
+      teacherId: ["required", "teacherId"],
+      department: ["required", "minLength:3", "maxLength:100"],
+      subjects: ["required", "array", "minItems:1"]
+    };
+    return this.validateForm(teacherData, schema);
+  }
+  validateCourseData(courseData) {
+    const schema = {
+      title: ["required", "minLength:5", "maxLength:200"],
+      code: ["required", "courseCode"],
+      description: ["maxLength:1000"],
+      credits: ["required", "number", "range:1,10"],
+      duration: ["required", "number", "min:1"],
+      maxStudents: ["number", "min:1", "max:500"]
+    };
+    return this.validateForm(courseData, schema);
+  }
+  validateHomeworkData(homeworkData) {
+    const schema = {
+      title: ["required", "minLength:5", "maxLength:200"],
+      description: ["required", "minLength:10"],
+      dueDate: ["required", "date", "dateAfter:today"],
+      maxScore: ["required", "number", "range:1,100"],
+      courseId: ["required"],
+      assignmentType: ["required"]
+    };
+    return this.validateForm(homeworkData, schema);
+  }
+  validateGradeData(gradeData) {
+    const schema = {
+      studentId: ["required"],
+      courseId: ["required"],
+      grade: ["required", "grade"],
+      assignmentId: ["required"],
+      comments: ["maxLength:500"]
+    };
+    return this.validateForm(gradeData, schema);
+  }
+  // Валидация файлов
+  validateFile(file, rules) {
+    const errors = [];
+    for (const rule of rules) {
+      const [ruleName, param] = this.parseRule(rule);
+      const validator = this.rules.get(ruleName);
+      if (!validator) {
+        console.warn(`Unknown file validation rule: ${ruleName}`);
+        continue;
+      }
+      const isValid = validator(file, param);
+      if (!isValid) {
+        const errorMessage = this.getErrorMessage(ruleName, param, "\u0444\u0430\u0439\u043B");
+        errors.push(errorMessage);
+      }
+    }
+    return {
+      isValid: errors.length === 0,
+      errors,
+      file
+    };
+  }
+  // Валидация пароля с проверкой сложности
+  validatePassword(password, confirmPassword = null) {
+    const rules = ["required", "minLength:8", "passwordStrength"];
+    const result = this.validate(password, rules, "\u043F\u0430\u0440\u043E\u043B\u044C");
+    if (confirmPassword && password !== confirmPassword) {
+      result.errors.push("\u041F\u0430\u0440\u043E\u043B\u0438 \u043D\u0435 \u0441\u043E\u0432\u043F\u0430\u0434\u0430\u044E\u0442");
+      result.isValid = false;
+    }
+    return result;
+  }
+  // Валидация email с проверкой уникальности
+  async validateEmailUnique(email) {
+    return await this.validateAsync(email, ["required", "email", "uniqueEmail"], "email");
+  }
+  // Утилиты для работы с DOM
+  setupGlobalHandlers() {
+    document.addEventListener("submit", this.handleFormSubmit.bind(this));
+    document.addEventListener("input", this.handleFieldInput.bind(this));
+    document.addEventListener("blur", this.handleFieldBlur.bind(this));
+  }
+  cleanupGlobalHandlers() {
+    document.removeEventListener("submit", this.handleFormSubmit.bind(this));
+    document.removeEventListener("input", this.handleFieldInput.bind(this));
+    document.removeEventListener("blur", this.handleFieldBlur.bind(this));
+  }
+  handleFormSubmit(event) {
+    const form = event.target;
+    if (!form.hasAttribute("data-validate")) return;
+    event.preventDefault();
+    this.validateFormElement(form);
+  }
+  handleFieldInput(event) {
+    const field = event.target;
+    if (!field.hasAttribute("data-validate")) return;
+    this.validateFieldElement(field);
+  }
+  handleFieldBlur(event) {
+    const field = event.target;
+    if (!field.hasAttribute("data-validate")) return;
+    this.validateFieldElement(field);
+  }
+  // Валидация DOM элемента формы
+  validateFormElement(form) {
+    const fields = form.querySelectorAll("[data-validate]");
+    let isValid = true;
+    fields.forEach((field) => {
+      const fieldResult = this.validateFieldElement(field);
+      if (!fieldResult.isValid) {
+        isValid = false;
+      }
+    });
+    if (isValid) {
+      form.dispatchEvent(new CustomEvent("validation:success"));
+    } else {
+      form.dispatchEvent(new CustomEvent("validation:error"));
+    }
+    return isValid;
+  }
+  // Валидация DOM элемента поля
+  validateFieldElement(field) {
+    const rules = field.getAttribute("data-validate").split(" ");
+    const value = field.value;
+    const fieldName = field.getAttribute("name") || field.getAttribute("id") || "field";
+    const result = this.validate(value, rules, fieldName);
+    this.displayFieldValidation(field, result);
+    return result;
+  }
+  // Отображение результатов валидации в DOM
+  displayFieldValidation(field, result) {
+    const existingError = field.parentNode.querySelector(".validation-error");
+    if (existingError) {
+      existingError.remove();
+    }
+    field.classList.remove("validation-error", "validation-success");
+    if (result.isValid) {
+      field.classList.add("validation-success");
+    } else {
+      field.classList.add("validation-error");
+      const errorElement = document.createElement("div");
+      errorElement.className = "validation-error-message";
+      errorElement.textContent = result.errors[0];
+      errorElement.style.cssText = `
+                color: #dc3545;
+                font-size: 0.875rem;
+                margin-top: 0.25rem;
+            `;
+      field.parentNode.appendChild(errorElement);
+    }
+    field.dispatchEvent(new CustomEvent("validation:result", {
+      detail: result
+    }));
+  }
+  // Генерация схемы валидации из DOM
+  generateSchemaFromForm(form) {
+    const schema = {};
+    const fields = form.querySelectorAll("[data-validate]");
+    fields.forEach((field) => {
+      const fieldName = field.getAttribute("name");
+      if (fieldName) {
+        const rules = field.getAttribute("data-validate").split(" ");
+        schema[fieldName] = rules;
+      }
+    });
+    return schema;
+  }
+  // Статистика и утилиты
+  getValidationStats() {
+    return {
+      totalRules: this.rules.size,
+      totalCustomValidators: this.customValidators.size,
+      totalErrorMessages: this.errorMessages.size
+    };
+  }
+  // Сброс к дефолтным настройкам
+  resetToDefaults() {
+    this.rules.clear();
+    this.customValidators.clear();
+    this.errorMessages.clear();
+    this.initializeDefaultRules();
+    this.initializeErrorMessages();
+    this.initializeCustomValidators();
+  }
+  // Экспорт/импорт конфигурации
+  exportConfig() {
+    return {
+      rules: Array.from(this.rules.entries()),
+      customValidators: Array.from(this.customValidators.keys()),
+      errorMessages: Array.from(this.errorMessages.entries())
+    };
+  }
+  importConfig(config) {
+    if (config.rules) {
+      this.rules = new Map(config.rules);
+    }
+    if (config.errorMessages) {
+      this.errorMessages = new Map(config.errorMessages);
+    }
+  }
+};
+window.ValidationManager = new ValidationManager();
+var validationStyles = `
+.validation-success {
+    border-color: #28a745 !important;
+    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25) !important;
+}
+
+.validation-error {
+    border-color: #dc3545 !important;
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25) !important;
+}
+
+.validation-error-message {
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+.field-error {
+    color: #f44336;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.validation-hint {
+    color: #6c757d;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group.has-error .form-control {
+    border-color: #dc3545;
+}
+
+.form-group.has-success .form-control {
+    border-color: #28a745;
+}
+
+.real-time-validation {
+    transition: all 0.3s ease;
+}
+`;
+if (typeof document !== "undefined") {
+  const styleSheet = document.createElement("style");
+  styleSheet.textContent = validationStyles;
+  document.head.appendChild(styleSheet);
+}
+
+// static/js/services/storage.js
+var StorageManager = class {
+  // ===== МЕТОДЫ ДЛЯ АУТЕНТИФИКАЦИИ =====
+  static setToken(token) {
+    localStorage.setItem("auth_token", token);
+  }
+  static getToken() {
+    return localStorage.getItem("auth_token");
+  }
+  static removeToken() {
+    localStorage.removeItem("auth_token");
+  }
+  static setUserData(userData) {
+    localStorage.setItem("user_data", JSON.stringify(userData));
+  }
+  static getUserData() {
+    const data = localStorage.getItem("user_data");
+    return data ? JSON.parse(data) : null;
+  }
+  // ===== МЕТОДЫ ДЛЯ ДАННЫХ ПРОФИЛЯ =====
+  /**
+   * Сохранение личных данных пользователя
+   */
+  static savePersonalData(formData = null) {
+    let data;
+    if (formData) {
+      data = {
+        firstName: formData.firstName || "",
+        lastName: formData.lastName || "",
+        email: formData.email || "",
+        phone: formData.phone || "",
+        birthDate: formData.birthDate || "",
+        bio: formData.bio || "",
+        interests: formData.interests || "",
+        grade: formData.grade || "",
+        school: formData.school || "",
+        lastUpdated: (/* @__PURE__ */ new Date()).toISOString()
+      };
+    } else {
+      data = {
+        firstName: document.getElementById("firstName")?.value || "",
+        lastName: document.getElementById("lastName")?.value || "",
+        email: document.getElementById("email")?.value || "",
+        phone: document.getElementById("phone")?.value || "",
+        birthDate: document.getElementById("birthDate")?.value || "",
+        bio: document.getElementById("bio")?.value || "",
+        interests: document.getElementById("interests")?.value || "",
+        grade: document.getElementById("grade")?.value || "",
+        school: document.getElementById("school")?.value || "",
+        lastUpdated: (/* @__PURE__ */ new Date()).toISOString()
+      };
+    }
+    console.log("\u0421\u043E\u0445\u0440\u0430\u043D\u0435\u043D\u0438\u0435 \u043B\u0438\u0447\u043D\u044B\u0445 \u0434\u0430\u043D\u043D\u044B\u0445:", data);
+    localStorage.setItem("personalData", JSON.stringify(data));
+    return data;
+  }
+  /**
+   * Загрузка личных данных
+   */
+  static loadPersonalData() {
+    const personalData = JSON.parse(localStorage.getItem("personalData"));
+    if (personalData) {
+      if (document.getElementById("firstName")) {
+        document.getElementById("firstName").value = personalData.firstName || "";
+      }
+      if (document.getElementById("lastName")) {
+        document.getElementById("lastName").value = personalData.lastName || "";
+      }
+      if (document.getElementById("email")) {
+        document.getElementById("email").value = personalData.email || "";
+      }
+      if (document.getElementById("phone")) {
+        document.getElementById("phone").value = personalData.phone || "";
+      }
+      if (document.getElementById("birthDate")) {
+        document.getElementById("birthDate").value = personalData.birthDate || "";
+      }
+      if (document.getElementById("bio")) {
+        document.getElementById("bio").value = personalData.bio || "";
+      }
+      if (document.getElementById("interests")) {
+        document.getElementById("interests").value = personalData.interests || "";
+      }
+      if (document.getElementById("grade")) {
+        document.getElementById("grade").value = personalData.grade || "";
+      }
+      if (document.getElementById("school")) {
+        document.getElementById("school").value = personalData.school || "";
+      }
+    }
+    return personalData;
+  }
+  /**
+   * Сохранение настроек безопасности
+   */
+  static saveSecuritySettings(formData = null) {
+    let data;
+    if (formData) {
+      data = {
+        twoFactor: formData.twoFactor || false,
+        loginNotifications: formData.loginNotifications || false,
+        lastUpdated: (/* @__PURE__ */ new Date()).toISOString()
+      };
+    } else {
+      const checkboxes = document.querySelectorAll('#securityForm input[type="checkbox"]');
+      data = {
+        twoFactor: checkboxes[0]?.checked || false,
+        loginNotifications: checkboxes[1]?.checked || false,
+        lastUpdated: (/* @__PURE__ */ new Date()).toISOString()
+      };
+    }
+    console.log("\u0421\u043E\u0445\u0440\u0430\u043D\u0435\u043D\u0438\u0435 \u043D\u0430\u0441\u0442\u0440\u043E\u0435\u043A \u0431\u0435\u0437\u043E\u043F\u0430\u0441\u043D\u043E\u0441\u0442\u0438:", data);
+    localStorage.setItem("securitySettings", JSON.stringify(data));
+    return data;
+  }
+  /**
+   * Загрузка настроек безопасности
+   */
+  static loadSecuritySettings() {
+    const securitySettings = JSON.parse(localStorage.getItem("securitySettings"));
+    if (securitySettings) {
+      const checkboxes = document.querySelectorAll('#securityForm input[type="checkbox"]');
+      if (checkboxes[0]) {
+        checkboxes[0].checked = securitySettings.twoFactor || false;
+      }
+      if (checkboxes[1]) {
+        checkboxes[1].checked = securitySettings.loginNotifications || false;
+      }
+    }
+    return securitySettings;
+  }
+  /**
+   * Сохранение настроек внешнего вида
+   */
+  static saveAppearanceSettings() {
+    const data = {
+      theme: localStorage.getItem("selectedTheme") || "light",
+      fontSize: localStorage.getItem("selectedFontSize") || "medium",
+      density: localStorage.getItem("selectedDensity") || "normal",
+      lastUpdated: (/* @__PURE__ */ new Date()).toISOString()
+    };
+    console.log("\u0421\u043E\u0445\u0440\u0430\u043D\u0435\u043D\u0438\u0435 \u043D\u0430\u0441\u0442\u0440\u043E\u0435\u043A \u0432\u043D\u0435\u0448\u043D\u0435\u0433\u043E \u0432\u0438\u0434\u0430:", data);
+    localStorage.setItem("appearanceSettings", JSON.stringify(data));
+    return data;
+  }
+  /**
+   * Загрузка настроек внешнего вида
+   */
+  static loadAppearanceSettings() {
+    return JSON.parse(localStorage.getItem("appearanceSettings"));
+  }
+  /**
+   * Загрузка всех сохраненных данных
+   */
+  static loadAllSavedData() {
+    this.loadPersonalData();
+    this.loadSecuritySettings();
+    return {
+      personalData: this.loadPersonalData(),
+      securitySettings: this.loadSecuritySettings(),
+      appearanceSettings: this.loadAppearanceSettings()
+    };
+  }
+  // ===== МЕТОДЫ ДЛЯ АВАТАРА =====
+  /**
+   * Сохранение аватара
+   */
+  static saveAvatar(avatarData) {
+    if (avatarData) {
+      localStorage.setItem("userAvatar", avatarData);
+      console.log("\u0410\u0432\u0430\u0442\u0430\u0440 \u0441\u043E\u0445\u0440\u0430\u043D\u0435\u043D");
+      return true;
+    }
+    return false;
+  }
+  /**
+   * Получение аватара
+   */
+  static getAvatar() {
+    return localStorage.getItem("userAvatar");
+  }
+  /**
+   * Удаление аватара
+   */
+  static removeAvatar() {
+    localStorage.removeItem("userAvatar");
+    console.log("\u0410\u0432\u0430\u0442\u0430\u0440 \u0443\u0434\u0430\u043B\u0435\u043D");
+  }
+  // ===== МЕТОДЫ ДЛЯ НАСТРОЕК ТЕМЫ =====
+  /**
+   * Сохранение выбранной темы
+   */
+  static setTheme(themeName) {
+    localStorage.setItem("selectedTheme", themeName);
+  }
+  /**
+   * Получение выбранной темы
+   */
+  static getTheme() {
+    return localStorage.getItem("selectedTheme") || "light";
+  }
+  /**
+   * Сохранение размера шрифта
+   */
+  static setFontSize(size) {
+    localStorage.setItem("selectedFontSize", size);
+  }
+  /**
+   * Получение размера шрифта
+   */
+  static getFontSize() {
+    return localStorage.getItem("selectedFontSize") || "medium";
+  }
+  /**
+   * Сохранение плотности интерфейса
+   */
+  static setDensity(density) {
+    localStorage.setItem("selectedDensity", density);
+  }
+  /**
+   * Получение плотности интерфейса
+   */
+  static getDensity() {
+    return localStorage.getItem("selectedDensity") || "normal";
+  }
+  // ===== МЕТОДЫ ДЛЯ УПРАВЛЕНИЯ КУРСАМИ =====
+  /**
+   * Сохранение данных о курсах
+   */
+  static saveCourseProgress(courseId, progressData) {
+    const courses = this.getCourseProgress();
+    courses[courseId] = {
+      ...progressData,
+      lastUpdated: (/* @__PURE__ */ new Date()).toISOString()
+    };
+    localStorage.setItem("courseProgress", JSON.stringify(courses));
+    return courses[courseId];
+  }
+  /**
+   * Получение прогресса по курсам
+   */
+  static getCourseProgress() {
+    return JSON.parse(localStorage.getItem("courseProgress")) || {};
+  }
+  /**
+   * Получение прогресса по конкретному курсу
+   */
+  static getCourseProgressById(courseId) {
+    const courses = this.getCourseProgress();
+    return courses[courseId] || null;
+  }
+  // ===== МЕТОДЫ ДЛЯ НАСТРОЕК УВЕДОМЛЕНИЙ =====
+  /**
+   * Сохранение настроек уведомлений
+   */
+  static saveNotificationSettings(settings) {
+    const data = {
+      ...settings,
+      lastUpdated: (/* @__PURE__ */ new Date()).toISOString()
+    };
+    localStorage.setItem("notificationSettings", JSON.stringify(data));
+    return data;
+  }
+  /**
+   * Получение настроек уведомлений
+   */
+  static getNotificationSettings() {
+    return JSON.parse(localStorage.getItem("notificationSettings")) || {
+      emailNotifications: true,
+      pushNotifications: true,
+      assignmentReminders: true,
+      gradeNotifications: true,
+      courseUpdates: true
+    };
+  }
+  // ===== МЕТОДЫ ДЛЯ ИЗБРАННОГО =====
+  /**
+   * Добавление в избранное
+   */
+  static addToFavorites(itemId, itemType) {
+    const favorites = this.getFavorites();
+    const key = `${itemType}_${itemId}`;
+    if (!favorites[key]) {
+      favorites[key] = {
+        id: itemId,
+        type: itemType,
+        addedAt: (/* @__PURE__ */ new Date()).toISOString()
+      };
+      localStorage.setItem("userFavorites", JSON.stringify(favorites));
+    }
+    return favorites;
+  }
+  /**
+   * Удаление из избранного
+   */
+  static removeFromFavorites(itemId, itemType) {
+    const favorites = this.getFavorites();
+    const key = `${itemType}_${itemId}`;
+    if (favorites[key]) {
+      delete favorites[key];
+      localStorage.setItem("userFavorites", JSON.stringify(favorites));
+    }
+    return favorites;
+  }
+  /**
+   * Получение избранного
+   */
+  static getFavorites() {
+    return JSON.parse(localStorage.getItem("userFavorites")) || {};
+  }
+  /**
+   * Проверка, находится ли элемент в избранном
+   */
+  static isFavorite(itemId, itemType) {
+    const favorites = this.getFavorites();
+    const key = `${itemType}_${itemId}`;
+    return !!favorites[key];
+  }
+  // ===== МЕТОДЫ ДЛЯ ИСТОРИИ ДЕЙСТВИЙ =====
+  /**
+   * Добавление действия в историю
+   */
+  static addToHistory(action, itemId, itemType, metadata = {}) {
+    const history = this.getHistory();
+    const actionId = `action_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    history[actionId] = {
+      id: actionId,
+      action,
+      itemId,
+      itemType,
+      metadata,
+      timestamp: (/* @__PURE__ */ new Date()).toISOString()
+    };
+    const historyArray = Object.values(history);
+    if (historyArray.length > 100) {
+      const sorted = historyArray.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+      const toKeep = sorted.slice(0, 100);
+      const newHistory = {};
+      toKeep.forEach((item) => {
+        newHistory[item.id] = item;
+      });
+      localStorage.setItem("userHistory", JSON.stringify(newHistory));
+    } else {
+      localStorage.setItem("userHistory", JSON.stringify(history));
+    }
+    return history[actionId];
+  }
+  /**
+   * Получение истории действий
+   */
+  static getHistory() {
+    return JSON.parse(localStorage.getItem("userHistory")) || {};
+  }
+  /**
+   * Очистка истории действий
+   */
+  static clearHistory() {
+    localStorage.removeItem("userHistory");
+    return {};
+  }
+  // ===== УТИЛИТЫ И СЛУЖЕБНЫЕ МЕТОДЫ =====
+  /**
+   * Получение всех данных пользователя
+   */
+  static getAllUserData() {
+    return {
+      auth: {
+        token: this.getToken(),
+        userData: this.getUserData()
+      },
+      profile: {
+        personal: this.loadPersonalData(),
+        security: this.loadSecuritySettings(),
+        appearance: this.loadAppearanceSettings(),
+        avatar: this.getAvatar()
+      },
+      preferences: {
+        theme: this.getTheme(),
+        fontSize: this.getFontSize(),
+        density: this.getDensity(),
+        notifications: this.getNotificationSettings()
+      },
+      learning: {
+        courseProgress: this.getCourseProgress(),
+        favorites: this.getFavorites(),
+        history: this.getHistory()
+      }
+    };
+  }
+  /**
+   * Экспорт всех данных пользователя
+   */
+  static exportUserData() {
+    const data = this.getAllUserData();
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `user-data-backup-${(/* @__PURE__ */ new Date()).toISOString().split("T")[0]}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    return data;
+  }
+  /**
+   * Импорт данных пользователя
+   */
+  static importUserData(jsonData) {
+    try {
+      const data = typeof jsonData === "string" ? JSON.parse(jsonData) : jsonData;
+      if (data.auth) {
+        if (data.auth.token) this.setToken(data.auth.token);
+        if (data.auth.userData) this.setUserData(data.auth.userData);
+      }
+      if (data.profile) {
+        if (data.profile.personal) localStorage.setItem("personalData", JSON.stringify(data.profile.personal));
+        if (data.profile.security) localStorage.setItem("securitySettings", JSON.stringify(data.profile.security));
+        if (data.profile.appearance) localStorage.setItem("appearanceSettings", JSON.stringify(data.profile.appearance));
+        if (data.profile.avatar) this.saveAvatar(data.profile.avatar);
+      }
+      if (data.preferences) {
+        if (data.preferences.theme) this.setTheme(data.preferences.theme);
+        if (data.preferences.fontSize) this.setFontSize(data.preferences.fontSize);
+        if (data.preferences.density) this.setDensity(data.preferences.density);
+        if (data.preferences.notifications) this.saveNotificationSettings(data.preferences.notifications);
+      }
+      if (data.learning) {
+        if (data.learning.courseProgress) localStorage.setItem("courseProgress", JSON.stringify(data.learning.courseProgress));
+        if (data.learning.favorites) localStorage.setItem("userFavorites", JSON.stringify(data.learning.favorites));
+        if (data.learning.history) localStorage.setItem("userHistory", JSON.stringify(data.learning.history));
+      }
+      console.log("\u0414\u0430\u043D\u043D\u044B\u0435 \u0443\u0441\u043F\u0435\u0448\u043D\u043E \u0438\u043C\u043F\u043E\u0440\u0442\u0438\u0440\u043E\u0432\u0430\u043D\u044B");
+      return true;
+    } catch (error) {
+      console.error("\u041E\u0448\u0438\u0431\u043A\u0430 \u0438\u043C\u043F\u043E\u0440\u0442\u0430 \u0434\u0430\u043D\u043D\u044B\u0445:", error);
+      return false;
+    }
+  }
+  /**
+   * Очистка всех данных пользователя
+   */
+  static clearAll() {
+    const keys = [
+      "auth_token",
+      "user_data",
+      "personalData",
+      "securitySettings",
+      "appearanceSettings",
+      "userAvatar",
+      "selectedTheme",
+      "selectedFontSize",
+      "selectedDensity",
+      "courseProgress",
+      "notificationSettings",
+      "userFavorites",
+      "userHistory"
+    ];
+    keys.forEach((key) => {
+      localStorage.removeItem(key);
+    });
+    console.log("\u0412\u0441\u0435 \u0434\u0430\u043D\u043D\u044B\u0435 \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044F \u043E\u0447\u0438\u0449\u0435\u043D\u044B");
+  }
+  /**
+   * Получение статистики хранилища
+   */
+  static getStorageStats() {
+    let totalSize = 0;
+    const items = {};
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      const value = localStorage.getItem(key);
+      const size = new Blob([value]).size;
+      items[key] = {
+        size,
+        sizeFormatted: this.formatBytes(size),
+        value: key.includes("token") ? "***" : value.substring(0, 100) + (value.length > 100 ? "..." : "")
+      };
+      totalSize += size;
+    }
+    return {
+      totalItems: localStorage.length,
+      totalSize,
+      totalSizeFormatted: this.formatBytes(totalSize),
+      items
+    };
+  }
+  /**
+   * Форматирование размера в байтах
+   */
+  static formatBytes(bytes, decimals = 2) {
+    if (bytes === 0) return "0 Bytes";
+    const k = 1024;
+    const dm = decimals < 0 ? 0 : decimals;
+    const sizes = ["Bytes", "KB", "MB", "GB"];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];
+  }
+  /**
+   * Проверка поддержки localStorage
+   */
+  static isSupported() {
+    try {
+      const test = "test";
+      localStorage.setItem(test, test);
+      localStorage.removeItem(test);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+  /**
+   * Резервное копирование в сессионное хранилище
+   */
+  static backupToSessionStorage() {
+    const backup = {};
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      backup[key] = localStorage.getItem(key);
+    }
+    sessionStorage.setItem("localStorageBackup", JSON.stringify(backup));
+    console.log("\u0420\u0435\u0437\u0435\u0440\u0432\u043D\u0430\u044F \u043A\u043E\u043F\u0438\u044F \u0441\u043E\u0437\u0434\u0430\u043D\u0430 \u0432 sessionStorage");
+    return backup;
+  }
+  /**
+   * Восстановление из сессионного хранилища
+   */
+  static restoreFromSessionStorage() {
+    const backup = sessionStorage.getItem("localStorageBackup");
+    if (backup) {
+      const data = JSON.parse(backup);
+      this.clearAll();
+      Object.keys(data).forEach((key) => {
+        localStorage.setItem(key, data[key]);
+      });
+      console.log("\u0414\u0430\u043D\u043D\u044B\u0435 \u0432\u043E\u0441\u0441\u0442\u0430\u043D\u043E\u0432\u043B\u0435\u043D\u044B \u0438\u0437 sessionStorage");
+      return true;
+    }
+    console.warn("\u0420\u0435\u0437\u0435\u0440\u0432\u043D\u0430\u044F \u043A\u043E\u043F\u0438\u044F \u043D\u0435 \u043D\u0430\u0439\u0434\u0435\u043D\u0430 \u0432 sessionStorage");
+    return false;
+  }
+};
+window.StorageManager = StorageManager;
+
+// static/js/modules/upload.js
+var UploadManager = class {
+  constructor() {
+    this.uploads = /* @__PURE__ */ new Map();
+    this.activeUploads = /* @__PURE__ */ new Map();
+    this.queuedUploads = [];
+    this.maxConcurrentUploads = 3;
+    this.isActive = false;
+    this.config = {
+      maxFileSize: 100 * 1024 * 1024,
+      // 100MB
+      allowedFileTypes: [
+        // Документы
+        ".pdf",
+        ".doc",
+        ".docx",
+        ".txt",
+        ".rtf",
+        // Таблицы
+        ".xls",
+        ".xlsx",
+        ".csv",
+        // Презентации
+        ".ppt",
+        ".pptx",
+        // Изображения
+        ".jpg",
+        ".jpeg",
+        ".png",
+        ".gif",
+        ".bmp",
+        ".webp",
+        ".svg",
+        // Архивы
+        ".zip",
+        ".rar",
+        ".7z",
+        // Код
+        ".js",
+        ".html",
+        ".css",
+        ".py",
+        ".java",
+        ".cpp",
+        ".c",
+        ".php",
+        // Видео
+        ".mp4",
+        ".avi",
+        ".mov",
+        ".wmv",
+        // Аудио
+        ".mp3",
+        ".wav",
+        ".ogg"
+      ],
+      chunkSize: 5 * 1024 * 1024,
+      // 5MB chunks для больших файлов
+      maxRetries: 3,
+      retryDelay: 1e3,
+      autoUpload: true,
+      debug: false
+    };
+    this.uploadTypes = {
+      HOMEWORK: "homework",
+      COURSE_MATERIAL: "course_material",
+      PROFILE_IMAGE: "profile_image",
+      PRACTICE_CODE: "practice_code",
+      SUBMISSION: "submission",
+      GENERAL: "general"
+    };
+    this.avatarConfig = {
+      maxFileSize: 5 * 1024 * 1024,
+      // 5MB для аватаров
+      allowedFileTypes: [".jpg", ".jpeg", ".png", ".gif", ".webp", ".svg"],
+      maxWidth: 500,
+      maxHeight: 500,
+      quality: 0.8
+    };
+  }
+  // ===== МЕТОДЫ ДЛЯ АВАТАРОВ =====
+  /**
+   * Инициализация загрузки аватара
+   * @param {HTMLElement} avatarContainer - Контейнер аватара
+   * @param {HTMLElement} avatarImage - Элемент изображения аватара
+   * @param {Object} options - Дополнительные опции
+   */
+  initAvatarUpload(avatarContainer, avatarImage, options = {}) {
+    if (!avatarContainer || !avatarImage) {
+      console.warn("Avatar container or image element not found");
+      return;
+    }
+    const config = { ...this.avatarConfig, ...options };
+    const fileInput = document.createElement("input");
+    fileInput.type = "file";
+    fileInput.accept = config.allowedFileTypes.join(",");
+    fileInput.style.display = "none";
+    avatarContainer.appendChild(fileInput);
+    avatarContainer.addEventListener("click", () => {
+      fileInput.click();
+    });
+    fileInput.addEventListener("change", async (event) => {
+      const file = event.target.files[0];
+      if (file) {
+        try {
+          await this.handleAvatarUpload(file, avatarImage, config);
+        } catch (error) {
+          console.error("Avatar upload error:", error);
+          this.showNotification("\u041E\u0448\u0438\u0431\u043A\u0430 \u0437\u0430\u0433\u0440\u0443\u0437\u043A\u0438 \u0430\u0432\u0430\u0442\u0430\u0440\u0430", "error");
+        }
+      }
+      event.target.value = "";
+    });
+    this.loadSavedAvatar(avatarImage);
+    console.log("Avatar upload initialized");
+  }
+  /**
+   * Обработка загрузки аватара
+   */
+  async handleAvatarUpload(file, avatarImage, config) {
+    const validation = this.validateFile(file, config);
+    if (!validation.isValid) {
+      validation.errors.forEach((error) => {
+        this.showNotification(error, "error");
+      });
+      return;
+    }
+    const previewUrl = URL.createObjectURL(file);
+    avatarImage.src = previewUrl;
+    try {
+      const processedFile = await this.processImage(file, config);
+      const dataUrl = await this.fileToDataURL(processedFile);
+      localStorage.setItem("userAvatar", dataUrl);
+      const uploadId = await this.uploadFile(processedFile, {
+        uploadType: this.uploadTypes.PROFILE_IMAGE,
+        metadata: {
+          originalName: file.name,
+          processed: true,
+          timestamp: (/* @__PURE__ */ new Date()).toISOString()
+        }
+      });
+      this.showNotification("\u0410\u0432\u0430\u0442\u0430\u0440 \u0443\u0441\u043F\u0435\u0448\u043D\u043E \u043E\u0431\u043D\u043E\u0432\u043B\u0435\u043D", "success");
+      URL.revokeObjectURL(previewUrl);
+      return uploadId;
+    } catch (error) {
+      this.loadSavedAvatar(avatarImage);
+      throw error;
+    }
+  }
+  /**
+   * Обработка изображения (сжатие и ресайз)
+   */
+  async processImage(file, config) {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
+      img.onload = () => {
+        try {
+          let { width, height } = this.calculateAspectRatio(
+            img.width,
+            img.height,
+            config.maxWidth,
+            config.maxHeight
+          );
+          canvas.width = width;
+          canvas.height = height;
+          ctx.drawImage(img, 0, 0, width, height);
+          canvas.toBlob(
+            (blob) => {
+              if (blob) {
+                const processedFile = new File([blob], file.name, {
+                  type: file.type,
+                  lastModified: Date.now()
+                });
+                resolve(processedFile);
+              } else {
+                reject(new Error("Failed to process image"));
+              }
+            },
+            file.type,
+            config.quality
+          );
+        } catch (error) {
+          reject(error);
+        }
+      };
+      img.onerror = () => reject(new Error("Failed to load image"));
+      img.src = URL.createObjectURL(file);
+    });
+  }
+  /**
+   * Расчет пропорций изображения
+   */
+  calculateAspectRatio(originalWidth, originalHeight, maxWidth, maxHeight) {
+    let width = originalWidth;
+    let height = originalHeight;
+    if (width > maxWidth) {
+      height = height * maxWidth / width;
+      width = maxWidth;
+    }
+    if (height > maxHeight) {
+      width = width * maxHeight / height;
+      height = maxHeight;
+    }
+    return { width, height };
+  }
+  /**
+   * Конвертация File в DataURL
+   */
+  fileToDataURL(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (e) => resolve(e.target.result);
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+  /**
+   * Загрузка сохраненного аватара
+   */
+  loadSavedAvatar(avatarImage) {
+    const savedAvatar = localStorage.getItem("userAvatar");
+    if (savedAvatar) {
+      avatarImage.src = savedAvatar;
+    }
+  }
+  /**
+   * Удаление аватара
+   */
+  removeAvatar(avatarImage) {
+    localStorage.removeItem("userAvatar");
+    avatarImage.src = this.getDefaultAvatar();
+    this.removeServerAvatar();
+    this.showNotification("\u0410\u0432\u0430\u0442\u0430\u0440 \u0443\u0434\u0430\u043B\u0435\u043D", "info");
+  }
+  /**
+   * Получение аватара по умолчанию
+   */
+  getDefaultAvatar() {
+    return "/static/assets/images/default-avatar.png";
+  }
+  /**
+   * Удаление аватара на сервере
+   */
+  async removeServerAvatar() {
+    try {
+      const response = await fetch("/api/profile/avatar", {
+        method: "DELETE",
+        headers: {
+          "Authorization": `Bearer ${this.getAuthToken()}`
+        }
+      });
+      if (!response.ok) {
+        throw new Error("Failed to remove avatar from server");
+      }
+      return await response.json();
+    } catch (error) {
+      console.error("Error removing server avatar:", error);
+      throw error;
+    }
+  }
+  /**
+   * Получение URL аватара пользователя
+   */
+  getUserAvatarUrl(userId = null) {
+    if (userId) {
+      return `/api/users/${userId}/avatar`;
+    }
+    const savedAvatar = localStorage.getItem("userAvatar");
+    if (savedAvatar) {
+      return savedAvatar;
+    }
+    return this.getDefaultAvatar();
+  }
+  // ===== ОСНОВНЫЕ МЕТОДЫ UPLOAD MANAGER =====
+  async activate(config = {}) {
+    this.isActive = true;
+    this.config = { ...this.config, ...config };
+    try {
+      this.setupEventListeners();
+      this.initializeUploadAreas();
+      this.startQueueProcessor();
+      console.log("Upload Manager activated");
+    } catch (error) {
+      console.error("Error activating Upload Manager:", error);
+    }
+  }
+  deactivate() {
+    this.isActive = false;
+    this.cleanupEventListeners();
+    this.stopQueueProcessor();
+    this.cancelAllUploads();
+    console.log("Upload Manager deactivated");
+  }
+  // Инициализация областей загрузки
+  initializeUploadAreas() {
+    const uploadElements = document.querySelectorAll("[data-upload]");
+    uploadElements.forEach((element) => {
+      this.initializeUploadElement(element);
+    });
+    const avatarElements = document.querySelectorAll("[data-avatar-upload]");
+    avatarElements.forEach((element) => {
+      const avatarImage = element.querySelector("img") || document.getElementById("profileAvatar");
+      this.initAvatarUpload(element, avatarImage, {
+        maxFileSize: element.dataset.maxSize || this.avatarConfig.maxFileSize
+      });
+    });
+  }
+  initializeUploadElement(element) {
+    const uploadType = element.dataset.upload;
+    const allowedTypes = element.dataset.allowedTypes;
+    const maxSize = element.dataset.maxSize;
+    const config = {
+      uploadType,
+      allowedFileTypes: allowedTypes ? allowedTypes.split(",") : this.config.allowedFileTypes,
+      maxFileSize: maxSize ? parseInt(maxSize) : this.config.maxFileSize
+    };
+    if (!element.querySelector('input[type="file"]')) {
+      const fileInput2 = document.createElement("input");
+      fileInput2.type = "file";
+      fileInput2.multiple = element.dataset.multiple !== void 0;
+      fileInput2.accept = config.allowedFileTypes.join(",");
+      fileInput2.style.display = "none";
+      element.appendChild(fileInput2);
+    }
+    const fileInput = element.querySelector('input[type="file"]');
+    fileInput.addEventListener("change", (event) => {
+      this.handleFileSelect(event, element, config);
+    });
+    if (element.dataset.dragDrop !== "false") {
+      this.setupDragAndDrop(element, fileInput, config);
+    }
+    element._uploadConfig = config;
+  }
+  setupDragAndDrop(element, fileInput, config) {
+    element.addEventListener("dragover", (event) => {
+      event.preventDefault();
+      element.classList.add("drag-over");
+    });
+    element.addEventListener("dragleave", (event) => {
+      event.preventDefault();
+      element.classList.remove("drag-over");
+    });
+    element.addEventListener("drop", (event) => {
+      event.preventDefault();
+      element.classList.remove("drag-over");
+      const files = Array.from(event.dataTransfer.files);
+      this.handleFilesSelection(files, element, config);
+    });
+  }
+  // Обработка выбора файлов
+  handleFileSelect(event, element, config) {
+    const files = Array.from(event.target.files);
+    this.handleFilesSelection(files, element, config);
+    event.target.value = "";
+  }
+  handleFilesSelection(files, element, config) {
+    const validFiles = [];
+    const errors = [];
+    files.forEach((file) => {
+      const validation = this.validateFile(file, config);
+      if (validation.isValid) {
+        validFiles.push(file);
+      } else {
+        errors.push(...validation.errors);
+      }
+    });
+    if (errors.length > 0) {
+      errors.forEach((error) => {
+        this.showNotification(error, "error");
+      });
+    }
+    if (validFiles.length > 0) {
+      this.processFiles(validFiles, element, config);
+    }
+  }
+  // Валидация файлов
+  validateFile(file, config) {
+    const errors = [];
+    if (file.size > config.maxFileSize) {
+      const maxSizeMB = (config.maxFileSize / (1024 * 1024)).toFixed(2);
+      errors.push(`\u0424\u0430\u0439\u043B "${file.name}" \u0441\u043B\u0438\u0448\u043A\u043E\u043C \u0431\u043E\u043B\u044C\u0448\u043E\u0439. \u041C\u0430\u043A\u0441\u0438\u043C\u0430\u043B\u044C\u043D\u044B\u0439 \u0440\u0430\u0437\u043C\u0435\u0440: ${maxSizeMB}MB`);
+    }
+    const fileExtension = "." + file.name.split(".").pop().toLowerCase();
+    const isValidType = config.allowedFileTypes.some((type) => {
+      if (type.startsWith(".")) {
+        return type === fileExtension;
+      }
+      return file.type === type;
+    });
+    if (!isValidType) {
+      errors.push(`\u0422\u0438\u043F \u0444\u0430\u0439\u043B\u0430 "${file.name}" \u043D\u0435 \u043F\u043E\u0434\u0434\u0435\u0440\u0436\u0438\u0432\u0430\u0435\u0442\u0441\u044F. \u0420\u0430\u0437\u0440\u0435\u0448\u0435\u043D\u044B: ${config.allowedFileTypes.join(", ")}`);
+    }
+    return {
+      isValid: errors.length === 0,
+      errors,
+      file
+    };
+  }
+  // Обработка файлов
+  processFiles(files, element, config) {
+    files.forEach((file) => {
+      const uploadId = this.generateUploadId();
+      const uploadInfo = {
+        id: uploadId,
+        file,
+        element,
+        config,
+        progress: 0,
+        status: "queued",
+        retries: 0,
+        chunks: [],
+        uploadedChunks: 0
+      };
+      this.uploads.set(uploadId, uploadInfo);
+      this.createFilePreview(uploadInfo);
+      if (this.config.autoUpload) {
+        this.queueUpload(uploadId);
+      }
+    });
+  }
+  // Создание превью файла
+  createFilePreview(uploadInfo) {
+    const { file, element, id } = uploadInfo;
+    const previewContainer = element.querySelector(".upload-preview") || this.createPreviewContainer(element);
+    const filePreview = document.createElement("div");
+    filePreview.className = "file-preview";
+    filePreview.dataset.uploadId = id;
+    const fileInfo = document.createElement("div");
+    fileInfo.className = "file-info";
+    fileInfo.innerHTML = `
+            <div class="file-name">${file.name}</div>
+            <div class="file-size">${this.formatFileSize(file.size)}</div>
+            <div class="file-status">\u0412 \u043E\u0447\u0435\u0440\u0435\u0434\u0438</div>
+        `;
+    const progressBar = document.createElement("div");
+    progressBar.className = "upload-progress";
+    progressBar.innerHTML = `
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 0%"></div>
+            </div>
+            <div class="progress-text">0%</div>
+        `;
+    const cancelButton = document.createElement("button");
+    cancelButton.className = "cancel-upload";
+    cancelButton.innerHTML = "\u274C";
+    cancelButton.title = "\u041E\u0442\u043C\u0435\u043D\u0438\u0442\u044C \u0437\u0430\u0433\u0440\u0443\u0437\u043A\u0443";
+    cancelButton.addEventListener("click", () => {
+      this.cancelUpload(id);
+    });
+    filePreview.appendChild(fileInfo);
+    filePreview.appendChild(progressBar);
+    filePreview.appendChild(cancelButton);
+    this.addFileIcon(filePreview, file);
+    previewContainer.appendChild(filePreview);
+    uploadInfo.previewElement = filePreview;
+  }
+  createPreviewContainer(element) {
+    const previewContainer = document.createElement("div");
+    previewContainer.className = "upload-preview";
+    element.appendChild(previewContainer);
+    return previewContainer;
+  }
+  addFileIcon(previewElement, file) {
+    const icon = document.createElement("div");
+    icon.className = "file-icon";
+    const extension = file.name.split(".").pop().toLowerCase();
+    const type = file.type.split("/")[0];
+    let iconText = "\u{1F4C4}";
+    if (type === "image") iconText = "\u{1F5BC}\uFE0F";
+    else if (type === "video") iconText = "\u{1F3AC}";
+    else if (type === "audio") iconText = "\u{1F3B5}";
+    else if (extension === "pdf") iconText = "\u{1F4D5}";
+    else if (["doc", "docx"].includes(extension)) iconText = "\u{1F4DD}";
+    else if (["xls", "xlsx", "csv"].includes(extension)) iconText = "\u{1F4CA}";
+    else if (["zip", "rar", "7z"].includes(extension)) iconText = "\u{1F4E6}";
+    else if (["js", "html", "css", "py", "java"].includes(extension)) iconText = "\u{1F4BB}";
+    icon.textContent = iconText;
+    previewElement.insertBefore(icon, previewElement.firstChild);
+  }
+  // Управление очередью загрузки
+  queueUpload(uploadId) {
+    this.queuedUploads.push(uploadId);
+    this.updateUploadStatus(uploadId, "queued");
+    this.processQueue();
+  }
+  startQueueProcessor() {
+    this.queueInterval = setInterval(() => {
+      this.processQueue();
+    }, 1e3);
+  }
+  stopQueueProcessor() {
+    if (this.queueInterval) {
+      clearInterval(this.queueInterval);
+    }
+  }
+  processQueue() {
+    const availableSlots = this.maxConcurrentUploads - this.activeUploads.size;
+    if (availableSlots > 0 && this.queuedUploads.length > 0) {
+      const uploadsToStart = this.queuedUploads.splice(0, availableSlots);
+      uploadsToStart.forEach((uploadId) => {
+        this.startUpload(uploadId);
+      });
+    }
+  }
+  // Загрузка файлов
+  async startUpload(uploadId) {
+    const uploadInfo = this.uploads.get(uploadId);
+    if (!uploadInfo) return;
+    if (uploadInfo.status === "cancelled") {
+      return;
+    }
+    this.activeUploads.set(uploadId, uploadInfo);
+    this.updateUploadStatus(uploadId, "uploading");
+    try {
+      if (uploadInfo.file.size > this.config.chunkSize) {
+        await this.uploadInChunks(uploadInfo);
+      } else {
+        await this.uploadSingleFile(uploadInfo);
+      }
+      this.updateUploadStatus(uploadId, "completed");
+      this.activeUploads.delete(uploadId);
+      this.showNotification(`\u0424\u0430\u0439\u043B "${uploadInfo.file.name}" \u0443\u0441\u043F\u0435\u0448\u043D\u043E \u0437\u0430\u0433\u0440\u0443\u0436\u0435\u043D`, "success");
+    } catch (error) {
+      console.error(`Upload failed for ${uploadInfo.file.name}:`, error);
+      if (uploadInfo.retries < this.config.maxRetries) {
+        uploadInfo.retries++;
+        this.updateUploadStatus(uploadId, "retrying");
+        setTimeout(() => {
+          this.queueUpload(uploadId);
+        }, this.config.retryDelay * uploadInfo.retries);
+      } else {
+        this.updateUploadStatus(uploadId, "error");
+        this.activeUploads.delete(uploadId);
+        this.showNotification(`\u041E\u0448\u0438\u0431\u043A\u0430 \u0437\u0430\u0433\u0440\u0443\u0437\u043A\u0438 \u0444\u0430\u0439\u043B\u0430 "${uploadInfo.file.name}"`, "error");
+      }
+    }
+  }
+  async uploadSingleFile(uploadInfo) {
+    const formData = new FormData();
+    formData.append("file", uploadInfo.file);
+    formData.append("uploadType", uploadInfo.config.uploadType);
+    formData.append("fileName", uploadInfo.file.name);
+    formData.append("fileSize", uploadInfo.file.size);
+    if (uploadInfo.metadata) {
+      formData.append("metadata", JSON.stringify(uploadInfo.metadata));
+    }
+    const xhr = new XMLHttpRequest();
+    return new Promise((resolve, reject) => {
+      xhr.upload.addEventListener("progress", (event) => {
+        if (event.lengthComputable) {
+          const progress = event.loaded / event.total * 100;
+          this.updateUploadProgress(uploadInfo.id, progress);
+        }
+      });
+      xhr.addEventListener("load", () => {
+        if (xhr.status >= 200 && xhr.status < 300) {
+          try {
+            const response = JSON.parse(xhr.responseText);
+            uploadInfo.response = response;
+            resolve(response);
+          } catch (error) {
+            reject(new Error("Invalid response format"));
+          }
+        } else {
+          reject(new Error(`Upload failed with status ${xhr.status}`));
+        }
+      });
+      xhr.addEventListener("error", () => {
+        reject(new Error("Upload failed"));
+      });
+      xhr.addEventListener("abort", () => {
+        reject(new Error("Upload cancelled"));
+      });
+      xhr.open("POST", this.getUploadEndpoint(uploadInfo.config.uploadType));
+      const token = this.getAuthToken();
+      if (token) {
+        xhr.setRequestHeader("Authorization", `Bearer ${token}`);
+      }
+      xhr.send(formData);
+      uploadInfo.xhr = xhr;
+    });
+  }
+  async uploadInChunks(uploadInfo) {
+    const file = uploadInfo.file;
+    const chunkSize = this.config.chunkSize;
+    const totalChunks = Math.ceil(file.size / chunkSize);
+    uploadInfo.totalChunks = totalChunks;
+    uploadInfo.chunks = [];
+    const sessionResponse = await this.createUploadSession(uploadInfo);
+    const sessionId = sessionResponse.sessionId;
+    uploadInfo.sessionId = sessionId;
+    for (let chunkIndex = 0; chunkIndex < totalChunks; chunkIndex++) {
+      if (uploadInfo.status === "cancelled") {
+        throw new Error("Upload cancelled");
+      }
+      const start = chunkIndex * chunkSize;
+      const end = Math.min(start + chunkSize, file.size);
+      const chunk = file.slice(start, end);
+      await this.uploadChunk(uploadInfo, chunk, chunkIndex, sessionId);
+      uploadInfo.uploadedChunks++;
+      const overallProgress = uploadInfo.uploadedChunks / totalChunks * 100;
+      this.updateUploadProgress(uploadInfo.id, overallProgress);
+    }
+    return await this.completeUploadSession(uploadInfo, sessionId);
+  }
+  async createUploadSession(uploadInfo) {
+    const response = await fetch("/api/upload/session", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${this.getAuthToken()}`
+      },
+      body: JSON.stringify({
+        fileName: uploadInfo.file.name,
+        fileSize: uploadInfo.file.size,
+        fileType: uploadInfo.file.type,
+        uploadType: uploadInfo.config.uploadType,
+        totalChunks: Math.ceil(uploadInfo.file.size / this.config.chunkSize),
+        metadata: uploadInfo.metadata
+      })
+    });
+    if (!response.ok) {
+      throw new Error("Failed to create upload session");
+    }
+    return await response.json();
+  }
+  async uploadChunk(uploadInfo, chunk, chunkIndex, sessionId) {
+    const formData = new FormData();
+    formData.append("chunk", chunk);
+    formData.append("chunkIndex", chunkIndex);
+    formData.append("sessionId", sessionId);
+    formData.append("totalChunks", uploadInfo.totalChunks);
+    const response = await fetch("/api/upload/chunk", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${this.getAuthToken()}`
+      },
+      body: formData
+    });
+    if (!response.ok) {
+      throw new Error(`Failed to upload chunk ${chunkIndex}`);
+    }
+    return await response.json();
+  }
+  async completeUploadSession(uploadInfo, sessionId) {
+    const response = await fetch("/api/upload/complete", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${this.getAuthToken()}`
+      },
+      body: JSON.stringify({
+        sessionId,
+        fileName: uploadInfo.file.name
+      })
+    });
+    if (!response.ok) {
+      throw new Error("Failed to complete upload session");
+    }
+    return await response.json();
+  }
+  // Управление загрузками
+  cancelUpload(uploadId) {
+    const uploadInfo = this.uploads.get(uploadId);
+    if (uploadInfo) {
+      uploadInfo.status = "cancelled";
+      if (uploadInfo.xhr) {
+        uploadInfo.xhr.abort();
+      }
+      this.activeUploads.delete(uploadId);
+      this.queuedUploads = this.queuedUploads.filter((id) => id !== uploadId);
+      this.updateUploadStatus(uploadId, "cancelled");
+      setTimeout(() => {
+        this.removeUploadPreview(uploadId);
+      }, 3e3);
+    }
+  }
+  cancelAllUploads() {
+    this.uploads.forEach((uploadInfo, uploadId) => {
+      this.cancelUpload(uploadId);
+    });
+    this.activeUploads.clear();
+    this.queuedUploads = [];
+  }
+  pauseUpload(uploadId) {
+    const uploadInfo = this.uploads.get(uploadId);
+    if (uploadInfo && uploadInfo.status === "uploading") {
+      uploadInfo.status = "paused";
+      if (uploadInfo.xhr) {
+        uploadInfo.xhr.abort();
+      }
+      this.activeUploads.delete(uploadId);
+      this.updateUploadStatus(uploadId, "paused");
+    }
+  }
+  resumeUpload(uploadId) {
+    const uploadInfo = this.uploads.get(uploadId);
+    if (uploadInfo && uploadInfo.status === "paused") {
+      this.queueUpload(uploadId);
+    }
+  }
+  // Обновление UI
+  updateUploadProgress(uploadId, progress) {
+    const uploadInfo = this.uploads.get(uploadId);
+    if (uploadInfo && uploadInfo.previewElement) {
+      uploadInfo.progress = progress;
+      const progressFill = uploadInfo.previewElement.querySelector(".progress-fill");
+      const progressText = uploadInfo.previewElement.querySelector(".progress-text");
+      if (progressFill) {
+        progressFill.style.width = `${progress}%`;
+      }
+      if (progressText) {
+        progressText.textContent = `${Math.round(progress)}%`;
+      }
+    }
+  }
+  updateUploadStatus(uploadId, status) {
+    const uploadInfo = this.uploads.get(uploadId);
+    if (uploadInfo) {
+      uploadInfo.status = status;
+      if (uploadInfo.previewElement) {
+        const statusElement = uploadInfo.previewElement.querySelector(".file-status");
+        const previewElement = uploadInfo.previewElement;
+        if (statusElement) {
+          const statusTexts = {
+            "queued": "\u0412 \u043E\u0447\u0435\u0440\u0435\u0434\u0438",
+            "uploading": "\u0417\u0430\u0433\u0440\u0443\u0436\u0430\u0435\u0442\u0441\u044F",
+            "paused": "\u041D\u0430 \u043F\u0430\u0443\u0437\u0435",
+            "retrying": "\u041F\u043E\u0432\u0442\u043E\u0440\u043D\u0430\u044F \u043F\u043E\u043F\u044B\u0442\u043A\u0430",
+            "completed": "\u0417\u0430\u0432\u0435\u0440\u0448\u0435\u043D\u043E",
+            "error": "\u041E\u0448\u0438\u0431\u043A\u0430",
+            "cancelled": "\u041E\u0442\u043C\u0435\u043D\u0435\u043D\u043E"
+          };
+          statusElement.textContent = statusTexts[status] || status;
+        }
+        previewElement.className = `file-preview status-${status}`;
+      }
+      this.dispatchUploadEvent(uploadId, status);
+    }
+  }
+  removeUploadPreview(uploadId) {
+    const uploadInfo = this.uploads.get(uploadId);
+    if (uploadInfo && uploadInfo.previewElement) {
+      uploadInfo.previewElement.remove();
+      this.uploads.delete(uploadId);
+    }
+  }
+  // Вспомогательные методы
+  getUploadEndpoint(uploadType) {
+    const endpoints = {
+      [this.uploadTypes.HOMEWORK]: "/api/upload/homework",
+      [this.uploadTypes.COURSE_MATERIAL]: "/api/upload/course-material",
+      [this.uploadTypes.PROFILE_IMAGE]: "/api/upload/profile-image",
+      [this.uploadTypes.PRACTICE_CODE]: "/api/upload/practice-code",
+      [this.uploadTypes.SUBMISSION]: "/api/upload/submission",
+      [this.uploadTypes.GENERAL]: "/api/upload/general"
+    };
+    return endpoints[uploadType] || endpoints[this.uploadTypes.GENERAL];
+  }
+  getAuthToken() {
+    return localStorage.getItem("auth_token") || document.cookie.replace(/(?:(?:^|.*;\s*)auth_token\s*=\s*([^;]*).*$)|^.*$/, "$1");
+  }
+  generateUploadId() {
+    return `upload_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+  }
+  formatFileSize(bytes) {
+    if (bytes === 0) return "0 Bytes";
+    const k = 1024;
+    const sizes = ["Bytes", "KB", "MB", "GB"];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
+  }
+  // Публичное API
+  async uploadFile(file, options = {}) {
+    const uploadId = this.generateUploadId();
+    const uploadInfo = {
+      id: uploadId,
+      file,
+      config: {
+        ...this.config,
+        ...options
+      },
+      progress: 0,
+      status: "queued",
+      metadata: options.metadata || {}
+    };
+    this.uploads.set(uploadId, uploadInfo);
+    if (this.config.autoUpload) {
+      await this.startUpload(uploadId);
+    }
+    return uploadId;
+  }
+  async uploadFiles(files, options = {}) {
+    const uploadIds = [];
+    for (const file of files) {
+      const uploadId = await this.uploadFile(file, options);
+      uploadIds.push(uploadId);
+    }
+    return uploadIds;
+  }
+  getUploadStatus(uploadId) {
+    const uploadInfo = this.uploads.get(uploadId);
+    if (!uploadInfo) {
+      return null;
+    }
+    return {
+      id: uploadInfo.id,
+      fileName: uploadInfo.file.name,
+      progress: uploadInfo.progress,
+      status: uploadInfo.status,
+      response: uploadInfo.response,
+      error: uploadInfo.error
+    };
+  }
+  getAllUploads() {
+    const uploads = [];
+    this.uploads.forEach((uploadInfo) => {
+      uploads.push(this.getUploadStatus(uploadInfo.id));
+    });
+    return uploads;
+  }
+  // События
+  setupEventListeners() {
+    document.addEventListener("upload:file-added", this.handleFileAdded.bind(this));
+    document.addEventListener("upload:progress", this.handleUploadProgress.bind(this));
+    document.addEventListener("upload:complete", this.handleUploadComplete.bind(this));
+    document.addEventListener("upload:error", this.handleUploadError.bind(this));
+  }
+  cleanupEventListeners() {
+    document.removeEventListener("upload:file-added", this.handleFileAdded.bind(this));
+    document.removeEventListener("upload:progress", this.handleUploadProgress.bind(this));
+    document.removeEventListener("upload:complete", this.handleUploadComplete.bind(this));
+    document.removeEventListener("upload:error", this.handleUploadError.bind(this));
+  }
+  handleFileAdded(event) {
+    this.logDebug("File added to upload queue:", event.detail);
+  }
+  handleUploadProgress(event) {
+    this.logDebug("Upload progress:", event.detail);
+  }
+  handleUploadComplete(event) {
+    this.logDebug("Upload completed:", event.detail);
+  }
+  handleUploadError(event) {
+    this.logDebug("Upload error:", event.detail);
+  }
+  dispatchUploadEvent(uploadId, eventType) {
+    const uploadInfo = this.uploads.get(uploadId);
+    if (!uploadInfo) return;
+    const event = new CustomEvent(`upload:${eventType}`, {
+      detail: {
+        uploadId,
+        fileName: uploadInfo.file.name,
+        progress: uploadInfo.progress,
+        status: uploadInfo.status,
+        response: uploadInfo.response,
+        file: uploadInfo.file
+      }
+    });
+    document.dispatchEvent(event);
+  }
+  // Утилиты
+  logDebug(message, data) {
+    if (this.config.debug) {
+      console.log(`[Upload Manager] ${message}`, data);
+    }
+  }
+  showNotification(message, type = "success") {
+    if (typeof NotificationManager !== "undefined") {
+      if (type === "success") {
+        NotificationManager.showSuccess(message);
+      } else if (type === "error") {
+        NotificationManager.showError(message);
+      } else {
+        NotificationManager.showInfo(message);
+      }
+    } else {
+      const notification = document.createElement("div");
+      notification.className = `upload-notification upload-notification-${type}`;
+      notification.textContent = message;
+      notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === "success" ? "#4CAF50" : type === "error" ? "#f44336" : "#2196F3"};
+                color: white;
+                padding: 12px 20px;
+                border-radius: 4px;
+                z-index: 10000;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            `;
+      document.body.appendChild(notification);
+      setTimeout(() => {
+        notification.remove();
+      }, 3e3);
+    }
+  }
+  // Статистика
+  getStats() {
+    return {
+      totalUploads: this.uploads.size,
+      activeUploads: this.activeUploads.size,
+      queuedUploads: this.queuedUploads.length,
+      completedUploads: Array.from(this.uploads.values()).filter((u) => u.status === "completed").length,
+      failedUploads: Array.from(this.uploads.values()).filter((u) => u.status === "error").length
+    };
+  }
+};
+window.UploadManager = new UploadManager();
+var uploadStyles = `
+.upload-area {
+    border: 2px dashed #d1d5db;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    background: #f9fafb;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.upload-area:hover {
+    border-color: #3b82f6;
+    background: #eff6ff;
+}
+
+.upload-area.drag-over {
+    border-color: #1d4ed8;
+    background: #dbeafe;
+}
+
+.upload-preview {
+    margin-top: 15px;
+}
+
+.file-preview {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    margin-bottom: 8px;
+    background: white;
+    transition: all 0.3s ease;
+}
+
+.file-preview.status-uploading {
+    border-left: 4px solid #3b82f6;
+}
+
+.file-preview.status-completed {
+    border-left: 4px solid #10b981;
+}
+
+.file-preview.status-error {
+    border-left: 4px solid #ef4444;
+}
+
+.file-preview.status-cancelled {
+    border-left: 4px solid #6b7280;
+}
+
+.file-preview.status-paused {
+    border-left: 4px solid #f59e0b;
+}
+
+.file-icon {
+    font-size: 24px;
+    margin-right: 12px;
+    flex-shrink: 0;
+}
+
+.file-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.file-name {
+    font-weight: 500;
+    margin-bottom: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.file-size {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin-bottom: 2px;
+}
+
+.file-status {
+    font-size: 0.875rem;
+    color: #374151;
+}
+
+.upload-progress {
+    margin: 0 12px;
+    min-width: 120px;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 6px;
+    background: #e5e7eb;
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 4px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: #3b82f6;
+    transition: width 0.3s ease;
+    border-radius: 3px;
+}
+
+.progress-text {
+    font-size: 0.75rem;
+    color: #6b7280;
+    text-align: center;
+}
+
+.cancel-upload {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    flex-shrink: 0;
+}
+
+.cancel-upload:hover {
+    background: #f3f4f6;
+}
+
+.upload-actions {
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.btn-upload {
+    background: #3b82f6;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.875rem;
+}
+
+.btn-upload:hover {
+    background: #2563eb;
+}
+
+.btn-upload:disabled {
+    background: #9ca3af;
+    cursor: not-allowed;
+}
+
+.btn-cancel-all {
+    background: #ef4444;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.875rem;
+}
+
+.btn-cancel-all:hover {
+    background: #dc2626;
+}
+
+/* \u0421\u0442\u0438\u043B\u0438 \u0434\u043B\u044F \u0430\u0432\u0430\u0442\u0430\u0440\u043E\u0432 */
+.avatar-container {
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.avatar-container:hover::after {
+    content: '\u0421\u043C\u0435\u043D\u0438\u0442\u044C \u0430\u0432\u0430\u0442\u0430\u0440';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 0.875rem;
+}
+
+.avatar-preview {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #e5e7eb;
+    transition: border-color 0.3s ease;
+}
+
+.avatar-container:hover .avatar-preview {
+    border-color: #3b82f6;
+}
+
+.upload-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 12px 20px;
+    border-radius: 4px;
+    color: white;
+    z-index: 10000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+.upload-notification-success {
+    background: #4CAF50;
+}
+
+.upload-notification-error {
+    background: #f44336;
+}
+
+.upload-notification-info {
+    background: #2196F3;
+}
+`;
+if (typeof document !== "undefined") {
+  const styleSheet = document.createElement("style");
+  styleSheet.textContent = uploadStyles;
+  document.head.appendChild(styleSheet);
+}
+var upload_default = UploadManager;
 
 // static/js/modules/attendance.js
 function initAttendance() {
@@ -1578,192 +4838,6 @@ function formatDate(dateString) {
     return dateString;
   }
 }
-var init_attendance = __esm({
-  "static/js/modules/attendance.js"() {
-  }
-});
-
-// static/js/modules/progress.js
-function initProgress() {
-  const userName2 = "\u0415\u043B\u0435\u043D\u0430 \u041F\u043B\u0435\u0445\u0430\u043D\u043E\u0432\u0430";
-  const userEmail = "elena.plekhanova@example.com";
-  document.getElementById("userName").textContent = userName2;
-  const nameParts = userName2.split(" ");
-  const initials = nameParts.map((part) => part[0]).join("").toUpperCase();
-  document.getElementById("userAvatar").textContent = initials;
-  const prevBtn = document.querySelector(".period-navigation .nav-btn:first-child");
-  const nextBtn = document.querySelector(".period-navigation .nav-btn:last-child");
-  const currentPeriodElement = document.querySelector(".current-period");
-  const periods = ["I \u0447\u0435\u0442\u0432\u0435\u0440\u0442\u044C", "II \u0447\u0435\u0442\u0432\u0435\u0440\u0442\u044C", "III \u0447\u0435\u0442\u0432\u0435\u0440\u0442\u044C", "IV \u0447\u0435\u0442\u0432\u0435\u0440\u0442\u044C"];
-  let currentPeriodIndex = 0;
-  function updatePeriod() {
-    currentPeriodElement.textContent = periods[currentPeriodIndex];
-    updateChart();
-  }
-  prevBtn.addEventListener("click", function() {
-    currentPeriodIndex--;
-    if (currentPeriodIndex < 0) {
-      currentPeriodIndex = periods.length - 1;
-    }
-    updatePeriod();
-  });
-  nextBtn.addEventListener("click", function() {
-    currentPeriodIndex++;
-    if (currentPeriodIndex >= periods.length) {
-      currentPeriodIndex = 0;
-    }
-    updatePeriod();
-  });
-  const actionButtons = document.querySelectorAll(".action-btn");
-  actionButtons.forEach((button) => {
-    button.addEventListener("click", function() {
-      const icon = this.querySelector("i");
-      if (icon.classList.contains("fa-chart-line")) {
-        alert("\u041E\u0442\u043A\u0440\u044B\u0442\u044C \u0434\u0435\u0442\u0430\u043B\u044C\u043D\u0443\u044E \u0441\u0442\u0430\u0442\u0438\u0441\u0442\u0438\u043A\u0443 \u0441\u0442\u0443\u0434\u0435\u043D\u0442\u0430");
-      } else if (icon.classList.contains("fa-envelope")) {
-        alert("\u041E\u0442\u043F\u0440\u0430\u0432\u0438\u0442\u044C \u0441\u043E\u043E\u0431\u0449\u0435\u043D\u0438\u0435 \u0441\u0442\u0443\u0434\u0435\u043D\u0442\u0443");
-      }
-    });
-  });
-  let performanceChart = null;
-  const chartTypeButtons = document.querySelectorAll(".chart-type-btn");
-  const chartPeriodSelect = document.getElementById("chartPeriod");
-  function initChart() {
-    const ctx = document.getElementById("performanceChart").getContext("2d");
-    const activeType = document.querySelector(".chart-type-btn.active").getAttribute("data-type");
-    if (performanceChart) {
-      performanceChart.destroy();
-    }
-    const { labels, datasets } = getChartData(chartPeriodSelect.value, activeType);
-    performanceChart = new Chart(ctx, {
-      type: activeType,
-      data: {
-        labels,
-        datasets
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            position: "top"
-          },
-          title: {
-            display: true,
-            text: "\u0414\u0438\u043D\u0430\u043C\u0438\u043A\u0430 \u0443\u0441\u043F\u0435\u0432\u0430\u0435\u043C\u043E\u0441\u0442\u0438 \u0441\u0442\u0443\u0434\u0435\u043D\u0442\u043E\u0432"
-          }
-        },
-        scales: activeType === "radar" ? {
-          r: {
-            angleLines: {
-              display: true
-            },
-            suggestedMin: 0,
-            suggestedMax: 5
-          }
-        } : {
-          y: {
-            beginAtZero: true,
-            max: 5,
-            title: {
-              display: true,
-              text: "\u0421\u0440\u0435\u0434\u043D\u0438\u0439 \u0431\u0430\u043B\u043B"
-            }
-          },
-          x: {
-            title: {
-              display: true,
-              text: "\u041F\u0435\u0440\u0438\u043E\u0434 \u043E\u0431\u0443\u0447\u0435\u043D\u0438\u044F"
-            }
-          }
-        }
-      }
-    });
-  }
-  function getChartData(period, type) {
-    let labels = [];
-    let datasets = [];
-    if (period === "\u0417\u0430 \u043F\u043E\u0441\u043B\u0435\u0434\u043D\u0438\u0439 \u043C\u0435\u0441\u044F\u0446") {
-      labels = ["\u041D\u0435\u0434\u0435\u043B\u044F 1", "\u041D\u0435\u0434\u0435\u043B\u044F 2", "\u041D\u0435\u0434\u0435\u043B\u044F 3", "\u041D\u0435\u0434\u0435\u043B\u044F 4"];
-      datasets = [
-        {
-          label: "\u0418\u0432\u0430\u043D \u0418\u0432\u0430\u043D\u043E\u0432",
-          data: [4.2, 4.3, 4.5, 4.6],
-          borderColor: "#4A6FA5",
-          backgroundColor: type === "line" || type === "radar" ? "transparent" : "rgba(74, 111, 165, 0.5)",
-          tension: 0.4
-        },
-        {
-          label: "\u041C\u0430\u0440\u0438\u044F \u041F\u0435\u0442\u0440\u043E\u0432\u0430",
-          data: [4.8, 4.9, 4.9, 5],
-          borderColor: "#2ECC71",
-          backgroundColor: type === "line" || type === "radar" ? "transparent" : "rgba(46, 204, 113, 0.5)",
-          tension: 0.4
-        },
-        {
-          label: "\u0410\u043B\u0435\u043A\u0441\u0435\u0439 \u0421\u0438\u0434\u043E\u0440\u043E\u0432",
-          data: [2.8, 3, 2.9, 3],
-          borderColor: "#E74C3C",
-          backgroundColor: type === "line" || type === "radar" ? "transparent" : "rgba(231, 76, 60, 0.5)",
-          tension: 0.4
-        }
-      ];
-    } else if (period === "\u0417\u0430 \u043F\u043E\u0441\u043B\u0435\u0434\u043D\u0438\u0435 3 \u043C\u0435\u0441\u044F\u0446\u0430") {
-      labels = ["\u042F\u043D\u0432\u0430\u0440\u044C", "\u0424\u0435\u0432\u0440\u0430\u043B\u044C", "\u041C\u0430\u0440\u0442"];
-      datasets = [
-        {
-          label: "\u0421\u0440\u0435\u0434\u043D\u0438\u0439 \u0431\u0430\u043B\u043B \u043A\u043B\u0430\u0441\u0441\u0430",
-          data: [3.9, 4.1, 4.2],
-          borderColor: "#4A6FA5",
-          backgroundColor: type === "line" || type === "radar" ? "transparent" : "rgba(74, 111, 165, 0.5)",
-          tension: 0.4
-        },
-        {
-          label: "\u041B\u0443\u0447\u0448\u0438\u0439 \u0443\u0447\u0435\u043D\u0438\u043A",
-          data: [4.7, 4.8, 5],
-          borderColor: "#2ECC71",
-          backgroundColor: type === "line" || type === "radar" ? "transparent" : "rgba(46, 204, 113, 0.5)",
-          tension: 0.4
-        },
-        {
-          label: "\u0425\u0443\u0434\u0448\u0438\u0439 \u0443\u0447\u0435\u043D\u0438\u043A",
-          data: [2.8, 3, 3],
-          borderColor: "#E74C3C",
-          backgroundColor: type === "line" || type === "radar" ? "transparent" : "rgba(231, 76, 60, 0.5)",
-          tension: 0.4
-        }
-      ];
-    } else if (period === "\u0417\u0430 \u0443\u0447\u0435\u0431\u043D\u044B\u0439 \u0433\u043E\u0434") {
-      labels = ["\u0421\u0435\u043D\u0442\u044F\u0431\u0440\u044C", "\u041E\u043A\u0442\u044F\u0431\u0440\u044C", "\u041D\u043E\u044F\u0431\u0440\u044C", "\u0414\u0435\u043A\u0430\u0431\u0440\u044C", "\u042F\u043D\u0432\u0430\u0440\u044C", "\u0424\u0435\u0432\u0440\u0430\u043B\u044C", "\u041C\u0430\u0440\u0442", "\u0410\u043F\u0440\u0435\u043B\u044C", "\u041C\u0430\u0439"];
-      datasets = [
-        {
-          label: "\u0421\u0440\u0435\u0434\u043D\u0438\u0439 \u0431\u0430\u043B\u043B \u043A\u043B\u0430\u0441\u0441\u0430",
-          data: [3.6, 3.7, 3.8, 3.9, 4, 4.1, 4.2, 4.2, 4.3],
-          borderColor: "#4A6FA5",
-          backgroundColor: type === "line" || type === "radar" ? "transparent" : "rgba(74, 111, 165, 0.5)",
-          tension: 0.4
-        }
-      ];
-    }
-    return { labels, datasets };
-  }
-  chartTypeButtons.forEach((button) => {
-    button.addEventListener("click", function() {
-      chartTypeButtons.forEach((btn) => btn.classList.remove("active"));
-      this.classList.add("active");
-      updateChart();
-    });
-  });
-  chartPeriodSelect.addEventListener("change", updateChart);
-  function updateChart() {
-    initChart();
-  }
-  initChart();
-}
-var init_progress = __esm({
-  "static/js/modules/progress.js"() {
-  }
-});
 
 // static/js/modules/statistics.js
 function initStatistics() {
@@ -1864,10 +4938,6 @@ function initStatisticsCharts() {
     });
   }
 }
-var init_statistics = __esm({
-  "static/js/modules/statistics.js"() {
-  }
-});
 
 // static/js/modules/export.js
 function initExport() {
@@ -2282,10 +5352,6 @@ function initExport() {
     }
   });
 }
-var init_export = __esm({
-  "static/js/modules/export.js"() {
-  }
-});
 
 // static/js/pages/analitics-page.js
 function initAttendancePage() {
@@ -2301,14 +5367,6 @@ function initStatisticsPage() {
   initStatistics();
   initExport();
 }
-var init_analitics_page = __esm({
-  "static/js/pages/analitics-page.js"() {
-    init_attendance();
-    init_progress();
-    init_statistics();
-    init_export();
-  }
-});
 
 // static/js/pages/contact-pages.js
 function initMap() {
@@ -2374,10 +5432,6 @@ function initContactForm() {
     });
   }
 }
-var init_contact_pages = __esm({
-  "static/js/pages/contact-pages.js"() {
-  }
-});
 
 // static/js/pages/teachers-pages.js
 function initTeachersFilter() {
@@ -2402,10 +5456,6 @@ function initTeachersFilter() {
     });
   });
 }
-var init_teachers_pages = __esm({
-  "static/js/pages/teachers-pages.js"() {
-  }
-});
 
 // static/js/pages/admin/platform-users.js
 function initPlatformUsers() {
@@ -2679,10 +5729,6 @@ function createStatusChart() {
     }
   });
 }
-var init_platform_users = __esm({
-  "static/js/pages/admin/platform-users.js"() {
-  }
-});
 
 // static/js/pages/admin/role-management.js
 function initRoleManagement() {
@@ -2887,10 +5933,6 @@ function createRolesActivityChart() {
     }
   });
 }
-var init_role_management = __esm({
-  "static/js/pages/admin/role-management.js"() {
-  }
-});
 
 // static/js/pages/admin/subject-management.js
 function initSubjectManagement() {
@@ -3139,10 +6181,6 @@ function createCoursesDistributionChart() {
     }
   });
 }
-var init_subject_management = __esm({
-  "static/js/pages/admin/subject-management.js"() {
-  }
-});
 
 // static/js/pages/material-creation.js
 function initMaterialCreation() {
@@ -3326,10 +6364,6 @@ function initMaterialCreation() {
     }
   }
 }
-var init_material_creation = __esm({
-  "static/js/pages/material-creation.js"() {
-  }
-});
 
 // static/js/pages/material-browser.js
 function initMaterialBrowser() {
@@ -3508,10 +6542,6 @@ function initMaterialBrowser() {
     });
   }
 }
-var init_material_browser = __esm({
-  "static/js/pages/material-browser.js"() {
-  }
-});
 
 // static/js/pages/schedule-pages.js
 function initSchedulePage() {
@@ -3760,179 +6790,6 @@ function updateUpcomingEvents() {
 function updateTodaySchedule() {
   console.log("Today schedule updated");
 }
-var init_schedule_pages = __esm({
-  "static/js/pages/schedule-pages.js"() {
-  }
-});
-
-// static/js/modules/chat.js
-function initChat() {
-  const sendButton = document.getElementById("sendButton");
-  const messageInput = document.getElementById("messageInput");
-  if (!sendButton || !messageInput) return;
-  sendButton.addEventListener("click", sendMessage);
-  messageInput.addEventListener("keydown", function(e) {
-    if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault();
-      sendMessage();
-    }
-  });
-  messageInput.addEventListener("input", function() {
-    this.style.height = "auto";
-    this.style.height = this.scrollHeight + "px";
-  });
-  scrollToBottom();
-}
-function sendMessage() {
-  const messageInput = document.getElementById("messageInput");
-  const messageText = messageInput.value.trim();
-  if (messageText === "") return;
-  addMessage(messageText, "user");
-  messageInput.value = "";
-  showTypingIndicator();
-  setTimeout(() => {
-    removeTypingIndicator();
-    const response = generateResponse(messageText);
-    addMessage(response, "anastasia");
-    scrollToBottom();
-  }, 1500);
-}
-function addMessage(text, sender) {
-  const chatMessages = document.getElementById("chatMessages");
-  const messageDiv = document.createElement("div");
-  messageDiv.className = `message ${sender}`;
-  const now = /* @__PURE__ */ new Date();
-  const timeString = `${now.getHours()}:${now.getMinutes().toString().padStart(2, "0")}`;
-  if (sender === "anastasia") {
-    messageDiv.innerHTML = `
-            <div class="message-avatar">
-                <img src="/frontend/static/assets/image/logo/Anastasia.svg" alt="\u0410\u043D\u0430\u0441\u0442\u0430\u0441\u0438\u044F">
-            </div>
-            <div class="message-content">
-                <div class="message-text">${text}</div>
-                <div class="message-time">${timeString}</div>
-            </div>
-        `;
-  } else {
-    messageDiv.innerHTML = `
-            <div class="message-content">
-                <div class="message-text">${text}</div>
-                <div class="message-time">${timeString}</div>
-            </div>
-            <div class="message-avatar">
-                <i class="fas fa-user"></i>
-            </div>
-        `;
-  }
-  chatMessages.appendChild(messageDiv);
-  scrollToBottom();
-}
-function showTypingIndicator() {
-  const chatMessages = document.getElementById("chatMessages");
-  const typingDiv = document.createElement("div");
-  typingDiv.className = "typing-indicator";
-  typingDiv.id = "typingIndicator";
-  typingDiv.innerHTML = `
-        <div class="message-avatar">
-            <img src="/frontend/static/assets/image/logo/Anastasia.svg" alt="\u0410\u043D\u0430\u0441\u0442\u0430\u0441\u0438\u044F">
-        </div>
-        <div class="message-content">
-            <div class="typing-dot"></div>
-            <div class="typing-dot"></div>
-            <div class="typing-dot"></div>
-        </div>
-    `;
-  chatMessages.appendChild(typingDiv);
-  scrollToBottom();
-}
-function removeTypingIndicator() {
-  const typingIndicator = document.getElementById("typingIndicator");
-  if (typingIndicator) {
-    typingIndicator.remove();
-  }
-}
-function scrollToBottom() {
-  const chatMessages = document.getElementById("chatMessages");
-  if (chatMessages) {
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-  }
-}
-function generateResponse(userMessage) {
-  const lowerMessage = userMessage.toLowerCase();
-  if (lowerMessage.includes("\u043F\u0440\u0438\u0432\u0435\u0442") || lowerMessage.includes("\u0437\u0434\u0440\u0430\u0432\u0441\u0442\u0432\u0443\u0439")) {
-    return "\u0417\u0434\u0440\u0430\u0432\u0441\u0442\u0432\u0443\u0439\u0442\u0435! \u0420\u0430\u0434\u0430 \u0441\u043D\u043E\u0432\u0430 \u0432\u0430\u0441 \u0432\u0438\u0434\u0435\u0442\u044C. \u0427\u0435\u043C \u043C\u043E\u0433\u0443 \u043F\u043E\u043C\u043E\u0447\u044C?";
-  } else if (lowerMessage.includes("\u0442\u0435\u0441\u0442") || lowerMessage.includes("\u0432\u043E\u043F\u0440\u043E\u0441")) {
-    return "\u042F \u043C\u043E\u0433\u0443 \u043F\u043E\u043C\u043E\u0447\u044C \u0432\u0430\u043C \u0441\u043E\u0437\u0434\u0430\u0442\u044C \u0442\u0435\u0441\u0442 \u043F\u043E \u043D\u0443\u0436\u043D\u043E\u0439 \u0442\u0435\u043C\u0435. \u041A\u0430\u043A\u0438\u0435 \u0440\u0430\u0437\u0434\u0435\u043B\u044B \u0432\u044B \u0445\u043E\u0442\u0435\u043B\u0438 \u0431\u044B \u0432\u043A\u043B\u044E\u0447\u0438\u0442\u044C?";
-  } else if (lowerMessage.includes("\u043F\u0440\u043E\u0432\u0435\u0440\u0438\u0442\u044C") || lowerMessage.includes("\u0440\u0430\u0431\u043E\u0442\u0430")) {
-    return "\u0414\u043B\u044F \u043F\u0440\u043E\u0432\u0435\u0440\u043A\u0438 \u0440\u0430\u0431\u043E\u0442\u044B, \u043F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430, \u0437\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u0435 \u0444\u0430\u0439\u043B \u0441 \u0437\u0430\u0434\u0430\u043D\u0438\u0435\u043C, \u0438 \u044F \u043F\u0440\u043E\u0430\u043D\u0430\u043B\u0438\u0437\u0438\u0440\u0443\u044E \u0435\u0433\u043E.";
-  } else if (lowerMessage.includes("python") || lowerMessage.includes("\u043F\u0438\u0442\u043E\u043D")) {
-    return "Python - \u043E\u0442\u043B\u0438\u0447\u043D\u044B\u0439 \u0432\u044B\u0431\u043E\u0440! \u042D\u0442\u043E \u043C\u043E\u0449\u043D\u044B\u0439 \u0438 \u043F\u043E\u043D\u044F\u0442\u043D\u044B\u0439 \u044F\u0437\u044B\u043A \u043F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u044F. \u041F\u043E \u043A\u0430\u043A\u043E\u0439 \u0442\u0435\u043C\u0435 \u0432\u0430\u043C \u043D\u0443\u0436\u043D\u0430 \u043F\u043E\u043C\u043E\u0449\u044C?";
-  } else if (lowerMessage.includes("\u0441\u043F\u0430\u0441\u0438\u0431\u043E")) {
-    return "\u0412\u0441\u0435\u0433\u0434\u0430 \u0440\u0430\u0434\u0430 \u043F\u043E\u043C\u043E\u0447\u044C! \u0415\u0441\u043B\u0438 \u0443 \u0432\u0430\u0441 \u0435\u0441\u0442\u044C \u0435\u0449\u0435 \u0432\u043E\u043F\u0440\u043E\u0441\u044B, \u043E\u0431\u0440\u0430\u0449\u0430\u0439\u0442\u0435\u0441\u044C.";
-  } else {
-    return "\u042F \u043F\u043E\u043D\u044F\u043B\u0430 \u0432\u0430\u0448 \u0432\u043E\u043F\u0440\u043E\u0441. \u0414\u0430\u0432\u0430\u0439\u0442\u0435 \u043E\u0431\u0441\u0443\u0434\u0438\u043C \u044D\u0442\u043E \u043F\u043E\u0434\u0440\u043E\u0431\u043D\u0435\u0435. \u041C\u043E\u0436\u0435\u0442\u0435 \u0443\u0442\u043E\u0447\u043D\u0438\u0442\u044C, \u0447\u0442\u043E \u0438\u043C\u0435\u043D\u043D\u043E \u0432\u0430\u0441 \u0438\u043D\u0442\u0435\u0440\u0435\u0441\u0443\u0435\u0442?";
-  }
-}
-function quickAction(action) {
-  let message = "";
-  switch (action) {
-    case "variables":
-      message = "\u0425\u043E\u0447\u0443 \u0441\u043E\u0437\u0434\u0430\u0442\u044C \u0442\u0435\u0441\u0442 \u043F\u043E \u043F\u0435\u0440\u0435\u043C\u0435\u043D\u043D\u044B\u043C \u0438 \u0442\u0438\u043F\u0430\u043C \u0434\u0430\u043D\u043D\u044B\u0445 \u0432 Python.";
-      break;
-    case "syntax":
-      message = "\u041D\u0443\u0436\u0435\u043D \u0442\u0435\u0441\u0442 \u043F\u043E \u0431\u0430\u0437\u043E\u0432\u043E\u043C\u0443 \u0441\u0438\u043D\u0442\u0430\u043A\u0441\u0438\u0441\u0443 Python.";
-      break;
-    case "functions":
-      message = "\u0418\u043D\u0442\u0435\u0440\u0435\u0441\u0443\u0435\u0442 \u0442\u0435\u0441\u0442 \u043F\u043E \u0444\u0443\u043D\u043A\u0446\u0438\u044F\u043C \u0432 Python.";
-      break;
-    case "all":
-      message = "\u0421\u043E\u0437\u0434\u0430\u0439 \u0442\u0435\u0441\u0442 \u043F\u043E \u0432\u0441\u0435\u043C \u043E\u0441\u043D\u043E\u0432\u043D\u044B\u043C \u0442\u0435\u043C\u0430\u043C Python \u0434\u043B\u044F \u043D\u0430\u0447\u0438\u043D\u0430\u044E\u0449\u0438\u0445.";
-      break;
-    case "preview":
-      message = "\u0414\u0430, \u0445\u043E\u0447\u0443 \u043F\u043E\u0441\u043C\u043E\u0442\u0440\u0435\u0442\u044C \u0432\u043E\u043F\u0440\u043E\u0441\u044B \u0442\u0435\u0441\u0442\u0430 \u043F\u0435\u0440\u0435\u0434 \u0441\u043E\u0445\u0440\u0430\u043D\u0435\u043D\u0438\u0435\u043C.";
-      break;
-    case "save":
-      message = "\u0421\u043E\u0445\u0440\u0430\u043D\u0438 \u0442\u0435\u0441\u0442, \u043F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430.";
-      break;
-    case "modify":
-      message = "\u0425\u043E\u0447\u0443 \u0438\u0437\u043C\u0435\u043D\u0438\u0442\u044C \u043F\u0430\u0440\u0430\u043C\u0435\u0442\u0440\u044B \u0442\u0435\u0441\u0442\u0430.";
-      break;
-    default:
-      message = "\u0412\u044B\u0431\u0440\u0430\u043D\u043E \u0431\u044B\u0441\u0442\u043E\u0435 \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0435: " + action;
-  }
-  addMessage(message, "user");
-  showTypingIndicator();
-  setTimeout(() => {
-    removeTypingIndicator();
-    const response = generateQuickActionResponse(action);
-    addMessage(response, "anastasia");
-    scrollToBottom();
-  }, 1500);
-}
-function generateQuickActionResponse(action) {
-  switch (action) {
-    case "variables":
-      return "\u041E\u0442\u043B\u0438\u0447\u043D\u043E! \u0421\u043E\u0437\u0434\u0430\u043C \u0442\u0435\u0441\u0442 \u043F\u043E \u043F\u0435\u0440\u0435\u043C\u0435\u043D\u043D\u044B\u043C \u0438 \u0442\u0438\u043F\u0430\u043C \u0434\u0430\u043D\u043D\u044B\u0445. \u0412\u043A\u043B\u044E\u0447\u0443 \u0432\u043E\u043F\u0440\u043E\u0441\u044B \u043D\u0430 \u043E\u043F\u0440\u0435\u0434\u0435\u043B\u0435\u043D\u0438\u0435 \u0442\u0438\u043F\u043E\u0432, \u043F\u0440\u0435\u043E\u0431\u0440\u0430\u0437\u043E\u0432\u0430\u043D\u0438\u0435 \u0442\u0438\u043F\u043E\u0432 \u0438 \u043E\u0431\u044A\u044F\u0432\u043B\u0435\u043D\u0438\u0435 \u043F\u0435\u0440\u0435\u043C\u0435\u043D\u043D\u044B\u0445. \u0421\u043A\u043E\u043B\u044C\u043A\u043E \u0432\u043E\u043F\u0440\u043E\u0441\u043E\u0432 \u043D\u0443\u0436\u043D\u043E?";
-    case "syntax":
-      return "\u0425\u043E\u0440\u043E\u0448\u043E! \u041F\u043E\u0434\u0433\u043E\u0442\u043E\u0432\u043B\u044E \u0442\u0435\u0441\u0442 \u043F\u043E \u0431\u0430\u0437\u043E\u0432\u043E\u043C\u0443 \u0441\u0438\u043D\u0442\u0430\u043A\u0441\u0438\u0441\u0443 Python: \u043E\u0442\u0441\u0442\u0443\u043F\u044B, \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0438, \u043E\u0441\u043D\u043E\u0432\u043D\u044B\u0435 \u043A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0446\u0438\u0438. \u041A\u0430\u043A\u043E\u0439 \u0443\u0440\u043E\u0432\u0435\u043D\u044C \u0441\u043B\u043E\u0436\u043D\u043E\u0441\u0442\u0438 \u043F\u0440\u0435\u0434\u043F\u043E\u0447\u0442\u0438\u0442\u0435\u043B\u0435\u043D?";
-    case "functions":
-      return "\u041E\u0442\u043B\u0438\u0447\u043D\u044B\u0439 \u0432\u044B\u0431\u043E\u0440! \u0424\u0443\u043D\u043A\u0446\u0438\u0438 - \u0432\u0430\u0436\u043D\u0430\u044F \u0442\u0435\u043C\u0430. \u0412\u043A\u043B\u044E\u0447\u0443 \u0432\u043E\u043F\u0440\u043E\u0441\u044B \u043D\u0430 \u043E\u043F\u0440\u0435\u0434\u0435\u043B\u0435\u043D\u0438\u0435 \u0444\u0443\u043D\u043A\u0446\u0438\u0439, \u043F\u0430\u0440\u0430\u043C\u0435\u0442\u0440\u044B, \u0432\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u043C\u044B\u0435 \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u044F \u0438 \u043E\u0431\u043B\u0430\u0441\u0442\u0438 \u0432\u0438\u0434\u0438\u043C\u043E\u0441\u0442\u0438.";
-    case "all":
-      return "\u0421\u043E\u0437\u0434\u0430\u043C \u043A\u043E\u043C\u043F\u043B\u0435\u043A\u0441\u043D\u044B\u0439 \u0442\u0435\u0441\u0442 \u043F\u043E \u043E\u0441\u043D\u043E\u0432\u043D\u044B\u043C \u0442\u0435\u043C\u0430\u043C Python \u0434\u043B\u044F \u043D\u0430\u0447\u0438\u043D\u0430\u044E\u0449\u0438\u0445. \u0412\u043A\u043B\u044E\u0447\u0443 \u0432\u043E\u043F\u0440\u043E\u0441\u044B \u043F\u043E \u0441\u0438\u043D\u0442\u0430\u043A\u0441\u0438\u0441\u0443, \u043F\u0435\u0440\u0435\u043C\u0435\u043D\u043D\u044B\u043C, \u0442\u0438\u043F\u0430\u043C \u0434\u0430\u043D\u043D\u044B\u0445, \u043E\u043F\u0435\u0440\u0430\u0442\u043E\u0440\u0430\u043C, \u0443\u0441\u043B\u043E\u0432\u0438\u044F\u043C, \u0446\u0438\u043A\u043B\u0430\u043C \u0438 \u0444\u0443\u043D\u043A\u0446\u0438\u044F\u043C.";
-    case "preview":
-      return "\u0412\u043E\u0442 \u043F\u0440\u0435\u0434\u0432\u0430\u0440\u0438\u0442\u0435\u043B\u044C\u043D\u044B\u0439 \u043F\u0440\u043E\u0441\u043C\u043E\u0442\u0440 \u0442\u0435\u0441\u0442\u0430:\n\n1. \u041A\u0430\u043A\u043E\u0439 \u0442\u0438\u043F \u0434\u0430\u043D\u043D\u044B\u0445 \u0443 \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u044F 3.14?\n2. \u041A\u0430\u043A \u043E\u0431\u044A\u044F\u0432\u0438\u0442\u044C \u043F\u0435\u0440\u0435\u043C\u0435\u043D\u043D\u0443\u044E \u0432 Python?\n3. \u0427\u0442\u043E \u0432\u044B\u0432\u0435\u0434\u0435\u0442 print(2 + 3 * 4)?\n\n\u0425\u043E\u0442\u0438\u0442\u0435 \u0447\u0442\u043E-\u0442\u043E \u0438\u0437\u043C\u0435\u043D\u0438\u0442\u044C?";
-    case "save":
-      return '\u0422\u0435\u0441\u0442 \u0441\u043E\u0445\u0440\u0430\u043D\u0435\u043D! \u0412\u044B \u043C\u043E\u0436\u0435\u0442\u0435 \u043D\u0430\u0439\u0442\u0438 \u0435\u0433\u043E \u0432 \u0440\u0430\u0437\u0434\u0435\u043B\u0435 "\u041C\u043E\u0438 \u0442\u0435\u0441\u0442\u044B". \u0425\u043E\u0442\u0438\u0442\u0435 \u043F\u043E\u0434\u0435\u043B\u0438\u0442\u044C\u0441\u044F \u0438\u043C \u0441\u043E \u0441\u0442\u0443\u0434\u0435\u043D\u0442\u0430\u043C\u0438 \u0441\u0435\u0439\u0447\u0430\u0441?';
-    case "modify":
-      return "\u041A\u0430\u043A\u0438\u0435 \u043F\u0430\u0440\u0430\u043C\u0435\u0442\u0440\u044B \u0432\u044B \u0445\u043E\u0442\u0438\u0442\u0435 \u0438\u0437\u043C\u0435\u043D\u0438\u0442\u044C? \u041A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u0432\u043E\u043F\u0440\u043E\u0441\u043E\u0432, \u0443\u0440\u043E\u0432\u0435\u043D\u044C \u0441\u043B\u043E\u0436\u043D\u043E\u0441\u0442\u0438 \u0438\u043B\u0438 \u0442\u0435\u043C\u044B?";
-    default:
-      return "\u042F \u043E\u0431\u0440\u0430\u0431\u043E\u0442\u0430\u043B\u0430 \u0432\u0430\u0448\u0435 \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0435. \u0427\u0435\u043C \u0435\u0449\u0435 \u043C\u043E\u0433\u0443 \u043F\u043E\u043C\u043E\u0447\u044C?";
-  }
-}
-var init_chat = __esm({
-  "static/js/modules/chat.js"() {
-  }
-});
 
 // static/js/pages/dashboard.js
 function initDashboard() {
@@ -4144,194 +7001,123 @@ function initDashboard() {
     }
   }
 }
-var init_dashboard = __esm({
-  "static/js/pages/dashboard.js"() {
-  }
-});
-
-// static/js/lib/utils.js
-var Utils;
-var init_utils = __esm({
-  "static/js/lib/utils.js"() {
-    Utils = class {
-      static isMobile() {
-        return window.innerWidth <= 992;
-      }
-      static formatTime(seconds) {
-        const minutes = Math.floor(seconds / 60);
-        const remainingSeconds = seconds % 60;
-        return `${minutes.toString().padStart(2, "0")}:${remainingSeconds.toString().padStart(2, "0")}`;
-      }
-      static getUrlParam(param) {
-        const urlParams = new URLSearchParams(window.location.search);
-        return urlParams.get(param);
-      }
-      static formatFileSize(bytes) {
-        if (bytes === 0) return "0 Bytes";
-        const k = 1024;
-        const sizes = ["Bytes", "KB", "MB", "GB"];
-        const i = Math.floor(Math.log(bytes) / Math.log(k));
-        return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
-      }
-      static validateEmail(email) {
-        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return re.test(email);
-      }
-      static validatePassword(password) {
-        return password.length >= 8;
-      }
-      static showNotification(message, type = "info") {
-        const notification = document.createElement("div");
-        notification.className = `notification notification-${type}`;
-        notification.textContent = message;
-        document.body.appendChild(notification);
-        setTimeout(() => {
-          notification.remove();
-        }, 5e3);
-      }
-      static formatPhone(phone) {
-        return phone.replace(/(\d{1})(\d{3})(\d{3})(\d{2})(\d{2})/, "+$1 ($2) $3-$4-$5");
-      }
-      static debounce(func, wait) {
-        let timeout;
-        return function executedFunction(...args) {
-          const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-          };
-          clearTimeout(timeout);
-          timeout = setTimeout(later, wait);
-        };
-      }
-    };
-  }
-});
 
 // static/js/modules/modal-manager.js
-var ModalManager, modalManager;
-var init_modal_manager = __esm({
-  "static/js/modules/modal-manager.js"() {
-    ModalManager = class {
-      constructor() {
-        this.modals = /* @__PURE__ */ new Map();
-        this.init();
-      }
-      init() {
-        document.addEventListener("click", (e) => {
-          if (e.target.classList.contains("modal-overlay")) {
-            this.hide(e.target.id);
-          }
-        });
-        document.addEventListener("keydown", (e) => {
-          if (e.key === "Escape") {
-            this.hideAll();
-          }
-        });
-      }
-      register(modalId, options = {}) {
-        const modal = document.getElementById(modalId);
-        if (!modal) {
-          console.warn(`Modal with id ${modalId} not found`);
-          return false;
-        }
-        this.modals.set(modalId, {
-          element: modal,
-          options
-        });
-        const closeButtons = modal.querySelectorAll("[data-modal-close]");
-        closeButtons.forEach((btn) => {
-          btn.addEventListener("click", () => this.hide(modalId));
-        });
-        return true;
-      }
-      show(modalId) {
-        const modalData = this.modals.get(modalId);
-        if (!modalData) {
-          console.error(`Modal ${modalId} not registered`);
-          return false;
-        }
-        const modal = modalData.element;
-        modal.style.display = "flex";
-        setTimeout(() => {
-          modal.classList.add("active");
-        }, 10);
-        document.body.style.overflow = "hidden";
-        return true;
-      }
-      hide(modalId) {
-        const modalData = this.modals.get(modalId);
-        if (!modalData) return false;
-        const modal = modalData.element;
-        modal.classList.remove("active");
-        setTimeout(() => {
-          modal.style.display = "none";
-          document.body.style.overflow = "";
-        }, 300);
-        return true;
-      }
-      hideAll() {
-        this.modals.forEach((modalData, modalId) => {
-          this.hide(modalId);
-        });
-      }
-      // Динамическое создание модального окна
-      createModal(modalId, content, options = {}) {
-        if (this.modals.has(modalId)) {
-          console.warn(`Modal ${modalId} already exists`);
-          return false;
-        }
-        const modal = document.createElement("div");
-        modal.id = modalId;
-        modal.className = "modal-overlay";
-        modal.innerHTML = content;
-        document.body.appendChild(modal);
-        return this.register(modalId, options);
-      }
-    };
-    modalManager = new ModalManager();
+var ModalManager = class {
+  constructor() {
+    this.modals = /* @__PURE__ */ new Map();
+    this.init();
   }
-});
+  init() {
+    document.addEventListener("click", (e) => {
+      if (e.target.classList.contains("modal-overlay")) {
+        this.hide(e.target.id);
+      }
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        this.hideAll();
+      }
+    });
+  }
+  register(modalId, options = {}) {
+    const modal = document.getElementById(modalId);
+    if (!modal) {
+      console.warn(`Modal with id ${modalId} not found`);
+      return false;
+    }
+    this.modals.set(modalId, {
+      element: modal,
+      options
+    });
+    const closeButtons = modal.querySelectorAll("[data-modal-close]");
+    closeButtons.forEach((btn) => {
+      btn.addEventListener("click", () => this.hide(modalId));
+    });
+    return true;
+  }
+  show(modalId) {
+    const modalData = this.modals.get(modalId);
+    if (!modalData) {
+      console.error(`Modal ${modalId} not registered`);
+      return false;
+    }
+    const modal = modalData.element;
+    modal.style.display = "flex";
+    setTimeout(() => {
+      modal.classList.add("active");
+    }, 10);
+    document.body.style.overflow = "hidden";
+    return true;
+  }
+  hide(modalId) {
+    const modalData = this.modals.get(modalId);
+    if (!modalData) return false;
+    const modal = modalData.element;
+    modal.classList.remove("active");
+    setTimeout(() => {
+      modal.style.display = "none";
+      document.body.style.overflow = "";
+    }, 300);
+    return true;
+  }
+  hideAll() {
+    this.modals.forEach((modalData, modalId) => {
+      this.hide(modalId);
+    });
+  }
+  // Динамическое создание модального окна
+  createModal(modalId, content, options = {}) {
+    if (this.modals.has(modalId)) {
+      console.warn(`Modal ${modalId} already exists`);
+      return false;
+    }
+    const modal = document.createElement("div");
+    modal.id = modalId;
+    modal.className = "modal-overlay";
+    modal.innerHTML = content;
+    document.body.appendChild(modal);
+    return this.register(modalId, options);
+  }
+};
+var modalManager = new ModalManager();
 
 // static/js/modules/course-students.js
-var CourseStudentsManager;
-var init_course_students = __esm({
-  "static/js/modules/course-students.js"() {
-    init_modal_manager();
-    CourseStudentsManager = class {
-      constructor() {
-        this.availableStudents = [
-          { id: 1, name: "\u0410\u043D\u043D\u0430 \u041A\u043E\u0437\u043B\u043E\u0432\u0430", email: "anna.koz@example.com", group: "10-\u0410", initials: "\u0410\u041A" },
-          { id: 2, name: "\u0421\u0435\u0440\u0433\u0435\u0439 \u0412\u043E\u043B\u043A\u043E\u0432", email: "s.volkov@example.com", group: "10-\u0411", initials: "\u0421\u0412" },
-          { id: 3, name: "\u041E\u043B\u044C\u0433\u0430 \u041C\u043E\u0440\u043E\u0437\u043E\u0432\u0430", email: "olga.moroz@example.com", group: "11-\u0410", initials: "\u041E\u041C" },
-          { id: 4, name: "\u0414\u043C\u0438\u0442\u0440\u0438\u0439 \u0421\u043E\u043A\u043E\u043B\u043E\u0432", email: "d.sokolov@example.com", group: "10-\u0410", initials: "\u0414\u0421" },
-          { id: 5, name: "\u0418\u0440\u0438\u043D\u0430 \u041F\u0430\u0432\u043B\u043E\u0432\u0430", email: "i.pavlova@example.com", group: "11-\u0411", initials: "\u0418\u041F" },
-          { id: 6, name: "\u0410\u043B\u0435\u043A\u0441\u0430\u043D\u0434\u0440 \u041B\u0435\u0431\u0435\u0434\u0435\u0432", email: "a.lebedev@example.com", group: "10-\u0411", initials: "\u0410\u041B" },
-          { id: 7, name: "\u041D\u0430\u0442\u0430\u043B\u044C\u044F \u0412\u043E\u0440\u043E\u0431\u044C\u0435\u0432\u0430", email: "n.vorob@example.com", group: "11-\u0410", initials: "\u041D\u0412" },
-          { id: 8, name: "\u041C\u0438\u0445\u0430\u0438\u043B \u041E\u0440\u043B\u043E\u0432", email: "m.orlov@example.com", group: "10-\u0410", initials: "\u041C\u041E" }
-        ];
-        this.currentStudents = [
-          { id: 101, name: "\u0418\u0432\u0430\u043D \u0418\u0432\u0430\u043D\u043E\u0432", email: "ivan.ivanov@example.com", group: "10-\u0410", initials: "\u0418\u0418", progress: 92, grade: 4.9, lastActivity: "2 \u0447\u0430\u0441\u0430 \u043D\u0430\u0437\u0430\u0434" },
-          { id: 102, name: "\u041C\u0430\u0440\u0438\u044F \u041F\u0435\u0442\u0440\u043E\u0432\u0430", email: "maria.petrova@example.com", group: "10-\u0411", initials: "\u041C\u041F", progress: 78, grade: 4.5, lastActivity: "\u0412\u0447\u0435\u0440\u0430" },
-          { id: 103, name: "\u0410\u043B\u0435\u043A\u0441\u0435\u0439 \u0421\u0438\u0434\u043E\u0440\u043E\u0432", email: "alex.sidorov@example.com", group: "11-\u0410", initials: "\u0410\u0421", progress: 65, grade: 4.2, lastActivity: "3 \u0434\u043D\u044F \u043D\u0430\u0437\u0430\u0434" },
-          { id: 104, name: "\u0415\u043B\u0435\u043D\u0430 \u041D\u043E\u0432\u0438\u043A\u043E\u0432\u0430", email: "elena.novikova@example.com", group: "10-\u0410", initials: "\u0415\u041D", progress: 45, grade: 3.8, lastActivity: "\u041D\u0435\u0434\u0435\u043B\u044E \u043D\u0430\u0437\u0430\u0434" }
-        ];
-        this.init();
-      }
-      init() {
-        this.registerModals();
-        this.initEventHandlers();
-        this.renderStudentsList();
-        this.updateStudentsTable();
-        console.log("CourseStudentsManager initialized");
-      }
-      registerModals() {
-        if (!modalManager.register("addStudentModal")) {
-          console.warn("Add student modal not found, creating dynamically...");
-          this.createStudentModal();
-        }
-      }
-      createStudentModal() {
-        const modalContent = `
+var CourseStudentsManager = class {
+  constructor() {
+    this.availableStudents = [
+      { id: 1, name: "\u0410\u043D\u043D\u0430 \u041A\u043E\u0437\u043B\u043E\u0432\u0430", email: "anna.koz@example.com", group: "10-\u0410", initials: "\u0410\u041A" },
+      { id: 2, name: "\u0421\u0435\u0440\u0433\u0435\u0439 \u0412\u043E\u043B\u043A\u043E\u0432", email: "s.volkov@example.com", group: "10-\u0411", initials: "\u0421\u0412" },
+      { id: 3, name: "\u041E\u043B\u044C\u0433\u0430 \u041C\u043E\u0440\u043E\u0437\u043E\u0432\u0430", email: "olga.moroz@example.com", group: "11-\u0410", initials: "\u041E\u041C" },
+      { id: 4, name: "\u0414\u043C\u0438\u0442\u0440\u0438\u0439 \u0421\u043E\u043A\u043E\u043B\u043E\u0432", email: "d.sokolov@example.com", group: "10-\u0410", initials: "\u0414\u0421" },
+      { id: 5, name: "\u0418\u0440\u0438\u043D\u0430 \u041F\u0430\u0432\u043B\u043E\u0432\u0430", email: "i.pavlova@example.com", group: "11-\u0411", initials: "\u0418\u041F" },
+      { id: 6, name: "\u0410\u043B\u0435\u043A\u0441\u0430\u043D\u0434\u0440 \u041B\u0435\u0431\u0435\u0434\u0435\u0432", email: "a.lebedev@example.com", group: "10-\u0411", initials: "\u0410\u041B" },
+      { id: 7, name: "\u041D\u0430\u0442\u0430\u043B\u044C\u044F \u0412\u043E\u0440\u043E\u0431\u044C\u0435\u0432\u0430", email: "n.vorob@example.com", group: "11-\u0410", initials: "\u041D\u0412" },
+      { id: 8, name: "\u041C\u0438\u0445\u0430\u0438\u043B \u041E\u0440\u043B\u043E\u0432", email: "m.orlov@example.com", group: "10-\u0410", initials: "\u041C\u041E" }
+    ];
+    this.currentStudents = [
+      { id: 101, name: "\u0418\u0432\u0430\u043D \u0418\u0432\u0430\u043D\u043E\u0432", email: "ivan.ivanov@example.com", group: "10-\u0410", initials: "\u0418\u0418", progress: 92, grade: 4.9, lastActivity: "2 \u0447\u0430\u0441\u0430 \u043D\u0430\u0437\u0430\u0434" },
+      { id: 102, name: "\u041C\u0430\u0440\u0438\u044F \u041F\u0435\u0442\u0440\u043E\u0432\u0430", email: "maria.petrova@example.com", group: "10-\u0411", initials: "\u041C\u041F", progress: 78, grade: 4.5, lastActivity: "\u0412\u0447\u0435\u0440\u0430" },
+      { id: 103, name: "\u0410\u043B\u0435\u043A\u0441\u0435\u0439 \u0421\u0438\u0434\u043E\u0440\u043E\u0432", email: "alex.sidorov@example.com", group: "11-\u0410", initials: "\u0410\u0421", progress: 65, grade: 4.2, lastActivity: "3 \u0434\u043D\u044F \u043D\u0430\u0437\u0430\u0434" },
+      { id: 104, name: "\u0415\u043B\u0435\u043D\u0430 \u041D\u043E\u0432\u0438\u043A\u043E\u0432\u0430", email: "elena.novikova@example.com", group: "10-\u0410", initials: "\u0415\u041D", progress: 45, grade: 3.8, lastActivity: "\u041D\u0435\u0434\u0435\u043B\u044E \u043D\u0430\u0437\u0430\u0434" }
+    ];
+    this.init();
+  }
+  init() {
+    this.registerModals();
+    this.initEventHandlers();
+    this.renderStudentsList();
+    this.updateStudentsTable();
+    console.log("CourseStudentsManager initialized");
+  }
+  registerModals() {
+    if (!modalManager.register("addStudentModal")) {
+      console.warn("Add student modal not found, creating dynamically...");
+      this.createStudentModal();
+    }
+  }
+  createStudentModal() {
+    const modalContent = `
             <div class="modal-content">
                 <div class="modal-header">
                     <h3>\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u0441\u0442\u0443\u0434\u0435\u043D\u0442\u043E\u0432 \u0432 \u043A\u0443\u0440\u0441</h3>
@@ -4358,74 +7144,74 @@ var init_course_students = __esm({
                 </div>
             </div>
         `;
-        modalManager.createModal("addStudentModal", modalContent);
+    modalManager.createModal("addStudentModal", modalContent);
+  }
+  initEventHandlers() {
+    document.addEventListener("click", (e) => {
+      if (e.target.closest("#addStudentBtn")) {
+        this.openAddStudentModal();
       }
-      initEventHandlers() {
-        document.addEventListener("click", (e) => {
-          if (e.target.closest("#addStudentBtn")) {
-            this.openAddStudentModal();
-          }
-          if (e.target.closest("#confirmStudentModal")) {
-            this.confirmAddStudents();
-          }
+      if (e.target.closest("#confirmStudentModal")) {
+        this.confirmAddStudents();
+      }
+    });
+    document.addEventListener("input", (e) => {
+      if (e.target.id === "studentSearch") {
+        this.filterStudents(e.target.value);
+      }
+    });
+  }
+  openAddStudentModal() {
+    console.log("Opening student modal");
+    this.renderStudentsList();
+    modalManager.show("addStudentModal");
+  }
+  confirmAddStudents() {
+    const selectedStudents = [];
+    const checkboxes = document.querySelectorAll("#studentsList .student-checkbox:checked");
+    checkboxes.forEach((checkbox) => {
+      const studentId = parseInt(checkbox.dataset.id);
+      const student = this.availableStudents.find((s) => s.id === studentId);
+      if (student) {
+        selectedStudents.push(student);
+      }
+    });
+    if (selectedStudents.length === 0) {
+      this.showNotification("\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0445\u043E\u0442\u044F \u0431\u044B \u043E\u0434\u043D\u043E\u0433\u043E \u0441\u0442\u0443\u0434\u0435\u043D\u0442\u0430", "error");
+      return;
+    }
+    selectedStudents.forEach((student) => {
+      if (!this.currentStudents.some((s) => s.id === student.id)) {
+        this.currentStudents.push({
+          ...student,
+          progress: 0,
+          grade: 0,
+          lastActivity: "\u0415\u0449\u0435 \u043D\u0435 \u0430\u043A\u0442\u0438\u0432\u0435\u043D"
         });
-        document.addEventListener("input", (e) => {
-          if (e.target.id === "studentSearch") {
-            this.filterStudents(e.target.value);
-          }
-        });
       }
-      openAddStudentModal() {
-        console.log("Opening student modal");
-        this.renderStudentsList();
-        modalManager.show("addStudentModal");
-      }
-      confirmAddStudents() {
-        const selectedStudents = [];
-        const checkboxes = document.querySelectorAll("#studentsList .student-checkbox:checked");
-        checkboxes.forEach((checkbox) => {
-          const studentId = parseInt(checkbox.dataset.id);
-          const student = this.availableStudents.find((s) => s.id === studentId);
-          if (student) {
-            selectedStudents.push(student);
-          }
-        });
-        if (selectedStudents.length === 0) {
-          this.showNotification("\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0445\u043E\u0442\u044F \u0431\u044B \u043E\u0434\u043D\u043E\u0433\u043E \u0441\u0442\u0443\u0434\u0435\u043D\u0442\u0430", "error");
-          return;
-        }
-        selectedStudents.forEach((student) => {
-          if (!this.currentStudents.some((s) => s.id === student.id)) {
-            this.currentStudents.push({
-              ...student,
-              progress: 0,
-              grade: 0,
-              lastActivity: "\u0415\u0449\u0435 \u043D\u0435 \u0430\u043A\u0442\u0438\u0432\u0435\u043D"
-            });
-          }
-        });
-        this.updateStudentsTable();
-        modalManager.hide("addStudentModal");
-        this.showNotification(`\u0414\u043E\u0431\u0430\u0432\u043B\u0435\u043D\u043E ${selectedStudents.length} \u0441\u0442\u0443\u0434\u0435\u043D\u0442\u043E\u0432`);
-      }
-      filterStudents(searchTerm = "") {
-        this.renderStudentsList(searchTerm);
-      }
-      renderStudentsList(searchTerm = "") {
-        const studentsList = document.getElementById("studentsList");
-        if (!studentsList) return;
-        const filteredStudents = this.availableStudents.filter(
-          (student) => !this.currentStudents.some((current) => current.id === student.id) && (student.name.toLowerCase().includes(searchTerm.toLowerCase()) || student.email.toLowerCase().includes(searchTerm.toLowerCase()) || student.group.toLowerCase().includes(searchTerm.toLowerCase()))
-        );
-        studentsList.innerHTML = "";
-        if (filteredStudents.length === 0) {
-          studentsList.innerHTML = '<div class="no-students">\u041D\u0435\u0442 \u0441\u0442\u0443\u0434\u0435\u043D\u0442\u043E\u0432 \u0434\u043B\u044F \u0434\u043E\u0431\u0430\u0432\u043B\u0435\u043D\u0438\u044F</div>';
-          return;
-        }
-        filteredStudents.forEach((student) => {
-          const studentItem = document.createElement("div");
-          studentItem.className = "student-item";
-          studentItem.innerHTML = `
+    });
+    this.updateStudentsTable();
+    modalManager.hide("addStudentModal");
+    this.showNotification(`\u0414\u043E\u0431\u0430\u0432\u043B\u0435\u043D\u043E ${selectedStudents.length} \u0441\u0442\u0443\u0434\u0435\u043D\u0442\u043E\u0432`);
+  }
+  filterStudents(searchTerm = "") {
+    this.renderStudentsList(searchTerm);
+  }
+  renderStudentsList(searchTerm = "") {
+    const studentsList = document.getElementById("studentsList");
+    if (!studentsList) return;
+    const filteredStudents = this.availableStudents.filter(
+      (student) => !this.currentStudents.some((current) => current.id === student.id) && (student.name.toLowerCase().includes(searchTerm.toLowerCase()) || student.email.toLowerCase().includes(searchTerm.toLowerCase()) || student.group.toLowerCase().includes(searchTerm.toLowerCase()))
+    );
+    studentsList.innerHTML = "";
+    if (filteredStudents.length === 0) {
+      studentsList.innerHTML = '<div class="no-students">\u041D\u0435\u0442 \u0441\u0442\u0443\u0434\u0435\u043D\u0442\u043E\u0432 \u0434\u043B\u044F \u0434\u043E\u0431\u0430\u0432\u043B\u0435\u043D\u0438\u044F</div>';
+      return;
+    }
+    filteredStudents.forEach((student) => {
+      const studentItem = document.createElement("div");
+      studentItem.className = "student-item";
+      studentItem.innerHTML = `
                 <input type="checkbox" class="student-checkbox" data-id="${student.id}">
                 <div class="student-avatar-small">${student.initials}</div>
                 <div class="student-info">
@@ -4434,16 +7220,16 @@ var init_course_students = __esm({
                 </div>
                 <div class="student-group">${student.group}</div>
             `;
-          studentsList.appendChild(studentItem);
-        });
-      }
-      updateStudentsTable() {
-        const tableBody = document.querySelector(".students-table tbody");
-        if (!tableBody) return;
-        tableBody.innerHTML = "";
-        this.currentStudents.forEach((student) => {
-          const row = document.createElement("tr");
-          row.innerHTML = `
+      studentsList.appendChild(studentItem);
+    });
+  }
+  updateStudentsTable() {
+    const tableBody = document.querySelector(".students-table tbody");
+    if (!tableBody) return;
+    tableBody.innerHTML = "";
+    this.currentStudents.forEach((student) => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
                 <td>
                     <div style="display: flex; align-items: center; gap: 10px;">
                         <div class="student-avatar">${student.initials}</div>
@@ -4463,43 +7249,41 @@ var init_course_students = __esm({
                     <button class="action-btn" data-action="stats"><i class="fas fa-chart-line"></i></button>
                 </td>
             `;
-          tableBody.appendChild(row);
-        });
-        this.updateStudentCount();
-        this.initActionButtons();
-      }
-      updateStudentCount() {
-        const studentCountElement = document.querySelector(".management-card:nth-child(2) h3");
-        if (studentCountElement) {
-          studentCountElement.textContent = this.currentStudents.length;
-        }
-      }
-      initActionButtons() {
-        document.querySelectorAll('.action-btn[data-action="email"]').forEach((button) => {
-          button.addEventListener("click", (e) => {
-            e.stopPropagation();
-            const studentName = button.closest("tr").querySelector(".student-name").textContent;
-            this.showNotification(`\u041E\u0442\u043F\u0440\u0430\u0432\u043A\u0430 \u0441\u043E\u043E\u0431\u0449\u0435\u043D\u0438\u044F \u0441\u0442\u0443\u0434\u0435\u043D\u0442\u0443 ${studentName}`);
-          });
-        });
-        document.querySelectorAll('.action-btn[data-action="stats"]').forEach((button) => {
-          button.addEventListener("click", (e) => {
-            e.stopPropagation();
-            const studentName = button.closest("tr").querySelector(".student-name").textContent;
-            this.showNotification(`\u041F\u0440\u043E\u0441\u043C\u043E\u0442\u0440 \u0441\u0442\u0430\u0442\u0438\u0441\u0442\u0438\u043A\u0438 \u0441\u0442\u0443\u0434\u0435\u043D\u0442\u0430 ${studentName}`);
-          });
-        });
-      }
-      showNotification(message, type = "success") {
-        if (typeof showToast !== "undefined") {
-          showToast(message, type);
-        } else {
-          console.log(`Notification [${type}]: ${message}`);
-        }
-      }
-    };
+      tableBody.appendChild(row);
+    });
+    this.updateStudentCount();
+    this.initActionButtons();
   }
-});
+  updateStudentCount() {
+    const studentCountElement = document.querySelector(".management-card:nth-child(2) h3");
+    if (studentCountElement) {
+      studentCountElement.textContent = this.currentStudents.length;
+    }
+  }
+  initActionButtons() {
+    document.querySelectorAll('.action-btn[data-action="email"]').forEach((button) => {
+      button.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const studentName = button.closest("tr").querySelector(".student-name").textContent;
+        this.showNotification(`\u041E\u0442\u043F\u0440\u0430\u0432\u043A\u0430 \u0441\u043E\u043E\u0431\u0449\u0435\u043D\u0438\u044F \u0441\u0442\u0443\u0434\u0435\u043D\u0442\u0443 ${studentName}`);
+      });
+    });
+    document.querySelectorAll('.action-btn[data-action="stats"]').forEach((button) => {
+      button.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const studentName = button.closest("tr").querySelector(".student-name").textContent;
+        this.showNotification(`\u041F\u0440\u043E\u0441\u043C\u043E\u0442\u0440 \u0441\u0442\u0430\u0442\u0438\u0441\u0442\u0438\u043A\u0438 \u0441\u0442\u0443\u0434\u0435\u043D\u0442\u0430 ${studentName}`);
+      });
+    });
+  }
+  showNotification(message, type = "success") {
+    if (typeof showToast !== "undefined") {
+      showToast(message, type);
+    } else {
+      console.log(`Notification [${type}]: ${message}`);
+    }
+  }
+};
 
 // static/js/modules/course-management.js
 function showToast2(message, type = "info") {
@@ -4786,12 +7570,6 @@ function showNotification(message, type = "success") {
     console.log(`Notification [${type}]: ${message}`);
   }
 }
-var init_course_management = __esm({
-  "static/js/modules/course-management.js"() {
-    init_course_students();
-    init_modal_manager();
-  }
-});
 
 // static/js/modules/course-creation.js
 function initCourseCreation() {
@@ -5224,10 +8002,6 @@ function addToastStyles() {
     document.head.appendChild(styleSheet);
   }
 }
-var init_course_creation = __esm({
-  "static/js/modules/course-creation.js"() {
-  }
-});
 
 // static/js/modules/course-detail-management.js
 function initCourseDetailManagement() {
@@ -6021,12 +8795,11 @@ function addManagementStyles() {
 function showToast4(message, type = "info", duration = 4e3) {
   console.log(`Toast [${type}]: ${message}`);
 }
-var init_course_detail_management = __esm({
-  "static/js/modules/course-detail-management.js"() {
-  }
-});
 
 // static/js/modules/course-editor.js
+if (typeof pdfjsLib !== "undefined") {
+  pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js";
+}
 function initCreateCourseDetailPage() {
   initTabs();
   initVideoOptions();
@@ -7150,13 +9923,6 @@ function addEditorStyles() {
     document.head.appendChild(styleSheet);
   }
 }
-var init_course_editor = __esm({
-  "static/js/modules/course-editor.js"() {
-    if (typeof pdfjsLib !== "undefined") {
-      pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js";
-    }
-  }
-});
 
 // static/js/modules/courses.js
 function initCoursePages() {
@@ -7250,10 +10016,6 @@ function initCreateCoursePage() {
     });
   }
 }
-var init_courses = __esm({
-  "static/js/modules/courses.js"() {
-  }
-});
 
 // static/js/pages/course-pages.js
 function initCoursesModule() {
@@ -7312,58 +10074,49 @@ function createCourseLesson(title, type = "lecture", content = "") {
     createdAt: (/* @__PURE__ */ new Date()).toISOString()
   };
 }
-var CourseUtils;
-var init_course_pages = __esm({
-  "static/js/pages/course-pages.js"() {
-    init_course_creation();
-    init_course_detail_management();
-    init_course_management();
-    init_course_editor();
-    init_courses();
-    CourseUtils = {
-      formatDuration(minutes) {
-        const hours = Math.floor(minutes / 60);
-        const mins = minutes % 60;
-        if (hours > 0) {
-          return mins > 0 ? `${hours}\u0447 ${mins}\u043C` : `${hours}\u0447`;
-        }
-        return `${mins}\u043C`;
-      },
-      getLevelText(level) {
-        const levels = {
-          beginner: "\u041D\u0430\u0447\u0430\u043B\u044C\u043D\u044B\u0439",
-          intermediate: "\u0421\u0440\u0435\u0434\u043D\u0438\u0439",
-          advanced: "\u041F\u0440\u043E\u0434\u0432\u0438\u043D\u0443\u0442\u044B\u0439"
-        };
-        return levels[level] || "\u041D\u0435 \u0443\u043A\u0430\u0437\u0430\u043D";
-      },
-      getLessonTypeText(type) {
-        const types = {
-          lecture: "\u041B\u0435\u043A\u0446\u0438\u044F",
-          test: "\u0422\u0435\u0441\u0442",
-          practice: "\u041F\u0440\u0430\u043A\u0442\u0438\u043A\u0430"
-        };
-        return types[type] || "\u041B\u0435\u043A\u0446\u0438\u044F";
-      },
-      isValidYouTubeUrl(url) {
-        const regex = /^(https?:\/\/)?(www\.)?(youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
-        return regex.test(url);
-      },
-      extractYouTubeId(url) {
-        const regex = /(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
-        const match = url.match(regex);
-        return match ? match[1] : null;
-      }
-    };
-    if (typeof window !== "undefined") {
-      window.CourseUtils = CourseUtils;
-      window.createCourseModule = createCourseModule;
-      window.createCourseLesson = createCourseLesson;
+var CourseUtils = {
+  formatDuration(minutes) {
+    const hours = Math.floor(minutes / 60);
+    const mins = minutes % 60;
+    if (hours > 0) {
+      return mins > 0 ? `${hours}\u0447 ${mins}\u043C` : `${hours}\u0447`;
     }
+    return `${mins}\u043C`;
+  },
+  getLevelText(level) {
+    const levels = {
+      beginner: "\u041D\u0430\u0447\u0430\u043B\u044C\u043D\u044B\u0439",
+      intermediate: "\u0421\u0440\u0435\u0434\u043D\u0438\u0439",
+      advanced: "\u041F\u0440\u043E\u0434\u0432\u0438\u043D\u0443\u0442\u044B\u0439"
+    };
+    return levels[level] || "\u041D\u0435 \u0443\u043A\u0430\u0437\u0430\u043D";
+  },
+  getLessonTypeText(type) {
+    const types = {
+      lecture: "\u041B\u0435\u043A\u0446\u0438\u044F",
+      test: "\u0422\u0435\u0441\u0442",
+      practice: "\u041F\u0440\u0430\u043A\u0442\u0438\u043A\u0430"
+    };
+    return types[type] || "\u041B\u0435\u043A\u0446\u0438\u044F";
+  },
+  isValidYouTubeUrl(url) {
+    const regex = /^(https?:\/\/)?(www\.)?(youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+    return regex.test(url);
+  },
+  extractYouTubeId(url) {
+    const regex = /(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+    const match = url.match(regex);
+    return match ? match[1] : null;
   }
-});
+};
+if (typeof window !== "undefined") {
+  window.CourseUtils = CourseUtils;
+  window.createCourseModule = createCourseModule;
+  window.createCourseLesson = createCourseLesson;
+}
 
 // static/js/modules/toast.js
+var toastContainer;
 function initToastSystem3() {
   if (!document.querySelector(".toast-container")) {
     toastContainer = document.createElement("div");
@@ -7405,19 +10158,48 @@ function showToast6(message, type = "success", title = "", duration = 4e3) {
   }
   return toast;
 }
-var toastContainer;
-var init_toast = __esm({
-  "static/js/modules/toast.js"() {
+function showNotification2(message, type = "success") {
+  const notification = document.createElement("div");
+  notification.className = `notification notification-${type}`;
+  notification.textContent = message;
+  notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: ${type === "success" ? "#4CAF50" : "#f44336"};
+        color: white;
+        padding: 15px 20px;
+        border-radius: 5px;
+        z-index: 1000;
+        animation: slideIn 0.3s ease-out;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    `;
+  if (!document.querySelector("#notification-styles")) {
+    const style = document.createElement("style");
+    style.id = "notification-styles";
+    style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+    document.head.appendChild(style);
   }
-});
+  document.body.appendChild(notification);
+  setTimeout(() => {
+    notification.style.animation = "slideOut 0.3s ease-in";
+    setTimeout(() => {
+      notification.remove();
+    }, 300);
+  }, 3e3);
+}
 
 // static/js/modules/practic-execution.js
-var practic_execution_exports = {};
-__export(practic_execution_exports, {
-  initFileAttachment: () => initFileAttachment,
-  initPracticExecution: () => initPracticExecution2
-});
-function initPracticExecution2() {
+function initPracticExecution() {
   const codeInput = document.getElementById("code-input");
   const runBtn = document.getElementById("run-btn");
   const submitBtn = document.getElementById("submit-btn");
@@ -7861,11 +10643,6 @@ function formatFileSize(bytes) {
   const i = Math.floor(Math.log(bytes) / Math.log(k));
   return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
 }
-var init_practic_execution = __esm({
-  "static/js/modules/practic-execution.js"() {
-    init_toast();
-  }
-});
 
 // static/js/modules/practic-review.js
 function initPracticReview() {
@@ -7941,10 +10718,6 @@ function initPracticReview() {
     });
   });
 }
-var init_practic_review = __esm({
-  "static/js/modules/practic-review.js"() {
-  }
-});
 
 // static/js/modules/practic-creation.js
 function initPracticCreation() {
@@ -8621,11 +11394,6 @@ function initPracticCreation() {
     localStorage.removeItem("practice_autosave");
   });
 }
-var init_practic_creation = __esm({
-  "static/js/modules/practic-creation.js"() {
-    init_toast();
-  }
-});
 
 // static/js/pages/practic-pages.js
 function initPracticePage() {
@@ -8633,7 +11401,7 @@ function initPracticePage() {
   initToastSystem3();
   if (document.getElementById("code-input") && document.getElementById("run-btn")) {
     console.log("\u0418\u043D\u0438\u0446\u0438\u0430\u043B\u0438\u0437\u0430\u0446\u0438\u044F \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u044B \u0432\u044B\u043F\u043E\u043B\u043D\u0435\u043D\u0438\u044F \u0437\u0430\u0434\u0430\u043D\u0438\u044F");
-    initPracticExecution2();
+    initPracticExecution();
   } else if (document.getElementById("review-modal") || document.querySelector(".submission-card")) {
     console.log("\u0418\u043D\u0438\u0446\u0438\u0430\u043B\u0438\u0437\u0430\u0446\u0438\u044F \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u044B \u043F\u0440\u043E\u0432\u0435\u0440\u043A\u0438 \u0437\u0430\u0434\u0430\u043D\u0438\u0439");
     initPracticReview();
@@ -8722,18 +11490,10 @@ function initProgressStats() {
     }, 100);
   });
 }
-var init_practic_pages = __esm({
-  "static/js/pages/practic-pages.js"() {
-    init_practic_execution();
-    init_practic_review();
-    init_practic_creation();
-    init_animations();
-    init_toast();
-    document.addEventListener("DOMContentLoaded", initPracticePage);
-  }
-});
+document.addEventListener("DOMContentLoaded", initPracticePage);
 
 // static/js/pages/test-pages.js
+var toastContainer2;
 function initToastSystem4() {
   if (!document.querySelector(".toast-container")) {
     toastContainer2 = document.createElement("div");
@@ -8775,7 +11535,7 @@ function showToast7(message, type = "success", title = "", duration = 4e3) {
   }
   return toast;
 }
-function removeQuestion2(questionNumber) {
+function removeQuestion(questionNumber) {
   const confirmToast = showToast7(
     `\u0412\u044B \u0443\u0432\u0435\u0440\u0435\u043D\u044B, \u0447\u0442\u043E \u0445\u043E\u0442\u0438\u0442\u0435 \u0443\u0434\u0430\u043B\u0438\u0442\u044C \u0432\u043E\u043F\u0440\u043E\u0441 ${questionNumber}?`,
     "warning",
@@ -9720,20 +12480,564 @@ function initCreateTestPage() {
   if (helpTypesCancel) helpTypesCancel.addEventListener("click", closeHelpModals);
   if (helpAnalyticsCancel) helpAnalyticsCancel.addEventListener("click", closeHelpModals);
 }
-var toastContainer2;
-var init_test_pages = __esm({
-  "static/js/pages/test-pages.js"() {
-    window.removeQuestion = removeQuestion2;
-    window.showToast = showToast7;
-    document.addEventListener("DOMContentLoaded", function() {
-      if (document.querySelector(".test-creation")) {
-        initCreateTestPage();
-      }
-    });
+window.removeQuestion = removeQuestion;
+window.showToast = showToast7;
+document.addEventListener("DOMContentLoaded", function() {
+  if (document.querySelector(".test-creation")) {
+    initCreateTestPage();
   }
 });
 
+// static/js/modules/tests.js
+function initTestTaking() {
+  let timeLeft = 20 * 60;
+  const timerElement = document.getElementById("timer");
+  const sidebarTimerElement = document.getElementById("sidebar-timer");
+  let timerInterval;
+  function updateTimer() {
+    const minutes = Math.floor(timeLeft / 60);
+    const seconds = timeLeft % 60;
+    const timeString = `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+    if (timerElement) timerElement.textContent = timeString;
+    if (sidebarTimerElement) sidebarTimerElement.textContent = timeString;
+    if (timeLeft <= 0) {
+      clearInterval(timerInterval);
+      finishTest();
+    } else {
+      timeLeft--;
+    }
+  }
+  if (timerElement) {
+    timerInterval = setInterval(updateTimer, 1e3);
+  }
+  const optionItems = document.querySelectorAll(".option-item");
+  optionItems.forEach((item) => {
+    item.addEventListener("click", function() {
+      optionItems.forEach((opt) => opt.classList.remove("selected"));
+      this.classList.add("selected");
+    });
+  });
+  const questionNavItems = document.querySelectorAll(".question-nav-item");
+  const currentQuestionElement = document.getElementById("current-question");
+  const progressFillElement = document.getElementById("progress-fill");
+  const progressPercentElement = document.getElementById("progress-percent");
+  const totalQuestions = 15;
+  if (questionNavItems.length > 0) {
+    questionNavItems.forEach((item, index) => {
+      item.addEventListener("click", function() {
+        const questionNumber = index + 1;
+        if (currentQuestionElement) {
+          currentQuestionElement.textContent = questionNumber;
+        }
+        const progressPercent = Math.round(questionNumber / totalQuestions * 100);
+        if (progressFillElement) {
+          progressFillElement.style.width = `${progressPercent}%`;
+        }
+        if (progressPercentElement) {
+          progressPercentElement.textContent = `${progressPercent}%`;
+        }
+        questionNavItems.forEach((nav) => nav.classList.remove("current"));
+        this.classList.add("current");
+        console.log(`\u0417\u0430\u0433\u0440\u0443\u0436\u0430\u0435\u043C \u0432\u043E\u043F\u0440\u043E\u0441 ${questionNumber}`);
+      });
+    });
+  }
+  const nextQuestionBtn = document.getElementById("next-question-btn");
+  if (nextQuestionBtn) {
+    nextQuestionBtn.addEventListener("click", function() {
+      const currentQuestion = parseInt(currentQuestionElement.textContent);
+      if (currentQuestion < totalQuestions) {
+        const nextQuestion = currentQuestion + 1;
+        if (currentQuestionElement) {
+          currentQuestionElement.textContent = nextQuestion;
+        }
+        const progressPercent = Math.round(nextQuestion / totalQuestions * 100);
+        if (progressFillElement) {
+          progressFillElement.style.width = `${progressPercent}%`;
+        }
+        if (progressPercentElement) {
+          progressPercentElement.textContent = `${progressPercent}%`;
+        }
+        questionNavItems.forEach((nav) => nav.classList.remove("current"));
+        questionNavItems[nextQuestion - 1].classList.add("current");
+        questionNavItems[currentQuestion - 1].classList.add("answered");
+        console.log(`\u0417\u0430\u0433\u0440\u0443\u0436\u0430\u0435\u043C \u0432\u043E\u043F\u0440\u043E\u0441 ${nextQuestion}`);
+      } else {
+        finishTest();
+      }
+    });
+  }
+  function finishTest() {
+    clearInterval(timerInterval);
+    window.location.href = "/frontend/templates/test/test-result.html";
+  }
+  const finishTestBtn = document.querySelector(".btn-danger");
+  if (finishTestBtn) {
+    finishTestBtn.addEventListener("click", function() {
+      if (confirm("\u0412\u044B \u0443\u0432\u0435\u0440\u0435\u043D\u044B, \u0447\u0442\u043E \u0445\u043E\u0442\u0438\u0442\u0435 \u0437\u0430\u0432\u0435\u0440\u0448\u0438\u0442\u044C \u0442\u0435\u0441\u0442? \u041F\u043E\u0441\u043B\u0435 \u0437\u0430\u0432\u0435\u0440\u0448\u0435\u043D\u0438\u044F \u0432\u044B \u0441\u043C\u043E\u0436\u0435\u0442\u0435 \u043F\u043E\u0441\u043C\u043E\u0442\u0440\u0435\u0442\u044C \u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442\u044B.")) {
+        finishTest();
+      }
+    });
+  }
+}
+function initTestResultsPage() {
+  const fadeElements = document.querySelectorAll(".fade-in");
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+      }
+    });
+  }, {
+    threshold: 0.1
+  });
+  fadeElements.forEach((element) => {
+    observer.observe(element);
+  });
+  window.addEventListener("scroll", function() {
+    const header = document.querySelector("header");
+    if (window.scrollY > 50) {
+      header.classList.add("scrolled");
+    } else {
+      header.classList.remove("scrolled");
+    }
+  });
+  const detailsTabs = document.querySelectorAll(".details-tab");
+  const detailsPanels = document.querySelectorAll(".details-panel");
+  if (detailsTabs.length > 0) {
+    detailsTabs.forEach((tab) => {
+      tab.addEventListener("click", function() {
+        const tabId = this.getAttribute("data-tab");
+        detailsTabs.forEach((t) => t.classList.remove("active"));
+        detailsPanels.forEach((p) => p.classList.remove("active"));
+        this.classList.add("active");
+        const panel = document.getElementById(`${tabId}-panel`);
+        if (panel) panel.classList.add("active");
+      });
+    });
+  }
+  const watchDetailsBtn = document.querySelector('a[href="#results"]');
+  if (watchDetailsBtn) {
+    watchDetailsBtn.addEventListener("click", function(e) {
+      e.preventDefault();
+      const resultsSection = document.getElementById("results");
+      if (resultsSection) {
+        const headerHeight = document.querySelector("header").offsetHeight;
+        const targetPosition = resultsSection.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+        window.scrollTo({
+          top: targetPosition,
+          behavior: "smooth"
+        });
+      }
+    });
+  }
+  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+    anchor.addEventListener("click", function(e) {
+      const href = this.getAttribute("href");
+      if (href === "#") return;
+      e.preventDefault();
+      const targetElement = document.querySelector(href);
+      if (targetElement) {
+        const headerHeight = document.querySelector("header").offsetHeight;
+        const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+        window.scrollTo({
+          top: targetPosition,
+          behavior: "smooth"
+        });
+      }
+    });
+  });
+}
+
 // static/js/pages/homework-pages.js
+var alertStyles = `
+.custom-alert {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 16px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    background: white;
+    border: 1px solid #e0e0e0;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    max-width: 400px;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: all 0.3s ease;
+    font-family: 'PT Sans', sans-serif;
+}
+
+.custom-alert.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.custom-alert.success {
+    border-left: 4px solid #4CAF50;
+    background: linear-gradient(135deg, #f8fff8 0%, #e8f5e8 100%);
+}
+
+.custom-alert.error {
+    border-left: 4px solid #f44336;
+    background: linear-gradient(135deg, #fff8f8 0%, #f5e8e8 100%);
+}
+
+.custom-alert.warning {
+    border-left: 4px solid #ff9800;
+    background: linear-gradient(135deg, #fffbf8 0%, #f5f0e8 100%);
+}
+
+.custom-alert.info {
+    border-left: 4px solid #2196F3;
+    background: linear-gradient(135deg, #f8fbff 0%, #e8f0f5 100%);
+}
+
+.custom-alert .alert-icon {
+    font-size: 20px;
+    width: 24px;
+    text-align: center;
+}
+
+.custom-alert.success .alert-icon {
+    color: #4CAF50;
+}
+
+.custom-alert.error .alert-icon {
+    color: #f44336;
+}
+
+.custom-alert.warning .alert-icon {
+    color: #ff9800;
+}
+
+.custom-alert.info .alert-icon {
+    color: #2196F3;
+}
+
+.custom-alert .alert-content {
+    flex: 1;
+    color: #333;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.custom-alert .alert-close {
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    color: #666;
+    padding: 4px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.custom-alert .alert-close:hover {
+    background: rgba(0,0,0,0.1);
+    color: #333;
+}
+
+/* \u0410\u043D\u0438\u043C\u0430\u0446\u0438\u0438 \u0434\u043B\u044F fade-in \u044D\u043B\u0435\u043C\u0435\u043D\u0442\u043E\u0432 */
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s ease;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* \u0421\u0442\u0438\u043B\u0438 \u0434\u043B\u044F \u043E\u0448\u0438\u0431\u043E\u043A \u0444\u043E\u0440\u043C */
+.error {
+    border-color: #f44336 !important;
+    background-color: #fff8f8 !important;
+}
+
+.error-message {
+    color: #f44336;
+    font-size: 12px;
+    margin-top: 5px;
+    display: block;
+}
+
+/* \u0421\u0442\u0438\u043B\u0438 \u0434\u043B\u044F \u0437\u0430\u0433\u0440\u0443\u0437\u043A\u0438 \u0444\u0430\u0439\u043B\u043E\u0432 */
+.file-upload-area {
+    border: 2px dashed #ddd;
+    border-radius: 8px;
+    padding: 40px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: #fafafa;
+}
+
+.file-upload-area:hover {
+    border-color: #2196F3;
+    background: #f0f8ff;
+}
+
+.file-upload-area.dragover {
+    border-color: #2196F3;
+    background: #e3f2fd;
+}
+
+.file-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    background: #f8f9fa;
+    border-radius: 6px;
+    margin-bottom: 8px;
+    border: 1px solid #e9ecef;
+    transition: all 0.3s ease;
+}
+
+.file-item:hover {
+    background: #e9ecef;
+}
+
+.file-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.file-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.file-name {
+    font-weight: 600;
+    color: #333;
+}
+
+.file-size {
+    font-size: 12px;
+    color: #666;
+}
+
+.file-remove {
+    color: #999;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.file-remove:hover {
+    color: #f44336;
+    background: rgba(244, 67, 54, 0.1);
+}
+
+/* \u0421\u0442\u0438\u043B\u0438 \u0434\u043B\u044F \u043A\u0440\u0438\u0442\u0435\u0440\u0438\u0435\u0432 \u043E\u0446\u0435\u043D\u043A\u0438 */
+.criteria-item {
+    display: flex;
+    gap: 15px;
+    align-items: flex-end;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #e9ecef;
+    transition: all 0.3s ease;
+}
+
+.criteria-item:hover {
+    background: #e9ecef;
+}
+
+.criteria-inputs {
+    display: flex;
+    gap: 15px;
+    flex: 1;
+}
+
+.criteria-actions {
+    display: flex;
+    align-items: center;
+}
+
+.criteria-remove {
+    color: #999;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.criteria-remove:hover {
+    color: #f44336;
+    background: rgba(244, 67, 54, 0.1);
+}
+
+/* \u0421\u0442\u0438\u043B\u0438 \u0434\u043B\u044F \u043F\u0440\u043E\u0433\u0440\u0435\u0441\u0441-\u0431\u0430\u0440\u043E\u0432 */
+.progress-bar {
+    height: 8px;
+    background: #e9ecef;
+    border-radius: 4px;
+    overflow: hidden;
+    flex: 1;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #4CAF50, #45a049);
+    border-radius: 4px;
+    transition: width 1s ease-in-out;
+}
+
+/* \u0421\u0442\u0438\u043B\u0438 \u0434\u043B\u044F \u0441\u0442\u0430\u0442\u0443\u0441\u043E\u0432 */
+.status-new {
+    background: #e3f2fd;
+    color: #1976d2;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.status-in-progress {
+    background: #fff3e0;
+    color: #f57c00;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.status-reviewed {
+    background: #e8f5e8;
+    color: #388e3c;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.status-overdue {
+    background: #ffebee;
+    color: #d32f2f;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.status-pending {
+    background: #fff3e0;
+    color: #f57c00;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.status-returned {
+    background: #ffebee;
+    color: #d32f2f;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.status-completed {
+    background: #e8f5e8;
+    color: #388e3c;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* \u0421\u0442\u0438\u043B\u0438 \u0434\u043B\u044F \u043C\u043E\u0434\u0430\u043B\u044C\u043D\u044B\u0445 \u043E\u043A\u043E\u043D */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    max-width: 500px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    transform: scale(0.7);
+    transition: all 0.3s ease;
+}
+
+.modal-overlay.active .modal {
+    transform: scale(1);
+}
+
+.modal-header {
+    padding: 20px 24px 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.modal-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #4CAF50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 18px;
+}
+
+.modal-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #333;
+    margin: 0;
+}
+
+.modal-content {
+    padding: 20px 24px;
+    color: #666;
+    line-height: 1.5;
+}
+
+.modal-actions {
+    padding: 0 24px 20px;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+`;
+var styleElement = document.createElement("style");
+styleElement.textContent = alertStyles;
+document.head.appendChild(styleElement);
 function initHomeworkPages(currentPath) {
   console.log("Initializing homework pages for path:", currentPath);
   if (currentPath.includes("homework.html")) {
@@ -11022,848 +14326,744 @@ function initTemplateCardInteractions() {
     });
   });
 }
-var alertStyles, styleElement;
-var init_homework_pages = __esm({
-  "static/js/pages/homework-pages.js"() {
-    init_utils();
-    alertStyles = `
-.custom-alert {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    padding: 16px 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    background: white;
-    border: 1px solid #e0e0e0;
-    z-index: 10000;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    max-width: 400px;
-    opacity: 0;
-    transform: translateX(100%);
-    transition: all 0.3s ease;
-    font-family: 'PT Sans', sans-serif;
-}
+window.initHomeworkPages = initHomeworkPages;
 
-.custom-alert.visible {
-    opacity: 1;
-    transform: translateX(0);
-}
-
-.custom-alert.success {
-    border-left: 4px solid #4CAF50;
-    background: linear-gradient(135deg, #f8fff8 0%, #e8f5e8 100%);
-}
-
-.custom-alert.error {
-    border-left: 4px solid #f44336;
-    background: linear-gradient(135deg, #fff8f8 0%, #f5e8e8 100%);
-}
-
-.custom-alert.warning {
-    border-left: 4px solid #ff9800;
-    background: linear-gradient(135deg, #fffbf8 0%, #f5f0e8 100%);
-}
-
-.custom-alert.info {
-    border-left: 4px solid #2196F3;
-    background: linear-gradient(135deg, #f8fbff 0%, #e8f0f5 100%);
-}
-
-.custom-alert .alert-icon {
-    font-size: 20px;
-    width: 24px;
-    text-align: center;
-}
-
-.custom-alert.success .alert-icon {
-    color: #4CAF50;
-}
-
-.custom-alert.error .alert-icon {
-    color: #f44336;
-}
-
-.custom-alert.warning .alert-icon {
-    color: #ff9800;
-}
-
-.custom-alert.info .alert-icon {
-    color: #2196F3;
-}
-
-.custom-alert .alert-content {
-    flex: 1;
-    color: #333;
-    font-size: 14px;
-    line-height: 1.4;
-}
-
-.custom-alert .alert-close {
-    background: none;
-    border: none;
-    font-size: 16px;
-    cursor: pointer;
-    color: #666;
-    padding: 4px;
-    border-radius: 4px;
-    transition: all 0.2s ease;
-}
-
-.custom-alert .alert-close:hover {
-    background: rgba(0,0,0,0.1);
-    color: #333;
-}
-
-/* \u0410\u043D\u0438\u043C\u0430\u0446\u0438\u0438 \u0434\u043B\u044F fade-in \u044D\u043B\u0435\u043C\u0435\u043D\u0442\u043E\u0432 */
-.fade-in {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.5s ease;
-}
-
-.fade-in.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* \u0421\u0442\u0438\u043B\u0438 \u0434\u043B\u044F \u043E\u0448\u0438\u0431\u043E\u043A \u0444\u043E\u0440\u043C */
-.error {
-    border-color: #f44336 !important;
-    background-color: #fff8f8 !important;
-}
-
-.error-message {
-    color: #f44336;
-    font-size: 12px;
-    margin-top: 5px;
-    display: block;
-}
-
-/* \u0421\u0442\u0438\u043B\u0438 \u0434\u043B\u044F \u0437\u0430\u0433\u0440\u0443\u0437\u043A\u0438 \u0444\u0430\u0439\u043B\u043E\u0432 */
-.file-upload-area {
-    border: 2px dashed #ddd;
-    border-radius: 8px;
-    padding: 40px 20px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    background: #fafafa;
-}
-
-.file-upload-area:hover {
-    border-color: #2196F3;
-    background: #f0f8ff;
-}
-
-.file-upload-area.dragover {
-    border-color: #2196F3;
-    background: #e3f2fd;
-}
-
-.file-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px;
-    background: #f8f9fa;
-    border-radius: 6px;
-    margin-bottom: 8px;
-    border: 1px solid #e9ecef;
-    transition: all 0.3s ease;
-}
-
-.file-item:hover {
-    background: #e9ecef;
-}
-
-.file-info {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.file-details {
-    display: flex;
-    flex-direction: column;
-}
-
-.file-name {
-    font-weight: 600;
-    color: #333;
-}
-
-.file-size {
-    font-size: 12px;
-    color: #666;
-}
-
-.file-remove {
-    color: #999;
-    cursor: pointer;
-    padding: 4px;
-    border-radius: 4px;
-    transition: all 0.2s ease;
-}
-
-.file-remove:hover {
-    color: #f44336;
-    background: rgba(244, 67, 54, 0.1);
-}
-
-/* \u0421\u0442\u0438\u043B\u0438 \u0434\u043B\u044F \u043A\u0440\u0438\u0442\u0435\u0440\u0438\u0435\u0432 \u043E\u0446\u0435\u043D\u043A\u0438 */
-.criteria-item {
-    display: flex;
-    gap: 15px;
-    align-items: flex-end;
-    padding: 15px;
-    background: #f8f9fa;
-    border-radius: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #e9ecef;
-    transition: all 0.3s ease;
-}
-
-.criteria-item:hover {
-    background: #e9ecef;
-}
-
-.criteria-inputs {
-    display: flex;
-    gap: 15px;
-    flex: 1;
-}
-
-.criteria-actions {
-    display: flex;
-    align-items: center;
-}
-
-.criteria-remove {
-    color: #999;
-    cursor: pointer;
-    padding: 8px;
-    border-radius: 4px;
-    transition: all 0.2s ease;
-}
-
-.criteria-remove:hover {
-    color: #f44336;
-    background: rgba(244, 67, 54, 0.1);
-}
-
-/* \u0421\u0442\u0438\u043B\u0438 \u0434\u043B\u044F \u043F\u0440\u043E\u0433\u0440\u0435\u0441\u0441-\u0431\u0430\u0440\u043E\u0432 */
-.progress-bar {
-    height: 8px;
-    background: #e9ecef;
-    border-radius: 4px;
-    overflow: hidden;
-    flex: 1;
-}
-
-.progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, #4CAF50, #45a049);
-    border-radius: 4px;
-    transition: width 1s ease-in-out;
-}
-
-/* \u0421\u0442\u0438\u043B\u0438 \u0434\u043B\u044F \u0441\u0442\u0430\u0442\u0443\u0441\u043E\u0432 */
-.status-new {
-    background: #e3f2fd;
-    color: #1976d2;
-    padding: 4px 8px;
-    border-radius: 12px;
-    font-size: 12px;
-    font-weight: 600;
-}
-
-.status-in-progress {
-    background: #fff3e0;
-    color: #f57c00;
-    padding: 4px 8px;
-    border-radius: 12px;
-    font-size: 12px;
-    font-weight: 600;
-}
-
-.status-reviewed {
-    background: #e8f5e8;
-    color: #388e3c;
-    padding: 4px 8px;
-    border-radius: 12px;
-    font-size: 12px;
-    font-weight: 600;
-}
-
-.status-overdue {
-    background: #ffebee;
-    color: #d32f2f;
-    padding: 4px 8px;
-    border-radius: 12px;
-    font-size: 12px;
-    font-weight: 600;
-}
-
-.status-pending {
-    background: #fff3e0;
-    color: #f57c00;
-    padding: 4px 8px;
-    border-radius: 12px;
-    font-size: 12px;
-    font-weight: 600;
-}
-
-.status-returned {
-    background: #ffebee;
-    color: #d32f2f;
-    padding: 4px 8px;
-    border-radius: 12px;
-    font-size: 12px;
-    font-weight: 600;
-}
-
-.status-completed {
-    background: #e8f5e8;
-    color: #388e3c;
-    padding: 4px 8px;
-    border-radius: 12px;
-    font-size: 12px;
-    font-weight: 600;
-}
-
-/* \u0421\u0442\u0438\u043B\u0438 \u0434\u043B\u044F \u043C\u043E\u0434\u0430\u043B\u044C\u043D\u044B\u0445 \u043E\u043A\u043E\u043D */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0,0,0,0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-}
-
-.modal-overlay.active {
-    opacity: 1;
-    visibility: visible;
-}
-
-.modal {
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    max-width: 500px;
-    width: 90%;
-    max-height: 90vh;
-    overflow-y: auto;
-    transform: scale(0.7);
-    transition: all 0.3s ease;
-}
-
-.modal-overlay.active .modal {
-    transform: scale(1);
-}
-
-.modal-header {
-    padding: 20px 24px 0;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.modal-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: #4CAF50;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 18px;
-}
-
-.modal-title {
-    font-size: 20px;
-    font-weight: 700;
-    color: #333;
-    margin: 0;
-}
-
-.modal-content {
-    padding: 20px 24px;
-    color: #666;
-    line-height: 1.5;
-}
-
-.modal-actions {
-    padding: 0 24px 20px;
-    display: flex;
-    gap: 10px;
-    justify-content: flex-end;
-}
-`;
-    styleElement = document.createElement("style");
-    styleElement.textContent = alertStyles;
-    document.head.appendChild(styleElement);
-    window.initHomeworkPages = initHomeworkPages;
-  }
-});
-
-// static/js/modules/tests.js
-function initTestTaking() {
-  let timeLeft = 20 * 60;
-  const timerElement = document.getElementById("timer");
-  const sidebarTimerElement = document.getElementById("sidebar-timer");
-  let timerInterval;
-  function updateTimer() {
-    const minutes = Math.floor(timeLeft / 60);
-    const seconds = timeLeft % 60;
-    const timeString = `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
-    if (timerElement) timerElement.textContent = timeString;
-    if (sidebarTimerElement) sidebarTimerElement.textContent = timeString;
-    if (timeLeft <= 0) {
-      clearInterval(timerInterval);
-      finishTest();
-    } else {
-      timeLeft--;
+// static/js/modules/tabs.js
+function initTabs2() {
+  const tabLinks = document.querySelectorAll(".sidebar-menu a[data-tab]");
+  const tabContents = document.querySelectorAll(".tab-content");
+  function switchTab(tabName) {
+    tabContents.forEach((tab) => {
+      tab.classList.remove("active");
+    });
+    const activeTab = document.getElementById(`${tabName}-tab`);
+    if (activeTab) {
+      activeTab.classList.add("active");
     }
+    tabLinks.forEach((link) => {
+      link.classList.remove("active");
+      if (link.getAttribute("data-tab") === tabName) {
+        link.classList.add("active");
+      }
+    });
   }
-  if (timerElement) {
-    timerInterval = setInterval(updateTimer, 1e3);
-  }
-  const optionItems = document.querySelectorAll(".option-item");
-  optionItems.forEach((item) => {
-    item.addEventListener("click", function() {
-      optionItems.forEach((opt) => opt.classList.remove("selected"));
-      this.classList.add("selected");
+  tabLinks.forEach((link) => {
+    link.addEventListener("click", function(e) {
+      e.preventDefault();
+      const tabName = this.getAttribute("data-tab");
+      switchTab(tabName);
     });
   });
-  const questionNavItems = document.querySelectorAll(".question-nav-item");
-  const currentQuestionElement = document.getElementById("current-question");
-  const progressFillElement = document.getElementById("progress-fill");
-  const progressPercentElement = document.getElementById("progress-percent");
-  const totalQuestions = 15;
-  if (questionNavItems.length > 0) {
-    questionNavItems.forEach((item, index) => {
-      item.addEventListener("click", function() {
-        const questionNumber = index + 1;
-        if (currentQuestionElement) {
-          currentQuestionElement.textContent = questionNumber;
-        }
-        const progressPercent = Math.round(questionNumber / totalQuestions * 100);
-        if (progressFillElement) {
-          progressFillElement.style.width = `${progressPercent}%`;
-        }
-        if (progressPercentElement) {
-          progressPercentElement.textContent = `${progressPercent}%`;
-        }
-        questionNavItems.forEach((nav) => nav.classList.remove("current"));
-        this.classList.add("current");
-        console.log(`\u0417\u0430\u0433\u0440\u0443\u0436\u0430\u0435\u043C \u0432\u043E\u043F\u0440\u043E\u0441 ${questionNumber}`);
-      });
-    });
+  return { switchTab };
+}
+
+// static/js/pages/profile.js
+function initProfilePage() {
+  initTabs2();
+  initAppearanceSettings();
+  initAvatarUpload();
+  initFormHandlers();
+  loadSavedData();
+  initMobileMenu2();
+  console.log("Profile page initialized successfully");
+}
+function initAppearanceSettings() {
+  console.log("Appearance settings initialized via ThemeManager");
+}
+function initAvatarUpload() {
+  const avatarContainer = document.querySelector(".avatar-container");
+  const avatarImage = document.getElementById("profileAvatar");
+  if (!avatarContainer || !avatarImage) {
+    console.warn("Avatar elements not found");
+    return;
   }
-  const nextQuestionBtn = document.getElementById("next-question-btn");
-  if (nextQuestionBtn) {
-    nextQuestionBtn.addEventListener("click", function() {
-      const currentQuestion = parseInt(currentQuestionElement.textContent);
-      if (currentQuestion < totalQuestions) {
-        const nextQuestion = currentQuestion + 1;
-        if (currentQuestionElement) {
-          currentQuestionElement.textContent = nextQuestion;
-        }
-        const progressPercent = Math.round(nextQuestion / totalQuestions * 100);
-        if (progressFillElement) {
-          progressFillElement.style.width = `${progressPercent}%`;
-        }
-        if (progressPercentElement) {
-          progressPercentElement.textContent = `${progressPercent}%`;
-        }
-        questionNavItems.forEach((nav) => nav.classList.remove("current"));
-        questionNavItems[nextQuestion - 1].classList.add("current");
-        questionNavItems[currentQuestion - 1].classList.add("answered");
-        console.log(`\u0417\u0430\u0433\u0440\u0443\u0436\u0430\u0435\u043C \u0432\u043E\u043F\u0440\u043E\u0441 ${nextQuestion}`);
+  if (window.UploadManager) {
+    window.UploadManager.initAvatarUpload(avatarContainer, avatarImage, {
+      maxFileSize: 5 * 1024 * 1024,
+      // 5MB
+      maxWidth: 300,
+      maxHeight: 300,
+      quality: 0.8
+    });
+  } else {
+    initSimpleAvatarUpload(avatarContainer, avatarImage);
+  }
+}
+function initSimpleAvatarUpload(avatarContainer, avatarImage) {
+  const avatarInput = document.createElement("input");
+  avatarInput.type = "file";
+  avatarInput.accept = "image/*";
+  avatarInput.style.display = "none";
+  avatarContainer.appendChild(avatarInput);
+  avatarContainer.addEventListener("click", () => {
+    avatarInput.click();
+  });
+  avatarInput.addEventListener("change", (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      if (file.size > 5 * 1024 * 1024) {
+        showNotification2("\u0420\u0430\u0437\u043C\u0435\u0440 \u0444\u0430\u0439\u043B\u0430 \u043D\u0435 \u0434\u043E\u043B\u0436\u0435\u043D \u043F\u0440\u0435\u0432\u044B\u0448\u0430\u0442\u044C 5MB", "error");
+        return;
+      }
+      if (!file.type.startsWith("image/")) {
+        showNotification2("\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u0435", "error");
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        avatarImage.src = event.target.result;
+        StorageManager.saveAvatar(event.target.result);
+        showNotification2("\u0410\u0432\u0430\u0442\u0430\u0440 \u0443\u0441\u043F\u0435\u0448\u043D\u043E \u043E\u0431\u043D\u043E\u0432\u043B\u0435\u043D", "success");
+      };
+      reader.readAsDataURL(file);
+    }
+    e.target.value = "";
+  });
+  const savedAvatar = StorageManager.getAvatar();
+  if (savedAvatar) {
+    avatarImage.src = savedAvatar;
+  }
+}
+function initFormHandlers() {
+  const saveProfileBtn = document.getElementById("saveProfile");
+  const cancelBtn = document.querySelector(".btn-light");
+  if (saveProfileBtn) {
+    saveProfileBtn.addEventListener("click", handleSaveProfile);
+  }
+  if (cancelBtn) {
+    cancelBtn.addEventListener("click", handleCancel);
+  }
+  initRealTimeValidation();
+}
+function handleSaveProfile() {
+  const activeTab = document.querySelector(".tab-content.active");
+  const activeTabId = activeTab ? activeTab.id : "personal-tab";
+  let success = true;
+  let message = "\u0418\u0437\u043C\u0435\u043D\u0435\u043D\u0438\u044F \u0443\u0441\u043F\u0435\u0448\u043D\u043E \u0441\u043E\u0445\u0440\u0430\u043D\u0435\u043D\u044B!";
+  switch (activeTabId) {
+    case "personal-tab":
+      const personalResult = ValidationManager.validatePersonalForm();
+      success = personalResult.isValid;
+      if (success) {
+        StorageManager.savePersonalData();
       } else {
-        finishTest();
+        message = "\u041F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430, \u0437\u0430\u043F\u043E\u043B\u043D\u0438\u0442\u0435 \u0432\u0441\u0435 \u043E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u044C\u043D\u044B\u0435 \u043F\u043E\u043B\u044F";
       }
-    });
-  }
-  function finishTest() {
-    clearInterval(timerInterval);
-    window.location.href = "/frontend/templates/test/test-result.html";
-  }
-  const finishTestBtn = document.querySelector(".btn-danger");
-  if (finishTestBtn) {
-    finishTestBtn.addEventListener("click", function() {
-      if (confirm("\u0412\u044B \u0443\u0432\u0435\u0440\u0435\u043D\u044B, \u0447\u0442\u043E \u0445\u043E\u0442\u0438\u0442\u0435 \u0437\u0430\u0432\u0435\u0440\u0448\u0438\u0442\u044C \u0442\u0435\u0441\u0442? \u041F\u043E\u0441\u043B\u0435 \u0437\u0430\u0432\u0435\u0440\u0448\u0435\u043D\u0438\u044F \u0432\u044B \u0441\u043C\u043E\u0436\u0435\u0442\u0435 \u043F\u043E\u0441\u043C\u043E\u0442\u0440\u0435\u0442\u044C \u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442\u044B.")) {
-        finishTest();
+      break;
+    case "security-tab":
+      const securityResult = ValidationManager.validateSecurityForm();
+      success = securityResult.isValid;
+      if (success) {
+        StorageManager.saveSecuritySettings();
+      } else {
+        message = "\u041F\u0440\u043E\u0432\u0435\u0440\u044C\u0442\u0435 \u043F\u0440\u0430\u0432\u0438\u043B\u044C\u043D\u043E\u0441\u0442\u044C \u0432\u0432\u0435\u0434\u0435\u043D\u043D\u044B\u0445 \u0434\u0430\u043D\u043D\u044B\u0445";
       }
-    });
+      break;
+    case "preferences-tab":
+      if (window.themeManager) {
+        window.themeManager.saveAppearanceSettings();
+      } else {
+        StorageManager.saveAppearanceSettings();
+      }
+      break;
+  }
+  if (success) {
+    showNotification2(message, "success");
+    document.dispatchEvent(new CustomEvent("profile:saved", {
+      detail: { tab: activeTabId }
+    }));
+  } else {
+    showNotification2(message, "error");
   }
 }
-function initTestResultsPage() {
-  const fadeElements = document.querySelectorAll(".fade-in");
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("visible");
-      }
-    });
-  }, {
-    threshold: 0.1
-  });
-  fadeElements.forEach((element) => {
-    observer.observe(element);
-  });
-  window.addEventListener("scroll", function() {
-    const header = document.querySelector("header");
-    if (window.scrollY > 50) {
-      header.classList.add("scrolled");
-    } else {
-      header.classList.remove("scrolled");
+function handleCancel() {
+  const personalForm = document.getElementById("personalForm");
+  const securityForm = document.getElementById("securityForm");
+  if (personalForm) personalForm.reset();
+  if (securityForm) securityForm.reset();
+  loadSavedData();
+  showNotification2("\u0418\u0437\u043C\u0435\u043D\u0435\u043D\u0438\u044F \u043E\u0442\u043C\u0435\u043D\u0435\u043D\u044B", "info");
+}
+function initRealTimeValidation() {
+  const importantFields = ["firstName", "lastName", "email", "newPassword", "confirmPassword"];
+  importantFields.forEach((fieldName) => {
+    const field = document.getElementById(fieldName);
+    if (field) {
+      field.addEventListener("blur", validateField);
+      field.addEventListener("input", clearFieldError);
     }
   });
-  const detailsTabs = document.querySelectorAll(".details-tab");
-  const detailsPanels = document.querySelectorAll(".details-panel");
-  if (detailsTabs.length > 0) {
-    detailsTabs.forEach((tab) => {
-      tab.addEventListener("click", function() {
-        const tabId = this.getAttribute("data-tab");
-        detailsTabs.forEach((t) => t.classList.remove("active"));
-        detailsPanels.forEach((p) => p.classList.remove("active"));
-        this.classList.add("active");
-        const panel = document.getElementById(`${tabId}-panel`);
-        if (panel) panel.classList.add("active");
-      });
-    });
-  }
-  const watchDetailsBtn = document.querySelector('a[href="#results"]');
-  if (watchDetailsBtn) {
-    watchDetailsBtn.addEventListener("click", function(e) {
-      e.preventDefault();
-      const resultsSection = document.getElementById("results");
-      if (resultsSection) {
-        const headerHeight = document.querySelector("header").offsetHeight;
-        const targetPosition = resultsSection.getBoundingClientRect().top + window.pageYOffset - headerHeight;
-        window.scrollTo({
-          top: targetPosition,
-          behavior: "smooth"
-        });
+}
+function validateField(e) {
+  const field = e.target;
+  const fieldName = field.id;
+  switch (fieldName) {
+    case "firstName":
+    case "lastName":
+      if (!field.value.trim()) {
+        showFieldError(field, "\u042D\u0442\u043E \u043F\u043E\u043B\u0435 \u043E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u044C\u043D\u043E \u0434\u043B\u044F \u0437\u0430\u043F\u043E\u043B\u043D\u0435\u043D\u0438\u044F");
+      } else if (field.value.trim().length < 2) {
+        showFieldError(field, "\u041C\u0438\u043D\u0438\u043C\u0430\u043B\u044C\u043D\u0430\u044F \u0434\u043B\u0438\u043D\u0430 2 \u0441\u0438\u043C\u0432\u043E\u043B\u0430");
+      } else {
+        clearFieldError(e);
       }
-    });
-  }
-  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-    anchor.addEventListener("click", function(e) {
-      const href = this.getAttribute("href");
-      if (href === "#") return;
-      e.preventDefault();
-      const targetElement = document.querySelector(href);
-      if (targetElement) {
-        const headerHeight = document.querySelector("header").offsetHeight;
-        const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
-        window.scrollTo({
-          top: targetPosition,
-          behavior: "smooth"
-        });
+      break;
+    case "email":
+      if (!field.value.trim()) {
+        showFieldError(field, "Email \u043E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u0435\u043D \u0434\u043B\u044F \u0437\u0430\u043F\u043E\u043B\u043D\u0435\u043D\u0438\u044F");
+      } else if (!ValidationManager.isValidEmail(field.value)) {
+        showFieldError(field, "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043A\u043E\u0440\u0440\u0435\u043A\u0442\u043D\u044B\u0439 email \u0430\u0434\u0440\u0435\u0441");
+      } else {
+        clearFieldError(e);
       }
-    });
+      break;
+    case "newPassword":
+      if (field.value && field.value.length < 8) {
+        showFieldError(field, "\u041F\u0430\u0440\u043E\u043B\u044C \u0434\u043E\u043B\u0436\u0435\u043D \u0441\u043E\u0434\u0435\u0440\u0436\u0430\u0442\u044C \u043D\u0435 \u043C\u0435\u043D\u0435\u0435 8 \u0441\u0438\u043C\u0432\u043E\u043B\u043E\u0432");
+      } else {
+        clearFieldError(e);
+      }
+      break;
+    case "confirmPassword":
+      const newPassword = document.getElementById("newPassword");
+      if (field.value && newPassword && field.value !== newPassword.value) {
+        showFieldError(field, "\u041F\u0430\u0440\u043E\u043B\u0438 \u043D\u0435 \u0441\u043E\u0432\u043F\u0430\u0434\u0430\u044E\u0442");
+      } else {
+        clearFieldError(e);
+      }
+      break;
+  }
+}
+function showFieldError(field, message) {
+  field.classList.add("error");
+  field.style.borderColor = "#f44336";
+  const existingError = field.parentNode.querySelector(".field-error");
+  if (existingError) {
+    existingError.remove();
+  }
+  const errorElement = document.createElement("div");
+  errorElement.className = "field-error";
+  errorElement.textContent = message;
+  errorElement.style.cssText = "color: #f44336; font-size: 12px; margin-top: 5px;";
+  field.parentNode.appendChild(errorElement);
+}
+function clearFieldError(e) {
+  const field = e.target;
+  field.classList.remove("error");
+  field.style.borderColor = "";
+  const errorElement = field.parentNode.querySelector(".field-error");
+  if (errorElement) {
+    errorElement.remove();
+  }
+}
+function loadSavedData() {
+  const personalData = StorageManager.loadPersonalData();
+  StorageManager.loadSecuritySettings();
+  const savedAvatar = StorageManager.getAvatar();
+  if (savedAvatar) {
+    const avatarImage = document.getElementById("profileAvatar");
+    if (avatarImage) {
+      avatarImage.src = savedAvatar;
+    }
+  }
+  console.log("Profile data loaded successfully");
+}
+function initMobileMenu2() {
+  const burgerMenu = document.querySelector(".burger-menu");
+  const mobileMenu = document.querySelector(".mobile-menu");
+  const mobileMenuClose = document.querySelector(".mobile-menu-close");
+  const mobileMenuOverlay = document.querySelector(".mobile-menu-overlay");
+  if (!burgerMenu || !mobileMenu) return;
+  burgerMenu.addEventListener("click", openMobileMenu);
+  if (mobileMenuClose) {
+    mobileMenuClose.addEventListener("click", closeMobileMenu);
+  }
+  if (mobileMenuOverlay) {
+    mobileMenuOverlay.addEventListener("click", closeMobileMenu);
+  }
+  const mobileNavLinks = document.querySelectorAll(".mobile-nav-link");
+  mobileNavLinks.forEach((link) => {
+    link.addEventListener("click", closeMobileMenu);
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      closeMobileMenu();
+    }
   });
 }
-var init_tests = __esm({
-  "static/js/modules/tests.js"() {
+function openMobileMenu() {
+  const mobileMenu = document.querySelector(".mobile-menu");
+  const mobileMenuOverlay = document.querySelector(".mobile-menu-overlay");
+  if (mobileMenu) mobileMenu.classList.add("active");
+  if (mobileMenuOverlay) mobileMenuOverlay.classList.add("active");
+  document.body.style.overflow = "hidden";
+}
+function closeMobileMenu() {
+  const mobileMenu = document.querySelector(".mobile-menu");
+  const mobileMenuOverlay = document.querySelector(".mobile-menu-overlay");
+  if (mobileMenu) mobileMenu.classList.remove("active");
+  if (mobileMenuOverlay) mobileMenuOverlay.classList.remove("active");
+  document.body.style.overflow = "";
+}
+function exportProfileData() {
+  const allData = StorageManager.exportUserData();
+  showNotification2("\u0414\u0430\u043D\u043D\u044B\u0435 \u043F\u0440\u043E\u0444\u0438\u043B\u044F \u044D\u043A\u0441\u043F\u043E\u0440\u0442\u0438\u0440\u043E\u0432\u0430\u043D\u044B", "success");
+  return allData;
+}
+function importProfileData(jsonData) {
+  try {
+    const success = StorageManager.importUserData(jsonData);
+    if (success) {
+      loadSavedData();
+      showNotification2("\u0414\u0430\u043D\u043D\u044B\u0435 \u043F\u0440\u043E\u0444\u0438\u043B\u044F \u0438\u043C\u043F\u043E\u0440\u0442\u0438\u0440\u043E\u0432\u0430\u043D\u044B", "success");
+      return true;
+    }
+  } catch (error) {
+    showNotification2("\u041E\u0448\u0438\u0431\u043A\u0430 \u0438\u043C\u043F\u043E\u0440\u0442\u0430 \u0434\u0430\u043D\u043D\u044B\u0445", "error");
+    console.error("Import error:", error);
   }
+  return false;
+}
+function resetProfile() {
+  if (confirm("\u0412\u044B \u0443\u0432\u0435\u0440\u0435\u043D\u044B, \u0447\u0442\u043E \u0445\u043E\u0442\u0438\u0442\u0435 \u0441\u0431\u0440\u043E\u0441\u0438\u0442\u044C \u0432\u0441\u0435 \u043D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0438 \u043F\u0440\u043E\u0444\u0438\u043B\u044F? \u042D\u0442\u043E \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0435 \u043D\u0435\u043B\u044C\u0437\u044F \u043E\u0442\u043C\u0435\u043D\u0438\u0442\u044C.")) {
+    const keys = [
+      "personalData",
+      "securitySettings",
+      "appearanceSettings",
+      "userAvatar",
+      "selectedTheme",
+      "selectedFontSize",
+      "selectedDensity",
+      "notificationSettings",
+      "userFavorites",
+      "userHistory"
+    ];
+    keys.forEach((key) => {
+      localStorage.removeItem(key);
+    });
+    if (window.themeManager) {
+      window.themeManager.resetToDefaults();
+    }
+    setTimeout(() => {
+      window.location.reload();
+    }, 1e3);
+    showNotification2("\u041F\u0440\u043E\u0444\u0438\u043B\u044C \u0441\u0431\u0440\u043E\u0448\u0435\u043D \u043A \u043D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0430\u043C \u043F\u043E \u0443\u043C\u043E\u043B\u0447\u0430\u043D\u0438\u044E", "info");
+  }
+}
+function getProfileStats() {
+  const storageStats = StorageManager.getStorageStats();
+  const validationStats = ValidationManager.getValidationStats();
+  return {
+    storage: storageStats,
+    validation: validationStats,
+    lastUpdated: (/* @__PURE__ */ new Date()).toISOString()
+  };
+}
+document.addEventListener("themeChanged", (event) => {
+  console.log("Theme changed to:", event.detail.theme);
+  showNotification2(`\u0422\u0435\u043C\u0430 \u0438\u0437\u043C\u0435\u043D\u0435\u043D\u0430 \u043D\u0430 ${event.detail.theme}`, "info");
 });
+document.addEventListener("appearanceChanged", (event) => {
+  console.log("Appearance changed:", event.detail);
+});
+window.ProfileManager = {
+  init: initProfilePage,
+  exportData: exportProfileData,
+  importData: importProfileData,
+  reset: resetProfile,
+  getStats: getProfileStats,
+  save: handleSaveProfile,
+  cancel: handleCancel
+};
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initProfilePage);
+} else {
+  initProfilePage();
+}
 
 // static/js/main.js
-var require_main = __commonJS({
-  "static/js/main.js"(exports, module) {
-    init_mobile_menu();
-    init_animations();
-    init_theme_switcher();
-    init_ui();
-    init_auth();
-    init_analitics_page();
-    init_contact_pages();
-    init_teachers_pages();
-    init_platform_users();
-    init_role_management();
-    init_subject_management();
-    init_material_creation();
-    init_material_browser();
-    init_schedule_pages();
-    init_progress();
-    init_chat();
-    init_dashboard();
-    init_utils();
-    init_course_management();
-    init_course_pages();
-    init_practic_pages();
-    init_test_pages();
-    init_homework_pages();
-    init_tests();
-    document.addEventListener("DOMContentLoaded", function() {
-      const currentPath = window.location.pathname;
-      initHomeworkPages(currentPath);
-      initPracticePage();
-      initMobileMenu();
-      initScrollAnimations();
-      initHeaderScrollEffect();
-      initThemeSwitcher();
-      initSmoothScroll();
-      initParticles();
-      initAuth();
-      initCoursesModule();
-      initAnalyticsPages(currentPath);
-      initPageSpecificModules(currentPath);
-      initNewModules(currentPath);
-      initJournalPages(currentPath);
-      initSmoothAnchorScroll();
-      if (document.querySelector(".test-creation")) {
-        initCreateTestPage();
-      }
-      if (document.querySelector(".test-taking")) {
-        initTestTaking();
-      }
-      if (document.querySelector(".test-results")) {
-        initTestResultsPage();
-      }
-    });
-    function initAnalyticsPages(currentPath) {
-      if (currentPath.includes("attendance.html")) {
-        initAttendancePage();
-      } else if (currentPath.includes("progress.html")) {
-        initProgressPage();
-      } else if (currentPath.includes("statistics.html")) {
-        initStatisticsPage();
-      }
+var AppConfig = {
+  debug: true,
+  enableParticles: true,
+  enableAnimations: true,
+  autoInit: true,
+  modules: {
+    theme: true,
+    auth: true,
+    upload: true,
+    validation: true,
+    storage: true
+  }
+};
+var EducationalPlatform = class {
+  constructor(config = {}) {
+    this.config = { ...AppConfig, ...config };
+    this.modules = /* @__PURE__ */ new Map();
+    this.currentPath = window.location.pathname;
+    this.isInitialized = false;
+    this.validationManager = new ValidationManager();
+    this.uploadManager = new upload_default();
+    this.initManagers();
+  }
+  // Инициализация менеджеров
+  initManagers() {
+    if (this.config.modules.theme) {
+      this.modules.set("theme", theme_manager_default);
     }
-    function initPageSpecificModules(currentPath) {
-      if (document.getElementById("contactForm") || document.getElementById("map")) {
-        if (document.getElementById("map") && typeof ymaps === "undefined") {
-          loadYandexMaps().then(() => {
-            initMap();
-            initFAQ();
-            initContactForm();
-          });
-        } else {
-          initFAQ();
-          initContactForm();
-          if (document.getElementById("map")) {
-            initMap();
-          }
-        }
-      }
-      if (document.querySelector(".teachers-filters")) {
-        initTeachersFilter();
-      }
-      if (document.querySelector(".users-header")) {
-        initPlatformUsers();
-      }
-      if (document.querySelector(".roles-header")) {
-        initRoleManagement();
-      }
-      if (document.querySelector(".subjects-header")) {
-        initSubjectManagement();
-      }
-      if (document.getElementById("material-form")) {
-        initMaterialCreation();
-      }
-      if (document.querySelector(".material-card")) {
-        initMaterialBrowser();
-      }
+    if (this.config.modules.validation) {
+      this.modules.set("validation", this.validationManager);
+      this.validationManager.activate();
     }
-    function initNewModules(currentPath) {
-      if (currentPath.includes("chat-interface.html")) {
-        initChat();
-      }
-      if (currentPath.includes("dashboard.html") || currentPath.includes("teacher-dashboard.html")) {
-        initDashboard();
-      }
-      if (currentPath.includes("registration") || currentPath.includes("/authorization/") || window.location.pathname === "/authorization/" || window.location.pathname === "/authorization") {
-        console.log("Initializing registration module...");
-        initAuth();
-      }
-      if (currentPath.includes("practic-detail.html")) {
-        console.log("\u041F\u0440\u044F\u043C\u0430\u044F \u0438\u043D\u0438\u0446\u0438\u0430\u043B\u0438\u0437\u0430\u0446\u0438\u044F \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u044B \u0432\u044B\u043F\u043E\u043B\u043D\u0435\u043D\u0438\u044F \u0437\u0430\u0434\u0430\u043D\u0438\u044F");
-        Promise.resolve().then(() => (init_practic_execution(), practic_execution_exports)).then((module2) => {
-          module2.initPracticExecution();
-        });
-      }
-      if (currentPath.includes("test-generation.html")) {
-        initTestGeneration();
-      }
-      if (currentPath.includes("homework")) {
-        initHomeworkPages(currentPath);
-      }
-      if (currentPath.includes("create-tests.html")) {
-        initCreateTestPage();
-      } else if (currentPath.includes("tests-detail.html")) {
-        initTestTaking();
-      } else if (currentPath.includes("test-result.html")) {
-        initTestResultsPage();
-      } else if (currentPath.includes("tests-list.html")) {
-        initTestsList();
-      } else if (currentPath.includes("tests.html")) {
-        initCommonAnimations2();
-      }
+    if (this.config.modules.storage) {
+      this.modules.set("storage", StorageManager);
     }
-    function initSmoothAnchorScroll() {
-      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-        anchor.addEventListener("click", function(e) {
-          const href = this.getAttribute("href");
-          if (href === "#" || href === "#!" || this.getAttribute("data-toggle")) {
-            return;
-          }
-          e.preventDefault();
-          const targetElement = document.querySelector(href);
-          if (targetElement) {
-            const headerHeight = document.querySelector("header")?.offsetHeight || 80;
-            const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
-            window.scrollTo({
-              top: targetPosition,
-              behavior: "smooth"
-            });
-          }
-        });
-      });
-    }
-    function initCommonAnimations2() {
-      const fadeElements = document.querySelectorAll(".fade-in");
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-          }
-        });
-      }, {
-        threshold: 0.1
-      });
-      fadeElements.forEach((element) => {
-        observer.observe(element);
-      });
-    }
-    function loadYandexMaps() {
-      return new Promise((resolve, reject) => {
-        if (typeof ymaps !== "undefined") {
-          resolve();
-          return;
-        }
-        const script = document.createElement("script");
-        script.src = "https://api-maps.yandex.ru/2.1/?apikey=d6033963-5910-4384-8a9b-ca0e6600b444&lang=ru_RU";
-        script.type = "text/javascript";
-        script.onload = () => resolve();
-        script.onerror = () => reject(new Error("Failed to load Yandex Maps"));
-        document.head.appendChild(script);
-      });
-    }
-    function initPracticeModules(currentPath) {
-      if (currentPath.includes("create-practic.html")) {
-        initPracticeCreation();
-      } else if (currentPath.includes("practic-detail.html")) {
-        initPracticExecution();
-      } else if (currentPath.includes("practic-check.html")) {
-        initPracticeReview();
-      } else if (currentPath.includes("practic.html") || currentPath.includes("practic-list.html")) {
-        initCommonPracticeAnimations();
-      }
-    }
-    function initJournalPages(currentPath) {
-      if (currentPath.includes("journal.html")) {
-        initJournalPage();
-      } else if (currentPath.includes("progress.html")) {
-        initProgress();
-      } else if (currentPath.includes("grades.html") || currentPath.includes("classes.html")) {
-        initDashboard();
-      } else if (currentPath.includes("schedule.html")) {
-        initSchedulePage();
-      } else if (currentPath.includes("schedule-create.html")) {
-        initScheduleCreatePage();
-      }
-    }
-    function initCommonPracticeAnimations() {
-      const fadeElements = document.querySelectorAll(".fade-in");
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-          }
-        });
-      }, {
-        threshold: 0.1
-      });
-      fadeElements.forEach((element) => {
-        observer.observe(element);
-      });
-      const subjectCards = document.querySelectorAll(".subject-card");
-      subjectCards.forEach((card) => {
-        card.addEventListener("mouseenter", function() {
-          this.style.transform = "translateY(-10px) scale(1.02)";
-        });
-        card.addEventListener("mouseleave", function() {
-          this.style.transform = "translateY(0) scale(1)";
-        });
-      });
-      const topicCards = document.querySelectorAll(".topic-card");
-      topicCards.forEach((card) => {
-        card.addEventListener("click", function(e) {
-          if (!e.target.classList.contains("btn")) {
-            const link = this.querySelector(".btn-practice");
-            if (link) {
-              window.location.href = link.getAttribute("href");
-            }
-          }
-        });
-      });
-    }
-    function initJournalPage() {
-      const journalTable = document.querySelector(".journal-table");
-      if (journalTable) {
-        initJournalTable();
-      }
-    }
-    function initJournalTable() {
-      const tableRows = document.querySelectorAll(".journal-table tbody tr");
-      tableRows.forEach((row) => {
-        row.addEventListener("click", function() {
-          this.classList.toggle("selected");
-        });
-      });
-    }
-    window.Utils = Utils;
-    window.quickAction = quickAction;
-    window.removeQuestion = removeQuestion;
-    window.initJournalPage = initJournalPage;
-    if (typeof module !== "undefined" && module.exports) {
-      module.exports = {
-        initMobileMenu,
-        initScrollAnimations,
-        initHeaderScrollEffect,
-        initThemeSwitcher,
-        initSmoothScroll,
-        initParticles,
-        initAuth,
-        initAnalyticsPages,
-        initPageSpecificModules,
-        initNewModules,
-        initPracticeModules,
-        initJournalPages,
-        initSmoothAnchorScroll,
-        initCommonAnimations: initCommonAnimations2,
-        loadYandexMaps,
-        initCommonPracticeAnimations,
-        initJournalPage
-      };
+    if (this.config.modules.upload) {
+      this.modules.set("upload", this.uploadManager);
+      this.uploadManager.activate();
     }
   }
+  // Основная инициализация приложения
+  async init() {
+    if (this.isInitialized) {
+      console.warn("App already initialized");
+      return;
+    }
+    try {
+      this.log("Initializing Educational Platform...");
+      await this.initCore();
+      await this.initRouteSpecific();
+      await this.initCommonComponents();
+      this.isInitialized = true;
+      this.log("Educational Platform initialized successfully");
+      this.dispatchEvent("app:initialized");
+    } catch (error) {
+      console.error("Failed to initialize app:", error);
+      this.dispatchEvent("app:error", { error });
+    }
+  }
+  // Инициализация ядра приложения
+  async initCore() {
+    if (this.modules.has("theme")) {
+      const savedTheme = StorageManager.getTheme() || "light";
+      theme_manager_default.applyTheme(savedTheme);
+    }
+    initMobileMenu();
+    initSmoothScroll();
+    this.initSmoothAnchorScroll();
+    if (this.config.enableAnimations) {
+      initScrollAnimations();
+      initHeaderScrollEffect();
+    }
+    if (this.config.enableParticles) {
+      initParticles();
+    }
+    if (this.config.modules.auth) {
+      initAuth();
+    }
+  }
+  // Инициализация специфичных для маршрута модулей
+  async initRouteSpecific() {
+    const path = this.currentPath;
+    this.initAnalyticsPages(path);
+    this.initAdminPages(path);
+    this.initLearningPages(path);
+    this.initAssessmentPages(path);
+    this.initProfilePages(path);
+    this.initOtherPages(path);
+  }
+  // Инициализация страниц аналитики
+  initAnalyticsPages(path) {
+    if (path.includes("attendance.html")) {
+      initAttendancePage();
+    } else if (path.includes("progress.html")) {
+      initProgressPage();
+    } else if (path.includes("statistics.html")) {
+      initStatisticsPage();
+    }
+  }
+  // Инициализация админских страниц
+  initAdminPages(path) {
+    if (document.querySelector(".users-header")) {
+      initPlatformUsers();
+    }
+    if (document.querySelector(".roles-header")) {
+      initRoleManagement();
+    }
+    if (document.querySelector(".subjects-header")) {
+      initSubjectManagement();
+    }
+  }
+  // Инициализация учебных страниц
+  initLearningPages(path) {
+    initCoursesModule();
+    if (document.getElementById("material-form")) {
+      initMaterialCreation();
+    }
+    if (document.querySelector(".material-card")) {
+      initMaterialBrowser();
+    }
+    if (path.includes("schedule.html")) {
+      initSchedulePage();
+    } else if (path.includes("schedule-create.html")) {
+      initScheduleCreatePage();
+    }
+    if (document.querySelector(".teachers-filters")) {
+      initTeachersFilter();
+    }
+  }
+  // Инициализация страниц оценки
+  initAssessmentPages(path) {
+    if (path.includes("homework")) {
+      initHomeworkPages(path);
+    }
+    if (path.includes("practic")) {
+      initPracticePage();
+    }
+    if (document.querySelector(".test-creation")) {
+      initCreateTestPage();
+    }
+    if (document.querySelector(".test-taking")) {
+      initTestTaking();
+    }
+    if (document.querySelector(".test-results")) {
+      initTestResultsPage();
+    }
+    if (path.includes("practic-detail.html")) {
+      this.loadModule("./modules/practic-execution.js").then((module) => {
+        if (module.initPracticExecution) {
+          module.initPracticExecution();
+        }
+      });
+    }
+  }
+  // Инициализация страниц профиля
+  initProfilePages(path) {
+    if (path.includes("profile.html") || path.includes("edit-profile")) {
+      initProfilePage();
+    }
+  }
+  // Инициализация других страниц
+  initOtherPages(path) {
+    if (document.getElementById("contactForm") || document.getElementById("map")) {
+      this.initContactPage();
+    }
+    if (path.includes("chat-interface.html")) {
+      initChat();
+    }
+    if (path.includes("dashboard.html") || path.includes("teacher-dashboard.html")) {
+      initDashboard();
+    }
+    if (path.includes("journal.html")) {
+      this.initJournalPage();
+    }
+  }
+  // Инициализация страницы контактов
+  async initContactPage() {
+    initFAQ();
+    initContactForm();
+    if (document.getElementById("map")) {
+      if (typeof ymaps === "undefined") {
+        await this.loadYandexMaps();
+      }
+      initMap();
+    }
+  }
+  // Инициализация общих компонентов
+  async initCommonComponents() {
+    this.initCommonAnimations();
+    this.initThemeSwitchers();
+    const journalTable = document.querySelector(".journal-table");
+    if (journalTable) {
+      this.initJournalTable();
+    }
+  }
+  // Инициализация переключателей темы
+  initThemeSwitchers() {
+    const themeButtons = document.querySelectorAll(".theme-btn, .theme-option");
+    if (themeButtons.length > 0) {
+      themeButtons.forEach((button) => {
+        button.addEventListener("click", (e) => {
+          const theme = e.target.getAttribute("data-theme");
+          if (theme) {
+            theme_manager_default.switchTheme(theme);
+          }
+        });
+      });
+      this.log("Theme switchers initialized");
+    }
+  }
+  // ===== ВСПОМОГАТЕЛЬНЫЕ МЕТОДЫ =====
+  // Загрузка модуля динамически
+  async loadModule(modulePath) {
+    try {
+      const module = await import(modulePath);
+      return module;
+    } catch (error) {
+      console.error(`Failed to load module: ${modulePath}`, error);
+      throw error;
+    }
+  }
+  // Загрузка Яндекс карт
+  async loadYandexMaps() {
+    return new Promise((resolve, reject) => {
+      if (typeof ymaps !== "undefined") {
+        resolve();
+        return;
+      }
+      const script = document.createElement("script");
+      script.src = "https://api-maps.yandex.ru/2.1/?apikey=d6033963-5910-4384-8a9b-ca0e6600b444&lang=ru_RU";
+      script.type = "text/javascript";
+      script.onload = () => resolve();
+      script.onerror = () => reject(new Error("Failed to load Yandex Maps"));
+      document.head.appendChild(script);
+    });
+  }
+  // Плавная прокрутка к якорям
+  initSmoothAnchorScroll() {
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener("click", function(e) {
+        const href = this.getAttribute("href");
+        if (href === "#" || href === "#!" || this.getAttribute("data-toggle")) {
+          return;
+        }
+        e.preventDefault();
+        const targetElement = document.querySelector(href);
+        if (targetElement) {
+          const headerHeight = document.querySelector("header")?.offsetHeight || 80;
+          const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+          window.scrollTo({
+            top: targetPosition,
+            behavior: "smooth"
+          });
+        }
+      });
+    });
+  }
+  // Общие анимации
+  initCommonAnimations() {
+    const fadeElements = document.querySelectorAll(".fade-in");
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
+    fadeElements.forEach((element) => {
+      observer.observe(element);
+    });
+  }
+  // Анимации для практики
+  initCommonPracticeAnimations() {
+    const fadeElements = document.querySelectorAll(".fade-in");
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
+    fadeElements.forEach((element) => {
+      observer.observe(element);
+    });
+    const subjectCards = document.querySelectorAll(".subject-card");
+    subjectCards.forEach((card) => {
+      card.addEventListener("mouseenter", function() {
+        this.style.transform = "translateY(-10px) scale(1.02)";
+      });
+      card.addEventListener("mouseleave", function() {
+        this.style.transform = "translateY(0) scale(1)";
+      });
+    });
+    const topicCards = document.querySelectorAll(".topic-card");
+    topicCards.forEach((card) => {
+      card.addEventListener("click", function(e) {
+        if (!e.target.classList.contains("btn")) {
+          const link = this.querySelector(".btn-practice");
+          if (link) {
+            window.location.href = link.getAttribute("href");
+          }
+        }
+      });
+    });
+  }
+  // Инициализация журнала
+  initJournalPage() {
+    const journalTable = document.querySelector(".journal-table");
+    if (journalTable) {
+      this.initJournalTable();
+    }
+  }
+  // Инициализация таблицы журнала
+  initJournalTable() {
+    const tableRows = document.querySelectorAll(".journal-table tbody tr");
+    tableRows.forEach((row) => {
+      row.addEventListener("click", function() {
+        this.classList.toggle("selected");
+      });
+    });
+  }
+  // Диспатч событий
+  dispatchEvent(name, detail = {}) {
+    const event = new CustomEvent(name, {
+      detail: { ...detail, timestamp: Date.now() }
+    });
+    document.dispatchEvent(event);
+  }
+  // Логирование
+  log(message, data = null) {
+    if (this.config.debug) {
+      console.log(`[EducationalPlatform] ${message}`, data || "");
+    }
+  }
+  // Получение информации о приложении
+  getAppInfo() {
+    return {
+      version: "1.0.0",
+      initialized: this.isInitialized,
+      path: this.currentPath,
+      modules: Array.from(this.modules.keys()),
+      config: this.config
+    };
+  }
+  // Переинициализация приложения
+  async reinit() {
+    this.isInitialized = false;
+    await this.init();
+  }
+  // Деструктор
+  destroy() {
+    this.modules.forEach((manager, name) => {
+      if (manager.deactivate) {
+        manager.deactivate();
+      }
+    });
+    this.modules.clear();
+    this.isInitialized = false;
+    this.log("Educational Platform destroyed");
+  }
+};
+var EduApp = new EducationalPlatform();
+document.addEventListener("DOMContentLoaded", function() {
+  if (EduApp.config.autoInit) {
+    EduApp.init();
+  }
 });
-export default require_main();
+document.addEventListener("themeChanged", (event) => {
+  console.log("\u0422\u0435\u043C\u0430 \u0438\u0437\u043C\u0435\u043D\u0435\u043D\u0430 \u043D\u0430:", event.detail.theme);
+});
+window.EduApp = EduApp;
+window.Utils = Utils;
+window.quickAction = quickAction;
+window.initJournalPage = () => EduApp.initJournalPage();
+window.initCommonAnimations = () => EduApp.initCommonAnimations();
+window.initCommonPracticeAnimations = () => EduApp.initCommonPracticeAnimations();
+var main_default = EduApp;
+export {
+  main_default as default
+};
 //# sourceMappingURL=bundle.js.map

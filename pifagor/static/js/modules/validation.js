@@ -1,6 +1,6 @@
 /**
  * Validation Manager - унифицированная система валидации для образовательной платформы
- * Валидация форм, данных, файлов и бизнес-логики с поддержкой кастомных правил
+ * Включает общую валидацию, валидацию форм, данных, файлов и бизнес-логики
  */
 
 export class ValidationManager {
@@ -13,6 +13,7 @@ export class ValidationManager {
         // Стандартные правила валидации
         this.initializeDefaultRules();
         this.initializeErrorMessages();
+        this.initializeCustomValidators();
     }
 
     async activate(config = {}) {
@@ -20,7 +21,6 @@ export class ValidationManager {
         
         try {
             this.setupGlobalHandlers();
-            this.initializeCustomValidators();
             
             console.log('Validation Manager activated');
         } catch (error) {
@@ -33,6 +33,150 @@ export class ValidationManager {
         this.cleanupGlobalHandlers();
         console.log('Validation Manager deactivated');
     }
+
+    // ===== МЕТОДЫ ДЛЯ ВАЛИДАЦИИ ФОРМ ПРОФИЛЯ =====
+
+    /**
+     * Валидация формы личных данных
+     */
+    validatePersonalForm() {
+        const firstName = document.getElementById('firstName');
+        const lastName = document.getElementById('lastName');
+        const email = document.getElementById('email');
+        
+        let isValid = true;
+        const errors = [];
+        
+        // Сброс предыдущих ошибок
+        this.clearValidationErrors();
+        
+        // Валидация имени
+        if (!firstName || !firstName.value.trim()) {
+            this.showFieldError(firstName, 'Имя обязательно для заполнения');
+            isValid = false;
+            errors.push('Имя обязательно для заполнения');
+        } else if (firstName.value.trim().length < 2) {
+            this.showFieldError(firstName, 'Имя должно содержать минимум 2 символа');
+            isValid = false;
+            errors.push('Имя должно содержать минимум 2 символа');
+        }
+        
+        // Валидация фамилии
+        if (!lastName || !lastName.value.trim()) {
+            this.showFieldError(lastName, 'Фамилия обязательна для заполнения');
+            isValid = false;
+            errors.push('Фамилия обязательна для заполнения');
+        } else if (lastName.value.trim().length < 2) {
+            this.showFieldError(lastName, 'Фамилия должна содержать минимум 2 символа');
+            isValid = false;
+            errors.push('Фамилия должна содержать минимум 2 символа');
+        }
+        
+        // Валидация email
+        if (!email || !email.value.trim()) {
+            this.showFieldError(email, 'Email обязателен для заполнения');
+            isValid = false;
+            errors.push('Email обязателен для заполнения');
+        } else if (!this.isValidEmail(email.value)) {
+            this.showFieldError(email, 'Введите корректный email адрес');
+            isValid = false;
+            errors.push('Введите корректный email адрес');
+        }
+        
+        return {
+            isValid: isValid,
+            errors: errors,
+            fields: {
+                firstName: { isValid: !!firstName?.value.trim(), errors: [] },
+                lastName: { isValid: !!lastName?.value.trim(), errors: [] },
+                email: { isValid: this.isValidEmail(email?.value), errors: [] }
+            }
+        };
+    }
+
+    /**
+     * Валидация формы безопасности
+     */
+    validateSecurityForm() {
+        const currentPassword = document.getElementById('currentPassword');
+        const newPassword = document.getElementById('newPassword');
+        const confirmPassword = document.getElementById('confirmPassword');
+        
+        let isValid = true;
+        const errors = [];
+        
+        // Сброс предыдущих ошибок
+        this.clearValidationErrors();
+        
+        // Если пользователь пытается сменить пароль
+        if ((newPassword && newPassword.value) || (confirmPassword && confirmPassword.value)) {
+            if (!currentPassword || !currentPassword.value) {
+                this.showFieldError(currentPassword, 'Введите текущий пароль');
+                isValid = false;
+                errors.push('Введите текущий пароль');
+            }
+            
+            if (newPassword && newPassword.value.length < 8) {
+                this.showFieldError(newPassword, 'Пароль должен содержать не менее 8 символов');
+                isValid = false;
+                errors.push('Пароль должен содержать не менее 8 символов');
+            }
+            
+            if (newPassword && confirmPassword && newPassword.value !== confirmPassword.value) {
+                this.showFieldError(confirmPassword, 'Пароли не совпадают');
+                isValid = false;
+                errors.push('Пароли не совпадают');
+            }
+        }
+        
+        return {
+            isValid: isValid,
+            errors: errors,
+            fields: {
+                currentPassword: { isValid: !!currentPassword?.value, errors: [] },
+                newPassword: { isValid: !newPassword?.value || newPassword.value.length >= 8, errors: [] },
+                confirmPassword: { isValid: newPassword?.value === confirmPassword?.value, errors: [] }
+            }
+        };
+    }
+
+    /**
+     * Показать ошибку поля
+     */
+    showFieldError(field, message) {
+        if (!field) return;
+        
+        field.style.borderColor = '#f44336';
+        const errorElement = document.createElement('div');
+        errorElement.className = 'field-error';
+        errorElement.textContent = message;
+        errorElement.style.cssText = 'color: #f44336; font-size: 12px; margin-top: 5px;';
+        field.parentNode.appendChild(errorElement);
+    }
+
+    /**
+     * Очистка ошибок валидации
+     */
+    clearValidationErrors() {
+        const fields = document.querySelectorAll('.form-control, input, textarea, select');
+        fields.forEach(field => {
+            field.style.borderColor = '';
+        });
+        
+        const errors = document.querySelectorAll('.field-error, .validation-error-message');
+        errors.forEach(error => error.remove());
+    }
+
+    /**
+     * Проверка валидности email
+     */
+    isValidEmail(email) {
+        if (!email) return false;
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
+
+    // ===== ОСНОВНЫЕ МЕТОДЫ ВАЛИДАЦИИ =====
 
     // Инициализация стандартных правил
     initializeDefaultRules() {
@@ -739,6 +883,12 @@ const validationStyles = `
     color: #dc3545;
     font-size: 0.875rem;
     margin-top: 0.25rem;
+}
+
+.field-error {
+    color: #f44336;
+    font-size: 12px;
+    margin-top: 5px;
 }
 
 .validation-hint {

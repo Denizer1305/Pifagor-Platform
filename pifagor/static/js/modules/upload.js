@@ -1,8 +1,3 @@
-/**
- * Upload Manager - унифицированная система загрузки файлов для образовательной платформы
- * Поддержка различных типов файлов, прогресс загрузки, обработка ошибок и интеграция с API
- */
-
 export class UploadManager {
     constructor() {
         this.uploads = new Map();
@@ -20,7 +15,7 @@ export class UploadManager {
                 // Презентации
                 '.ppt', '.pptx',
                 // Изображения
-                '.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp',
+                '.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp', '.svg',
                 // Архивы
                 '.zip', '.rar', '.7z',
                 // Код
@@ -45,7 +40,277 @@ export class UploadManager {
             SUBMISSION: 'submission',
             GENERAL: 'general'
         };
+
+        // Специальные настройки для аватаров
+        this.avatarConfig = {
+            maxFileSize: 5 * 1024 * 1024, // 5MB для аватаров
+            allowedFileTypes: ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.svg'],
+            maxWidth: 500,
+            maxHeight: 500,
+            quality: 0.8
+        };
     }
+
+    // ===== МЕТОДЫ ДЛЯ АВАТАРОВ =====
+
+    /**
+     * Инициализация загрузки аватара
+     * @param {HTMLElement} avatarContainer - Контейнер аватара
+     * @param {HTMLElement} avatarImage - Элемент изображения аватара
+     * @param {Object} options - Дополнительные опции
+     */
+    initAvatarUpload(avatarContainer, avatarImage, options = {}) {
+        if (!avatarContainer || !avatarImage) {
+            console.warn('Avatar container or image element not found');
+            return;
+        }
+
+        const config = { ...this.avatarConfig, ...options };
+        
+        // Создаем input для файла
+        const fileInput = document.createElement('input');
+        fileInput.type = 'file';
+        fileInput.accept = config.allowedFileTypes.join(',');
+        fileInput.style.display = 'none';
+        
+        avatarContainer.appendChild(fileInput);
+
+        // Обработчик клика по контейнеру аватара
+        avatarContainer.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        // Обработчик выбора файла
+        fileInput.addEventListener('change', async (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                try {
+                    await this.handleAvatarUpload(file, avatarImage, config);
+                } catch (error) {
+                    console.error('Avatar upload error:', error);
+                    this.showNotification('Ошибка загрузки аватара', 'error');
+                }
+            }
+            
+            // Сбрасываем значение для возможности повторной загрузки
+            event.target.value = '';
+        });
+
+        // Загрузка сохраненного аватара
+        this.loadSavedAvatar(avatarImage);
+
+        console.log('Avatar upload initialized');
+    }
+
+    /**
+     * Обработка загрузки аватара
+     */
+    async handleAvatarUpload(file, avatarImage, config) {
+        // Валидация файла
+        const validation = this.validateFile(file, config);
+        if (!validation.isValid) {
+            validation.errors.forEach(error => {
+                this.showNotification(error, 'error');
+            });
+            return;
+        }
+
+        // Показываем превью перед обработкой
+        const previewUrl = URL.createObjectURL(file);
+        avatarImage.src = previewUrl;
+
+        try {
+            // Обрабатываем изображение (сжатие, ресайз)
+            const processedFile = await this.processImage(file, config);
+            
+            // Создаем DataURL для мгновенного сохранения
+            const dataUrl = await this.fileToDataURL(processedFile);
+            
+            // Сохраняем в localStorage
+            localStorage.setItem('userAvatar', dataUrl);
+            
+            // Загружаем на сервер
+            const uploadId = await this.uploadFile(processedFile, {
+                uploadType: this.uploadTypes.PROFILE_IMAGE,
+                metadata: {
+                    originalName: file.name,
+                    processed: true,
+                    timestamp: new Date().toISOString()
+                }
+            });
+
+            this.showNotification('Аватар успешно обновлен', 'success');
+            
+            // Очищаем URL объекта
+            URL.revokeObjectURL(previewUrl);
+
+            return uploadId;
+
+        } catch (error) {
+            // В случае ошибки возвращаем предыдущий аватар
+            this.loadSavedAvatar(avatarImage);
+            throw error;
+        }
+    }
+
+    /**
+     * Обработка изображения (сжатие и ресайз)
+     */
+    async processImage(file, config) {
+        return new Promise((resolve, reject) => {
+            const img = new Image();
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+
+            img.onload = () => {
+                try {
+                    // Рассчитываем новые размеры с сохранением пропорций
+                    let { width, height } = this.calculateAspectRatio(
+                        img.width, 
+                        img.height, 
+                        config.maxWidth, 
+                        config.maxHeight
+                    );
+
+                    // Устанавливаем размеры canvas
+                    canvas.width = width;
+                    canvas.height = height;
+
+                    // Рисуем изображение с новыми размерами
+                    ctx.drawImage(img, 0, 0, width, height);
+
+                    // Конвертируем в blob с заданным качеством
+                    canvas.toBlob(
+                        (blob) => {
+                            if (blob) {
+                                const processedFile = new File([blob], file.name, {
+                                    type: file.type,
+                                    lastModified: Date.now()
+                                });
+                                resolve(processedFile);
+                            } else {
+                                reject(new Error('Failed to process image'));
+                            }
+                        },
+                        file.type,
+                        config.quality
+                    );
+
+                } catch (error) {
+                    reject(error);
+                }
+            };
+
+            img.onerror = () => reject(new Error('Failed to load image'));
+            img.src = URL.createObjectURL(file);
+        });
+    }
+
+    /**
+     * Расчет пропорций изображения
+     */
+    calculateAspectRatio(originalWidth, originalHeight, maxWidth, maxHeight) {
+        let width = originalWidth;
+        let height = originalHeight;
+
+        if (width > maxWidth) {
+            height = (height * maxWidth) / width;
+            width = maxWidth;
+        }
+
+        if (height > maxHeight) {
+            width = (width * maxHeight) / height;
+            height = maxHeight;
+        }
+
+        return { width, height };
+    }
+
+    /**
+     * Конвертация File в DataURL
+     */
+    fileToDataURL(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = (e) => resolve(e.target.result);
+            reader.onerror = reject;
+            reader.readAsDataURL(file);
+        });
+    }
+
+    /**
+     * Загрузка сохраненного аватара
+     */
+    loadSavedAvatar(avatarImage) {
+        const savedAvatar = localStorage.getItem('userAvatar');
+        if (savedAvatar) {
+            avatarImage.src = savedAvatar;
+        }
+    }
+
+    /**
+     * Удаление аватара
+     */
+    removeAvatar(avatarImage) {
+        localStorage.removeItem('userAvatar');
+        avatarImage.src = this.getDefaultAvatar();
+        
+        // Также удаляем на сервере
+        this.removeServerAvatar();
+        
+        this.showNotification('Аватар удален', 'info');
+    }
+
+    /**
+     * Получение аватара по умолчанию
+     */
+    getDefaultAvatar() {
+        // Возвращаем URL аватара по умолчанию
+        return '/static/assets/images/default-avatar.png';
+    }
+
+    /**
+     * Удаление аватара на сервере
+     */
+    async removeServerAvatar() {
+        try {
+            const response = await fetch('/api/profile/avatar', {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${this.getAuthToken()}`
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to remove avatar from server');
+            }
+
+            return await response.json();
+        } catch (error) {
+            console.error('Error removing server avatar:', error);
+            throw error;
+        }
+    }
+
+    /**
+     * Получение URL аватара пользователя
+     */
+    getUserAvatarUrl(userId = null) {
+        if (userId) {
+            // Возвращаем URL аватара другого пользователя
+            return `/api/users/${userId}/avatar`;
+        }
+        
+        // Возвращаем URL текущего пользователя
+        const savedAvatar = localStorage.getItem('userAvatar');
+        if (savedAvatar) {
+            return savedAvatar;
+        }
+        
+        return this.getDefaultAvatar();
+    }
+
+    // ===== ОСНОВНЫЕ МЕТОДЫ UPLOAD MANAGER =====
 
     async activate(config = {}) {
         this.isActive = true;
@@ -77,6 +342,15 @@ export class UploadManager {
         
         uploadElements.forEach(element => {
             this.initializeUploadElement(element);
+        });
+
+        // Инициализация аватаров с data-avatar-upload
+        const avatarElements = document.querySelectorAll('[data-avatar-upload]');
+        avatarElements.forEach(element => {
+            const avatarImage = element.querySelector('img') || document.getElementById('profileAvatar');
+            this.initAvatarUpload(element, avatarImage, {
+                maxFileSize: element.dataset.maxSize || this.avatarConfig.maxFileSize
+            });
         });
     }
 
@@ -164,11 +438,7 @@ export class UploadManager {
         // Показываем ошибки
         if (errors.length > 0) {
             errors.forEach(error => {
-                if (typeof NotificationManager !== 'undefined') {
-                    NotificationManager.showError(error);
-                } else {
-                    console.error('Upload error:', error);
-                }
+                this.showNotification(error, 'error');
             });
         }
 
@@ -274,12 +544,10 @@ export class UploadManager {
         filePreview.appendChild(progressBar);
         filePreview.appendChild(cancelButton);
 
-        // Добавляем иконку типа файла
         this.addFileIcon(filePreview, file);
 
         previewContainer.appendChild(filePreview);
 
-        // Сохраняем ссылку на превью
         uploadInfo.previewElement = filePreview;
     }
 
@@ -312,7 +580,6 @@ export class UploadManager {
         previewElement.insertBefore(icon, previewElement.firstChild);
     }
 
-    // Управление очередью загрузки
     queueUpload(uploadId) {
         this.queuedUploads.push(uploadId);
         this.updateUploadStatus(uploadId, 'queued');
@@ -332,7 +599,6 @@ export class UploadManager {
     }
 
     processQueue() {
-        // Проверяем, есть ли свободные слоты для загрузки
         const availableSlots = this.maxConcurrentUploads - this.activeUploads.size;
         
         if (availableSlots > 0 && this.queuedUploads.length > 0) {
@@ -344,12 +610,10 @@ export class UploadManager {
         }
     }
 
-    // Загрузка файлов
     async startUpload(uploadId) {
         const uploadInfo = this.uploads.get(uploadId);
         if (!uploadInfo) return;
 
-        // Проверяем, не отменена ли загрузка
         if (uploadInfo.status === 'cancelled') {
             return;
         }
@@ -358,7 +622,6 @@ export class UploadManager {
         this.updateUploadStatus(uploadId, 'uploading');
 
         try {
-            // Для больших файлов используем chunked upload
             if (uploadInfo.file.size > this.config.chunkSize) {
                 await this.uploadInChunks(uploadInfo);
             } else {
@@ -368,14 +631,9 @@ export class UploadManager {
             this.updateUploadStatus(uploadId, 'completed');
             this.activeUploads.delete(uploadId);
             
-            if (typeof NotificationManager !== 'undefined') {
-                NotificationManager.showSuccess(`Файл "${uploadInfo.file.name}" успешно загружен`);
-            }
+            this.showNotification(`Файл "${uploadInfo.file.name}" успешно загружен`, 'success');
             
         } catch (error) {
-            console.error(`Upload failed for ${uploadInfo.file.name}:`, error);
-            
-            // Пытаемся повторить загрузку
             if (uploadInfo.retries < this.config.maxRetries) {
                 uploadInfo.retries++;
                 this.updateUploadStatus(uploadId, 'retrying');
@@ -388,9 +646,7 @@ export class UploadManager {
                 this.updateUploadStatus(uploadId, 'error');
                 this.activeUploads.delete(uploadId);
                 
-                if (typeof NotificationManager !== 'undefined') {
-                    NotificationManager.showError(`Ошибка загрузки файла "${uploadInfo.file.name}"`);
-                }
+                this.showNotification(`Ошибка загрузки файла "${uploadInfo.file.name}"`, 'error');
             }
         }
     }
@@ -402,7 +658,6 @@ export class UploadManager {
         formData.append('fileName', uploadInfo.file.name);
         formData.append('fileSize', uploadInfo.file.size);
         
-        // Добавляем метаданные
         if (uploadInfo.metadata) {
             formData.append('metadata', JSON.stringify(uploadInfo.metadata));
         }
@@ -441,7 +696,6 @@ export class UploadManager {
 
             xhr.open('POST', this.getUploadEndpoint(uploadInfo.config.uploadType));
             
-            // Добавляем заголовок авторизации
             const token = this.getAuthToken();
             if (token) {
                 xhr.setRequestHeader('Authorization', `Bearer ${token}`);
@@ -449,7 +703,6 @@ export class UploadManager {
 
             xhr.send(formData);
 
-            // Сохраняем xhr для возможности отмены
             uploadInfo.xhr = xhr;
         });
     }
@@ -462,13 +715,11 @@ export class UploadManager {
         uploadInfo.totalChunks = totalChunks;
         uploadInfo.chunks = [];
 
-        // Создаем upload session
         const sessionResponse = await this.createUploadSession(uploadInfo);
         const sessionId = sessionResponse.sessionId;
 
         uploadInfo.sessionId = sessionId;
 
-        // Загружаем чанки последовательно
         for (let chunkIndex = 0; chunkIndex < totalChunks; chunkIndex++) {
             if (uploadInfo.status === 'cancelled') {
                 throw new Error('Upload cancelled');
@@ -482,12 +733,10 @@ export class UploadManager {
             
             uploadInfo.uploadedChunks++;
             
-            // Обновляем общий прогресс
             const overallProgress = (uploadInfo.uploadedChunks / totalChunks) * 100;
             this.updateUploadProgress(uploadInfo.id, overallProgress);
         }
 
-        // Завершаем upload session
         return await this.completeUploadSession(uploadInfo, sessionId);
     }
 
@@ -557,26 +806,21 @@ export class UploadManager {
         return await response.json();
     }
 
-    // Управление загрузками
     cancelUpload(uploadId) {
         const uploadInfo = this.uploads.get(uploadId);
         
         if (uploadInfo) {
             uploadInfo.status = 'cancelled';
             
-            // Отменяем XHR запрос если есть
             if (uploadInfo.xhr) {
                 uploadInfo.xhr.abort();
             }
             
-            // Удаляем из активных загрузок и очереди
             this.activeUploads.delete(uploadId);
             this.queuedUploads = this.queuedUploads.filter(id => id !== uploadId);
             
-            // Обновляем статус в превью
             this.updateUploadStatus(uploadId, 'cancelled');
             
-            // Удаляем превью через некоторое время
             setTimeout(() => {
                 this.removeUploadPreview(uploadId);
             }, 3000);
@@ -615,7 +859,6 @@ export class UploadManager {
         }
     }
 
-    // Обновление UI
     updateUploadProgress(uploadId, progress) {
         const uploadInfo = this.uploads.get(uploadId);
         
@@ -659,11 +902,9 @@ export class UploadManager {
                     statusElement.textContent = statusTexts[status] || status;
                 }
                 
-                // Обновляем CSS классы
                 previewElement.className = `file-preview status-${status}`;
             }
             
-            // Диспатчим событие
             this.dispatchUploadEvent(uploadId, status);
         }
     }
@@ -677,7 +918,6 @@ export class UploadManager {
         }
     }
 
-    // Вспомогательные методы
     getUploadEndpoint(uploadType) {
         const endpoints = {
             [this.uploadTypes.HOMEWORK]: '/api/upload/homework',
@@ -710,7 +950,6 @@ export class UploadManager {
         return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
     }
 
-    // Публичное API
     async uploadFile(file, options = {}) {
         const uploadId = this.generateUploadId();
         
@@ -773,7 +1012,6 @@ export class UploadManager {
         return uploads;
     }
 
-    // События
     setupEventListeners() {
         document.addEventListener('upload:file-added', this.handleFileAdded.bind(this));
         document.addEventListener('upload:progress', this.handleUploadProgress.bind(this));
@@ -823,14 +1061,45 @@ export class UploadManager {
         document.dispatchEvent(event);
     }
 
-    // Утилиты
     logDebug(message, data) {
         if (this.config.debug) {
             console.log(`[Upload Manager] ${message}`, data);
         }
     }
 
-    // Статистика
+    showNotification(message, type = 'success') {
+        if (typeof NotificationManager !== 'undefined') {
+            if (type === 'success') {
+                NotificationManager.showSuccess(message);
+            } else if (type === 'error') {
+                NotificationManager.showError(message);
+            } else {
+                NotificationManager.showInfo(message);
+            }
+        } else {
+            const notification = document.createElement('div');
+            notification.className = `upload-notification upload-notification-${type}`;
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'success' ? '#4CAF50' : type === 'error' ? '#f44336' : '#2196F3'};
+                color: white;
+                padding: 12px 20px;
+                border-radius: 4px;
+                z-index: 10000;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+    }
+
     getStats() {
         return {
             totalUploads: this.uploads.size,
@@ -842,10 +1111,8 @@ export class UploadManager {
     }
 }
 
-// Глобальный экземпляр для быстрого доступа
 window.UploadManager = new UploadManager();
 
-// CSS стили для системы загрузки
 const uploadStyles = `
 .upload-area {
     border: 2px dashed #d1d5db;
@@ -1011,9 +1278,67 @@ const uploadStyles = `
 .btn-cancel-all:hover {
     background: #dc2626;
 }
+
+/* Стили для аватаров */
+.avatar-container {
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.avatar-container:hover::after {
+    content: 'Сменить аватар';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 0.875rem;
+}
+
+.avatar-preview {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #e5e7eb;
+    transition: border-color 0.3s ease;
+}
+
+.avatar-container:hover .avatar-preview {
+    border-color: #3b82f6;
+}
+
+.upload-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 12px 20px;
+    border-radius: 4px;
+    color: white;
+    z-index: 10000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+.upload-notification-success {
+    background: #4CAF50;
+}
+
+.upload-notification-error {
+    background: #f44336;
+}
+
+.upload-notification-info {
+    background: #2196F3;
+}
 `;
 
-// Добавляем стили в документ
 if (typeof document !== 'undefined') {
     const styleSheet = document.createElement('style');
     styleSheet.textContent = uploadStyles;

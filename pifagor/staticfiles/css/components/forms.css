@@ -1005,12 +1005,6 @@ input:checked + .toggle-slider:before {
     margin-bottom: 20px;
 }
 
-.form-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
-}
-
 .form-group input,
 .form-group textarea,
 .form-group select {

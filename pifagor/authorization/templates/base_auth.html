@@ -18,7 +18,6 @@
     </script>
 </head>
 <body>
-    <!-- Добавьте переключатель темы в шапку auth страниц -->
     <div class="auth-theme-switcher" style="position: absolute; top: 20px; right: 20px; z-index: 1000;">
         <div class="theme-switcher">
             <i class="fas fa-sun theme-btn" data-theme="light"></i>
@@ -39,6 +38,7 @@
     <div class="particles" id="particles"></div>
 
     {% block content %}
+    
     {% endblock %}
 
     <script type="module" src="{% static 'js/bundle.js' %}"></script>

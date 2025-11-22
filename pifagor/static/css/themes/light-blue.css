@@ -1,0 +1,75 @@
+/* Голубая тема */
+:root{
+    /* Основные цвета */
+    --primary: #0EA5E9;
+    --primary-light: #38BDF8;
+    --secondary: #7DD3FC;
+    --primary-text: #0C4A6E;
+    --light-bg: #F0F9FF;
+    --white: #FFFFFF;
+
+    /* Акцентные цвета */
+    --accent: #0284C7;
+    --accent-blue: #0284C7;
+    --accent-light-blue: #0EA5E9;
+    --accent-gray: #7DD3FC;
+    --accent-gold: #D97706;
+    --accent-green: #059669;
+    --accent-orange: #EA580C;
+    --accent-yellow: #CA8A04;
+    --accent-amber: #D97706;
+    --accent-red: #DC2626;
+    --accent-purple: #7C3AED;
+    --accent-pink: #DB2777;
+
+    /* Семантические цвета */
+    --success: #059669;
+    --warning: #D97706;
+    --danger: #DC2626;
+    --error: #DC2626;
+    --info: #0284C7;
+
+    /* Цвета предметов */
+    --russian: #EA580C;
+    --literature: #0284C7;
+    --math: #059669;
+    --economics: #7C3AED;
+    --programming: #0C4A6E;
+
+    /* Фоны */
+    --anastasia-bg: #E0F2FE;
+    --user-bg: #BAE6FD;
+
+    /* Тени */
+    --shadow-color: rgba(14, 165, 233, 0.2);
+
+    /* Градиенты */
+    --gradient-primary-accent: linear-gradient(90deg, var(--primary), var(--accent));
+    --gradient-success: linear-gradient(135deg, rgba(5, 150, 105, 0.1), rgba(5, 150, 105, 0.3));
+    --gradient-error: linear-gradient(135deg, rgba(220, 38, 38, 0.1), rgba(220, 38, 38, 0.3));
+    --gradient-overlay: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+}
+
+/* Фильтры для логотипов */
+.logo-filter-blue {
+    filter: invert(16%) sepia(89%) saturate(2612%) hue-rotate(211deg) brightness(92%) contrast(101%);
+}
+
+.logo-filter-light-blue {
+    filter: invert(49%) sepia(98%) saturate(1503%) hue-rotate(167deg) brightness(96%) contrast(91%);
+}
+
+.logo-filter-sky-blue {
+    filter: invert(67%) sepia(88%) saturate(433%) hue-rotate(167deg) brightness(98%) contrast(92%);
+}
+
+/* Адаптивные фильтры для разных состояний */
+.logo-filter-blue-hover:hover {
+    filter: invert(16%) sepia(89%) saturate(2612%) hue-rotate(211deg) brightness(92%) contrast(101%) 
+            drop-shadow(0 2px 4px rgba(14, 165, 233, 0.3));
+}
+
+.logo-filter-light-blue-hover:hover {
+    filter: invert(49%) sepia(98%) saturate(1503%) hue-rotate(167deg) brightness(96%) contrast(91%)
+            drop-shadow(0 2px 4px rgba(56, 189, 248, 0.3));
+}
