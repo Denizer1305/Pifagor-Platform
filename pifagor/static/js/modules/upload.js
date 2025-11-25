@@ -478,7 +478,6 @@ export class UploadManager {
         };
     }
 
-    // Обработка файлов
     processFiles(files, element, config) {
         files.forEach(file => {
             const uploadId = this.generateUploadId();
@@ -496,17 +495,14 @@ export class UploadManager {
 
             this.uploads.set(uploadId, uploadInfo);
 
-            // Показываем превью файла
             this.createFilePreview(uploadInfo);
 
-            // Добавляем в очередь загрузки
             if (this.config.autoUpload) {
                 this.queueUpload(uploadId);
             }
         });
     }
 
-    // Создание превью файла
     createFilePreview(uploadInfo) {
         const { file, element, id } = uploadInfo;
         const previewContainer = element.querySelector('.upload-preview') || this.createPreviewContainer(element);
