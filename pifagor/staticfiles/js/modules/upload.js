@@ -87,7 +87,7 @@ export class UploadManager {
                 try {
                     await this.handleAvatarUpload(file, avatarImage, config);
                 } catch (error) {
-                    console.error('Avatar upload error:', error);
+                    console.error('Avatar upload pifagor_error:', error);
                     this.showNotification('Ошибка загрузки аватара', 'error');
                 }
             }
@@ -478,7 +478,6 @@ export class UploadManager {
         };
     }
 
-    // Обработка файлов
     processFiles(files, element, config) {
         files.forEach(file => {
             const uploadId = this.generateUploadId();
@@ -496,17 +495,14 @@ export class UploadManager {
 
             this.uploads.set(uploadId, uploadInfo);
 
-            // Показываем превью файла
             this.createFilePreview(uploadInfo);
 
-            // Добавляем в очередь загрузки
             if (this.config.autoUpload) {
                 this.queueUpload(uploadId);
             }
         });
     }
 
-    // Создание превью файла
     createFilePreview(uploadInfo) {
         const { file, element, id } = uploadInfo;
         const previewContainer = element.querySelector('.upload-preview') || this.createPreviewContainer(element);
@@ -544,12 +540,10 @@ export class UploadManager {
         filePreview.appendChild(progressBar);
         filePreview.appendChild(cancelButton);
 
-        // Добавляем иконку типа файла
         this.addFileIcon(filePreview, file);
 
         previewContainer.appendChild(filePreview);
 
-        // Сохраняем ссылку на превью
         uploadInfo.previewElement = filePreview;
     }
 
@@ -582,7 +576,6 @@ export class UploadManager {
         previewElement.insertBefore(icon, previewElement.firstChild);
     }
 
-    // Управление очередью загрузки
     queueUpload(uploadId) {
         this.queuedUploads.push(uploadId);
         this.updateUploadStatus(uploadId, 'queued');
@@ -602,7 +595,6 @@ export class UploadManager {
     }
 
     processQueue() {
-        // Проверяем, есть ли свободные слоты для загрузки
         const availableSlots = this.maxConcurrentUploads - this.activeUploads.size;
         
         if (availableSlots > 0 && this.queuedUploads.length > 0) {
@@ -614,12 +606,10 @@ export class UploadManager {
         }
     }
 
-    // Загрузка файлов
     async startUpload(uploadId) {
         const uploadInfo = this.uploads.get(uploadId);
         if (!uploadInfo) return;
 
-        // Проверяем, не отменена ли загрузка
         if (uploadInfo.status === 'cancelled') {
             return;
         }
@@ -628,7 +618,6 @@ export class UploadManager {
         this.updateUploadStatus(uploadId, 'uploading');
 
         try {
-            // Для больших файлов используем chunked upload
             if (uploadInfo.file.size > this.config.chunkSize) {
                 await this.uploadInChunks(uploadInfo);
             } else {
@@ -641,9 +630,6 @@ export class UploadManager {
             this.showNotification(`Файл "${uploadInfo.file.name}" успешно загружен`, 'success');
             
         } catch (error) {
-            console.error(`Upload failed for ${uploadInfo.file.name}:`, error);
-            
-            // Пытаемся повторить загрузку
             if (uploadInfo.retries < this.config.maxRetries) {
                 uploadInfo.retries++;
                 this.updateUploadStatus(uploadId, 'retrying');
@@ -668,7 +654,6 @@ export class UploadManager {
         formData.append('fileName', uploadInfo.file.name);
         formData.append('fileSize', uploadInfo.file.size);
         
-        // Добавляем метаданные
         if (uploadInfo.metadata) {
             formData.append('metadata', JSON.stringify(uploadInfo.metadata));
         }
@@ -707,7 +692,6 @@ export class UploadManager {
 
             xhr.open('POST', this.getUploadEndpoint(uploadInfo.config.uploadType));
             
-            // Добавляем заголовок авторизации
             const token = this.getAuthToken();
             if (token) {
                 xhr.setRequestHeader('Authorization', `Bearer ${token}`);
@@ -715,7 +699,6 @@ export class UploadManager {
 
             xhr.send(formData);
 
-            // Сохраняем xhr для возможности отмены
             uploadInfo.xhr = xhr;
         });
     }
@@ -728,13 +711,11 @@ export class UploadManager {
         uploadInfo.totalChunks = totalChunks;
         uploadInfo.chunks = [];
 
-        // Создаем upload session
         const sessionResponse = await this.createUploadSession(uploadInfo);
         const sessionId = sessionResponse.sessionId;
 
         uploadInfo.sessionId = sessionId;
 
-        // Загружаем чанки последовательно
         for (let chunkIndex = 0; chunkIndex < totalChunks; chunkIndex++) {
             if (uploadInfo.status === 'cancelled') {
                 throw new Error('Upload cancelled');
@@ -748,12 +729,10 @@ export class UploadManager {
             
             uploadInfo.uploadedChunks++;
             
-            // Обновляем общий прогресс
             const overallProgress = (uploadInfo.uploadedChunks / totalChunks) * 100;
             this.updateUploadProgress(uploadInfo.id, overallProgress);
         }
 
-        // Завершаем upload session
         return await this.completeUploadSession(uploadInfo, sessionId);
     }
 
@@ -823,26 +802,21 @@ export class UploadManager {
         return await response.json();
     }
 
-    // Управление загрузками
     cancelUpload(uploadId) {
         const uploadInfo = this.uploads.get(uploadId);
         
         if (uploadInfo) {
             uploadInfo.status = 'cancelled';
             
-            // Отменяем XHR запрос если есть
             if (uploadInfo.xhr) {
                 uploadInfo.xhr.abort();
             }
             
-            // Удаляем из активных загрузок и очереди
             this.activeUploads.delete(uploadId);
             this.queuedUploads = this.queuedUploads.filter(id => id !== uploadId);
             
-            // Обновляем статус в превью
             this.updateUploadStatus(uploadId, 'cancelled');
             
-            // Удаляем превью через некоторое время
             setTimeout(() => {
                 this.removeUploadPreview(uploadId);
             }, 3000);
@@ -881,7 +855,6 @@ export class UploadManager {
         }
     }
 
-    // Обновление UI
     updateUploadProgress(uploadId, progress) {
         const uploadInfo = this.uploads.get(uploadId);
         
@@ -925,11 +898,9 @@ export class UploadManager {
                     statusElement.textContent = statusTexts[status] || status;
                 }
                 
-                // Обновляем CSS классы
                 previewElement.className = `file-preview status-${status}`;
             }
             
-            // Диспатчим событие
             this.dispatchUploadEvent(uploadId, status);
         }
     }
@@ -943,7 +914,6 @@ export class UploadManager {
         }
     }
 
-    // Вспомогательные методы
     getUploadEndpoint(uploadType) {
         const endpoints = {
             [this.uploadTypes.HOMEWORK]: '/api/upload/homework',
@@ -976,7 +946,6 @@ export class UploadManager {
         return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
     }
 
-    // Публичное API
     async uploadFile(file, options = {}) {
         const uploadId = this.generateUploadId();
         
@@ -1039,19 +1008,18 @@ export class UploadManager {
         return uploads;
     }
 
-    // События
     setupEventListeners() {
         document.addEventListener('upload:file-added', this.handleFileAdded.bind(this));
         document.addEventListener('upload:progress', this.handleUploadProgress.bind(this));
         document.addEventListener('upload:complete', this.handleUploadComplete.bind(this));
-        document.addEventListener('upload:error', this.handleUploadError.bind(this));
+        document.addEventListener('upload:pifagor_error', this.handleUploadError.bind(this));
     }
 
     cleanupEventListeners() {
         document.removeEventListener('upload:file-added', this.handleFileAdded.bind(this));
         document.removeEventListener('upload:progress', this.handleUploadProgress.bind(this));
         document.removeEventListener('upload:complete', this.handleUploadComplete.bind(this));
-        document.removeEventListener('upload:error', this.handleUploadError.bind(this));
+        document.removeEventListener('upload:pifagor_error', this.handleUploadError.bind(this));
     }
 
     handleFileAdded(event) {
@@ -1067,7 +1035,7 @@ export class UploadManager {
     }
 
     handleUploadError(event) {
-        this.logDebug('Upload error:', event.detail);
+        this.logDebug('Upload pifagor_error:', event.detail);
     }
 
     dispatchUploadEvent(uploadId, eventType) {
@@ -1089,7 +1057,6 @@ export class UploadManager {
         document.dispatchEvent(event);
     }
 
-    // Утилиты
     logDebug(message, data) {
         if (this.config.debug) {
             console.log(`[Upload Manager] ${message}`, data);
@@ -1097,7 +1064,6 @@ export class UploadManager {
     }
 
     showNotification(message, type = 'success') {
-        // Используем существующую систему уведомлений или создаем простую
         if (typeof NotificationManager !== 'undefined') {
             if (type === 'success') {
                 NotificationManager.showSuccess(message);
@@ -1107,7 +1073,6 @@ export class UploadManager {
                 NotificationManager.showInfo(message);
             }
         } else {
-            // Простая реализация уведомлений
             const notification = document.createElement('div');
             notification.className = `upload-notification upload-notification-${type}`;
             notification.textContent = message;
@@ -1131,7 +1096,6 @@ export class UploadManager {
         }
     }
 
-    // Статистика
     getStats() {
         return {
             totalUploads: this.uploads.size,
@@ -1143,10 +1107,8 @@ export class UploadManager {
     }
 }
 
-// Глобальный экземпляр для быстрого доступа
 window.UploadManager = new UploadManager();
 
-// CSS стили для системы загрузки
 const uploadStyles = `
 .upload-area {
     border: 2px dashed #d1d5db;
@@ -1373,7 +1335,6 @@ const uploadStyles = `
 }
 `;
 
-// Добавляем стили в документ
 if (typeof document !== 'undefined') {
     const styleSheet = document.createElement('style');
     styleSheet.textContent = uploadStyles;

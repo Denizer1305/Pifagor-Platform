@@ -68,7 +68,6 @@ export function showNotification(message, type = 'success') {
         box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     `;
     
-    // Добавляем стили для анимации
     if (!document.querySelector('#notification-styles')) {
         const style = document.createElement('style');
         style.id = 'notification-styles';
@@ -87,7 +86,6 @@ export function showNotification(message, type = 'success') {
     
     document.body.appendChild(notification);
     
-    // Удаляем уведомление через 3 секунды
     setTimeout(() => {
         notification.style.animation = 'slideOut 0.3s ease-in';
         setTimeout(() => {

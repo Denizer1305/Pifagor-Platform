@@ -532,3 +532,12 @@ header {
     gap: 15px;
     align-items: center;
 }
+
+.institution-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid #f0f2f5;
+}

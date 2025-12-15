@@ -148,7 +148,7 @@ export class ValidationManager {
         
         field.style.borderColor = '#f44336';
         const errorElement = document.createElement('div');
-        errorElement.className = 'field-error';
+        errorElement.className = 'field-pifagor_error';
         errorElement.textContent = message;
         errorElement.style.cssText = 'color: #f44336; font-size: 12px; margin-top: 5px;';
         field.parentNode.appendChild(errorElement);
@@ -163,7 +163,7 @@ export class ValidationManager {
             field.style.borderColor = '';
         });
         
-        const errors = document.querySelectorAll('.field-error, .validation-error-message');
+        const errors = document.querySelectorAll('.field-pifagor_error, .validation-pifagor_error-message');
         errors.forEach(error => error.remove());
     }
 
@@ -370,7 +370,7 @@ export class ValidationManager {
                 const data = await response.json();
                 return !data.exists;
             } catch (error) {
-                console.error('Email validation error:', error);
+                console.error('Email validation pifagor_error:', error);
                 return false;
             }
         });
@@ -755,7 +755,7 @@ export class ValidationManager {
         if (isValid) {
             form.dispatchEvent(new CustomEvent('validation:success'));
         } else {
-            form.dispatchEvent(new CustomEvent('validation:error'));
+            form.dispatchEvent(new CustomEvent('validation:pifagor_error'));
         }
         
         return isValid;
@@ -777,22 +777,22 @@ export class ValidationManager {
     // Отображение результатов валидации в DOM
     displayFieldValidation(field, result) {
         // Удаляем предыдущие сообщения об ошибках
-        const existingError = field.parentNode.querySelector('.validation-error');
+        const existingError = field.parentNode.querySelector('.validation-pifagor_error');
         if (existingError) {
             existingError.remove();
         }
         
         // Удаляем предыдущие классы
-        field.classList.remove('validation-error', 'validation-success');
+        field.classList.remove('validation-pifagor_error', 'validation-success');
         
         if (result.isValid) {
             field.classList.add('validation-success');
         } else {
-            field.classList.add('validation-error');
+            field.classList.add('validation-pifagor_error');
             
             // Добавляем сообщение об ошибке
             const errorElement = document.createElement('div');
-            errorElement.className = 'validation-error-message';
+            errorElement.className = 'validation-pifagor_error-message';
             errorElement.textContent = result.errors[0];
             errorElement.style.cssText = `
                 color: #dc3545;

@@ -1,0 +1,86 @@
+{% extends 'base_error.html' %}
+{% load static %}
+
+{% block error_title %}Ошибка 405{% endblock %}
+{% block error_body_class %}error-page-405{% endblock %}
+
+{% block content %}
+    <div class="bg-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <!-- Floating elements -->
+    <div class="floating-element" style="top: 15%; right: 8%; width: 40px; height: 40px; background: var(--accent-orange); border-radius: 50%;"></div>
+    <div class="floating-element" style="top: 70%; left: 5%; width: 30px; height: 30px; background: var(--primary-dark); border-radius: 50%; animation-delay: 0.5s;"></div>
+    <div class="floating-element" style="top: 40%; right: 15%; width: 25px; height: 25px; background: var(--accent-amber); border-radius: 50%; animation-delay: 1s;"></div>
+    
+    <!-- Particle Background -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Error Content -->
+    <div class="container-error">
+        <div class="content-left">
+            <div class="logo-container">
+                <div class="logo">
+                    <img src="{% static 'assets/image/logo/logo.svg' %}" alt="Пифагор">
+                </div>
+            </div>
+            
+            <div class="error-code">405</div>
+            
+            <h1 class="error-title">Метод не разрешен</h1>
+            
+            <p class="error-description">
+                Использованный метод HTTP-запроса не поддерживается для данного ресурса. 
+                Сервер распознал метод, но он не разрешен для запрашиваемого ресурса.
+            </p>
+            
+            <div class="reassurance-warning">
+                <p>
+                    <i class="fas fa-exclamation-circle"></i> 
+                    <strong>Не переживайте! Это техническая ошибка. Попробуйте другой способ доступа к странице или вернитесь позже.</strong>
+                </p>
+            </div>
+            
+            <div class="method-info">
+                <h3><i class="fas fa-code"></i> HTTP-методы</h3>
+                <p>Разрешенные методы для этого ресурса:</p>
+                <div class="method-tags">
+                    <span class="method-tag allowed">GET</span>
+                    <span class="method-tag allowed">POST</span>
+                    <span class="method-tag not-allowed">PUT</span>
+                    <span class="method-tag not-allowed">DELETE</span>
+                    <span class="method-tag allowed">HEAD</span>
+                </div>
+            </div>
+            
+            <div class="tech-info">
+                <p><i class="fas fa-info-circle"></i> Ошибка 405 возникает, когда метод запроса известен серверу, но отключен и не может быть использован для данного ресурса.</p>
+            </div>
+            
+            <div class="error-actions">
+                <a href="{% url 'main:index' %}" class="btn">
+                    <i class="fas fa-home"></i> На главную
+                </a>
+                <button onclick="history.back()" class="btn btn-light">
+                    <i class="fas fa-arrow-left"></i> Назад
+                </button>
+                <a href="javascript:location.reload()" class="btn btn-light">
+                    <i class="fas fa-redo"></i> Обновить
+                </a>
+            </div>
+        </div>
+        
+        <div class="illustration-right">
+            <div class="error-illustration error-illustration-405" id="error-illustration">
+                <i class="fas fa-exchange-alt"></i>
+                <h3 class="illustration-title">Ошибка 405</h3>
+                <p>Метод не разрешен</p>
+                <p>Неподдерживаемый HTTP-метод</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

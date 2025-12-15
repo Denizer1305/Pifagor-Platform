@@ -237,13 +237,13 @@ function showFieldError(field, message) {
     field.style.borderColor = '#f44336';
     
     // Удаляем предыдущее сообщение об ошибке
-    const existingError = field.parentNode.querySelector('.field-error');
+    const existingError = field.parentNode.querySelector('.field-pifagor_error');
     if (existingError) {
         existingError.remove();
     }
     
     const errorElement = document.createElement('div');
-    errorElement.className = 'field-error';
+    errorElement.className = 'field-pifagor_error';
     errorElement.textContent = message;
     errorElement.style.cssText = 'color: #f44336; font-size: 12px; margin-top: 5px;';
     field.parentNode.appendChild(errorElement);
@@ -254,7 +254,7 @@ function clearFieldError(e) {
     field.classList.remove('error');
     field.style.borderColor = '';
     
-    const errorElement = field.parentNode.querySelector('.field-error');
+    const errorElement = field.parentNode.querySelector('.field-pifagor_error');
     if (errorElement) {
         errorElement.remove();
     }
@@ -355,7 +355,7 @@ export function importProfileData(jsonData) {
         }
     } catch (error) {
         showNotification('Ошибка импорта данных', 'error');
-        console.error('Import error:', error);
+        console.error('Import pifagor_error:', error);
     }
     return false;
 }
@@ -412,12 +412,6 @@ export function getProfileStats() {
 }
 
 // ===== ОБРАБОТЧИКИ СОБЫТИЙ =====
-
-// Слушаем события изменения темы
-document.addEventListener('themeChanged', (event) => {
-    console.log('Theme changed to:', event.detail.theme);
-    showNotification(`Тема изменена на ${event.detail.theme}`, 'info');
-});
 
 // Слушаем события изменения внешнего вида
 document.addEventListener('appearanceChanged', (event) => {

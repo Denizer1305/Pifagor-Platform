@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пифагор - Предметы класса</title>
+    <link rel="icon" href="/frontend/static/assets/image/logo/icons.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Forum&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/frontend/static/css/main.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo-header">
+                <a href="/frontend/templates/main/index.html">
+                    <img src="/frontend/static/assets/image/logo/logo.svg" alt="logo">
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/frontend/templates/main/about.html">О платформе</a></li>
+                <li><a href="/frontend/templates/courses/courses.html">Курсы</a></li>
+                <li><a href="/frontend/templates/main/teachers.html">Преподаватели</a></li>
+                <li><a href="/frontend/templates/main/contact.html">Контакты</a></li>
+            </ul>
+            <div class="header-actions">
+                <div class="user-menu">
+                    <div class="user-avatar" id="userAvatar">ЕП</div>
+                    <div class="user-name" id="userName">Елена Плеханова</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Dashboard -->
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <ul class="sidebar-menu">
+                <li><a href="/frontend/templates/main/index.html"><i class="fas fa-home"></i> <span>Главная</span></a></li>
+                <li><a href="/frontend/templates/courses/courses-list.html"><i class="fas fa-book-open"></i> <span>Мои курсы</span></a></li>
+                <li><a href="/frontend/templates/practic/practic-list.html"><i class="fas fa-tasks"></i> <span>Задания</span></a></li>
+                <li><a href="/frontend/templates/classes/classes.html"><i class="fas fa-users"></i> <span>Классы</span></a></li>
+                <li><a href="/frontend/templates/practic/practic-check.html"><i class="fas fa-check-circle"></i> <span>Проверка работ</span></a></li>
+                <li><a href="/frontend/templates/analytics/statistics.html"><i class="fas fa-chart-line"></i> <span>Аналитика</span></a></li>
+                <li><a href="/frontend/templates/journal/schedule.html"><i class="fas fa-calendar-alt"></i> <span>Расписание</span></a></li>
+                <li><a href="/frontend/templates/journal/journal.html"><i class="fas fa-book"></i> <span>Журнал</span></a></li>
+                <li><a href="/frontend/templates/attendance/attendance.html"><i class="fas fa-clipboard-check"></i> <span>Посещаемость</span></a></li>
+                <li><a href="/frontend/templates/grades/grades.html"><i class="fas fa-star"></i> <span>Успеваемость</span></a></li>
+                <li><a href="/frontend/templates/progress/progress.html"><i class="fas fa-chart-bar"></i> <span>Прогресс</span></a></li>
+                <li><a href="/frontend/templates/schedule/schedule-create.html"><i class="fas fa-plus-circle"></i> <span>Создать расписание</span></a></li>
+                <li><a href="/frontend/templates/classes/class-students.html"><i class="fas fa-user-graduate"></i> <span>Ученики класса</span></a></li>
+                <li><a href="/frontend/templates/classes/class-teachers.html"><i class="fas fa-chalkboard-teacher"></i> <span>Преподаватели класса</span></a></li>
+                <li><a href="/frontend/templates/classes/class-schedule.html"><i class="fas fa-calendar-week"></i> <span>Расписание класса</span></a></li>
+                <li><a href="/frontend/templates/classes/class-subject.html" class="active"><i class="fas fa-book"></i> <span>Предметы класса</span></a></li>
+                <li><a href="/frontend/templates/users/profile-edit.html"><i class="fas fa-cog"></i> <span>Настройки</span></a></li>
+                <li><a href="/frontend/templates/auth/logout.html"><i class="fas fa-sign-out"></i> <span>Выйти</span></a></li>                
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Class Header -->
+            <div class="class-header">
+                <div class="class-title">
+                    <h1>Предметы 9-А класса</h1>
+                    <p>Основы программирования • Классный руководитель: Иванов А.С.</p>
+                </div>
+                <div class="class-controls">
+                    <select class="filter-select" id="categoryFilter">
+                        <option>Все категории</option>
+                        <option>Технические</option>
+                        <option>Гуманитарные</option>
+                        <option>Естественные</option>
+                        <option>Иностранные языки</option>
+                    </select>
+                    <a href="#" class="btn" id="addSubjectBtn"><i class="fas fa-plus"></i> Добавить предмет</a>
+                </div>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon subjects">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>12</h3>
+                        <p>Предметов в классе</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon average">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>4.2</h3>
+                        <p>Средний балл класса</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon performance">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>+5%</h3>
+                        <p>Улучшение успеваемости</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon workload">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>32ч</h3>
+                        <p>Общая нагрузка в неделю</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subjects Layout -->
+            <div class="subjects-layout">
+                <!-- Left Column -->
+                <div class="left-column">
+                    <!-- Subjects Section -->
+                    <section class="subjects-section">
+                        <div class="section-header">
+                            <h2>Предметы класса</h2>
+                            <div class="search-box">
+                                <i class="fas fa-search search-icon"></i>
+                                <input type="text" class="search-input" placeholder="Поиск предметов...">
+                            </div>
+                        </div>
+                        <div class="subjects-grid">
+                            <!-- Subject Card 1 -->
+                            <div class="subject-card">
+                                <div class="subject-header">
+                                    <div class="subject-icon">
+                                        <i class="fas fa-code"></i>
+                                    </div>
+                                    <div class="subject-info">
+                                        <div class="subject-name">Основы программирования</div>
+                                        <div class="subject-teacher">Иванов А.С.</div>
+                                        <div class="subject-meta">
+                                            <span>6 часов/нед</span>
+                                            <span>Технический</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="subject-body">
+                                    <div class="subject-details">
+                                        <div class="detail-item">
+                                            <span class="detail-label">Средний балл</span>
+                                            <span class="detail-value">4.6</span>
+                                        </div>
+                                        <div class="detail-item">
+                                            <span class="detail-label">Завершенность</span>
+                                            <span class="detail-value">78%</span>
+                                        </div>
+                                        <div class="detail-item">
+                                            <span class="detail-label">Учеников</span>
+                                            <span class="detail-value">24</span>
+                                        </div>
+                                        <div class="detail-item">
+                                            <span class="detail-label">Заданий</span>
+                                            <span class="detail-value">15</span>
+                                        </div>
+                                    </div>
+                                    <div class="progress-container">
+                                        <div class="progress-header">
+                                            <span class="progress-label">Успеваемость</span>
+                                            <span class="progress-value">4.6/5.0</span>
+                                        </div>
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" style="width: 92%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="subject-description">
+                                        Изучение основ алгоритмизации и программирования на языке Python. Включает практические задания и проекты.
+                                    </div>
+                                </div>
+                                <div class="subject-footer">
+                                    <div class="subject-status">
+                                        <span class="status-badge status-available">Активен</span>
+                                    </div>
+                                    <div class="subject-actions">
+                                        <div class="action-btn" data-action="edit"><i class="fas fa-edit"></i></div>
+                                        <div class="action-btn" data-action="details"><i class="fas fa-info-circle"></i></div>
+                                        <div class="action-btn" data-action="materials"><i class="fas fa-folder"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Subject Card 2 -->
+                            <div class="subject-card">
+                                <div class="subject-header">
+                                    <div class="subject-icon">
+                                        <i class="fas fa-calculator"></i>
+                                    </div>
+                                    <div class="subject-info">
+                                        <div class="subject-name">Математика</div>
+                                        <div class="subject-teacher">Петрова М.В.</div>
+                                        <div class="subject-meta">
+                                            <span>4 часа/нед</span>
+                                            <span>Естественный</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="subject-body">
+                                    <div class="subject-details">
+                                        <div class="detail-item">
+                                            <span class="detail-label">Средний балл</span>
+                                            <span class="detail-value">4.8</span>
+                                        </div>
+                                        <div class="detail-item">
+                                            <span class="detail-label">Завершенность</span>
+                                            <span class="detail-value">85%</span>
+                                        </div>
+                                        <div class="detail-item">
+                                            <span class="detail-label">Учеников</span>
+                                            <span class="detail-value">24</span>
+                                        </div>
+                                        <div class="detail-item">
+                                            <span class="detail-label">Заданий</span>
+                                            <span class="detail-value">12</span>
+                                        </div>
+                                    </div>
+                                    <div class="progress-container">
+                                        <div class="progress-header">
+                                            <span class="progress-label">Успеваемость</span>
+                                            <span class="progress-value">4.8/5.0</span>
+                                        </div>
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" style="width: 96%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="subject-description">
+                                        Алгебра и геометрия. Подготовка к ОГЭ. Решение задач повышенной сложности.
+                                    </div>
+                                </div>
+                                <div class="subject-footer">
+                                    <div class="subject-status">
+                                        <span class="status-badge status-available">Активен</span>
+                                    </div>
+                                    <div class="subject-actions">
+                                        <div class="action-btn" data-action="edit"><i class="fas fa-edit"></i></div>
+                                        <div class="action-btn" data-action="details"><i class="fas fa-info-circle"></i></div>
+                                        <div class="action-btn" data-action="materials"><i class="fas fa-folder"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Subject Card 3 -->
+                            <div class="subject-card">
+                                <div class="subject-header">
+                                    <div class="subject-icon">
+                                        <i class="fas fa-atom"></i>
+                                    </div>
+                                    <div class="subject-info">
+                                        <div class="subject-name">Физика</div>
+                                        <div class="subject-teacher">Сидоров Д.К.</div>
+                                        <div class="subject-meta">
+                                            <span>4 часа/нед</span>
+                                            <span>Естественный</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="subject-body">
+                                    <div class="subject-details">
+                                        <div class="detail-item">
+                                            <span class="detail-label">Средний балл</span>
+                                            <span class="detail-value">4.1</span>
+                                        </div>
+                                        <div class="detail-item">
+                                            <span class="detail-label">Завершенность</span>
+                                            <span class="detail-value">65%</span>
+                                        </div>
+                                        <div class="detail-item">
+                                            <span class="detail-label">Учеников</span>
+                                            <span class="detail-value">24</span>
+                                        </div>
+                                        <div class="detail-item">
+                                            <span class="detail-label">Заданий</span>
+                                            <span class="detail-value">10</span>
+                                        </div>
+                                    </div>
+                                    <div class="progress-container">
+                                        <div class="progress-header">
+                                            <span class="progress-label">Успеваемость</span>
+                                            <span class="progress-value">4.1/5.0</span>
+                                        </div>
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" style="width: 82%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="subject-description">
+                                        Механика, термодинамика, электричество. Лабораторные работы и эксперименты.
+                                    </div>
+                                </div>
+                                <div class="subject-footer">
+                                    <div class="subject-status">
+                                        <span class="status-badge status-available">Активен</span>
+                                    </div>
+                                    <div class="subject-actions">
+                                        <div class="action-btn" data-action="edit"><i class="fas fa-edit"></i></div>
+                                        <div class="action-btn" data-action="details"><i class="fas fa-info-circle"></i></div>
+                                        <div class="action-btn" data-action="materials"><i class="fas fa-folder"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Subject Card 4 -->
+                            <div class="subject-card">
+                                <div class="subject-header">
+                                    <div class="subject-icon">
+                                        <i class="fas fa-book"></i>
+                                    </div>
+                                    <div class="subject-info">
+                                        <div class="subject-name">Литература</div>
+                                        <div class="subject-teacher">Новикова Е.П.</div>
+                                        <div class="subject-meta">
+                                            <span>3 часа/нед</span>
+                                            <span>Гуманитарный</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="subject-body">
+                                    <div class="subject-details">
+                                        <div class="detail-item">
+                                            <span class="detail-label">Средний балл</span>
+                                            <span class="detail-value">4.4</span>
+                                        </div>
+                                        <div class="detail-item">
+                                            <span class="detail-label">Завершенность</span>
+                                            <span class="detail-value">72%</span>
+                                        </div>
+                                        <div class="detail-item">
+                                            <span class="detail-label">Учеников</span>
+                                            <span class="detail-value">24</span>
+                                        </div>
+                                        <div class="detail-item">
+                                            <span class="detail-label">Заданий</span>
+                                            <span class="detail-value">8</span>
+                                        </div>
+                                    </div>
+                                    <div class="progress-container">
+                                        <div class="progress-header">
+                                            <span class="progress-label">Успеваемость</span>
+                                            <span class="progress-value">4.4/5.0</span>
+                                        </div>
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" style="width: 88%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="subject-description">
+                                        Русская и зарубежная литература. Анализ произведений, сочинения, литературные вечера.
+                                    </div>
+                                </div>
+                                <div class="subject-footer">
+                                    <div class="subject-status">
+                                        <span class="status-badge status-available">Активен</span>
+                                    </div>
+                                    <div class="subject-actions">
+                                        <div class="action-btn" data-action="edit"><i class="fas fa-edit"></i></div>
+                                        <div class="action-btn" data-action="details"><i class="fas fa-info-circle"></i></div>
+                                        <div class="action-btn" data-action="materials"><i class="fas fa-folder"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Right Column -->
+                <div class="right-column">
+                    <!-- Performance Section -->
+                    <section class="performance-section">
+                        <div class="section-header">
+                            <h2>Успеваемость по предметам</h2>
+                        </div>
+                        <ul class="performance-list">
+                            <li class="performance-item">
+                                <div class="performance-header">
+                                    <div class="performance-title">Математика</div>
+                                    <div class="performance-value">4.8</div>
+                                </div>
+                                <div class="performance-bar">
+                                    <div class="performance-fill" style="width: 96%"></div>
+                                </div>
+                                <div class="performance-details">
+                                    <span>Петрова М.В.</span>
+                                    <span>Лучший предмет</span>
+                                </div>
+                            </li>
+                            <li class="performance-item">
+                                <div class="performance-header">
+                                    <div class="performance-title">Программирование</div>
+                                    <div class="performance-value">4.6</div>
+                                </div>
+                                <div class="performance-bar">
+                                    <div class="performance-fill" style="width: 92%"></div>
+                                </div>
+                                <div class="performance-details">
+                                    <span>Иванов А.С.</span>
+                                    <span>+0.3 за месяц</span>
+                                </div>
+                            </li>
+                            <li class="performance-item">
+                                <div class="performance-header">
+                                    <div class="performance-title">Литература</div>
+                                    <div class="performance-value">4.4</div>
+                                </div>
+                                <div class="performance-bar">
+                                    <div class="performance-fill" style="width: 88%"></div>
+                                </div>
+                                <div class="performance-details">
+                                    <span>Новикова Е.П.</span>
+                                    <span>Стабильно</span>
+                                </div>
+                            </li>
+                            <li class="performance-item">
+                                <div class="performance-header">
+                                    <div class="performance-title">Физика</div>
+                                    <div class="performance-value">4.1</div>
+                                </div>
+                                <div class="performance-bar">
+                                    <div class="performance-fill" style="width: 82%"></div>
+                                </div>
+                                <div class="performance-details">
+                                    <span>Сидоров Д.К.</span>
+                                    <span>Требует внимания</span>
+                                </div>
+                            </li>
+                            <li class="performance-item">
+                                <div class="performance-header">
+                                    <div class="performance-title">История</div>
+                                    <div class="performance-value">3.9</div>
+                                </div>
+                                <div class="performance-bar">
+                                    <div class="performance-fill" style="width: 78%"></div>
+                                </div>
+                                <div class="performance-details">
+                                    <span>Козлов В.И.</span>
+                                    <span>Низкая успеваемость</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </section>
+
+                    <!-- Recent Materials -->
+                    <section class="materials-section">
+                        <div class="section-header">
+                            <h2>Последние материалы</h2>
+                        </div>
+                        <ul class="materials-list">
+                            <li class="material-item">
+                                <div class="material-icon">
+                                    <i class="fas fa-file-pdf"></i>
+                                </div>
+                                <div class="material-info">
+                                    <h4>Презентация: Функции в Python</h4>
+                                    <p>Основы программирования</p>
+                                </div>
+                                <div class="material-date">2 часа назад</div>
+                            </li>
+                            <li class="material-item">
+                                <div class="material-icon">
+                                    <i class="fas fa-video"></i>
+                                </div>
+                                <div class="material-info">
+                                    <h4>Видео: Решение квадратных уравнений</h4>
+                                    <p>Математика</p>
+                                </div>
+                                <div class="material-date">5 часов назад</div>
+                            </li>
+                            <li class="material-item">
+                                <div class="material-icon">
+                                    <i class="fas fa-file-word"></i>
+                                </div>
+                                <div class="material-info">
+                                    <h4>Лабораторная работа №3</h4>
+                                    <p>Физика</p>
+                                </div>
+                                <div class="material-date">Вчера</div>
+                            </li>
+                            <li class="material-item">
+                                <div class="material-icon">
+                                    <i class="fas fa-link"></i>
+                                </div>
+                                <div class="material-info">
+                                    <h4>Ссылка: Творчество Пушкина</h4>
+                                    <p>Литература</p>
+                                </div>
+                                <div class="material-date">2 дня назад</div>
+                            </li>
+                        </ul>
+                    </section>
+
+                    <!-- Quick Actions -->
+                    <section class="actions-section">
+                        <div class="section-header">
+                            <h2>Быстрые действия</h2>
+                        </div>
+                        <div class="actions-grid">
+                            <div class="action-card" id="exportSubjects">
+                                <div class="action-icon">
+                                    <i class="fas fa-file-export"></i>
+                                </div>
+                                <div class="action-title">Экспорт данных</div>
+                                <div class="action-desc">Статистика по предметам</div>
+                            </div>
+                            <div class="action-card" id="addMaterials">
+                                <div class="action-icon">
+                                    <i class="fas fa-plus"></i>
+                                </div>
+                                <div class="action-title">Добавить материалы</div>
+                                <div class="action-desc">Для всех предметов</div>
+                            </div>
+                            <div class="action-card" id="createAssignment">
+                                <div class="action-icon">
+                                    <i class="fas fa-tasks"></i>
+                                </div>
+                                <div class="action-title">Создать задание</div>
+                                <div class="action-desc">Для выбранного предмета</div>
+                            </div>
+                            <div class="action-card" id="generateReport">
+                                <div class="action-icon">
+                                    <i class="fas fa-chart-pie"></i>
+                                </div>
+                                <div class="action-title">Отчет по успеваемости</div>
+                                <div class="action-desc">Анализ по предметам</div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Subject Modal -->
+    <div class="modal-overlay" id="subjectModal">
+        <div class="subject-modal">
+            <div class="modal-header">
+                <h3 id="modalTitle">Добавить предмет</h3>
+                <div class="close-modal" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </div>
+            </div>
+            <div class="modal-content">
+                <form id="subjectForm">
+                    <div class="form-group">
+                        <label class="form-label" for="subjectName">Название предмета</label>
+                        <input type="text" class="form-input" id="subjectName" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="subjectCategory">Категория</label>
+                            <select class="form-select" id="subjectCategory" required>
+                                <option value="">Выберите категорию</option>
+                                <option value="technical">Технический</option>
+                                <option value="humanitarian">Гуманитарный</option>
+                                <option value="natural">Естественный</option>
+                                <option value="language">Иностранный язык</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="subjectHours">Часов в неделю</label>
+                            <input type="number" class="form-input" id="subjectHours" min="1" max="20" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="subjectTeacher">Преподаватель</label>
+                        <select class="form-select" id="subjectTeacher" required>
+                            <option value="">Выберите преподавателя</option>
+                            <option value="1">Иванов А.С.</option>
+                            <option value="2">Петрова М.В.</option>
+                            <option value="3">Сидоров Д.К.</option>
+                            <option value="4">Новикова Е.П.</option>
+                            <option value="5">Козлов В.И.</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="subjectDescription">Описание предмета</label>
+                        <textarea class="form-textarea" id="subjectDescription" rows="4"></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="subjectColor">Цвет предмета</label>
+                            <input type="color" class="form-input" id="subjectColor" value="#4A6FA5">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="subjectIcon">Иконка предмета</label>
+                            <select class="form-select" id="subjectIcon">
+                                <option value="code">Программирование</option>
+                                <option value="calculator">Математика</option>
+                                <option value="atom">Физика</option>
+                                <option value="book">Литература</option>
+                                <option value="globe">История</option>
+                                <option value="language">Иностранный язык</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-actions">
+                        <button type="button" class="btn btn-light" id="cancelBtn">Отмена</button>
+                        <button type="submit" class="btn" id="saveSubjectBtn">Сохранить</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // User data
+        const userName = "Елена Плеханова";
+        const userEmail = "elena.plekhanova@example.com";
+        
+        document.getElementById('userName').textContent = userName;
+        
+        // Generate avatar initials
+        const nameParts = userName.split(' ');
+        const initials = nameParts.map(part => part[0]).join('').toUpperCase();
+        document.getElementById('userAvatar').textContent = initials;
+
+        // Subjects functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const subjectModal = document.getElementById('subjectModal');
+            const closeModal = document.getElementById('closeModal');
+            const cancelBtn = document.getElementById('cancelBtn');
+            const saveSubjectBtn = document.getElementById('saveSubjectBtn');
+            const addSubjectBtn = document.getElementById('addSubjectBtn');
+            const subjectForm = document.getElementById('subjectForm');
+            const actionButtons = document.querySelectorAll('.action-btn');
+            const quickActions = document.querySelectorAll('.action-card');
+            const searchInput = document.querySelector('.search-input');
+            const categoryFilter = document.getElementById('categoryFilter');
+            
+            let currentSubject = null;
+            let isEditing = false;
+
+            // Open modal for adding subject
+            addSubjectBtn.addEventListener('click', function() {
+                isEditing = false;
+                document.getElementById('modalTitle').textContent = 'Добавить предмет';
+                resetForm();
+                subjectModal.classList.add('active');
+            });
+
+            // Close modal
+            function closeSubjectModal() {
+                subjectModal.classList.remove('active');
+                currentSubject = null;
+                isEditing = false;
+            }
+
+            closeModal.addEventListener('click', closeSubjectModal);
+            cancelBtn.addEventListener('click', closeSubjectModal);
+
+            // Subject actions
+            actionButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const action = this.getAttribute('data-action');
+                    const subjectCard = this.closest('.subject-card');
+                    const subjectName = subjectCard.querySelector('.subject-name').textContent;
+                    
+                    if (action === 'edit') {
+                        // In a real app, we would fetch subject data
+                        currentSubject = {
+                            name: subjectName,
+                            teacher: subjectCard.querySelector('.subject-teacher').textContent,
+                            hours: subjectCard.querySelector('.subject-meta span:first-child').textContent.replace(' часов/нед', '')
+                        };
+                        
+                        isEditing = true;
+                        document.getElementById('modalTitle').textContent = 'Редактировать предмет';
+                        // In a real app, we would populate the form with subject data
+                        document.getElementById('subjectName').value = currentSubject.name;
+                        document.getElementById('subjectHours').value = currentSubject.hours;
+                        document.getElementById('subjectTeacher').value = getTeacherValue(currentSubject.teacher);
+                        
+                        subjectModal.classList.add('active');
+                    } else if (action === 'details') {
+                        alert(`Подробная информация о предмете: ${subjectName}`);
+                    } else if (action === 'materials') {
+                        alert(`Учебные материалы по предмету: ${subjectName}`);
+                    }
+                });
+            });
+
+            // Quick actions
+            quickActions.forEach(action => {
+                action.addEventListener('click', function() {
+                    const actionId = this.id;
+                    
+                    if (actionId === 'exportSubjects') {
+                        alert('Экспорт данных по предметам');
+                    } else if (actionId === 'addMaterials') {
+                        alert('Добавление учебных материалов');
+                    } else if (actionId === 'createAssignment') {
+                        alert('Создание нового задания');
+                    } else if (actionId === 'generateReport') {
+                        alert('Генерация отчета по успеваемости');
+                    }
+                });
+            });
+
+            // Search functionality
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                const cards = document.querySelectorAll('.subject-card');
+                
+                cards.forEach(card => {
+                    const subjectName = card.querySelector('.subject-name').textContent.toLowerCase();
+                    const subjectTeacher = card.querySelector('.subject-teacher').textContent.toLowerCase();
+                    
+                    if (subjectName.includes(searchTerm) || subjectTeacher.includes(searchTerm)) {
+                        card.style.display = '';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+
+            // Category filter
+            categoryFilter.addEventListener('change', function() {
+                const selectedCategory = this.value;
+                const cards = document.querySelectorAll('.subject-card');
+                
+                cards.forEach(card => {
+                    const category = card.querySelector('.subject-meta span:last-child').textContent;
+                    
+                    if (selectedCategory === 'Все категории' || category === selectedCategory) {
+                        card.style.display = '';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+
+            // Form submission
+            subjectForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                if (validateForm()) {
+                    // In a real app, we would save the subject data
+                    if (isEditing) {
+                        alert(`Данные предмета "${currentSubject.name}" успешно обновлены!`);
+                    } else {
+                        alert('Новый предмет успешно добавлен в класс!');
+                    }
+                    
+                    closeSubjectModal();
+                }
+            });
+
+            // Form validation
+            function validateForm() {
+                const name = document.getElementById('subjectName').value;
+                const category = document.getElementById('subjectCategory').value;
+                const hours = document.getElementById('subjectHours').value;
+                const teacher = document.getElementById('subjectTeacher').value;
+                
+                if (!name) {
+                    alert('Пожалуйста, введите название предмета');
+                    return false;
+                }
+                
+                if (!category) {
+                    alert('Пожалуйста, выберите категорию предмета');
+                    return false;
+                }
+                
+                if (!hours) {
+                    alert('Пожалуйста, укажите количество часов в неделю');
+                    return false;
+                }
+                
+                if (!teacher) {
+                    alert('Пожалуйста, выберите преподавателя');
+                    return false;
+                }
+                
+                return true;
+            }
+
+            // Reset form
+            function resetForm() {
+                subjectForm.reset();
+            }
+
+            // Helper function to get teacher value
+            function getTeacherValue(teacherName) {
+                const teachers = {
+                    'Иванов А.С.': '1',
+                    'Петрова М.В.': '2',
+                    'Сидоров Д.К.': '3',
+                    'Новикова Е.П.': '4',
+                    'Козлов В.И.': '5'
+                };
+                
+                return teachers[teacherName] || '';
+            }
+        });
+    </script>
+</body>
+</html>

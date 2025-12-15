@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пифагор - Управление пользователями</title>
+    <link rel="icon" href="/frontend/static/assets/image/logo/icons.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Forum&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/frontend/static/css/main.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo-header">
+                <a href="/frontend/templates/main/index.html">
+                    <img src="/frontend/static/assets/image/logo/logo.svg" alt="logo">
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/frontend/templates/main/about.html">О платформе</a></li>
+                <li><a href="/frontend/templates/courses/courses.html">Курсы</a></li>
+                <li><a href="/frontend/templates/main/teachers.html">Преподаватели</a></li>
+                <li><a href="/frontend/templates/main/contact.html">Контакты</a></li>
+            </ul>
+            <div class="header-actions">
+                <div class="user-menu">
+                    <div class="user-avatar" id="userAvatar">
+                        <img src="/frontend/static/assets/image/denizer1305.png" alt="">
+                    </div>
+                    <div class="user-name" id="userName">Администратор</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Dashboard -->
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <ul class="sidebar-menu">
+                <li><a href="/frontend/templates/main/index.html"><i class="fas fa-home"></i> <span>Главная</span></a></li>
+                <li><a href="/frontend/templates/admin/dashboard.html"><i class="fas fa-tachometer-alt"></i> <span>Панель управления</span></a></li>
+                <li><a href="/frontend/templates/admin/platform-users.html" class="active"><i class="fas fa-users"></i> <span>Пользователи</span></a></li>
+                <li><a href="/frontend/templates/courses/courses.html"><i class="fas fa-book"></i> <span>Курсы</span></a></li>
+                <li><a href="/frontend/templates/classes/classes.html"><i class="fas fa-users"></i> <span>Классы</span></a></li>
+                <li><a href="/frontend/templates/admin/system-settings.html"><i class="fas fa-cog"></i> <span>Настройки системы</span></a></li>
+                <li><a href="/frontend/templates/admin/reports.html"><i class="fas fa-chart-bar"></i> <span>Отчеты</span></a></li>
+                <li><a href="/frontend/templates/admin/audit-log.html"><i class="fas fa-clipboard-list"></i> <span>Журнал аудита</span></a></li>
+                <li><a href="/frontend/templates/users/profile-edit.html"><i class="fas fa-user-cog"></i> <span>Мой профиль</span></a></li>
+                <li><a href="/frontend/templates/auth/logout.html"><i class="fas fa-sign-out"></i> <span>Выйти</span></a></li>                
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Users Header -->
+            <div class="users-header">
+                <div class="users-title">
+                    <h1>Управление пользователями</h1>
+                    <p>Управление всеми пользователями платформы</p>
+                </div>
+                <div class="users-controls">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Поиск пользователей...">
+                    </div>
+                    <select class="filter-select">
+                        <option>Все роли</option>
+                        <option>Администраторы</option>
+                        <option>Преподаватели</option>
+                        <option>Студенты</option>
+                        <option>Родители</option>
+                    </select>
+                    <select class="filter-select">
+                        <option>Все статусы</option>
+                        <option>Активные</option>
+                        <option>Неактивные</option>
+                        <option>Ожидают подтверждения</option>
+                    </select>
+                    <button class="btn" id="addUserBtn">
+                        <i class="fas fa-plus"></i> Добавить пользователя
+                    </button>
+                </div>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon total">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>1,247</h3>
+                        <p>Всего пользователей</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon active">
+                        <i class="fas fa-user-check"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>1,189</h3>
+                        <p>Активных пользователей</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon teachers">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>48</h3>
+                        <p>Преподавателей</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon students">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>987</h3>
+                        <p>Студентов</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon parents">
+                        <i class="fas fa-user-friends"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>212</h3>
+                        <p>Родителей</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Section -->
+            <section class="charts-section">
+                <div class="section-header">
+                    <h2>Статистика пользователей</h2>
+                </div>
+                
+                <div class="charts-grid">
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <div class="chart-title">Распределение по ролям</div>
+                        </div>
+                        <canvas id="rolesChart"></canvas>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <div class="chart-title">Регистрация по месяцам</div>
+                        </div>
+                        <canvas id="registrationChart"></canvas>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <div class="chart-title">Активность пользователей</div>
+                        </div>
+                        <canvas id="activityChart"></canvas>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <div class="chart-title">Статусы пользователей</div>
+                        </div>
+                        <canvas id="statusChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Users Table Section -->
+            <section class="users-section">
+                <div class="section-header">
+                    <h2>Список пользователей</h2>
+                </div>
+                
+                <div class="table-controls">
+                    <div class="bulk-actions">
+                        <select class="filter-select">
+                            <option>Действия с выделенными</option>
+                            <option>Активировать</option>
+                            <option>Деактивировать</option>
+                            <option>Отправить сообщение</option>
+                            <option>Экспорт данных</option>
+                        </select>
+                        <button class="btn btn-light btn-small">Применить</button>
+                    </div>
+                    <div>
+                        <button class="btn btn-light btn-small">
+                            <i class="fas fa-download"></i> Экспорт
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="users-table-container">
+                    <table class="users-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 40px;"><input type="checkbox" id="selectAll"></th>
+                                <th>Пользователь</th>
+                                <th>Роль</th>
+                                <th>Дата регистрации</th>
+                                <th>Последний вход</th>
+                                <th>Статус</th>
+                                <th>Действия</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- User 1 -->
+                            <tr class="user-row">
+                                <td><input type="checkbox" class="user-checkbox"></td>
+                                <td>
+                                    <div class="user-info-cell">
+                                        <div class="user-avatar-small">АД</div>
+                                        <div class="user-details">
+                                            <div class="user-name">Александр Дмитриев</div>
+                                            <div class="user-email">admin@school.ru</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="role-badge role-admin">Администратор</span></td>
+                                <td>15.01.2022</td>
+                                <td>Сегодня, 10:24</td>
+                                <td><span class="status-badge status-active">Активен</span></td>
+                                <td>
+                                    <div class="user-actions">
+                                        <div class="action-btn" title="Редактировать"><i class="fas fa-edit"></i></div>
+                                        <div class="action-btn" title="Отправить сообщение"><i class="fas fa-envelope"></i></div>
+                                        <div class="action-btn delete" title="Удалить"><i class="fas fa-trash"></i></div>
+                                    </div>
+                                </td>
+                            </tr>
+                            
+                            <!-- User 2 -->
+                            <tr class="user-row">
+                                <td><input type="checkbox" class="user-checkbox"></td>
+                                <td>
+                                    <div class="user-info-cell">
+                                        <div class="user-avatar-small">ЕП</div>
+                                        <div class="user-details">
+                                            <div class="user-name">Елена Плеханова</div>
+                                            <div class="user-email">elena.plekhanova@school.ru</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="role-badge role-teacher">Преподаватель</span></td>
+                                <td>20.02.2022</td>
+                                <td>Вчера, 15:42</td>
+                                <td><span class="status-badge status-active">Активен</span></td>
+                                <td>
+                                    <div class="user-actions">
+                                        <div class="action-btn" title="Редактировать"><i class="fas fa-edit"></i></div>
+                                        <div class="action-btn" title="Отправить сообщение"><i class="fas fa-envelope"></i></div>
+                                        <div class="action-btn delete" title="Удалить"><i class="fas fa-trash"></i></div>
+                                    </div>
+                                </td>
+                            </tr>
+                            
+                            <!-- User 3 -->
+                            <tr class="user-row">
+                                <td><input type="checkbox" class="user-checkbox"></td>
+                                <td>
+                                    <div class="user-info-cell">
+                                        <div class="user-avatar-small">ИС</div>
+                                        <div class="user-details">
+                                            <div class="user-name">Иван Сидоров</div>
+                                            <div class="user-email">ivan.sidorov@school.ru</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="role-badge role-student">Студент</span></td>
+                                <td>05.09.2023</td>
+                                <td>2 дня назад</td>
+                                <td><span class="status-badge status-active">Активен</span></td>
+                                <td>
+                                    <div class="user-actions">
+                                        <div class="action-btn" title="Редактировать"><i class="fas fa-edit"></i></div>
+                                        <div class="action-btn" title="Отправить сообщение"><i class="fas fa-envelope"></i></div>
+                                        <div class="action-btn delete" title="Удалить"><i class="fas fa-trash"></i></div>
+                                    </div>
+                                </td>
+                            </tr>
+                            
+                            <!-- User 4 -->
+                            <tr class="user-row">
+                                <td><input type="checkbox" class="user-checkbox"></td>
+                                <td>
+                                    <div class="user-info-cell">
+                                        <div class="user-avatar-small">МП</div>
+                                        <div class="user-details">
+                                            <div class="user-name">Мария Петрова</div>
+                                            <div class="user-email">maria.petrova@example.com</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="role-badge role-parent">Родитель</span></td>
+                                <td>10.09.2023</td>
+                                <td>Неделю назад</td>
+                                <td><span class="status-badge status-active">Активен</span></td>
+                                <td>
+                                    <div class="user-actions">
+                                        <div class="action-btn" title="Редактировать"><i class="fas fa-edit"></i></div>
+                                        <div class="action-btn" title="Отправить сообщение"><i class="fas fa-envelope"></i></div>
+                                        <div class="action-btn delete" title="Удалить"><i class="fas fa-trash"></i></div>
+                                    </div>
+                                </td>
+                            </tr>
+                            
+                            <!-- User 5 -->
+                            <tr class="user-row">
+                                <td><input type="checkbox" class="user-checkbox"></td>
+                                <td>
+                                    <div class="user-info-cell">
+                                        <div class="user-avatar-small">ОН</div>
+                                        <div class="user-details">
+                                            <div class="user-name">Ольга Новикова</div>
+                                            <div class="user-email">olga.novikova@school.ru</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="role-badge role-teacher">Преподаватель</span></td>
+                                <td>12.03.2022</td>
+                                <td>3 недели назад</td>
+                                <td><span class="status-badge status-inactive">Неактивен</span></td>
+                                <td>
+                                    <div class="user-actions">
+                                        <div class="action-btn" title="Редактировать"><i class="fas fa-edit"></i></div>
+                                        <div class="action-btn" title="Отправить сообщение"><i class="fas fa-envelope"></i></div>
+                                        <div class="action-btn delete" title="Удалить"><i class="fas fa-trash"></i></div>
+                                    </div>
+                                </td>
+                            </tr>
+                            
+                            <!-- User 6 -->
+                            <tr class="user-row">
+                                <td><input type="checkbox" class="user-checkbox"></td>
+                                <td>
+                                    <div class="user-info-cell">
+                                        <div class="user-avatar-small">ДК</div>
+                                        <div class="user-details">
+                                            <div class="user-name">Дмитрий Козлов</div>
+                                            <div class="user-email">dmitry.kozlov@example.com</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="role-badge role-student">Студент</span></td>
+                                <td>28.08.2023</td>
+                                <td>Сегодня, 08:15</td>
+                                <td><span class="status-badge status-pending">Ожидает</span></td>
+                                <td>
+                                    <div class="user-actions">
+                                        <div class="action-btn" title="Редактировать"><i class="fas fa-edit"></i></div>
+                                        <div class="action-btn" title="Отправить сообщение"><i class="fas fa-envelope"></i></div>
+                                        <div class="action-btn delete" title="Удалить"><i class="fas fa-trash"></i></div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="pagination">
+                    <div class="pagination-info">
+                        Показано 1-6 из 1,247 пользователей
+                    </div>
+                    <div class="pagination-controls">
+                        <div class="page-btn"><i class="fas fa-chevron-left"></i></div>
+                        <div class="page-btn active">1</div>
+                        <div class="page-btn">2</div>
+                        <div class="page-btn">3</div>
+                        <div class="page-btn">4</div>
+                        <div class="page-btn">5</div>
+                        <div class="page-btn"><i class="fas fa-ellipsis-h"></i></div>
+                        <div class="page-btn">25</div>
+                        <div class="page-btn"><i class="fas fa-chevron-right"></i></div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Add User Modal -->
+    <div class="modal-overlay" id="addUserModal">
+        <div class="user-modal">
+            <div class="modal-header">
+                <h3>Добавить пользователя</h3>
+                <div class="close-modal" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </div>
+            </div>
+            <div class="modal-content">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="userFirstName">Имя</label>
+                        <input type="text" id="userFirstName" class="form-control" placeholder="Введите имя">
+                    </div>
+                    <div class="form-group">
+                        <label for="userLastName">Фамилия</label>
+                        <input type="text" id="userLastName" class="form-control" placeholder="Введите фамилию">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="userEmail">Email</label>
+                    <input type="email" id="userEmail" class="form-control" placeholder="Введите email">
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="userRole">Роль</label>
+                        <select id="userRole" class="form-control">
+                            <option value="student">Студент</option>
+                            <option value="teacher">Преподаватель</option>
+                            <option value="parent">Родитель</option>
+                            <option value="admin">Администратор</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="userStatus">Статус</label>
+                        <select id="userStatus" class="form-control">
+                            <option value="active">Активный</option>
+                            <option value="inactive">Неактивный</option>
+                            <option value="pending">Ожидает подтверждения</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="userPassword">Пароль</label>
+                    <input type="password" id="userPassword" class="form-control" placeholder="Введите пароль">
+                </div>
+                
+                <div class="form-group">
+                    <label for="userConfirmPassword">Подтверждение пароля</label>
+                    <input type="password" id="userConfirmPassword" class="form-control" placeholder="Подтвердите пароль">
+                </div>
+                
+                <div class="modal-actions">
+                    <button class="btn btn-light" id="cancelAdd">Отмена</button>
+                    <button class="btn" id="saveUser">Добавить пользователя</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="/frontend/static/js/main.js"></script>
+</body>
+</html>

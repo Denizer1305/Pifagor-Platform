@@ -498,7 +498,7 @@ function initRegistration() {
           }
         );
       } else {
-        document.querySelectorAll(".error-message").forEach((el) => {
+        document.querySelectorAll(".pifagor_error-message").forEach((el) => {
           el.style.display = "none";
           el.textContent = "";
         });
@@ -507,15 +507,15 @@ function initRegistration() {
           Object.keys(data.errors).forEach((field) => {
             let errorElement;
             if (field === "password1" || field === "id_password1") {
-              errorElement = document.querySelector("#id_password1")?.closest(".form-group")?.querySelector(".error-message");
+              errorElement = document.querySelector("#id_password1")?.closest(".form-group")?.querySelector(".pifagor_error-message");
             } else if (field === "password2" || field === "id_password2") {
-              errorElement = document.querySelector("#id_password2")?.closest(".form-group")?.querySelector(".error-message");
+              errorElement = document.querySelector("#id_password2")?.closest(".form-group")?.querySelector(".pifagor_error-message");
             } else if (field === "email" || field === "id_email") {
-              errorElement = document.querySelector("#id_email")?.closest(".form-group")?.querySelector(".error-message");
+              errorElement = document.querySelector("#id_email")?.closest(".form-group")?.querySelector(".pifagor_error-message");
             } else if (field === "fullname" || field === "id_fullname") {
-              errorElement = document.querySelector("#id_fullname")?.closest(".form-group")?.querySelector(".error-message");
+              errorElement = document.querySelector("#id_fullname")?.closest(".form-group")?.querySelector(".pifagor_error-message");
             } else if (field === "role") {
-              errorElement = document.querySelector(".role-selector")?.closest(".form-group")?.querySelector(".error-message");
+              errorElement = document.querySelector(".role-selector")?.closest(".form-group")?.querySelector(".pifagor_error-message");
             } else if (field === "__all__") {
               showAlert("\u041E\u0448\u0438\u0431\u043A\u0430 \u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u0438", Array.isArray(data.errors[field]) ? data.errors[field][0] : data.errors[field], "error");
               return;
@@ -543,7 +543,7 @@ function initRegistration() {
         }
       }
     }).catch((error) => {
-      console.error("Fetch error:", error);
+      console.error("Fetch pifagor_error:", error);
       let errorMessage = "\u041F\u0440\u043E\u0438\u0437\u043E\u0448\u043B\u0430 \u043E\u0448\u0438\u0431\u043A\u0430 \u043F\u0440\u0438 \u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u0438. ";
       if (error.message.includes("non-JSON")) {
         errorMessage += "\u0421\u0435\u0440\u0432\u0435\u0440 \u0432\u0435\u0440\u043D\u0443\u043B \u043D\u0435\u043A\u043E\u0440\u0440\u0435\u043A\u0442\u043D\u044B\u0439 \u043E\u0442\u0432\u0435\u0442.";
@@ -1516,6 +1516,27 @@ var ThemeManager = class {
     this.setupEventListeners();
     this.initializeThemeOptions();
     this.initializeAppearanceOptions();
+    this.initializeAuthPages();
+  }
+  initializeAuthPages() {
+    const authPages = [
+      "login",
+      "registration",
+      "password-reset",
+      "password-reset-code",
+      "logout",
+      "email-notification",
+      "new-password",
+      "reset",
+      "verification"
+    ];
+    const currentPath = window.location.pathname;
+    const isAuthPage = authPages.some((page) => currentPath.includes(page));
+    if (isAuthPage) {
+      setTimeout(() => {
+        this.forceUpdateLogos();
+      }, 100);
+    }
   }
   setupEventListeners() {
     document.addEventListener("click", (e) => {
@@ -1546,8 +1567,12 @@ var ThemeManager = class {
         e.target.classList.add("active");
       }
     });
+    document.addEventListener("themeChanged", () => {
+      setTimeout(() => {
+        this.forceUpdateLogos();
+      }, 50);
+    });
   }
-  // Инициализация опций темы в DOM
   initializeThemeOptions() {
     const themeOptions = document.querySelectorAll(".theme-option");
     themeOptions.forEach((option) => {
@@ -1557,7 +1582,6 @@ var ThemeManager = class {
       });
     });
   }
-  // Инициализация настроек внешнего вида в DOM
   initializeAppearanceOptions() {
     const savedFontSize = localStorage.getItem("selectedFontSize") || "medium";
     const savedDensity = localStorage.getItem("selectedDensity") || "normal";
@@ -1573,7 +1597,6 @@ var ThemeManager = class {
     }
   }
   switchTheme(theme) {
-    console.log(`\u{1F3A8} \u041F\u0435\u0440\u0435\u043A\u043B\u044E\u0447\u0435\u043D\u0438\u0435 \u0442\u0435\u043C\u044B \u043D\u0430: ${theme}`);
     this.currentTheme = theme;
     this.applyTheme(theme);
     localStorage.setItem("selectedTheme", theme);
@@ -1590,63 +1613,65 @@ var ThemeManager = class {
     themeLink.rel = "stylesheet";
     themeLink.href = `${staticBase}css/themes/${theme}.css`;
     themeLink.onerror = () => {
-      console.error(`\u274C \u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u0437\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C \u0442\u0435\u043C\u0443: ${theme}`);
       themeLink.remove();
       if (theme !== "light") {
         this.switchTheme("light");
       }
-    };
-    themeLink.onload = () => {
-      console.log(`\u2705 \u0422\u0435\u043C\u0430 CSS \u0437\u0430\u0433\u0440\u0443\u0436\u0435\u043D\u0430: ${theme}`);
     };
     document.head.appendChild(themeLink);
     this.updateLogos(theme);
     this.updateActiveButtons(theme);
     this.updateThemeColor(theme);
   }
-  // Обновление логотипов согласно теме
   updateLogos(theme) {
     const folderName = this.themeFolderMap[theme] || "light";
     const staticBase = window.STATIC_URL || "/static/";
-    console.log(`\u{1F504} \u041E\u0431\u043D\u043E\u0432\u043B\u0435\u043D\u0438\u0435 \u043B\u043E\u0433\u043E\u0442\u0438\u043F\u043E\u0432 \u0434\u043B\u044F \u0442\u0435\u043C\u044B: ${theme}, \u043F\u0430\u043F\u043A\u0430: ${folderName}`);
     this.updateMainLogos(folderName, staticBase);
+    this.updateAuthPageLogos(folderName, staticBase);
     this.updateFavicon(folderName, staticBase);
     this.updateSpecificHeroLogo(folderName, staticBase);
     this.updateSpecificAiCardLogo(folderName, staticBase);
-    this.diagnoseLogoElements();
   }
-  // Обновление основных логотипов
-  updateMainLogos(folderName, staticBase) {
-    const mainLogos = document.querySelectorAll(".logo-header img, .mobile-logo img");
-    console.log(`\u{1F4CA} \u041D\u0430\u0439\u0434\u0435\u043D\u043E \u043E\u0441\u043D\u043E\u0432\u043D\u044B\u0445 \u043B\u043E\u0433\u043E\u0442\u0438\u043F\u043E\u0432: ${mainLogos.length}`);
-    mainLogos.forEach((logo, index) => {
+  updateAuthPageLogos(folderName, staticBase) {
+    const authLogos = document.querySelectorAll(".platform-logo");
+    authLogos.forEach((logo) => {
       const newSrc = `${staticBase}assets/image/logo/${folderName}/logo.svg`;
-      console.log(`\u{1F5BC}\uFE0F \u041E\u0441\u043D\u043E\u0432\u043D\u043E\u0439 \u043B\u043E\u0433\u043E\u0442\u0438\u043F ${index + 1}:`, {
-        element: logo,
-        currentSrc: logo.src,
-        newSrc,
-        tagName: logo.tagName
-      });
-      this.updateImageSource(logo, newSrc, "\u041E\u0441\u043D\u043E\u0432\u043D\u043E\u0439 \u043B\u043E\u0433\u043E\u0442\u0438\u043F");
+      this.updateImageSource(logo, newSrc);
     });
   }
-  // Обновление ОСНОВНОГО герой-логотипа (а не всех)
+  updateMainLogos(folderName, staticBase) {
+    const mainLogos = document.querySelectorAll(`
+            .logo-header img, 
+            .mobile-logo img,
+            .platform-logo,
+            .reset-content .platform-logo,
+            .registration-content .platform-logo,
+            .login-content .platform-logo,
+            .logout-content .platform-logo,
+            .verification-content .platform-logo,
+            .reset-password .platform-logo,
+            .reset .platform-logo,
+            .login .platform-logo,
+            .registration .platform-logo,
+            .logout .platform-logo,
+            .verification .platform-logo
+        `);
+    mainLogos.forEach((logo) => {
+      const newSrc = `${staticBase}assets/image/logo/${folderName}/logo.svg`;
+      this.updateImageSource(logo, newSrc);
+    });
+  }
   updateSpecificHeroLogo(folderName, staticBase) {
     const mainHeroLogo = document.querySelector('.hero-section .hero-logo, main .hero-logo, [data-logo-type="hero"]');
     if (!mainHeroLogo) {
       const allHeroLogos = document.querySelectorAll(".hero-logo");
       if (allHeroLogos.length > 0) {
-        console.log(`\u26A0\uFE0F \u041D\u0430\u0439\u0434\u0435\u043D\u043E ${allHeroLogos.length} hero-logo, \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0435\u043C \u043F\u0435\u0440\u0432\u044B\u0439`);
         this.updateSingleHeroLogo(allHeroLogos[0], folderName, staticBase);
-      } else {
-        console.log("\u274C \u041E\u0441\u043D\u043E\u0432\u043D\u043E\u0439 hero-logo \u043D\u0435 \u043D\u0430\u0439\u0434\u0435\u043D");
       }
       return;
     }
-    console.log("\u2705 \u041D\u0430\u0439\u0434\u0435\u043D \u043E\u0441\u043D\u043E\u0432\u043D\u043E\u0439 hero-logo \u043F\u043E \u0441\u043F\u0435\u0446\u0438\u0444\u0438\u0447\u043D\u043E\u043C\u0443 \u0441\u0435\u043B\u0435\u043A\u0442\u043E\u0440\u0443");
     this.updateSingleHeroLogo(mainHeroLogo, folderName, staticBase);
   }
-  // Обновление одного герой-логотипа
   updateSingleHeroLogo(logo, folderName, staticBase) {
     const possibleSources = [
       `${staticBase}assets/image/logo/${folderName}/hero-logo.svg`,
@@ -1654,31 +1679,26 @@ var ThemeManager = class {
       `${staticBase}assets/image/logo/light/hero-logo.svg`,
       `${staticBase}assets/image/logo/dark/hero-logo.svg`
     ];
-    console.log(`\u{1F31F} \u041E\u0441\u043D\u043E\u0432\u043D\u043E\u0439 \u0433\u0435\u0440\u043E\u0439-\u043B\u043E\u0433\u043E\u0442\u0438\u043F:`, {
-      element: logo,
-      currentSrc: logo.src || logo.style.backgroundImage,
-      tagName: logo.tagName,
-      classList: logo.classList
-    });
-    this.tryMultipleSources(logo, possibleSources, "\u041E\u0441\u043D\u043E\u0432\u043D\u043E\u0439 \u0433\u0435\u0440\u043E\u0439-\u043B\u043E\u0433\u043E\u0442\u0438\u043F");
+    let targetElement = logo;
+    if (logo.classList.contains("hero-logo") && logo.tagName.toLowerCase() === "div") {
+      const innerImg = logo.querySelector("img");
+      if (innerImg) {
+        targetElement = innerImg;
+      }
+    }
+    this.tryMultipleSources(targetElement, possibleSources);
   }
-  // Обновление ОСНОВНОГО AI Card логотипа (а не всех)
   updateSpecificAiCardLogo(folderName, staticBase) {
     const mainAiCardLogo = document.querySelector('.ai-card .ai-card-logo, [data-logo-type="ai-card"], .main-ai-logo');
     if (!mainAiCardLogo) {
       const allAiCardLogos = document.querySelectorAll(".ai-card-logo");
       if (allAiCardLogos.length > 0) {
-        console.log(`\u26A0\uFE0F \u041D\u0430\u0439\u0434\u0435\u043D\u043E ${allAiCardLogos.length} ai-card-logo, \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0435\u043C \u043F\u0435\u0440\u0432\u044B\u0439`);
         this.updateSingleAiCardLogo(allAiCardLogos[0], folderName, staticBase);
-      } else {
-        console.log("\u274C \u041E\u0441\u043D\u043E\u0432\u043D\u043E\u0439 ai-card-logo \u043D\u0435 \u043D\u0430\u0439\u0434\u0435\u043D");
       }
       return;
     }
-    console.log("\u2705 \u041D\u0430\u0439\u0434\u0435\u043D \u043E\u0441\u043D\u043E\u0432\u043D\u043E\u0439 ai-card-logo \u043F\u043E \u0441\u043F\u0435\u0446\u0438\u0444\u0438\u0447\u043D\u043E\u043C\u0443 \u0441\u0435\u043B\u0435\u043A\u0442\u043E\u0440\u0443");
     this.updateSingleAiCardLogo(mainAiCardLogo, folderName, staticBase);
   }
-  // Обновление одного AI Card логотипа
   updateSingleAiCardLogo(logo, folderName, staticBase) {
     const possibleSources = [
       `${staticBase}assets/image/logo/${folderName}/Anastasia.svg`,
@@ -1688,35 +1708,28 @@ var ThemeManager = class {
       `${staticBase}assets/image/logo/light/Anastasia.svg`,
       `${staticBase}assets/image/logo/dark/Anastasia.svg`
     ];
-    console.log(`\u{1F916} \u041E\u0441\u043D\u043E\u0432\u043D\u043E\u0439 AI Card \u043B\u043E\u0433\u043E\u0442\u0438\u043F:`, {
-      element: logo,
-      currentSrc: logo.src || logo.style.backgroundImage,
-      tagName: logo.tagName,
-      classList: logo.classList
-    });
-    this.tryMultipleSources(logo, possibleSources, "\u041E\u0441\u043D\u043E\u0432\u043D\u043E\u0439 AI Card \u043B\u043E\u0433\u043E\u0442\u0438\u043F");
-  }
-  // Попробовать несколько источников для элемента
-  tryMultipleSources(element, sources, logName) {
-    if (!element || !sources.length) {
-      console.warn(`\u274C \u041D\u0435\u0442 \u044D\u043B\u0435\u043C\u0435\u043D\u0442\u0430 \u0438\u043B\u0438 \u0438\u0441\u0442\u043E\u0447\u043D\u0438\u043A\u043E\u0432 \u0434\u043B\u044F ${logName}`);
-      return;
+    let targetElement = logo;
+    if (logo.classList.contains("ai-card-logo") && logo.tagName.toLowerCase() === "div") {
+      const innerImg = logo.querySelector("img");
+      if (innerImg) {
+        targetElement = innerImg;
+      }
     }
+    this.tryMultipleSources(targetElement, possibleSources);
+  }
+  tryMultipleSources(element, sources) {
+    if (!element || !sources.length) return;
     const trySource = (index) => {
       if (index >= sources.length) {
-        console.error(`\u274C \u0412\u0441\u0435 \u0438\u0441\u0442\u043E\u0447\u043D\u0438\u043A\u0438 \u0434\u043B\u044F ${logName} \u043D\u0435\u0434\u043E\u0441\u0442\u0443\u043F\u043D\u044B`);
-        this.fallbackToDefault(element, logName);
+        this.fallbackToDefault(element);
         return;
       }
       const source = sources[index];
-      console.log(`\u{1F50D} \u041F\u0440\u043E\u0431\u0443\u0435\u043C \u0438\u0441\u0442\u043E\u0447\u043D\u0438\u043A ${index + 1}/${sources.length} \u0434\u043B\u044F ${logName}: ${source}`);
       const tempImage = new Image();
       tempImage.onload = () => {
-        console.log(`\u2705 \u0418\u0441\u0442\u043E\u0447\u043D\u0438\u043A \u0434\u043E\u0441\u0442\u0443\u043F\u0435\u043D: ${source}`);
-        this.applyImageToElement(element, source, logName);
+        this.applyImageToElement(element, source);
       };
       tempImage.onerror = () => {
-        console.warn(`\u274C \u0418\u0441\u0442\u043E\u0447\u043D\u0438\u043A \u043D\u0435\u0434\u043E\u0441\u0442\u0443\u043F\u0435\u043D: ${source}`);
         trySource(index + 1);
       };
       const cacheBuster = `?t=${Date.now()}`;
@@ -1724,87 +1737,37 @@ var ThemeManager = class {
     };
     trySource(0);
   }
-  // Применить изображение к элементу
-  applyImageToElement(element, src, logName) {
-    if (element.classList.contains("ai-card-logo") && element.tagName.toLowerCase() === "div") {
-      element.style.backgroundImage = `url('${src}')`;
-      console.log(`\u2705 ${logName} (div background) \u0443\u0441\u0442\u0430\u043D\u043E\u0432\u043B\u0435\u043D: ${src}`);
-    } else if (element.tagName.toLowerCase() === "img") {
-      element.src = src;
-      console.log(`\u2705 ${logName} (img src) \u0443\u0441\u0442\u0430\u043D\u043E\u0432\u043B\u0435\u043D: ${src}`);
-    } else if (element.style.backgroundImage) {
-      element.style.backgroundImage = `url('${src}')`;
-      console.log(`\u2705 ${logName} (background) \u0443\u0441\u0442\u0430\u043D\u043E\u0432\u043B\u0435\u043D: ${src}`);
-    } else {
-      if (element.tagName.toLowerCase() === "img") {
-        element.src = src;
-      }
-      element.style.backgroundImage = `url('${src}')`;
-      console.log(`\u2705 ${logName} (\u043E\u0431\u0430 \u0441\u043F\u043E\u0441\u043E\u0431\u0430) \u0443\u0441\u0442\u0430\u043D\u043E\u0432\u043B\u0435\u043D: ${src}`);
-    }
-    element.onerror = () => {
-      console.error(`\u274C ${logName} \u043D\u0435 \u0437\u0430\u0433\u0440\u0443\u0437\u0438\u043B\u0441\u044F \u0432 \u044D\u043B\u0435\u043C\u0435\u043D\u0442: ${src}`);
-    };
+  applyImageToElement(element, src) {
     if (element.tagName.toLowerCase() === "img") {
-      element.onload = () => {
-        console.log(`\u{1F389} ${logName} \u0443\u0441\u043F\u0435\u0448\u043D\u043E \u0437\u0430\u0433\u0440\u0443\u0436\u0435\u043D \u0432 \u044D\u043B\u0435\u043C\u0435\u043D\u0442: ${src}`);
-      };
+      element.src = src;
     } else {
-      const verifyImage = new Image();
-      verifyImage.onload = () => {
-        console.log(`\u{1F389} ${logName} \u0443\u0441\u043F\u0435\u0448\u043D\u043E \u0437\u0430\u0433\u0440\u0443\u0436\u0435\u043D: ${src}`);
-      };
-      verifyImage.onerror = () => {
-        console.error(`\u274C ${logName} \u043D\u0435 \u0437\u0430\u0433\u0440\u0443\u0437\u0438\u043B\u0441\u044F: ${src}`);
-      };
-      verifyImage.src = src;
+      const innerImages = element.querySelectorAll("img");
+      if (innerImages.length > 0) {
+        innerImages.forEach((innerImg) => {
+          innerImg.src = src;
+        });
+      } else {
+        element.style.backgroundImage = `url('${src}')`;
+      }
     }
   }
-  // Fallback на изображение по умолчанию
-  fallbackToDefault(element, logName) {
+  fallbackToDefault(element) {
     const staticBase = window.STATIC_URL || "/static/";
-    let fallbackSrc = "";
-    if (logName.includes("AI Card")) {
-      fallbackSrc = `${staticBase}assets/image/logo/light/Anastasia.svg`;
-    } else if (logName.includes("\u0413\u0435\u0440\u043E\u0439")) {
-      fallbackSrc = `${staticBase}assets/image/logo/light/hero-logo.svg`;
-    } else {
-      fallbackSrc = `${staticBase}assets/image/logo/light/logo.svg`;
-    }
-    console.log(`\u{1F504} \u0418\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0435\u043C fallback \u0434\u043B\u044F ${logName}: ${fallbackSrc}`);
-    this.applyImageToElement(element, fallbackSrc, `${logName} (fallback)`);
+    const fallbackSrc = `${staticBase}assets/image/logo/light/logo.svg`;
+    this.applyImageToElement(element, fallbackSrc);
   }
-  // Универсальный метод обновления источника изображения
-  updateImageSource(imgElement, newSrc, logName) {
-    if (!imgElement) {
-      console.warn(`\u274C ${logName}: \u044D\u043B\u0435\u043C\u0435\u043D\u0442 \u043D\u0435 \u043D\u0430\u0439\u0434\u0435\u043D`);
-      return;
-    }
-    console.log(`\u{1F527} \u041E\u0431\u043D\u043E\u0432\u043B\u0435\u043D\u0438\u0435 ${logName}:`, {
-      element: imgElement,
-      currentSrc: imgElement.src,
-      newSrc
-    });
+  updateImageSource(imgElement, newSrc) {
+    if (!imgElement) return;
     const cacheBuster = `?t=${Date.now()}`;
     const srcWithCacheBuster = newSrc + cacheBuster;
     const tempImage = new Image();
     tempImage.onload = () => {
       imgElement.src = srcWithCacheBuster;
-      console.log(`\u2705 ${logName} \u0443\u0441\u043F\u0435\u0448\u043D\u043E \u043E\u0431\u043D\u043E\u0432\u043B\u0435\u043D: ${newSrc}`);
-      setTimeout(() => {
-        if (imgElement.complete && imgElement.naturalHeight !== 0) {
-          console.log(`\u{1F389} ${logName} \u043F\u043E\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043D \u0432 DOM: ${newSrc}`);
-        } else {
-          console.warn(`\u26A0\uFE0F ${logName} \u043C\u043E\u0436\u0435\u0442 \u043D\u0435 \u043E\u0442\u043E\u0431\u0440\u0430\u0436\u0430\u0442\u044C\u0441\u044F: ${newSrc}`);
-        }
-      }, 100);
     };
     tempImage.onerror = () => {
-      console.error(`\u274C ${logName} \u043D\u0435 \u043D\u0430\u0439\u0434\u0435\u043D: ${newSrc}`);
     };
     tempImage.src = srcWithCacheBuster;
   }
-  // Обновление фавикона
   updateFavicon(folderName, staticBase) {
     let favicon = document.querySelector('link[rel="icon"]');
     if (!favicon) {
@@ -1817,73 +1780,35 @@ var ThemeManager = class {
     const tempImage = new Image();
     tempImage.onload = () => {
       favicon.href = faviconSrc + cacheBuster;
-      console.log(`\u2705 \u0424\u0430\u0432\u0438\u043A\u043E\u043D \u043E\u0431\u043D\u043E\u0432\u043B\u0435\u043D: ${faviconSrc}`);
     };
     tempImage.onerror = () => {
-      console.error(`\u274C \u0424\u0430\u0432\u0438\u043A\u043E\u043D \u043D\u0435 \u043D\u0430\u0439\u0434\u0435\u043D: ${faviconSrc}`);
       const fallbackFavicon = `${staticBase}assets/image/logo/light/icons.svg`;
       favicon.href = fallbackFavicon + cacheBuster;
     };
     tempImage.src = faviconSrc + cacheBuster;
   }
-  // Диагностика элементов логотипов
-  diagnoseLogoElements() {
-    console.group("\u{1F50D} \u0414\u0438\u0430\u0433\u043D\u043E\u0441\u0442\u0438\u043A\u0430 \u043B\u043E\u0433\u043E\u0442\u0438\u043F\u043E\u0432");
-    const selectors = [
-      ".logo-header img",
-      ".mobile-logo img",
-      ".hero-logo",
-      ".ai-card-logo",
-      ".hero-section .hero-logo",
-      ".ai-card .ai-card-logo",
-      '[data-logo-type="hero"]',
-      '[data-logo-type="ai-card"]'
-    ];
-    selectors.forEach((selector) => {
-      const elements = document.querySelectorAll(selector);
-      console.log(`${selector}: \u043D\u0430\u0439\u0434\u0435\u043D\u043E ${elements.length} \u044D\u043B\u0435\u043C\u0435\u043D\u0442\u043E\u0432`);
-      elements.forEach((el, index) => {
-        console.log(`  ${selector} [${index}]:`, {
-          tagName: el.tagName,
-          currentSrc: el.src || "N/A",
-          backgroundImage: el.style.backgroundImage || "N/A",
-          classList: Array.from(el.classList),
-          parent: el.parentElement?.tagName || "N/A"
-        });
-      });
-    });
-    console.groupEnd();
-  }
-  // Установка размера шрифта
   setFontSize(size) {
     this.fontSize = size;
     document.documentElement.setAttribute("data-font-size", size);
     localStorage.setItem("selectedFontSize", size);
-    console.log(`\u{1F4CF} \u0420\u0430\u0437\u043C\u0435\u0440 \u0448\u0440\u0438\u0444\u0442\u0430 \u0443\u0441\u0442\u0430\u043D\u043E\u0432\u043B\u0435\u043D: ${size}`);
     this.dispatchAppearanceChangeEvent();
   }
-  // Установка плотности интерфейса
   setDensity(density) {
     this.density = density;
     document.documentElement.setAttribute("data-density", density);
     localStorage.setItem("selectedDensity", density);
-    console.log(`\u{1F4D0} \u041F\u043B\u043E\u0442\u043D\u043E\u0441\u0442\u044C \u0438\u043D\u0442\u0435\u0440\u0444\u0435\u0439\u0441\u0430 \u0443\u0441\u0442\u0430\u043D\u043E\u0432\u043B\u0435\u043D\u0430: ${density}`);
     this.dispatchAppearanceChangeEvent();
   }
-  // Применение всех настроек внешнего вида
   applyAppearanceSettings() {
     document.documentElement.setAttribute("data-font-size", this.fontSize);
     document.documentElement.setAttribute("data-density", this.density);
-    console.log("\u{1F3A8} \u041D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0438 \u0432\u043D\u0435\u0448\u043D\u0435\u0433\u043E \u0432\u0438\u0434\u0430 \u043F\u0440\u0438\u043C\u0435\u043D\u0435\u043D\u044B");
   }
   updateActiveButtons(theme) {
     const buttons = document.querySelectorAll(".theme-btn, .theme-option");
-    console.log(`\u{1F3AF} \u041E\u0431\u043D\u043E\u0432\u043B\u0435\u043D\u0438\u0435 \u0430\u043A\u0442\u0438\u0432\u043D\u044B\u0445 \u043A\u043D\u043E\u043F\u043E\u043A \u0442\u0435\u043C\u044B: \u043D\u0430\u0439\u0434\u0435\u043D\u043E ${buttons.length} \u043A\u043D\u043E\u043F\u043E\u043A`);
     buttons.forEach((btn) => {
       btn.classList.remove("active");
       if (btn.getAttribute("data-theme") === theme) {
         btn.classList.add("active");
-        console.log(`\u2705 \u041A\u043D\u043E\u043F\u043A\u0430 \u0430\u043A\u0442\u0438\u0432\u0438\u0440\u043E\u0432\u0430\u043D\u0430: ${theme}`, btn);
       }
     });
   }
@@ -1929,9 +1854,7 @@ var ThemeManager = class {
       document.head.appendChild(themeColorMeta);
     }
     themeColorMeta.setAttribute("content", themeColor);
-    console.log(`\u{1F3A8} \u0426\u0432\u0435\u0442 \u0442\u0435\u043C\u044B \u043E\u0431\u043D\u043E\u0432\u043B\u0435\u043D: ${themeColor}`);
   }
-  // Анимация кнопки при клике
   animateButton(button) {
     button.style.transform = "scale(0.9)";
     setTimeout(() => {
@@ -1941,7 +1864,6 @@ var ThemeManager = class {
       button.style.transform = "scale(1)";
     }, 200);
   }
-  // События для уведомления других компонентов
   dispatchThemeChangeEvent(theme) {
     const event = new CustomEvent("themeChanged", {
       detail: {
@@ -1950,7 +1872,6 @@ var ThemeManager = class {
       }
     });
     document.dispatchEvent(event);
-    console.log(`\u{1F4E2} \u0421\u043E\u0431\u044B\u0442\u0438\u0435 themeChanged \u043E\u0442\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u043E: ${theme}`);
   }
   dispatchAppearanceChangeEvent() {
     const event = new CustomEvent("appearanceChanged", {
@@ -1960,9 +1881,7 @@ var ThemeManager = class {
       }
     });
     document.dispatchEvent(event);
-    console.log("\u{1F4E2} \u0421\u043E\u0431\u044B\u0442\u0438\u0435 appearanceChanged \u043E\u0442\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u043E");
   }
-  // Публичные методы для получения текущих настроек
   getCurrentTheme() {
     return this.currentTheme;
   }
@@ -1975,49 +1894,11 @@ var ThemeManager = class {
   getDensity() {
     return this.density;
   }
-  // Принудительное обновление всех логотипов на странице
   forceUpdateLogos() {
-    console.log("\u{1F504} \u041F\u0440\u0438\u043D\u0443\u0434\u0438\u0442\u0435\u043B\u044C\u043D\u043E\u0435 \u043E\u0431\u043D\u043E\u0432\u043B\u0435\u043D\u0438\u0435 \u0432\u0441\u0435\u0445 \u043B\u043E\u0433\u043E\u0442\u0438\u043F\u043E\u0432");
     this.updateLogos(this.currentTheme);
-  }
-  // Проверить существование файлов логотипов
-  async checkLogoFiles() {
-    const theme = this.currentTheme;
-    const folderName = this.themeFolderMap[theme] || "light";
-    const staticBase = window.STATIC_URL || "/static/";
-    const filesToCheck = [
-      "logo.svg",
-      "icons.svg",
-      "hero-logo.svg",
-      "Anastasia.svg",
-      "anastasia.svg"
-    ];
-    console.group("\u{1F50D} \u041F\u0440\u043E\u0432\u0435\u0440\u043A\u0430 \u0444\u0430\u0439\u043B\u043E\u0432 \u043B\u043E\u0433\u043E\u0442\u0438\u043F\u043E\u0432");
-    for (const file of filesToCheck) {
-      const url = `${staticBase}assets/image/logo/${folderName}/${file}`;
-      const exists = await this.checkFileExists(url);
-      console.log(`${exists ? "\u2705" : "\u274C"} ${file}: ${url}`);
-    }
-    console.groupEnd();
-  }
-  // Проверить существование файла
-  checkFileExists(url) {
-    return new Promise((resolve) => {
-      const xhr = new XMLHttpRequest();
-      xhr.open("HEAD", url);
-      xhr.onload = () => resolve(xhr.status === 200);
-      xhr.onerror = () => resolve(false);
-      xhr.send();
-    });
   }
 };
 window.themeManager = new ThemeManager();
-window.debugThemeManager = {
-  checkLogos: () => window.themeManager.checkLogoFiles(),
-  forceUpdate: () => window.themeManager.forceUpdateLogos(),
-  diagnose: () => window.themeManager.diagnoseLogoElements(),
-  getInfo: () => window.themeManager.getSettingsInfo()
-};
 var theme_manager_default = window.themeManager;
 
 // static/js/modules/validation.js
@@ -2137,7 +2018,7 @@ var ValidationManager = class {
     if (!field) return;
     field.style.borderColor = "#f44336";
     const errorElement = document.createElement("div");
-    errorElement.className = "field-error";
+    errorElement.className = "field-pifagor_error";
     errorElement.textContent = message;
     errorElement.style.cssText = "color: #f44336; font-size: 12px; margin-top: 5px;";
     field.parentNode.appendChild(errorElement);
@@ -2150,7 +2031,7 @@ var ValidationManager = class {
     fields.forEach((field) => {
       field.style.borderColor = "";
     });
-    const errors = document.querySelectorAll(".field-error, .validation-error-message");
+    const errors = document.querySelectorAll(".field-pifagor_error, .validation-pifagor_error-message");
     errors.forEach((error) => error.remove());
   }
   /**
@@ -2319,7 +2200,7 @@ var ValidationManager = class {
         const data = await response.json();
         return !data.exists;
       } catch (error) {
-        console.error("Email validation error:", error);
+        console.error("Email validation pifagor_error:", error);
         return false;
       }
     });
@@ -2621,7 +2502,7 @@ var ValidationManager = class {
     if (isValid) {
       form.dispatchEvent(new CustomEvent("validation:success"));
     } else {
-      form.dispatchEvent(new CustomEvent("validation:error"));
+      form.dispatchEvent(new CustomEvent("validation:pifagor_error"));
     }
     return isValid;
   }
@@ -2636,17 +2517,17 @@ var ValidationManager = class {
   }
   // Отображение результатов валидации в DOM
   displayFieldValidation(field, result) {
-    const existingError = field.parentNode.querySelector(".validation-error");
+    const existingError = field.parentNode.querySelector(".validation-pifagor_error");
     if (existingError) {
       existingError.remove();
     }
-    field.classList.remove("validation-error", "validation-success");
+    field.classList.remove("validation-pifagor_error", "validation-success");
     if (result.isValid) {
       field.classList.add("validation-success");
     } else {
-      field.classList.add("validation-error");
+      field.classList.add("validation-pifagor_error");
       const errorElement = document.createElement("div");
-      errorElement.className = "validation-error-message";
+      errorElement.className = "validation-pifagor_error-message";
       errorElement.textContent = result.errors[0];
       errorElement.style.cssText = `
                 color: #dc3545;
@@ -3409,7 +3290,7 @@ var UploadManager = class {
         try {
           await this.handleAvatarUpload(file, avatarImage, config);
         } catch (error) {
-          console.error("Avatar upload error:", error);
+          console.error("Avatar upload pifagor_error:", error);
           this.showNotification("\u041E\u0448\u0438\u0431\u043A\u0430 \u0437\u0430\u0433\u0440\u0443\u0437\u043A\u0438 \u0430\u0432\u0430\u0442\u0430\u0440\u0430", "error");
         }
       }
@@ -3702,7 +3583,6 @@ var UploadManager = class {
       file
     };
   }
-  // Обработка файлов
   processFiles(files, element, config) {
     files.forEach((file) => {
       const uploadId = this.generateUploadId();
@@ -3724,7 +3604,6 @@ var UploadManager = class {
       }
     });
   }
-  // Создание превью файла
   createFilePreview(uploadInfo) {
     const { file, element, id } = uploadInfo;
     const previewContainer = element.querySelector(".upload-preview") || this.createPreviewContainer(element);
@@ -3783,7 +3662,6 @@ var UploadManager = class {
     icon.textContent = iconText;
     previewElement.insertBefore(icon, previewElement.firstChild);
   }
-  // Управление очередью загрузки
   queueUpload(uploadId) {
     this.queuedUploads.push(uploadId);
     this.updateUploadStatus(uploadId, "queued");
@@ -3808,7 +3686,6 @@ var UploadManager = class {
       });
     }
   }
-  // Загрузка файлов
   async startUpload(uploadId) {
     const uploadInfo = this.uploads.get(uploadId);
     if (!uploadInfo) return;
@@ -3827,7 +3704,6 @@ var UploadManager = class {
       this.activeUploads.delete(uploadId);
       this.showNotification(`\u0424\u0430\u0439\u043B "${uploadInfo.file.name}" \u0443\u0441\u043F\u0435\u0448\u043D\u043E \u0437\u0430\u0433\u0440\u0443\u0436\u0435\u043D`, "success");
     } catch (error) {
-      console.error(`Upload failed for ${uploadInfo.file.name}:`, error);
       if (uploadInfo.retries < this.config.maxRetries) {
         uploadInfo.retries++;
         this.updateUploadStatus(uploadId, "retrying");
@@ -3965,7 +3841,6 @@ var UploadManager = class {
     }
     return await response.json();
   }
-  // Управление загрузками
   cancelUpload(uploadId) {
     const uploadInfo = this.uploads.get(uploadId);
     if (uploadInfo) {
@@ -4005,7 +3880,6 @@ var UploadManager = class {
       this.queueUpload(uploadId);
     }
   }
-  // Обновление UI
   updateUploadProgress(uploadId, progress) {
     const uploadInfo = this.uploads.get(uploadId);
     if (uploadInfo && uploadInfo.previewElement) {
@@ -4051,7 +3925,6 @@ var UploadManager = class {
       this.uploads.delete(uploadId);
     }
   }
-  // Вспомогательные методы
   getUploadEndpoint(uploadType) {
     const endpoints = {
       [this.uploadTypes.HOMEWORK]: "/api/upload/homework",
@@ -4076,7 +3949,6 @@ var UploadManager = class {
     const i = Math.floor(Math.log(bytes) / Math.log(k));
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
   }
-  // Публичное API
   async uploadFile(file, options = {}) {
     const uploadId = this.generateUploadId();
     const uploadInfo = {
@@ -4125,18 +3997,17 @@ var UploadManager = class {
     });
     return uploads;
   }
-  // События
   setupEventListeners() {
     document.addEventListener("upload:file-added", this.handleFileAdded.bind(this));
     document.addEventListener("upload:progress", this.handleUploadProgress.bind(this));
     document.addEventListener("upload:complete", this.handleUploadComplete.bind(this));
-    document.addEventListener("upload:error", this.handleUploadError.bind(this));
+    document.addEventListener("upload:pifagor_error", this.handleUploadError.bind(this));
   }
   cleanupEventListeners() {
     document.removeEventListener("upload:file-added", this.handleFileAdded.bind(this));
     document.removeEventListener("upload:progress", this.handleUploadProgress.bind(this));
     document.removeEventListener("upload:complete", this.handleUploadComplete.bind(this));
-    document.removeEventListener("upload:error", this.handleUploadError.bind(this));
+    document.removeEventListener("upload:pifagor_error", this.handleUploadError.bind(this));
   }
   handleFileAdded(event) {
     this.logDebug("File added to upload queue:", event.detail);
@@ -4148,7 +4019,7 @@ var UploadManager = class {
     this.logDebug("Upload completed:", event.detail);
   }
   handleUploadError(event) {
-    this.logDebug("Upload error:", event.detail);
+    this.logDebug("Upload pifagor_error:", event.detail);
   }
   dispatchUploadEvent(uploadId, eventType) {
     const uploadInfo = this.uploads.get(uploadId);
@@ -4165,7 +4036,6 @@ var UploadManager = class {
     });
     document.dispatchEvent(event);
   }
-  // Утилиты
   logDebug(message, data) {
     if (this.config.debug) {
       console.log(`[Upload Manager] ${message}`, data);
@@ -4201,7 +4071,6 @@ var UploadManager = class {
       }, 3e3);
     }
   }
-  // Статистика
   getStats() {
     return {
       totalUploads: this.uploads.size,
@@ -13565,8 +13434,8 @@ function validateForm3(isDraft = false) {
   const description = document.getElementById("assignment-description");
   const dueDate = document.getElementById("assignment-due");
   let isValid = true;
-  document.querySelectorAll(".error").forEach((el) => el.classList.remove("error"));
-  document.querySelectorAll(".error-message").forEach((el) => el.remove());
+  document.querySelectorAll(".pifagor_error").forEach((el) => el.classList.remove("error"));
+  document.querySelectorAll(".pifagor_error-message").forEach((el) => el.remove());
   if (!isDraft) {
     if (!title || !title.value.trim()) {
       markFieldError(title, "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u0437\u0430\u0434\u0430\u043D\u0438\u044F");
@@ -13587,7 +13456,7 @@ function validateForm3(isDraft = false) {
   }
   if (!isValid && !isDraft) {
     showAlert2("\u041F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430, \u0437\u0430\u043F\u043E\u043B\u043D\u0438\u0442\u0435 \u0432\u0441\u0435 \u043E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u044C\u043D\u044B\u0435 \u043F\u043E\u043B\u044F", "error");
-    const firstError = document.querySelector(".error");
+    const firstError = document.querySelector(".pifagor_error");
     if (firstError) {
       firstError.scrollIntoView({ behavior: "smooth", block: "center" });
       firstError.focus();
@@ -13598,10 +13467,10 @@ function validateForm3(isDraft = false) {
 function markFieldError(field, message) {
   if (!field) return;
   field.classList.add("error");
-  let errorElement = field.parentNode.querySelector(".error-message");
+  let errorElement = field.parentNode.querySelector(".pifagor_error-message");
   if (!errorElement) {
     errorElement = document.createElement("div");
-    errorElement.className = "error-message";
+    errorElement.className = "pifagor_error-message";
     field.parentNode.appendChild(errorElement);
   }
   errorElement.textContent = message;
@@ -13737,7 +13606,7 @@ function updateDeadlineCounter(deadlineDate) {
   if (daysLeftElement) {
     daysLeftElement.textContent = `${daysLeft} ${getDaysText(daysLeft)}`;
     if (daysLeft <= 0) {
-      daysLeftElement.style.color = "var(--error-color)";
+      daysLeftElement.style.color = "var(--pifagor_error-color)";
       daysLeftElement.innerHTML = `<i class="fas fa-exclamation-triangle"></i> \u041F\u0440\u043E\u0441\u0440\u043E\u0447\u0435\u043D\u043E`;
     } else if (daysLeft <= 3) {
       daysLeftElement.style.color = "var(--warning-color)";
@@ -13963,7 +13832,7 @@ function initScoreCalculation() {
     } else if (percentage >= 60) {
       totalScoreValue.style.color = "var(--warning-color)";
     } else {
-      totalScoreValue.style.color = "var(--error-color)";
+      totalScoreValue.style.color = "var(--pifagor_error-color)";
     }
   }
   criteriaInputs.forEach((input) => {
@@ -14537,12 +14406,12 @@ function validateField(e) {
 function showFieldError(field, message) {
   field.classList.add("error");
   field.style.borderColor = "#f44336";
-  const existingError = field.parentNode.querySelector(".field-error");
+  const existingError = field.parentNode.querySelector(".field-pifagor_error");
   if (existingError) {
     existingError.remove();
   }
   const errorElement = document.createElement("div");
-  errorElement.className = "field-error";
+  errorElement.className = "field-pifagor_error";
   errorElement.textContent = message;
   errorElement.style.cssText = "color: #f44336; font-size: 12px; margin-top: 5px;";
   field.parentNode.appendChild(errorElement);
@@ -14551,7 +14420,7 @@ function clearFieldError(e) {
   const field = e.target;
   field.classList.remove("error");
   field.style.borderColor = "";
-  const errorElement = field.parentNode.querySelector(".field-error");
+  const errorElement = field.parentNode.querySelector(".field-pifagor_error");
   if (errorElement) {
     errorElement.remove();
   }
@@ -14620,7 +14489,7 @@ function importProfileData(jsonData) {
     }
   } catch (error) {
     showNotification2("\u041E\u0448\u0438\u0431\u043A\u0430 \u0438\u043C\u043F\u043E\u0440\u0442\u0430 \u0434\u0430\u043D\u043D\u044B\u0445", "error");
-    console.error("Import error:", error);
+    console.error("Import pifagor_error:", error);
   }
   return false;
 }
@@ -14659,10 +14528,6 @@ function getProfileStats() {
     lastUpdated: (/* @__PURE__ */ new Date()).toISOString()
   };
 }
-document.addEventListener("themeChanged", (event) => {
-  console.log("Theme changed to:", event.detail.theme);
-  showNotification2(`\u0422\u0435\u043C\u0430 \u0438\u0437\u043C\u0435\u043D\u0435\u043D\u0430 \u043D\u0430 ${event.detail.theme}`, "info");
-});
 document.addEventListener("appearanceChanged", (event) => {
   console.log("Appearance changed:", event.detail);
 });
@@ -14738,7 +14603,7 @@ var EducationalPlatform = class {
       this.dispatchEvent("app:initialized");
     } catch (error) {
       console.error("Failed to initialize app:", error);
-      this.dispatchEvent("app:error", { error });
+      this.dispatchEvent("app:pifagor_error", { error });
     }
   }
   // Инициализация ядра приложения
@@ -15052,9 +14917,6 @@ document.addEventListener("DOMContentLoaded", function() {
   if (EduApp.config.autoInit) {
     EduApp.init();
   }
-});
-document.addEventListener("themeChanged", (event) => {
-  console.log("\u0422\u0435\u043C\u0430 \u0438\u0437\u043C\u0435\u043D\u0435\u043D\u0430 \u043D\u0430:", event.detail.theme);
 });
 window.EduApp = EduApp;
 window.Utils = Utils;

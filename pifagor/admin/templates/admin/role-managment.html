@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пифагор - Управление ролями</title>
+    <link rel="icon" href="/frontend/static/assets/image/logo/icons.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Forum&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="/frontend/static/css/main.css">
+
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo-header">
+                <a href="/frontend/templates/main/index.html">
+                    <img src="/frontend/static/assets/image/logo/logo.svg" alt="logo">
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/frontend/templates/main/about.html">О платформе</a></li>
+                <li><a href="/frontend/templates/courses/courses.html">Курсы</a></li>
+                <li><a href="/frontend/templates/main/teachers.html">Преподаватели</a></li>
+                <li><a href="/frontend/templates/main/contact.html">Контакты</a></li>
+            </ul>
+            <div class="header-actions">
+                <div class="user-menu">
+                    <div class="user-avatar" id="userAvatar">
+                        <img src="/frontend/static/assets/image/denizer1305.png" alt="">
+                    </div>
+                    <div class="user-name" id="userName">Администратор</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Dashboard -->
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <ul class="sidebar-menu">
+                <li><a href="/frontend/templates/main/index.html"><i class="fas fa-home"></i> <span>Главная</span></a></li>
+                <li><a href="/frontend/templates/admin/dashboard.html"><i class="fas fa-tachometer-alt"></i> <span>Панель управления</span></a></li>
+                <li><a href="/frontend/templates/admin/platform-users.html"><i class="fas fa-users"></i> <span>Пользователи</span></a></li>
+                <li><a href="/frontend/templates/admin/role-management.html" class="active"><i class="fas fa-user-shield"></i> <span>Управление ролями</span></a></li>
+                <li><a href="/frontend/templates/courses/courses.html"><i class="fas fa-book"></i> <span>Курсы</span></a></li>
+                <li><a href="/frontend/templates/classes/classes.html"><i class="fas fa-users"></i> <span>Классы</span></a></li>
+                <li><a href="/frontend/templates/admin/system-settings.html"><i class="fas fa-cog"></i> <span>Настройки системы</span></a></li>
+                <li><a href="/frontend/templates/admin/reports.html"><i class="fas fa-chart-bar"></i> <span>Отчеты</span></a></li>
+                <li><a href="/frontend/templates/admin/audit-log.html"><i class="fas fa-clipboard-list"></i> <span>Журнал аудита</span></a></li>
+                <li><a href="/frontend/templates/users/profile-edit.html"><i class="fas fa-user-cog"></i> <span>Мой профиль</span></a></li>
+                <li><a href="/frontend/templates/auth/logout.html"><i class="fas fa-sign-out"></i> <span>Выйти</span></a></li>                
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Roles Header -->
+            <div class="roles-header">
+                <div class="roles-title">
+                    <h1>Управление ролями</h1>
+                    <p>Управление ролями и разрешениями пользователей</p>
+                </div>
+                <div class="roles-controls">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Поиск ролей...">
+                    </div>
+                    <select class="filter-select">
+                        <option>Все роли</option>
+                        <option>Системные роли</option>
+                        <option>Пользовательские роли</option>
+                    </select>
+                    <button class="btn" id="addRoleBtn">
+                        <i class="fas fa-plus"></i> Создать роль
+                    </button>
+                </div>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon roles">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>8</h3>
+                        <p>Всего ролей</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon permissions">
+                        <i class="fas fa-key"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>42</h3>
+                        <p>Разрешений</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon users">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>1,247</h3>
+                        <p>Пользователей с ролями</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon system">
+                        <i class="fas fa-cog"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>4</h3>
+                        <p>Системных ролей</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Roles Grid -->
+            <section class="roles-section">
+                <div class="section-header">
+                    <h2>Роли системы</h2>
+                    <div>
+                        <select class="filter-select">
+                            <option>Сортировка: По имени</option>
+                            <option>Сортировка: По количеству пользователей</option>
+                            <option>Сортировка: По дате создания</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="roles-grid">
+                    <!-- Role 1 -->
+                    <div class="role-card">
+                        <div class="role-header">
+                            <div class="role-info">
+                                <h3>Администратор</h3>
+                                <p>Полный доступ ко всем функциям системы</p>
+                            </div>
+                            <div class="role-actions">
+                                <div class="action-btn"><i class="fas fa-edit"></i></div>
+                                <div class="action-btn delete"><i class="fas fa-trash"></i></div>
+                            </div>
+                        </div>
+                        
+                        <div class="role-users">
+                            <div class="user-avatars">
+                                <div class="user-avatar-small">АД</div>
+                                <div class="user-avatar-small">ИВ</div>
+                                <div class="user-avatar-small more">+3</div>
+                            </div>
+                            <div class="users-count">5 пользователей</div>
+                        </div>
+                        
+                        <div class="role-permissions">
+                            <div class="permissions-list">
+                                <span class="permission-badge">Управление пользователями</span>
+                                <span class="permission-badge">Управление курсами</span>
+                                <span class="permission-badge">Системные настройки</span>
+                                <span class="permission-badge">Просмотр отчетов</span>
+                                <span class="permission-badge">+8</span>
+                            </div>
+                        </div>
+                        
+                        <div class="role-footer">
+                            <div class="role-status">
+                                Системная роль
+                            </div>
+                            <a href="#" class="btn btn-small">Подробнее</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Role 2 -->
+                    <div class="role-card">
+                        <div class="role-header">
+                            <div class="role-info">
+                                <h3>Преподаватель</h3>
+                                <p>Доступ к управлению курсами и студентами</p>
+                            </div>
+                            <div class="role-actions">
+                                <div class="action-btn"><i class="fas fa-edit"></i></div>
+                                <div class="action-btn delete"><i class="fas fa-trash"></i></div>
+                            </div>
+                        </div>
+                        
+                        <div class="role-users">
+                            <div class="user-avatars">
+                                <div class="user-avatar-small">ЕП</div>
+                                <div class="user-avatar-small">ОН</div>
+                                <div class="user-avatar-small">АС</div>
+                                <div class="user-avatar-small more">+45</div>
+                            </div>
+                            <div class="users-count">48 пользователей</div>
+                        </div>
+                        
+                        <div class="role-permissions">
+                            <div class="permissions-list">
+                                <span class="permission-badge">Создание курсов</span>
+                                <span class="permission-badge">Проверка заданий</span>
+                                <span class="permission-badge">Управление классами</span>
+                                <span class="permission-badge">+5</span>
+                            </div>
+                        </div>
+                        
+                        <div class="role-footer">
+                            <div class="role-status">
+                                Системная роль
+                            </div>
+                            <a href="#" class="btn btn-small">Подробнее</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Role 3 -->
+                    <div class="role-card">
+                        <div class="role-header">
+                            <div class="role-info">
+                                <h3>Студент</h3>
+                                <p>Доступ к курсам и учебным материалам</p>
+                            </div>
+                            <div class="role-actions">
+                                <div class="action-btn"><i class="fas fa-edit"></i></div>
+                                <div class="action-btn delete"><i class="fas fa-trash"></i></div>
+                            </div>
+                        </div>
+                        
+                        <div class="role-users">
+                            <div class="user-avatars">
+                                <div class="user-avatar-small">ИС</div>
+                                <div class="user-avatar-small">АП</div>
+                                <div class="user-avatar-small">МК</div>
+                                <div class="user-avatar-small more">+984</div>
+                            </div>
+                            <div class="users-count">987 пользователей</div>
+                        </div>
+                        
+                        <div class="role-permissions">
+                            <div class="permissions-list">
+                                <span class="permission-badge">Просмотр курсов</span>
+                                <span class="permission-badge">Выполнение заданий</span>
+                                <span class="permission-badge">Просмотр оценок</span>
+                                <span class="permission-badge">+3</span>
+                            </div>
+                        </div>
+                        
+                        <div class="role-footer">
+                            <div class="role-status">
+                                Системная роль
+                            </div>
+                            <a href="#" class="btn btn-small">Подробнее</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Role 4 -->
+                    <div class="role-card">
+                        <div class="role-header">
+                            <div class="role-info">
+                                <h3>Родитель</h3>
+                                <p>Доступ к информации об успеваемости детей</p>
+                            </div>
+                            <div class="role-actions">
+                                <div class="action-btn"><i class="fas fa-edit"></i></div>
+                                <div class="action-btn delete"><i class="fas fa-trash"></i></div>
+                            </div>
+                        </div>
+                        
+                        <div class="role-users">
+                            <div class="user-avatars">
+                                <div class="user-avatar-small">МП</div>
+                                <div class="user-avatar-small">СИ</div>
+                                <div class="user-avatar-small">АН</div>
+                                <div class="user-avatar-small more">+209</div>
+                            </div>
+                            <div class="users-count">212 пользователей</div>
+                        </div>
+                        
+                        <div class="role-permissions">
+                            <div class="permissions-list">
+                                <span class="permission-badge">Просмотр оценок</span>
+                                <span class="permission-badge">Просмотр посещаемости</span>
+                                <span class="permission-badge">Общение с учителями</span>
+                            </div>
+                        </div>
+                        
+                        <div class="role-footer">
+                            <div class="role-status">
+                                Системная роль
+                            </div>
+                            <a href="#" class="btn btn-small">Подробнее</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Role 5 -->
+                    <div class="role-card">
+                        <div class="role-header">
+                            <div class="role-info">
+                                <h3>Модератор контента</h3>
+                                <p>Проверка и модерация учебного контента</p>
+                            </div>
+                            <div class="role-actions">
+                                <div class="action-btn"><i class="fas fa-edit"></i></div>
+                                <div class="action-btn delete"><i class="fas fa-trash"></i></div>
+                            </div>
+                        </div>
+                        
+                        <div class="role-users">
+                            <div class="user-avatars">
+                                <div class="user-avatar-small">ДМ</div>
+                                <div class="user-avatar-small">ОК</div>
+                            </div>
+                            <div class="users-count">2 пользователя</div>
+                        </div>
+                        
+                        <div class="role-permissions">
+                            <div class="permissions-list">
+                                <span class="permission-badge">Проверка контента</span>
+                                <span class="permission-badge">Утверждение курсов</span>
+                                <span class="permission-badge">Удаление материалов</span>
+                            </div>
+                        </div>
+                        
+                        <div class="role-footer">
+                            <div class="role-status">
+                                Пользовательская роль
+                            </div>
+                            <a href="#" class="btn btn-small">Подробнее</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Role 6 -->
+                    <div class="role-card">
+                        <div class="role-header">
+                            <div class="role-info">
+                                <h3>Аналитик</h3>
+                                <p>Доступ к аналитике и отчетам</p>
+                            </div>
+                            <div class="role-actions">
+                                <div class="action-btn"><i class="fas fa-edit"></i></div>
+                                <div class="action-btn delete"><i class="fas fa-trash"></i></div>
+                            </div>
+                        </div>
+                        
+                        <div class="role-users">
+                            <div class="user-avatars">
+                                <div class="user-avatar-small">ЛВ</div>
+                            </div>
+                            <div class="users-count">1 пользователь</div>
+                        </div>
+                        
+                        <div class="role-permissions">
+                            <div class="permissions-list">
+                                <span class="permission-badge">Просмотр отчетов</span>
+                                <span class="permission-badge">Аналитика успеваемости</span>
+                                <span class="permission-badge">Экспорт данных</span>
+                            </div>
+                        </div>
+                        
+                        <div class="role-footer">
+                            <div class="role-status">
+                                Пользовательская роль
+                            </div>
+                            <a href="#" class="btn btn-small">Подробнее</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Permissions Matrix Section -->
+            <section class="permissions-section">
+                <div class="section-header">
+                    <h2>Матрица разрешений</h2>
+                    <button class="btn btn-small">
+                        <i class="fas fa-sync-alt"></i> Обновить матрицу
+                    </button>
+                </div>
+                
+                <div class="matrix-container">
+                    <table class="permissions-matrix">
+                        <thead>
+                            <tr>
+                                <th>Ресурс / Действие</th>
+                                <th>Администратор</th>
+                                <th>Преподаватель</th>
+                                <th>Студент</th>
+                                <th>Родитель</th>
+                                <th>Модератор</th>
+                                <th>Аналитик</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="permission-resource">Управление пользователями</td>
+                                <td><div class="permission-check checked"></div></td>
+                                <td><div class="permission-check"></div></td>
+                                <td><div class="permission-check"></div></td>
+                                <td><div class="permission-check"></div></td>
+                                <td><div class="permission-check"></div></td>
+                                <td><div class="permission-check"></div></td>
+                            </tr>
+                            <tr>
+                                <td class="permission-resource">Создание курсов</td>
+                                <td><div class="permission-check checked"></div></td>
+                                <td><div class="permission-check checked"></div></td>
+                                <td><div class="permission-check"></div></td>
+                                <td><div class="permission-check"></div></td>
+                                <td><div class="permission-check"></div></td>
+                                <td><div class="permission-check"></div></td>
+                            </tr>
+                            <tr>
+                                <td class="permission-resource">Просмотр курсов</td>
+                                <td><div class="permission-check checked"></div></td>
+                                <td><div class="permission-check checked"></div></td>
+                                <td><div class="permission-check checked"></div></td>
+                                <td><div class="permission-check"></div></td>
+                                <td><div class="permission-check checked"></div></td>
+                                <td><div class="permission-check"></div></td>
+                            </tr>
+                            <tr>
+                                <td class="permission-resource">Проверка заданий</td>
+                                <td><div class="permission-check checked"></div></td>
+                                <td><div class="permission-check checked"></div></td>
+                                <td><div class="permission-check"></div></td>
+                                <td><div class="permission-check"></div></td>
+                                <td><div class="permission-check"></div></td>
+                                <td><div class="permission-check"></div></td>
+                            </tr>
+                            <tr>
+                                <td class="permission-resource">Просмотр оценок</td>
+                                <td><div class="permission-check checked"></div></td>
+                                <td><div class="permission-check checked"></div></td>
+                                <td><div class="permission-check checked"></div></td>
+                                <td><div class="permission-check checked"></div></td>
+                                <td><div class="permission-check"></div></td>
+                                <td><div class="permission-check"></div></td>
+                            </tr>
+                            <tr>
+                                <td class="permission-resource">Аналитика и отчеты</td>
+                                <td><div class="permission-check checked"></div></td>
+                                <td><div class="permission-check checked"></div></td>
+                                <td><div class="permission-check"></div></td>
+                                <td><div class="permission-check"></div></td>
+                                <td><div class="permission-check"></div></td>
+                                <td><div class="permission-check checked"></div></td>
+                            </tr>
+                            <tr>
+                                <td class="permission-resource">Системные настройки</td>
+                                <td><div class="permission-check checked"></div></td>
+                                <td><div class="permission-check"></div></td>
+                                <td><div class="permission-check"></div></td>
+                                <td><div class="permission-check"></div></td>
+                                <td><div class="permission-check"></div></td>
+                                <td><div class="permission-check"></div></td>
+                            </tr>
+                            <tr>
+                                <td class="permission-resource">Модерация контента</td>
+                                <td><div class="permission-check checked"></div></td>
+                                <td><div class="permission-check"></div></td>
+                                <td><div class="permission-check"></div></td>
+                                <td><div class="permission-check"></div></td>
+                                <td><div class="permission-check checked"></div></td>
+                                <td><div class="permission-check"></div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Charts Section -->
+            <section class="charts-section">
+                <div class="section-header">
+                    <h2>Статистика ролей</h2>
+                </div>
+                
+                <div class="charts-grid">
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <div class="chart-title">Распределение пользователей по ролям</div>
+                        </div>
+                        <canvas id="rolesDistributionChart"></canvas>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <div class="chart-title">Активность по ролям</div>
+                        </div>
+                        <canvas id="rolesActivityChart"></canvas>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Add Role Modal -->
+    <div class="modal-overlay" id="addRoleModal">
+        <div class="role-modal">
+            <div class="modal-header">
+                <h3>Создание новой роли</h3>
+                <div class="close-modal" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </div>
+            </div>
+            <div class="modal-content">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="roleName">Название роли</label>
+                        <input type="text" id="roleName" class="form-control" placeholder="Введите название роли">
+                    </div>
+                    <div class="form-group">
+                        <label for="roleKey">Ключ роли</label>
+                        <input type="text" id="roleKey" class="form-control" placeholder="Введите ключ роли (например: moderator)">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="roleDescription">Описание роли</label>
+                    <textarea id="roleDescription" class="form-control" rows="3" placeholder="Опишите назначение и возможности роли"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="roleType">Тип роли</label>
+                    <select id="roleType" class="form-control">
+                        <option value="system">Системная роль</option>
+                        <option value="custom">Пользовательская роль</option>
+                    </select>
+                </div>
+                
+                <div class="permissions-group">
+                    <h4>Разрешения</h4>
+                    <div class="permissions-checkboxes">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="perm-users" value="users">
+                            <label for="perm-users">Управление пользователями</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="perm-courses" value="courses">
+                            <label for="perm-courses">Управление курсами</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="perm-classes" value="classes">
+                            <label for="perm-classes">Управление классами</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="perm-content" value="content">
+                            <label for="perm-content">Модерация контента</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="perm-reports" value="reports">
+                            <label for="perm-reports">Просмотр отчетов</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="perm-settings" value="settings">
+                            <label for="perm-settings">Системные настройки</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="perm-analytics" value="analytics">
+                            <label for="perm-analytics">Аналитика платформы</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="perm-audit" value="audit">
+                            <label for="perm-audit">Журнал аудита</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="modal-actions">
+                    <button class="btn btn-light" id="cancelAdd">Отмена</button>
+                    <button class="btn" id="saveRole">Создать роль</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="/frontend/static/js/main.js"></script>
+</body>
+</html>

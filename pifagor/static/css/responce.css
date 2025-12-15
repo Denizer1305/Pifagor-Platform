@@ -1707,6 +1707,25 @@
         width: var(--icon-size-md);
         height: var(--icon-size-md);
     }
+
+    .institution {
+        padding: 20px;
+    }
+    
+    .institution-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+    
+    .gratitude-item {
+        flex-direction: column;
+    }
+    
+    .institution-title {
+        font-size: 1.3rem;
+    }
+    
 }
 
 @media (max-width: 480px) {

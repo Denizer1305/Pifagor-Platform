@@ -53,7 +53,7 @@ footer {
 }
 
 .footer-column ul li a:hover {
-    color: var(--white);
+    color: var(--secondary);
     transform: translateX(var(--animation-translate-y));
 }
 

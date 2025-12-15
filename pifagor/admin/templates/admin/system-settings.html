@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пифагор - Настройки системы</title>
+    <link rel="icon" href="/frontend/static/assets/image/logo/icons.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Forum&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/frontend/static/css/main.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo-header">
+                <a href="/frontend/templates/main/index.html">
+                    <img src="/frontend/static/assets/image/logo/logo.svg" alt="logo">
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/frontend/templates/main/about.html">О платформе</a></li>
+                <li><a href="/frontend/templates/courses/courses.html">Курсы</a></li>
+                <li><a href="/frontend/templates/main/teachers.html">Преподаватели</a></li>
+                <li><a href="/frontend/templates/main/contact.html">Контакты</a></li>
+            </ul>
+            <div class="header-actions">
+                <div class="user-menu">
+                    <div class="user-avatar" id="userAvatar">
+                        <img src="/frontend/static/assets/image/denizer1305.png" alt="">
+                    </div>
+                    <div class="user-name" id="userName">Администратор</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Dashboard -->
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <ul class="sidebar-menu">
+                <li><a href="/frontend/templates/main/index.html"><i class="fas fa-home"></i> <span>Главная</span></a></li>
+                <li><a href="/frontend/templates/admin/dashboard.html"><i class="fas fa-tachometer-alt"></i> <span>Панель управления</span></a></li>
+                <li><a href="/frontend/templates/admin/platform-users.html"><i class="fas fa-users"></i> <span>Пользователи</span></a></li>
+                <li><a href="/frontend/templates/admin/role-management.html"><i class="fas fa-user-shield"></i> <span>Управление ролями</span></a></li>
+                <li><a href="/frontend/templates/courses/courses.html"><i class="fas fa-book"></i> <span>Курсы</span></a></li>
+                <li><a href="/frontend/templates/classes/classes.html"><i class="fas fa-users"></i> <span>Классы</span></a></li>
+                <li><a href="/frontend/templates/admin/system-settings.html" class="active"><i class="fas fa-cog"></i> <span>Настройки системы</span></a></li>
+                <li><a href="/frontend/templates/admin/reports.html"><i class="fas fa-chart-bar"></i> <span>Отчеты</span></a></li>
+                <li><a href="/frontend/templates/admin/audit-log.html"><i class="fas fa-clipboard-list"></i> <span>Журнал аудита</span></a></li>
+                <li><a href="/frontend/templates/users/profile-edit.html"><i class="fas fa-user-cog"></i> <span>Мой профиль</span></a></li>
+                <li><a href="/frontend/templates/auth/logout.html"><i class="fas fa-sign-out"></i> <span>Выйти</span></a></li>                
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Settings Header -->
+            <div class="settings-header">
+                <div class="settings-title">
+                    <h1>Настройки системы</h1>
+                    <p>Управление настройками и конфигурацией платформы</p>
+                </div>
+                <div class="settings-controls">
+                    <button class="btn btn-light">
+                        <i class="fas fa-history"></i> Сбросить настройки
+                    </button>
+                    <button class="btn btn-success">
+                        <i class="fas fa-save"></i> Сохранить все изменения
+                    </button>
+                </div>
+            </div>
+
+            <!-- System Status -->
+            <div class="system-status">
+                <div class="status-card">
+                    <div class="status-icon primary">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    <div class="status-info">
+                        <h3>Статус системы</h3>
+                        <p><span class="status-indicator status-online"><i class="fas fa-circle"></i> Онлайн</span></p>
+                    </div>
+                </div>
+                <div class="status-card">
+                    <div class="status-icon success">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <div class="status-info">
+                        <h3>База данных</h3>
+                        <p><span class="status-indicator status-online"><i class="fas fa-circle"></i> Стабильная</span></p>
+                    </div>
+                </div>
+                <div class="status-card">
+                    <div class="status-icon warning">
+                        <i class="fas fa-hdd"></i>
+                    </div>
+                    <div class="status-info">
+                        <h3>Дисковое пространство</h3>
+                        <p><span class="status-indicator status-warning"><i class="fas fa-circle"></i> 78% заполнено</span></p>
+                    </div>
+                </div>
+                <div class="status-card">
+                    <div class="status-icon danger">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="status-info">
+                        <h3>Безопасность</h3>
+                        <p><span class="status-indicator status-warning"><i class="fas fa-circle"></i> Требуется обновление</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Container -->
+            <div class="settings-container">
+                <!-- Settings Sidebar -->
+                <div class="settings-sidebar">
+                    <div class="settings-nav">
+                        <div class="settings-nav-item active" data-section="general">
+                            <i class="fas fa-sliders-h"></i>
+                            <span>Общие настройки</span>
+                        </div>
+                        <div class="settings-nav-item" data-section="security">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Безопасность</span>
+                        </div>
+                        <div class="settings-nav-item" data-section="notifications">
+                            <i class="fas fa-bell"></i>
+                            <span>Уведомления</span>
+                        </div>
+                        <div class="settings-nav-item" data-section="integrations">
+                            <i class="fas fa-plug"></i>
+                            <span>Интеграции</span>
+                        </div>
+                        <div class="settings-nav-item" data-section="backup">
+                            <i class="fas fa-database"></i>
+                            <span>Резервное копирование</span>
+                        </div>
+                        <div class="settings-nav-item" data-section="performance">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span>Производительность</span>
+                        </div>
+                        <div class="settings-nav-item" data-section="maintenance">
+                            <i class="fas fa-tools"></i>
+                            <span>Обслуживание</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Settings Content -->
+                <div class="settings-content">
+                    <!-- General Settings -->
+                    <div class="settings-section active" id="general-section">
+                        <div class="section-header">
+                            <h2>Общие настройки</h2>
+                            <div class="section-actions">
+                                <button class="btn btn-light btn-small">Сбросить</button>
+                                <button class="btn btn-small">Сохранить</button>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="siteName">Название платформы</label>
+                            <input type="text" id="siteName" class="form-control" value="Пифагор - Образовательная платформа">
+                            <div class="form-help">Это название будет отображаться в заголовке страницы и в уведомлениях</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="siteDescription">Описание платформы</label>
+                            <textarea id="siteDescription" class="form-control" rows="3">Инновационная образовательная платформа для школ и учебных заведений</textarea>
+                            <div class="form-help">Краткое описание платформы для поисковых систем и социальных сетей</div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="defaultLanguage">Язык по умолчанию</label>
+                                <select id="defaultLanguage" class="form-control">
+                                    <option selected>Русский</option>
+                                    <option>Английский</option>
+                                    <option>Немецкий</option>
+                                    <option>Французский</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="timezone">Часовой пояс</label>
+                                <select id="timezone" class="form-control">
+                                    <option selected>Москва (UTC+3)</option>
+                                    <option>Калининград (UTC+2)</option>
+                                    <option>Екатеринбург (UTC+5)</option>
+                                    <option>Новосибирск (UTC+7)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="dateFormat">Формат даты</label>
+                            <select id="dateFormat" class="form-control">
+                                <option selected>DD.MM.YYYY</option>
+                                <option>YYYY-MM-DD</option>
+                                <option>MM/DD/YYYY</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="adminEmail">Email администратора</label>
+                            <input type="email" id="adminEmail" class="form-control" value="admin@school.ru">
+                            <div class="form-help">На этот адрес будут приходить системные уведомления</div>
+                        </div>
+
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="userRegistration" checked>
+                            <label for="userRegistration">Разрешить регистрацию новых пользователей</label>
+                        </div>
+
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="emailVerification" checked>
+                            <label for="emailVerification">Требовать подтверждение email</label>
+                        </div>
+
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="maintenanceMode">
+                            <label for="maintenanceMode">Режим технического обслуживания</label>
+                        </div>
+                    </div>
+
+                    <!-- Security Settings -->
+                    <div class="settings-section" id="security-section">
+                        <div class="section-header">
+                            <h2>Настройки безопасности</h2>
+                            <div class="section-actions">
+                                <button class="btn btn-light btn-small">Сбросить</button>
+                                <button class="btn btn-small">Сохранить</button>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="passwordPolicy">Политика паролей</label>
+                            <select id="passwordPolicy" class="form-control">
+                                <option selected>Стандартная (мин. 8 символов)</option>
+                                <option>Строгая (мин. 12 символов, цифры, спецсимволы)</option>
+                                <option>Очень строгая (мин. 16 символов, сложные требования)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="sessionTimeout">Таймаут сессии (минут)</label>
+                            <input type="number" id="sessionTimeout" class="form-control" value="120" min="5" max="1440">
+                            <div class="form-help">Время неактивности, после которого пользователь будет автоматически разлогинен</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="maxLoginAttempts">Максимум попыток входа</label>
+                            <input type="number" id="maxLoginAttempts" class="form-control" value="5" min="1" max="20">
+                            <div class="form-help">После превышения лимита аккаунт будет временно заблокирован</div>
+                        </div>
+
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="twoFactorAuth" checked>
+                            <label for="twoFactorAuth">Требовать двухфакторную аутентификацию для администраторов</label>
+                        </div>
+
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="httpsEnforcement" checked>
+                            <label for="httpsEnforcement">Принудительное использование HTTPS</label>
+                        </div>
+
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="loginNotifications" checked>
+                            <label for="loginNotifications">Уведомлять о подозрительных входах в систему</label>
+                        </div>
+
+                        <h3 style="margin-top: 30px;">Журнал безопасности</h3>
+                        <div class="log-entries">
+                            <div class="log-item">
+                                <div class="log-icon info">
+                                    <i class="fas fa-info-circle"></i>
+                                </div>
+                                <div class="log-content">
+                                    <div class="log-message">Успешный вход пользователя: Администратор</div>
+                                    <div class="log-meta">Сегодня, 10:24 • IP: 192.168.1.105</div>
+                                </div>
+                            </div>
+                            <div class="log-item">
+                                <div class="log-icon warning">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                </div>
+                                <div class="log-content">
+                                    <div class="log-message">Неудачная попытка входа для пользователя: admin</div>
+                                    <div class="log-meta">Вчера, 22:15 • IP: 192.168.1.110</div>
+                                </div>
+                            </div>
+                            <div class="log-item">
+                                <div class="log-icon info">
+                                    <i class="fas fa-info-circle"></i>
+                                </div>
+                                <div class="log-content">
+                                    <div class="log-message">Изменены настройки безопасности</div>
+                                    <div class="log-meta">2 дня назад, 14:30 • Пользователь: Администратор</div>
+                                </div>
+                            </div>
+                            <div class="log-item">
+                                <div class="log-icon success">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <div class="log-content">
+                                    <div class="log-message">Установлено обновление безопасности v2.1.5</div>
+                                    <div class="log-meta">3 дня назад, 09:45 • Система</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Notifications Settings -->
+                    <div class="settings-section" id="notifications-section">
+                        <div class="section-header">
+                            <h2>Настройки уведомлений</h2>
+                            <div class="section-actions">
+                                <button class="btn btn-light btn-small">Сбросить</button>
+                                <button class="btn btn-small">Сохранить</button>
+                            </div>
+                        </div>
+
+                        <div class="settings-tabs">
+                            <div class="settings-tab active" data-tab="email">Email уведомления</div>
+                            <div class="settings-tab" data-tab="push">Push уведомления</div>
+                            <div class="settings-tab" data-tab="system">Системные уведомления</div>
+                        </div>
+
+                        <div class="tab-content active" id="email-tab">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="emailNewUsers" checked>
+                                <label for="emailNewUsers">Уведомлять о новых пользователях</label>
+                            </div>
+
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="emailCourseUpdates" checked>
+                                <label for="emailCourseUpdates">Уведомлять об обновлениях курсов</label>
+                            </div>
+
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="emailSystemAlerts" checked>
+                                <label for="emailSystemAlerts">Уведомлять о системных событиях</label>
+                            </div>
+
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="emailSecurityAlerts" checked>
+                                <label for="emailSecurityAlerts">Уведомлять о событиях безопасности</label>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="emailTemplate">Шаблон email уведомлений</label>
+                                <select id="emailTemplate" class="form-control">
+                                    <option selected>Стандартный</option>
+                                    <option>Минималистичный</option>
+                                    <option>Корпоративный</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="tab-content" id="push-tab">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="pushNewMessages" checked>
+                                <label for="pushNewMessages">Уведомлять о новых сообщениях</label>
+                            </div>
+
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="pushDeadlines" checked>
+                                <label for="pushDeadlines">Уведомлять о дедлайнах</label>
+                            </div>
+
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="pushGrades" checked>
+                                <label for="pushGrades">Уведомлять о новых оценках</label>
+                            </div>
+
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="pushAnnouncements" checked>
+                                <label for="pushAnnouncements">Уведомлять об объявлениях</label>
+                            </div>
+                        </div>
+
+                        <div class="tab-content" id="system-tab">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="systemMaintenance" checked>
+                                <label for="systemMaintenance">Уведомлять о плановом обслуживании</label>
+                            </div>
+
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="systemUpdates" checked>
+                                <label for="systemUpdates">Уведомлять об обновлениях системы</label>
+                            </div>
+
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="systemErrors" checked>
+                                <label for="systemErrors">Уведомлять об ошибках системы</label>
+                            </div>
+
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="systemBackup" checked>
+                                <label for="systemBackup">Уведомлять о завершении резервного копирования</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Backup Settings -->
+                    <div class="settings-section" id="backup-section">
+                        <div class="section-header">
+                            <h2>Резервное копирование</h2>
+                            <div class="section-actions">
+                                <button class="btn btn-light btn-small" id="createBackupBtn">Создать backup</button>
+                                <button class="btn btn-small">Сохранить настройки</button>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="backupFrequency">Частота автоматического резервного копирования</label>
+                            <select id="backupFrequency" class="form-control">
+                                <option>Ежедневно</option>
+                                <option selected>Еженедельно</option>
+                                <option>Ежемесячно</option>
+                                <option>Отключено</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="backupRetention">Срок хранения резервных копий (дней)</label>
+                            <input type="number" id="backupRetention" class="form-control" value="30" min="1" max="365">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Типы данных для резервного копирования</label>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="backupUsers" checked>
+                                <label for="backupUsers">Данные пользователей</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="backupCourses" checked>
+                                <label for="backupCourses">Курсы и материалы</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="backupGrades" checked>
+                                <label for="backupGrades">Оценки и прогресс</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="backupSystem" checked>
+                                <label for="backupSystem">Системные настройки</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="backupLocation">Место хранения резервных копий</label>
+                            <select id="backupLocation" class="form-control">
+                                <option selected>Локальный сервер</option>
+                                <option>Облачное хранилище</option>
+                                <option>Внешний сервер</option>
+                            </select>
+                        </div>
+
+                        <h3>История резервного копирования</h3>
+                        <div class="backup-history">
+                            <div class="backup-item">
+                                <div class="backup-info">
+                                    <h4>Полная резервная копия</h4>
+                                    <p>15.11.2023, 02:00 • Размер: 2.4 ГБ</p>
+                                </div>
+                                <div class="backup-actions">
+                                    <button class="btn btn-light btn-small">Восстановить</button>
+                                    <button class="btn btn-light btn-small">Скачать</button>
+                                </div>
+                            </div>
+                            <div class="backup-item">
+                                <div class="backup-info">
+                                    <h4>Инкрементальная копия</h4>
+                                    <p>14.11.2023, 02:00 • Размер: 145 МБ</p>
+                                </div>
+                                <div class="backup-actions">
+                                    <button class="btn btn-light btn-small">Восстановить</button>
+                                    <button class="btn btn-light btn-small">Скачать</button>
+                                </div>
+                            </div>
+                            <div class="backup-item">
+                                <div class="backup-info">
+                                    <h4>Полная резервная копия</h4>
+                                    <p>07.11.2023, 02:00 • Размер: 2.3 ГБ</p>
+                                </div>
+                                <div class="backup-actions">
+                                    <button class="btn btn-light btn-small">Восстановить</button>
+                                    <button class="btn btn-light btn-small">Скачать</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Performance Settings -->
+                    <div class="settings-section" id="performance-section">
+                        <div class="section-header">
+                            <h2>Настройки производительности</h2>
+                            <div class="section-actions">
+                                <button class="btn btn-light btn-small">Сбросить</button>
+                                <button class="btn btn-small">Сохранить</button>
+                            </div>
+                        </div>
+
+                        <div class="cards-grid">
+                            <div class="info-card">
+                                <div class="info-card-header">
+                                    <div class="info-card-title">Время ответа сервера</div>
+                                    <span class="status-indicator status-online">83 мс</span>
+                                </div>
+                                <div class="info-card-value">Отлично</div>
+                                <div class="info-card-desc">Среднее время ответа за последние 24 часа</div>
+                            </div>
+                            <div class="info-card">
+                                <div class="info-card-header">
+                                    <div class="info-card-title">Использование CPU</div>
+                                    <span class="status-indicator status-online">24%</span>
+                                </div>
+                                <div class="info-card-value">Нормально</div>
+                                <div class="info-card-desc">Средняя нагрузка за последний час</div>
+                            </div>
+                            <div class="info-card">
+                                <div class="info-card-header">
+                                    <div class="info-card-title">Использование памяти</div>
+                                    <span class="status-indicator status-warning">68%</span>
+                                </div>
+                                <div class="info-card-value">Повышенное</div>
+                                <div class="info-card-desc">4.2 ГБ из 6.0 ГБ</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cacheEnabled">Кэширование</label>
+                            <select id="cacheEnabled" class="form-control">
+                                <option selected>Включено</option>
+                                <option>Выключено</option>
+                            </select>
+                            <div class="form-help">Кэширование ускоряет загрузку страниц</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cacheDuration">Время жизни кэша (минут)</label>
+                            <input type="number" id="cacheDuration" class="form-control" value="60" min="1" max="1440">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="imageOptimization">Оптимизация изображений</label>
+                            <select id="imageOptimization" class="form-control">
+                                <option selected>Автоматическая</option>
+                                <option>Ручная</option>
+                                <option>Отключена</option>
+                            </select>
+                            <div class="form-help">Автоматическое сжатие загружаемых изображений</div>
+                        </div>
+
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="gzipCompression" checked>
+                            <label for="gzipCompression">GZIP сжатие</label>
+                        </div>
+
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="minifyResources" checked>
+                            <label for="minifyResources">Минификация CSS и JavaScript</label>
+                        </div>
+
+                        <div class="form-group">
+                            <button class="btn btn-light">
+                                <i class="fas fa-broom"></i> Очистить кэш
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Maintenance Settings -->
+                    <div class="settings-section" id="maintenance-section">
+                        <div class="section-header">
+                            <h2>Обслуживание системы</h2>
+                            <div class="section-actions">
+                                <button class="btn btn-light btn-small">Сбросить</button>
+                                <button class="btn btn-small">Сохранить</button>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="systemVersion">Версия системы</label>
+                            <input type="text" id="systemVersion" class="form-control" value="2.1.5" readonly>
+                            <div class="form-help">Текущая версия платформы</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="lastUpdate">Последнее обновление</label>
+                            <input type="text" id="lastUpdate" class="form-control" value="15.10.2023" readonly>
+                        </div>
+
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="autoUpdates" checked>
+                            <label for="autoUpdates">Автоматические обновления безопасности</label>
+                        </div>
+
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="updateNotifications" checked>
+                            <label for="updateNotifications">Уведомлять о доступных обновлениях</label>
+                        </div>
+
+                        <div class="form-group">
+                            <button class="btn">
+                                <i class="fas fa-sync-alt"></i> Проверить обновления
+                            </button>
+                        </div>
+
+                        <div class="danger-zone">
+                            <div class="danger-zone-header">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                <h3>Опасная зона</h3>
+                            </div>
+                            <p>Эти действия могут повлиять на работу системы и должны выполняться с осторожностью.</p>
+                            <div class="form-group">
+                                <button class="btn btn-light">
+                                    <i class="fas fa-eraser"></i> Очистить системные логи
+                                </button>
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-light">
+                                    <i class="fas fa-trash-alt"></i> Удалить неактивных пользователей
+                                </button>
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-danger" id="resetSystemBtn">
+                                    <i class="fas fa-bomb"></i> Сбросить систему к настройкам по умолчанию
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Backup Confirmation Modal -->
+    <div class="modal-overlay" id="backupModal">
+        <div class="settings-modal">
+            <div class="modal-header">
+                <h3>Создание резервной копии</h3>
+                <div class="close-modal" id="closeBackupModal">
+                    <i class="fas fa-times"></i>
+                </div>
+            </div>
+            <div class="modal-content">
+                <p>Вы уверены, что хотите создать полную резервную копию системы? Это может занять несколько минут.</p>
+                <div class="modal-actions">
+                    <button class="btn btn-light" id="cancelBackup">Отмена</button>
+                    <button class="btn btn-success" id="confirmBackup">Создать backup</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- System Reset Confirmation Modal -->
+    <div class="modal-overlay" id="resetModal">
+        <div class="settings-modal">
+            <div class="modal-header">
+                <h3>Сброс системы</h3>
+                <div class="close-modal" id="closeResetModal">
+                    <i class="fas fa-times"></i>
+                </div>
+            </div>
+            <div class="modal-content">
+                <p><strong>Внимание!</strong> Это действие сбросит все настройки системы к значениям по умолчанию. Все пользовательские настройки будут потеряны. Это действие нельзя отменить.</p>
+                <p>Для подтверждения введите "СБРОСИТЬ" в поле ниже:</p>
+                <div class="form-group">
+                    <input type="text" id="resetConfirmation" class="form-control" placeholder="СБРОСИТЬ">
+                </div>
+                <div class="modal-actions">
+                    <button class="btn btn-light" id="cancelReset">Отмена</button>
+                    <button class="btn btn-danger" id="confirmReset" disabled>Сбросить систему</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="/frontend/static/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пифагор - Прогресс детей</title>
+    <link rel="icon" href="/frontend/static/assets/image/logo/icons.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Forum&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/frontend/static/css/main.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo-header">
+                <a href="/frontend/templates/main/index.html">
+                    <img src="/frontend/static/assets/image/logo/logo.svg" alt="logo">
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/frontend/templates/main/about.html">О платформе</a></li>
+                <li><a href="/frontend/templates/courses/courses.html">Курсы</a></li>
+                <li><a href="/frontend/templates/main/teachers.html">Преподаватели</a></li>
+                <li><a href="/frontend/templates/main/contact.html">Контакты</a></li>
+            </ul>
+            <div class="header-actions">
+                <div class="user-menu">
+                    <div class="user-avatar" id="userAvatar">
+                        <img src="/frontend/static/assets/image/anastasia_qe.jpg" alt="">
+                    </div>
+                    <div class="user-name" id="userName">Мария Петрова</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Dashboard -->
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <ul class="sidebar-menu">
+                <li><a href="/frontend/templates/main/index.html"><i class="fas fa-home"></i> <span>Главная</span></a></li>
+                <li><a href="/frontend/templates/children/children.html"><i class="fas fa-child"></i> <span>Мои дети</span></a></li>
+                <li><a href="/frontend/templates/courses/courses-list.html"><i class="fas fa-book-open"></i> <span>Курсы детей</span></a></li>
+                <li><a href="/frontend/templates/practic/practic-list.html"><i class="fas fa-tasks"></i> <span>Задания</span></a></li>
+                <li><a href="/frontend/templates/analytics/statistics.html"><i class="fas fa-chart-line"></i> <span>Успеваемость</span></a></li>
+                <li><a href="/frontend/templates/children/children-attendance.html"><i class="fas fa-calendar-check"></i> <span>Посещаемость</span></a></li>
+                <li><a href="/frontend/templates/children/children-progress.html" class="active"><i class="fas fa-chart-bar"></i> <span>Прогресс</span></a></li>
+                <li><a href="/frontend/templates/journal/schedule.html"><i class="fas fa-calendar-alt"></i> <span>Расписание</span></a></li>
+                <li><a href="/frontend/templates/journal/journal.html"><i class="fas fa-book"></i> <span>Журнал</span></a></li>
+                <li><a href="/frontend/templates/users/profile-edit.html"><i class="fas fa-cog"></i> <span>Настройки</span></a></li>
+                <li><a href="/frontend/templates/auth/logout.html"><i class="fas fa-sign-out"></i> <span>Выйти</span></a></li>                
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Progress Header -->
+            <div class="progress-header">
+                <div class="progress-title">
+                    <h1>Прогресс детей</h1>
+                    <p>Отслеживание успеваемости и прогресса по курсам</p>
+                </div>
+                <div class="progress-controls">
+                    <select class="filter-select">
+                        <option>Все дети</option>
+                        <option>Алексей Петров</option>
+                        <option>Ирина Петрова</option>
+                    </select>
+                    <select class="filter-select">
+                        <option>Все курсы</option>
+                        <option>Математика</option>
+                        <option>Физика</option>
+                        <option>Программирование</option>
+                    </select>
+                    <button class="btn">
+                        <i class="fas fa-download"></i> Отчет
+                    </button>
+                </div>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon progress">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>78%</h3>
+                        <p>Средний прогресс</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon courses">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>7</h3>
+                        <p>Активных курсов</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon grades">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>4.5</h3>
+                        <p>Средняя оценка</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Children Progress Section -->
+            <section class="progress-section">
+                <div class="section-header">
+                    <h2>Прогресс детей</h2>
+                    <div>
+                        <select class="filter-select">
+                            <option>Сортировка: По прогрессу</option>
+                            <option>Сортировка: По имени</option>
+                            <option>Сортировка: По классу</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="children-progress">
+                    <!-- Child 1 -->
+                    <div class="child-progress-card">
+                        <div class="child-header">
+                            <div class="child-info">
+                                <div class="child-avatar">АП</div>
+                                <div class="child-details">
+                                    <h3>Алексей Петров</h3>
+                                    <p>9-А класс</p>
+                                </div>
+                            </div>
+                            <div class="child-actions">
+                                <div class="action-btn"><i class="fas fa-chart-line"></i></div>
+                                <div class="action-btn"><i class="fas fa-envelope"></i></div>
+                            </div>
+                        </div>
+                        
+                        <div class="child-overall-progress">
+                            <div class="progress-header">
+                                <span>Общий прогресс</span>
+                                <span>82%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 82%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="child-courses">
+                            <div class="course-progress">
+                                <div class="course-header">
+                                    <span class="course-name">Математика</span>
+                                    <span class="course-percent">75%</span>
+                                </div>
+                                <div class="course-progress-bar">
+                                    <div class="course-progress-fill" style="width: 75%"></div>
+                                </div>
+                            </div>
+                            <div class="course-progress">
+                                <div class="course-header">
+                                    <span class="course-name">Физика</span>
+                                    <span class="course-percent">90%</span>
+                                </div>
+                                <div class="course-progress-bar">
+                                    <div class="course-progress-fill" style="width: 90%"></div>
+                                </div>
+                            </div>
+                            <div class="course-progress">
+                                <div class="course-header">
+                                    <span class="course-name">Программирование</span>
+                                    <span class="course-percent">80%</span>
+                                </div>
+                                <div class="course-progress-bar">
+                                    <div class="course-progress-fill" style="width: 80%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="child-grades">
+                            <div class="grade-item">
+                                <div class="grade-value">5.0</div>
+                                <div class="grade-subject">Математика</div>
+                            </div>
+                            <div class="grade-item">
+                                <div class="grade-value">4.5</div>
+                                <div class="grade-subject">Физика</div>
+                            </div>
+                            <div class="grade-item">
+                                <div class="grade-value">4.8</div>
+                                <div class="grade-subject">Программирование</div>
+                            </div>
+                        </div>
+                        
+                        <div class="child-footer">
+                            <div class="child-summary">
+                                3 курса • 5 достижений
+                            </div>
+                            <a href="/frontend/templates/children/child-detail.html" class="btn btn-small">Подробнее</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Child 2 -->
+                    <div class="child-progress-card">
+                        <div class="child-header">
+                            <div class="child-info">
+                                <div class="child-avatar">ИП</div>
+                                <div class="child-details">
+                                    <h3>Ирина Петрова</h3>
+                                    <p>10-Б класс</p>
+                                </div>
+                            </div>
+                            <div class="child-actions">
+                                <div class="action-btn"><i class="fas fa-chart-line"></i></div>
+                                <div class="action-btn"><i class="fas fa-envelope"></i></div>
+                            </div>
+                        </div>
+                        
+                        <div class="child-overall-progress">
+                            <div class="progress-header">
+                                <span>Общий прогресс</span>
+                                <span>75%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 75%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="child-courses">
+                            <div class="course-progress">
+                                <div class="course-header">
+                                    <span class="course-name">Математика</span>
+                                    <span class="course-percent">70%</span>
+                                </div>
+                                <div class="course-progress-bar">
+                                    <div class="course-progress-fill" style="width: 70%"></div>
+                                </div>
+                            </div>
+                            <div class="course-progress">
+                                <div class="course-header">
+                                    <span class="course-name">Химия</span>
+                                    <span class="course-percent">85%</span>
+                                </div>
+                                <div class="course-progress-bar">
+                                    <div class="course-progress-fill" style="width: 85%"></div>
+                                </div>
+                            </div>
+                            <div class="course-progress">
+                                <div class="course-header">
+                                    <span class="course-name">Биология</span>
+                                    <span class="course-percent">70%</span>
+                                </div>
+                                <div class="course-progress-bar">
+                                    <div class="course-progress-fill" style="width: 70%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="child-grades">
+                            <div class="grade-item">
+                                <div class="grade-value">4.5</div>
+                                <div class="grade-subject">Математика</div>
+                            </div>
+                            <div class="grade-item">
+                                <div class="grade-value">4.3</div>
+                                <div class="grade-subject">Химия</div>
+                            </div>
+                            <div class="grade-item">
+                                <div class="grade-value">4.4</div>
+                                <div class="grade-subject">Биология</div>
+                            </div>
+                        </div>
+                        
+                        <div class="child-footer">
+                            <div class="child-summary">
+                                4 курса • 7 достижений
+                            </div>
+                            <a href="/frontend/templates/children/child-detail.html" class="btn btn-small">Подробнее</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Detailed Progress Section -->
+            <section class="detailed-progress">
+                <div class="section-header">
+                    <h2>Детальный прогресс по курсам</h2>
+                </div>
+                
+                <div class="progress-tabs">
+                    <div class="progress-tab active" data-tab="math">Математика</div>
+                    <div class="progress-tab" data-tab="physics">Физика</div>
+                    <div class="progress-tab" data-tab="programming">Программирование</div>
+                    <div class="progress-tab" data-tab="chemistry">Химия</div>
+                </div>
+                
+                <div class="tab-content active" id="math-tab">
+                    <div class="course-details">
+                        <div class="course-detail-card">
+                            <div class="course-detail-header">
+                                <div class="course-detail-title">Алексей Петров</div>
+                                <div class="course-detail-grade">5.0</div>
+                            </div>
+                            <div class="course-progress">
+                                <div class="progress-header">
+                                    <span>Прогресс по курсу</span>
+                                    <span>75%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 75%"></div>
+                                </div>
+                            </div>
+                            <div class="course-modules">
+                                <div class="module-item">
+                                    <span class="module-name">Алгебраические выражения</span>
+                                    <span class="module-status">Завершено</span>
+                                </div>
+                                <div class="module-item">
+                                    <span class="module-name">Уравнения и неравенства</span>
+                                    <span class="module-status">Завершено</span>
+                                </div>
+                                <div class="module-item">
+                                    <span class="module-name">Функции и графики</span>
+                                    <span class="module-status">В процессе</span>
+                                </div>
+                                <div class="module-item">
+                                    <span class="module-name">Геометрия</span>
+                                    <span class="module-status pending">Не начато</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="course-detail-card">
+                            <div class="course-detail-header">
+                                <div class="course-detail-title">Ирина Петрова</div>
+                                <div class="course-detail-grade">4.5</div>
+                            </div>
+                            <div class="course-progress">
+                                <div class="progress-header">
+                                    <span>Прогресс по курсу</span>
+                                    <span>70%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 70%"></div>
+                                </div>
+                            </div>
+                            <div class="course-modules">
+                                <div class="module-item">
+                                    <span class="module-name">Алгебраические выражения</span>
+                                    <span class="module-status">Завершено</span>
+                                </div>
+                                <div class="module-item">
+                                    <span class="module-name">Уравнения и неравенства</span>
+                                    <span class="module-status">Завершено</span>
+                                </div>
+                                <div class="module-item">
+                                    <span class="module-name">Функции и графики</span>
+                                    <span class="module-status pending">В процессе</span>
+                                </div>
+                                <div class="module-item">
+                                    <span class="module-name">Геометрия</span>
+                                    <span class="module-status not-started">Не начато</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="physics-tab">
+                    <div class="course-details">
+                        <div class="course-detail-card">
+                            <div class="course-detail-header">
+                                <div class="course-detail-title">Алексей Петров</div>
+                                <div class="course-detail-grade">4.5</div>
+                            </div>
+                            <div class="course-progress">
+                                <div class="progress-header">
+                                    <span>Прогресс по курсу</span>
+                                    <span>90%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 90%"></div>
+                                </div>
+                            </div>
+                            <div class="course-modules">
+                                <div class="module-item">
+                                    <span class="module-name">Механика</span>
+                                    <span class="module-status">Завершено</span>
+                                </div>
+                                <div class="module-item">
+                                    <span class="module-name">Термодинамика</span>
+                                    <span class="module-status">Завершено</span>
+                                </div>
+                                <div class="module-item">
+                                    <span class="module-name">Электричество</span>
+                                    <span class="module-status">Завершено</span>
+                                </div>
+                                <div class="module-item">
+                                    <span class="module-name">Оптика</span>
+                                    <span class="module-status">В процессе</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="programming-tab">
+                    <div class="course-details">
+                        <div class="course-detail-card">
+                            <div class="course-detail-header">
+                                <div class="course-detail-title">Алексей Петров</div>
+                                <div class="course-detail-grade">4.8</div>
+                            </div>
+                            <div class="course-progress">
+                                <div class="progress-header">
+                                    <span>Прогресс по курсу</span>
+                                    <span>80%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 80%"></div>
+                                </div>
+                            </div>
+                            <div class="course-modules">
+                                <div class="module-item">
+                                    <span class="module-name">Основы Python</span>
+                                    <span class="module-status">Завершено</span>
+                                </div>
+                                <div class="module-item">
+                                    <span class="module-name">Структуры данных</span>
+                                    <span class="module-status">Завершено</span>
+                                </div>
+                                <div class="module-item">
+                                    <span class="module-name">Алгоритмы</span>
+                                    <span class="module-status">В процессе</span>
+                                </div>
+                                <div class="module-item">
+                                    <span class="module-name">Проектная работа</span>
+                                    <span class="module-status not-started">Не начато</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="chemistry-tab">
+                    <div class="course-details">
+                        <div class="course-detail-card">
+                            <div class="course-detail-header">
+                                <div class="course-detail-title">Ирина Петрова</div>
+                                <div class="course-detail-grade">4.3</div>
+                            </div>
+                            <div class="course-progress">
+                                <div class="progress-header">
+                                    <span>Прогресс по курсу</span>
+                                    <span>85%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 85%"></div>
+                                </div>
+                            </div>
+                            <div class="course-modules">
+                                <div class="module-item">
+                                    <span class="module-name">Основы химии</span>
+                                    <span class="module-status">Завершено</span>
+                                </div>
+                                <div class="module-item">
+                                    <span class="module-name">Органическая химия</span>
+                                    <span class="module-status">Завершено</span>
+                                </div>
+                                <div class="module-item">
+                                    <span class="module-name">Неорганическая химия</span>
+                                    <span class="module-status">В процессе</span>
+                                </div>
+                                <div class="module-item">
+                                    <span class="module-name">Химические реакции</span>
+                                    <span class="module-status pending">Не начато</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script type="module" src="/frontend/static/js/main.js"></script>
+</body>
+</html>

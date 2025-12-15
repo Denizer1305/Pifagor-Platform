@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пифагор - Мои дети</title>
+    <link rel="icon" href="/frontend/static/assets/image/logo/icons.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Forum&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/frontend/static/css/main.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo-header">
+                <a href="/frontend/templates/main/index.html">
+                    <img src="/frontend/static/assets/image/logo/logo.svg" alt="logo">
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/frontend/templates/main/about.html">О платформе</a></li>
+                <li><a href="/frontend/templates/courses/courses.html">Курсы</a></li>
+                <li><a href="/frontend/templates/main/teachers.html">Преподаватели</a></li>
+                <li><a href="/frontend/templates/main/contact.html">Контакты</a></li>
+            </ul>
+            <div class="header-actions">
+                <div class="user-menu">
+                    <div class="user-avatar" id="userAvatar">
+                        <img src="/frontend/static/assets/image/anastasia_qe.jpg" alt="">
+                    </div>
+                    <div class="user-name" id="userName">Мария Петрова</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Dashboard -->
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <ul class="sidebar-menu">
+                <li><a href="/frontend/templates/main/index.html"><i class="fas fa-home"></i> <span>Главная</span></a></li>
+                <li><a href="/frontend/templates/children/children.html" class="active"><i class="fas fa-child"></i> <span>Мои дети</span></a></li>
+                <li><a href="/frontend/templates/courses/courses-list.html"><i class="fas fa-book-open"></i> <span>Курсы детей</span></a></li>
+                <li><a href="/frontend/templates/practic/practic-list.html"><i class="fas fa-tasks"></i> <span>Задания</span></a></li>
+                <li><a href="/frontend/templates/analytics/statistics.html"><i class="fas fa-chart-line"></i> <span>Успеваемость</span></a></li>
+                <li><a href="/frontend/templates/journal/schedule.html"><i class="fas fa-calendar-alt"></i> <span>Расписание</span></a></li>
+                <li><a href="/frontend/templates/journal/journal.html"><i class="fas fa-book"></i> <span>Журнал</span></a></li>
+                <li><a href="/frontend/templates/users/profile-edit.html"><i class="fas fa-cog"></i> <span>Настройки</span></a></li>
+                <li><a href="/frontend/templates/auth/logout.html"><i class="fas fa-sign-out"></i> <span>Выйти</span></a></li>                
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Children Header -->
+            <div class="children-header">
+                <div class="children-title">
+                    <h1>Мои дети</h1>
+                    <p>Успеваемость и прогресс ваших детей</p>
+                </div>
+                <div class="children-controls">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Поиск ребенка...">
+                    </div>
+                    <select class="filter-select">
+                        <option>Все дети</option>
+                        <option>9 класс</option>
+                        <option>10 класс</option>
+                        <option>11 класс</option>
+                    </select>
+                    <button class="btn" id="addChildBtn">
+                        <i class="fas fa-plus"></i> Добавить ребенка
+                    </button>
+                </div>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon children">
+                        <i class="fas fa-child"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>2</h3>
+                        <p>Детей на платформе</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon courses">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>7</h3>
+                        <p>Активных курсов</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon performance">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>4.5</h3>
+                        <p>Средняя успеваемость</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon attendance">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>96%</h3>
+                        <p>Средняя посещаемость</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Children Grid -->
+            <section class="children-section">
+                <div class="section-header">
+                    <h2>Дети</h2>
+                    <div>
+                        <select class="filter-select">
+                            <option>Сортировка: По имени</option>
+                            <option>Сортировка: По успеваемости</option>
+                            <option>Сортировка: По классу</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="children-grid">
+                    <!-- Child 1 -->
+                    <div class="child-card">
+                        <div class="child-header">
+                            <div class="child-info">
+                                <div class="child-avatar">АП</div>
+                                <div class="child-details">
+                                    <h3>Алексей Петров</h3>
+                                    <p>9-А класс</p>
+                                </div>
+                            </div>
+                            <div class="child-actions">
+                                <div class="action-btn"><i class="fas fa-edit"></i></div>
+                                <div class="action-btn"><i class="fas fa-envelope"></i></div>
+                            </div>
+                        </div>
+                        
+                        <div class="child-stats">
+                            <div class="child-stat">
+                                <h4>4.6</h4>
+                                <p>Средний балл</p>
+                            </div>
+                            <div class="child-stat">
+                                <h4>98%</h4>
+                                <p>Посещаемость</p>
+                            </div>
+                        </div>
+                        
+                        <div class="child-progress">
+                            <div class="progress-header">
+                                <span>Общий прогресс</span>
+                                <span>82%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 82%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="child-courses">
+                            <div class="course-item">
+                                <span class="course-name">Математика</span>
+                                <span class="course-grade">5.0</span>
+                            </div>
+                            <div class="course-item">
+                                <span class="course-name">Физика</span>
+                                <span class="course-grade">4.5</span>
+                            </div>
+                            <div class="course-item">
+                                <span class="course-name">Программирование</span>
+                                <span class="course-grade">4.8</span>
+                            </div>
+                        </div>
+                        
+                        <div class="child-footer">
+                            <div class="child-teacher">
+                                Классный руководитель: Плеханова Е.А.
+                            </div>
+                            <a href="/frontend/templates/children/child-detail.html" class="btn btn-small">Подробнее</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Child 2 -->
+                    <div class="child-card">
+                        <div class="child-header">
+                            <div class="child-info">
+                                <div class="child-avatar">ИП</div>
+                                <div class="child-details">
+                                    <h3>Ирина Петрова</h3>
+                                    <p>10-Б класс</p>
+                                </div>
+                            </div>
+                            <div class="child-actions">
+                                <div class="action-btn"><i class="fas fa-edit"></i></div>
+                                <div class="action-btn"><i class="fas fa-envelope"></i></div>
+                            </div>
+                        </div>
+                        
+                        <div class="child-stats">
+                            <div class="child-stat">
+                                <h4>4.4</h4>
+                                <p>Средний балл</p>
+                            </div>
+                            <div class="child-stat">
+                                <h4>94%</h4>
+                                <p>Посещаемость</p>
+                            </div>
+                        </div>
+                        
+                        <div class="child-progress">
+                            <div class="progress-header">
+                                <span>Общий прогресс</span>
+                                <span>75%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 75%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="child-courses">
+                            <div class="course-item">
+                                <span class="course-name">Математика</span>
+                                <span class="course-grade">4.5</span>
+                            </div>
+                            <div class="course-item">
+                                <span class="course-name">Химия</span>
+                                <span class="course-grade">4.3</span>
+                            </div>
+                            <div class="course-item">
+                                <span class="course-name">Биология</span>
+                                <span class="course-grade">4.4</span>
+                            </div>
+                        </div>
+                        
+                        <div class="child-footer">
+                            <div class="child-teacher">
+                                Классный руководитель: Смирнов А.В.
+                            </div>
+                            <a href="/frontend/templates/children/child-detail.html" class="btn btn-small">Подробнее</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Add Child Modal -->
+    <div class="modal-overlay" id="addChildModal">
+        <div class="child-modal">
+            <div class="modal-header">
+                <h3>Добавить ребенка</h3>
+                <div class="close-modal" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </div>
+            </div>
+            <div class="modal-content">
+                <div class="form-group">
+                    <label for="childName">Имя ребенка</label>
+                    <input type="text" id="childName" class="form-control" placeholder="Введите имя ребенка">
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="childSurname">Фамилия ребенка</label>
+                        <input type="text" id="childSurname" class="form-control" placeholder="Введите фамилию ребенка">
+                    </div>
+                    <div class="form-group">
+                        <label for="childClass">Класс</label>
+                        <select id="childClass" class="form-control">
+                            <option>9 класс</option>
+                            <option>10 класс</option>
+                            <option>11 класс</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="childCode">Код приглашения</label>
+                    <input type="text" id="childCode" class="form-control" placeholder="Введите код приглашения от учителя">
+                </div>
+                
+                <div class="modal-actions">
+                    <button class="btn btn-light" id="cancelAdd">Отмена</button>
+                    <button class="btn" id="saveChild">Добавить ребенка</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="/frontend/static/js/main.js"></script>
+</body>
+</html>

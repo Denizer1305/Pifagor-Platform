@@ -1,0 +1,78 @@
+{% extends 'base_error.html' %}
+{% load static %}
+
+{% block error_title %}Ошибка 504{% endblock %}
+{% block error_body_class %}error-page-504{% endblock %}
+
+{% block content %}
+    <div class="bg-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <!-- Floating elements -->
+    <div class="floating-element" style="top: 15%; right: 8%; width: 40px; height: 40px; background: var(--accent-orange); border-radius: 50%;"></div>
+    <div class="floating-element" style="top: 70%; left: 5%; width: 30px; height: 30px; background: var(--primary-dark); border-radius: 50%; animation-delay: 0.5s;"></div>
+    <div class="floating-element" style="top: 40%; right: 15%; width: 25px; height: 25px; background: var(--accent-amber); border-radius: 50%; animation-delay: 1s;"></div>
+    
+    <!-- Particle Background -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Error Content -->
+    <div class="container-error">
+        <div class="content-left">
+            <div class="logo-container">
+                <div class="logo">
+                    <img src="{% static 'assets/image/logo/logo.svg' %}" alt="Пифагор">
+                </div>
+            </div>
+            
+            <div class="error-code">504</div>
+            
+            <h1 class="error-title">Время ожидания шлюза истекло</h1>
+            
+            <p class="error-description">
+                Сервер, выступая в роли шлюза или прокси, не дождался ответа от вышестоящего сервера. 
+                Это может быть вызвано временными проблемами с сетью или высокой нагрузкой на серверы.
+            </p>
+            
+            <div class="reassurance-warning">
+                <p>
+                    <i class="fas fa-hourglass-half"></i> 
+                    <strong>Не переживайте! Это временная проблема с ответом сервера. Наша команда уже работает над решением. Попробуйте обновить страницу через несколько минут.</strong>
+                </p>
+            </div>
+            
+            <div class="support-team">
+                <p><i class="fas fa-headset"></i> Если проблема сохраняется, свяжитесь со службой поддержки.</p>
+            </div>
+            
+            <div class="connection-tips">
+                <p><i class="fas fa-lightbulb"></i> Совет: Попробуйте обновить страницу или вернуться позже, когда нагрузка на сервер уменьшится.</p>
+            </div>
+            
+            <div class="error-actions">
+                <button onclick="window.location.reload()" class="btn btn-warning" id="refresh-btn">
+                    <i class="fas fa-redo"></i> Обновить сейчас
+                </button>
+                <a href="{% url 'main:index' %}" class="btn">
+                    <i class="fas fa-home"></i> На главную
+                </a>
+                <button onclick="history.back()" class="btn btn-light">
+                    <i class="fas fa-arrow-left"></i> Назад
+                </button>
+            </div>
+        </div>
+        
+        <div class="illustration-right">
+            <div class="error-illustration error-illustration-504" id="error-illustration">
+                <i class="fa fa-server"></i>
+                <h3 class="illustration-title">Ошибка 504</h3>
+                <p>Время ожидания истекло</p>
+                <p>Сервер не ответил вовремя</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

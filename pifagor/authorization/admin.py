@@ -3,36 +3,31 @@ from django.contrib.auth.admin import UserAdmin
 from .models import CustomsUser
 
 class CustomsUserAdmin(UserAdmin):
-    # Поля, которые будут отображаться в списке пользователей
-    list_display = ('email', 'fullname', 'role', 'is_staff', 'is_active', 'created_at')
-    
-    # Поля для фильтрации
-    list_filter = ('role', 'is_staff', 'is_active', 'created_at')
-    
-    # Поля для поиска
-    search_fields = ('email', 'fullname')
-    
-    # Порядок полей в форме редактирования
+    list_display = ('email', 'name', 'lastname', 'patronymic', 'role', 'it_status', 'is_staff', 'created_at')
+    list_filter = ('role', 'it_status', 'is_staff', 'created_at')
+    search_fields = ('email', 'name', 'lastname', 'patronymic')
     ordering = ('-created_at',)
-    
-    # Группировка полей в форме редактирования
+
     fieldsets = (
-        (None, {'fields': ('email', 'password')}),
-        ('Персональная информация', {'fields': ('fullname', 'phone', 'avatar_url')}),
-        ('Права доступа', {'fields': ('role', 'is_active', 'is_staff', 'is_superuser')}),
+        (None, {'fields': ('email', 'password_hash')}),
+        ('Персональная информация', {'fields': ('name', 'lastname', 'patronymic', 'phone')}),
+        ('Права доступа', {'fields': ('role', 'it_status', 'is_staff', 'is_superuser')}),
         ('Важные даты', {'fields': ('last_login', 'created_at')}),
     )
-    
-    # Поля при создании пользователя
+
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('email', 'fullname', 'password1', 'password2', 'role', 'is_staff', 'is_active')}
-        ),
+            'fields': ('email', 'name', 'lastname', 'patronymic', 'password1', 'password2', 'role', 'it_status', 'is_staff', 'is_superuser')
+        }),
     )
-    
-    # Только для чтения поля
+
     readonly_fields = ('created_at', 'last_login')
 
-# Регистрируем модель в админ-панели
+    # Исправление полей для формы добавления пользователя
+    def get_fieldsets(self, request, obj=None):
+        if not obj:
+            return self.add_fieldsets
+        return super().get_fieldsets(request, obj)
+
 admin.site.register(CustomsUser, CustomsUserAdmin)

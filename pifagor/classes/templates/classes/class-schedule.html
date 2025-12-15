@@ -1,0 +1,1421 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пифагор - Расписание класса</title>
+    <link rel="icon" href="/frontend/static/assets/image/logo/icons.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Forum&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/docx/7.8.2/docx.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <link rel="stylesheet" href="/frontend/static/css/main.css">
+    
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo-header">
+                <a href="/frontend/templates/main/index.html">
+                    <img src="/frontend/static/assets/image/logo/logo.svg" alt="logo">
+                </a>
+            </div>
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links">
+                <li><a href="/frontend/templates/main/about.html">О платформе</a></li>
+                <li><a href="/frontend/templates/courses/courses.html">Курсы</a></li>
+                <li><a href="/frontend/templates/main/teachers.html">Преподаватели</a></li>
+                <li><a href="/frontend/templates/main/contact.html">Контакты</a></li>
+            </ul>
+            <div class="header-actions">
+                <div class="user-menu">
+                    <div class="user-avatar" id="userAvatar">ЕП</div>
+                    <div class="user-name" id="userName">Елена Плеханова</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Dashboard -->
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <ul class="sidebar-menu">
+                <li><a href="/frontend/templates/users/teacher-dashboard.html"><i class="fas fa-home"></i> <span>Главная</span></a></li>
+                <li><a href="/frontend/templates/courses/courses-list.html"><i class="fas fa-book-open"></i> <span>Мои курсы</span></a></li>
+                <li><a href="/frontend/templates/practic/practic-list.html"><i class="fas fa-tasks"></i> <span>Задания</span></a></li>
+                <li><a href="/frontend/templates/journal/classes.html"><i class="fas fa-users"></i> <span>Классы</span></a></li>
+                <li><a href="/frontend/templates/practic/practic-check.html"><i class="fas fa-check-circle"></i> <span>Проверка работ</span></a></li>
+                <li><a href="/frontend/templates/analytics/statistics.html"><i class="fas fa-chart-line"></i> <span>Аналитика</span></a></li>
+                <li><a href="/frontend/templates/journal/schedule.html" class="active"><i class="fas fa-calendar-alt"></i> <span>Расписание</span></a></li>
+                <li><a href="/frontend/templates/journal/journal.html"><i class="fas fa-book"></i> <span>Журнал</span></a></li>
+                <li><a href="/frontend/templates/analytics/attendance.html"><i class="fas fa-clipboard-check"></i> <span>Посещаемость</span></a></li>
+                <li><a href="/frontend/templates/journal/grades.html"><i class="fas fa-star"></i> <span>Успеваемость</span></a></li>
+                <li><a href="/frontend/templates/analytics/progress.html"><i class="fas fa-chart-bar"></i> <span>Прогресс</span></a></li>
+                <li><a href="/frontend/templates/journal/schedule-create.html"><i class="fas fa-plus-circle"></i> <span>Создать расписание</span></a></li>
+                <li><a href="/frontend/templates/classes/class-students.html"><i class="fas fa-user-graduate"></i> <span>Ученики класса</span></a></li>
+                <li><a href="/frontend/templates/classes/class-teachers.html"><i class="fas fa-chalkboard-teacher"></i> <span>Преподаватели класса</span></a></li>
+                <li><a href="/frontend/templates/classes/class-schedule.html"><i class="fas fa-calendar-week"></i> <span>Расписание класса</span></a></li>
+                <li><a href="/frontend/templates/users/profile-edit.html"><i class="fas fa-cog"></i> <span>Настройки</span></a></li>
+                <li><a href="/frontend/templates/auth/logout.html"><i class="fas fa-sign-out"></i> <span>Выйти</span></a></li>                
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Schedule Header -->
+            <div class="schedule-header">
+                <div class="schedule-title">
+                    <h1>Расписание ИП-122</h1>
+                    <p>Основы программирования • Классный руководитель: Иванов А.С.</p>
+                </div>
+                <div class="schedule-controls">
+                    <select class="filter-select" id="subjectFilter">
+                        <option>Все предметы</option>
+                        <option>Математика</option>
+                        <option>Физика</option>
+                        <option>Программирование</option>
+                        <option>Литература</option>
+                    </select>
+                    <div class="week-navigation">
+                        <div class="nav-btn" id="prevWeek">
+                            <i class="fas fa-chevron-left"></i>
+                        </div>
+                        <div class="current-week">12 - 18 февраля 2024</div>
+                        <div class="nav-btn" id="nextWeek">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+                    <a href="#" class="btn" id="exportBtn"><i class="fas fa-download"></i> Экспорт</a>
+                </div>
+            </div>
+
+            <!-- Schedule Layout -->
+            <div class="schedule-layout">
+                <!-- Left Column -->
+                <div class="left-column">
+                    <!-- Schedule Section -->
+                    <section class="schedule-section">
+                        <div class="section-header">
+                            <h2>Еженедельное расписание</h2>
+                            <a href="#" class="btn btn-light" id="addLessonBtn"><i class="fas fa-plus"></i> Добавить занятие</a>
+                        </div>
+                        
+                        <!-- Desktop Table -->
+                        <table class="schedule-table">
+                            <thead>
+                                <tr>
+                                    <th class="time-column">Время</th>
+                                    <th class="day-column">
+                                        <div class="day-header">Понедельник</div>
+                                    </th>
+                                    <th class="day-column">
+                                        <div class="day-header">Вторник</div>
+                                    </th>
+                                    <th class="day-column today">
+                                        <div class="day-header">Среда</div>
+                                    </th>
+                                    <th class="day-column">
+                                        <div class="day-header">Четверг</div>
+                                    </th>
+                                    <th class="day-column">
+                                        <div class="day-header">Пятница</div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody id="scheduleTableBody">
+                                <!-- Строки будут генерироваться динамически -->
+                            </tbody>
+                        </table>
+                        
+                        <!-- Mobile Schedule -->
+                        <div class="mobile-schedule" id="mobileSchedule">
+                            <!-- Мобильное расписание будет генерироваться динамически -->
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Right Column -->
+                <div class="right-column">
+                    <!-- Schedule Stats -->
+                    <section class="stats-section">
+                        <div class="section-header">
+                            <h2>Статистика недели</h2>
+                        </div>
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <div class="stat-value" id="totalLessons">0</div>
+                                <div class="stat-label">Всего занятий</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value" id="programmingHours">0</div>
+                                <div class="stat-label">Часов программирования</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value" id="mathHours">0</div>
+                                <div class="stat-label">Часов математики</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value" id="physicsHours">0</div>
+                                <div class="stat-label">Часов физики</div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Upcoming Lessons -->
+                    <section class="upcoming-section">
+                        <div class="section-header">
+                            <h2>Ближайшие занятия</h2>
+                        </div>
+                        <ul class="upcoming-list" id="upcomingLessons">
+                            <!-- Ближайшие занятия будут генерироваться динамически -->
+                        </ul>
+                    </section>
+
+                    <!-- Teacher Availability -->
+                    <section class="availability-section">
+                        <div class="section-header">
+                            <h2>Доступность преподавателей</h2>
+                        </div>
+                        <ul class="availability-list">
+                            <li class="availability-item">
+                                <div class="teacher-avatar">ИА</div>
+                                <div class="teacher-info">
+                                    <h4>Иванов А.С.</h4>
+                                    <p>Программирование</p>
+                                </div>
+                                <div class="availability-status">
+                                    <span class="status-badge status-available">Доступен</span>
+                                </div>
+                            </li>
+                            <li class="availability-item">
+                                <div class="teacher-avatar">ПМ</div>
+                                <div class="teacher-info">
+                                    <h4>Петрова М.В.</h4>
+                                    <p>Математика</p>
+                                </div>
+                                <div class="availability-status">
+                                    <span class="status-badge status-busy">Занята</span>
+                                </div>
+                            </li>
+                            <li class="availability-item">
+                                <div class="teacher-avatar">СД</div>
+                                <div class="teacher-info">
+                                    <h4>Сидоров Д.К.</h4>
+                                    <p>Физика</p>
+                                </div>
+                                <div class="availability-status">
+                                    <span class="status-badge status-available">Доступен</span>
+                                </div>
+                            </li>
+                            <li class="availability-item">
+                                <div class="teacher-avatar">НЕ</div>
+                                <div class="teacher-info">
+                                    <h4>Новикова Е.П.</h4>
+                                    <p>Литература</p>
+                                </div>
+                                <div class="availability-status">
+                                    <span class="status-badge status-unavailable">Недоступен</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lesson Modal -->
+    <div class="modal-overlay" id="lessonModal">
+        <div class="lesson-modal">
+            <div class="modal-header">
+                <h3 id="modalTitle">Информация о занятии</h3>
+                <div class="close-modal" id="closeLessonModal">
+                    <i class="fas fa-times"></i>
+                </div>
+            </div>
+            <div class="modal-content">
+                <div class="lesson-detail">
+                    <div class="detail-label">Предмет</div>
+                    <div class="detail-value" id="modalSubject">Программирование</div>
+                </div>
+                <div class="lesson-detail">
+                    <div class="detail-label">Тема</div>
+                    <div class="detail-value" id="modalTopic">Практика: Функции в Python</div>
+                </div>
+                <div class="lesson-detail">
+                    <div class="detail-label">Преподаватель</div>
+                    <div class="detail-value" id="modalTeacher">Иванов Александр Сергеевич</div>
+                </div>
+                <div class="lesson-detail">
+                    <div class="detail-label">Аудитория</div>
+                    <div class="detail-value" id="modalRoom">Компьютерный класс 1</div>
+                </div>
+                <div class="lesson-detail">
+                    <div class="detail-label">Время</div>
+                    <div class="detail-value" id="modalTime">Среда, 09:00 - 10:30</div>
+                </div>
+                <div class="lesson-detail">
+                    <div class="detail-label">Описание</div>
+                    <div class="detail-value" id="modalDescription">Практическое занятие по работе с функциями в Python. Изучение синтаксиса, параметров, возвращаемых значений и областей видимости.</div>
+                </div>
+                <div class="lesson-detail">
+                    <div class="detail-label">Материалы</div>
+                    <div class="detail-value" id="modalMaterials">
+                        <a href="#">Презентация "Функции в Python"</a><br>
+                        <a href="#">Практическое задание</a>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button class="btn btn-light" id="cancelLessonBtn">Закрыть</button>
+                    <button class="btn" id="editLessonBtn">Редактировать</button>
+                    <button class="btn btn-light" id="deleteLessonBtn" style="background-color: var(--danger); color: white;">Удалить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Lesson Modal -->
+    <div class="modal-overlay" id="addLessonModal">
+        <div class="add-lesson-modal">
+            <div class="modal-header">
+                <h3 id="modalTitle">Добавить занятие</h3>
+                <div class="close-modal" id="closeAddLessonModal">
+                    <i class="fas fa-times"></i>
+                </div>
+            </div>
+            <div class="modal-content">
+                <form id="addLessonForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="lessonSubject">Предмет</label>
+                            <select class="form-select" id="lessonSubject" required>
+                                <option value="">Выберите предмет</option>
+                                <option value="Математика">Математика</option>
+                                <option value="Физика">Физика</option>
+                                <option value="Программирование">Программирование</option>
+                                <option value="Литература">Литература</option>
+                                <option value="История">История</option>
+                                <option value="Английский язык">Английский язык</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="lessonTeacher">Преподаватель</label>
+                            <select class="form-select" id="lessonTeacher" required>
+                                <option value="">Выберите преподавателя</option>
+                                <option value="Иванов А.С.">Иванов А.С.</option>
+                                <option value="Петрова М.В.">Петрова М.В.</option>
+                                <option value="Сидоров Д.К.">Сидоров Д.К.</option>
+                                <option value="Новикова Е.П.">Новикова Е.П.</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="lessonDay">День недели</label>
+                            <select class="form-select" id="lessonDay" required>
+                                <option value="">Выберите день</option>
+                                <option value="monday">Понедельник</option>
+                                <option value="tuesday">Вторник</option>
+                                <option value="wednesday">Среда</option>
+                                <option value="thursday">Четверг</option>
+                                <option value="friday">Пятница</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="lessonTime">Время</label>
+                            <select class="form-select" id="lessonTime" required>
+                                <option value="">Выберите время</option>
+                                <option value="08:00-08:45">08:00-08:45</option>
+                                <option value="09:00-09:45">09:00-09:45</option>
+                                <option value="10:00-10:45">10:00-10:45</option>
+                                <option value="11:00-11:45">11:00-11:45</option>
+                                <option value="12:00-12:45">12:00-12:45</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="lessonTopic">Тема занятия</label>
+                        <input type="text" class="form-input" id="lessonTopic" placeholder="Введите тему занятия" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="lessonRoom">Аудитория</label>
+                        <input type="text" class="form-input" id="lessonRoom" placeholder="Введите номер аудитории" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="lessonDescription">Описание</label>
+                        <textarea class="form-textarea" id="lessonDescription" placeholder="Добавьте описание занятия" rows="3"></textarea>
+                    </div>
+                    <div class="modal-actions">
+                        <button type="button" class="btn btn-light" id="cancelAddLessonBtn">Отмена</button>
+                        <button type="submit" class="btn" id="saveLessonBtn">Сохранить</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Lesson Modal -->
+    <div class="modal-overlay" id="editLessonModal">
+        <div class="edit-lesson-modal">
+            <div class="modal-header">
+                <h3 id="editModalTitle">Редактировать занятие</h3>
+                <div class="close-modal" id="closeEditLessonModal">
+                    <i class="fas fa-times"></i>
+                </div>
+            </div>
+            <div class="modal-content">
+                <form id="editLessonForm">
+                    <input type="hidden" id="editLessonId">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="editLessonSubject">Предмет</label>
+                            <select class="form-select" id="editLessonSubject" required>
+                                <option value="">Выберите предмет</option>
+                                <option value="Математика">Математика</option>
+                                <option value="Физика">Физика</option>
+                                <option value="Программирование">Программирование</option>
+                                <option value="Литература">Литература</option>
+                                <option value="История">История</option>
+                                <option value="Английский язык">Английский язык</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="editLessonTeacher">Преподаватель</label>
+                            <select class="form-select" id="editLessonTeacher" required>
+                                <option value="">Выберите преподавателя</option>
+                                <option value="Иванов А.С.">Иванов А.С.</option>
+                                <option value="Петрова М.В.">Петрова М.В.</option>
+                                <option value="Сидоров Д.К.">Сидоров Д.К.</option>
+                                <option value="Новикова Е.П.">Новикова Е.П.</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="editLessonDay">День недели</label>
+                            <select class="form-select" id="editLessonDay" required>
+                                <option value="">Выберите день</option>
+                                <option value="monday">Понедельник</option>
+                                <option value="tuesday">Вторник</option>
+                                <option value="wednesday">Среда</option>
+                                <option value="thursday">Четверг</option>
+                                <option value="friday">Пятница</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="editLessonTime">Время</label>
+                            <select class="form-select" id="editLessonTime" required>
+                                <option value="">Выберите время</option>
+                                <option value="08:00-08:45">08:00-08:45</option>
+                                <option value="09:00-09:45">09:00-09:45</option>
+                                <option value="10:00-10:45">10:00-10:45</option>
+                                <option value="11:00-11:45">11:00-11:45</option>
+                                <option value="12:00-12:45">12:00-12:45</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="editLessonTopic">Тема занятия</label>
+                        <input type="text" class="form-input" id="editLessonTopic" placeholder="Введите тему занятия" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="editLessonRoom">Аудитория</label>
+                        <input type="text" class="form-input" id="editLessonRoom" placeholder="Введите номер аудитории" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="editLessonDescription">Описание</label>
+                        <textarea class="form-textarea" id="editLessonDescription" placeholder="Добавьте описание занятия" rows="3"></textarea>
+                    </div>
+                    <div class="modal-actions">
+                        <button type="button" class="btn btn-light" id="cancelEditLessonBtn">Отмена</button>
+                        <button type="submit" class="btn" id="updateLessonBtn">Обновить</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно экспорта -->
+    <div class="export-modal" id="exportModal">
+        <div class="export-modal-content">
+            <h2>Экспорт расписания</h2>
+            <div class="export-options">
+                <label class="export-option">
+                    <input type="radio" name="exportFormat" value="pdf" checked>
+                    <span>PDF документ</span>
+                </label>
+                <label class="export-option">
+                    <input type="radio" name="exportFormat" value="image">
+                    <span>Изображение PNG</span>
+                </label>
+                <label class="export-option">
+                    <input type="radio" name="exportFormat" value="word">
+                    <span>Word документ</span>
+                </label>
+                <label class="export-option">
+                    <input type="radio" name="exportFormat" value="print">
+                    <span>Печать</span>
+                </label>
+            </div>
+            <div class="export-actions">
+                <button class="btn btn-light" id="cancelExport">Отмена</button>
+                <button class="btn" id="confirmExport">Экспортировать</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Индикатор загрузки -->
+    <div class="export-loading" id="exportLoading">
+        <div class="spinner"></div>
+        <p>Подготовка отчета...</p>
+    </div>
+
+    <!-- Контейнер для экспорта (скрытый) -->
+    <div id="exportContent" style="display: none; position: relative;">
+        <div class="export-watermark">ПИФАГОР</div>
+        <div class="export-container">
+            <div class="export-header">
+                <h1 class="export-title">Расписание ИП-122</h1>
+                <p class="export-subtitle">Дата генерации: <span id="exportDate"></span></p>
+                <p class="export-subtitle">Классный руководитель: Иванов А.С.</p>
+            </div>
+
+            <div class="export-section">
+                <h2 class="export-section-title">Статистика недели</h2>
+                <table class="export-table">
+                    <thead>
+                        <tr>
+                            <th>Показатель</th>
+                            <th>Значение</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Всего занятий</td>
+                            <td id="exportTotalLessons">0</td>
+                        </tr>
+                        <tr>
+                            <td>Часов программирования</td>
+                            <td id="exportProgrammingHours">0</td>
+                        </tr>
+                        <tr>
+                            <td>Часов математики</td>
+                            <td id="exportMathHours">0</td>
+                        </tr>
+                        <tr>
+                            <td>Часов физики</td>
+                            <td id="exportPhysicsHours">0</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="export-section">
+                <h2 class="export-section-title">Расписание занятий</h2>
+                <table class="export-table" id="exportScheduleTable">
+                    <thead>
+                        <tr>
+                            <th>День недели</th>
+                            <th>Время</th>
+                            <th>Предмет</th>
+                            <th>Тема</th>
+                            <th>Преподаватель</th>
+                            <th>Аудитория</th>
+                        </tr>
+                    </thead>
+                    <tbody id="exportScheduleBody">
+                        <!-- Данные будут добавлены динамически -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="export-footer">
+                <p>Сгенерировано в образовательной платформе "Пифагор"</p>
+                <p>© 2025 Пифагор. Все права защищены.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Контейнер для печати -->
+    <div id="printContent"></div>
+
+    <script>
+        // User data
+        const userName = "Елена Плеханова";
+        const userEmail = "elena.plekhanova@example.com";
+        
+        document.getElementById('userName').textContent = userName;
+        
+        // Generate avatar initials
+        const nameParts = userName.split(' ');
+        const initials = nameParts.map(part => part[0]).join('').toUpperCase();
+        document.getElementById('userAvatar').textContent = initials;
+
+        // Mobile menu toggle
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const sidebar = document.getElementById('sidebar');
+        
+        mobileMenuToggle.addEventListener('click', function() {
+            sidebar.classList.toggle('active');
+        });
+
+        // Schedule functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Элементы модальных окон
+            const lessonModal = document.getElementById('lessonModal');
+            const closeLessonModal = document.getElementById('closeLessonModal');
+            const cancelLessonBtn = document.getElementById('cancelLessonBtn');
+            const editLessonBtn = document.getElementById('editLessonBtn');
+            const deleteLessonBtn = document.getElementById('deleteLessonBtn');
+            
+            const addLessonModal = document.getElementById('addLessonModal');
+            const addLessonBtn = document.getElementById('addLessonBtn');
+            const closeAddLessonModal = document.getElementById('closeAddLessonModal');
+            const cancelAddLessonBtn = document.getElementById('cancelAddLessonBtn');
+            const addLessonForm = document.getElementById('addLessonForm');
+            const saveLessonBtn = document.getElementById('saveLessonBtn');
+            
+            const editLessonModal = document.getElementById('editLessonModal');
+            const closeEditLessonModal = document.getElementById('closeEditLessonModal');
+            const cancelEditLessonBtn = document.getElementById('cancelEditLessonBtn');
+            const editLessonForm = document.getElementById('editLessonForm');
+            const updateLessonBtn = document.getElementById('updateLessonBtn');
+            
+            const prevWeekBtn = document.getElementById('prevWeek');
+            const nextWeekBtn = document.getElementById('nextWeek');
+            const currentWeekElement = document.querySelector('.current-week');
+            const subjectFilter = document.getElementById('subjectFilter');
+            
+            // Элементы для экспорта
+            const exportBtn = document.getElementById('exportBtn');
+            const exportModal = document.getElementById('exportModal');
+            const cancelExport = document.getElementById('cancelExport');
+            const confirmExport = document.getElementById('confirmExport');
+            const exportContent = document.getElementById('exportContent');
+            const printContent = document.getElementById('printContent');
+            const exportDate = document.getElementById('exportDate');
+            const exportLoading = document.getElementById('exportLoading');
+            
+            // Элементы для отображения расписания
+            const scheduleTableBody = document.getElementById('scheduleTableBody');
+            const mobileSchedule = document.getElementById('mobileSchedule');
+            const upcomingLessons = document.getElementById('upcomingLessons');
+            const totalLessonsElement = document.getElementById('totalLessons');
+            const programmingHoursElement = document.getElementById('programmingHours');
+            const mathHoursElement = document.getElementById('mathHours');
+            const physicsHoursElement = document.getElementById('physicsHours');
+            
+            let currentWeek = 0; // Current week offset from today
+            const today = new Date();
+            
+            // Хранилище данных занятий
+            let lessonsData = [
+                {
+                    id: 1,
+                    subject: 'Математика',
+                    teacher: 'Петрова М.В.',
+                    day: 'monday',
+                    time: '08:00-08:45',
+                    topic: 'Алгебра: Квадратные уравнения',
+                    room: 'Ауд. 201',
+                    description: 'Изучение методов решения квадратных уравнений. Разбор дискриминанта и формулы корней.'
+                },
+                {
+                    id: 2,
+                    subject: 'Физика',
+                    teacher: 'Сидоров Д.К.',
+                    day: 'wednesday',
+                    time: '08:00-08:45',
+                    topic: 'Законы Ньютона',
+                    room: 'Ауд. 301',
+                    description: 'Основные законы механики. Первый, второй и третий законы Ньютона с примерами.'
+                },
+                {
+                    id: 3,
+                    subject: 'Литература',
+                    teacher: 'Новикова Е.П.',
+                    day: 'friday',
+                    time: '08:00-08:45',
+                    topic: 'Творчество Пушкина',
+                    room: 'Ауд. 105',
+                    description: 'Изучение творчества А.С. Пушкина. Анализ стихотворений и поэм.'
+                },
+                {
+                    id: 4,
+                    subject: 'Программирование',
+                    teacher: 'Иванов А.С.',
+                    day: 'monday',
+                    time: '09:00-09:45',
+                    topic: 'Основы алгоритмизации',
+                    room: 'Комп. класс 1',
+                    description: 'Введение в алгоритмы и структуры данных. Базовые понятия программирования.'
+                },
+                {
+                    id: 5,
+                    subject: 'Математика',
+                    teacher: 'Петрова М.В.',
+                    day: 'tuesday',
+                    time: '09:00-09:45',
+                    topic: 'Геометрия: Теоремы',
+                    room: 'Ауд. 201',
+                    description: 'Изучение основных теорем геометрии. Решение задач на доказательство.'
+                },
+                {
+                    id: 6,
+                    subject: 'Программирование',
+                    teacher: 'Иванов А.С.',
+                    day: 'wednesday',
+                    time: '09:00-10:30',
+                    topic: 'Практика: Функции в Python',
+                    room: 'Комп. класс 1',
+                    description: 'Практическое занятие по работе с функциями в Python. Изучение синтаксиса, параметров, возвращаемых значений и областей видимости.'
+                },
+                {
+                    id: 7,
+                    subject: 'Физика',
+                    teacher: 'Сидоров Д.К.',
+                    day: 'thursday',
+                    time: '09:00-09:45',
+                    topic: 'Кинематика',
+                    room: 'Ауд. 301',
+                    description: 'Изучение движения тел без учета причин, вызывающих это движение. Основные понятия кинематики.'
+                }
+            ];
+            
+            let currentLessonId = null; // Текущее редактируемое занятие
+            
+            // Временные интервалы для расписания
+            const timeSlots = [
+                '08:00-08:45',
+                '09:00-09:45', 
+                '10:00-10:45',
+                '11:00-11:45',
+                '12:00-12:45'
+            ];
+            
+            // Дни недели
+            const days = [
+                { key: 'monday', name: 'Понедельник' },
+                { key: 'tuesday', name: 'Вторник' },
+                { key: 'wednesday', name: 'Среда' },
+                { key: 'thursday', name: 'Четверг' },
+                { key: 'friday', name: 'Пятница' }
+            ];
+            
+            // Week navigation
+            function updateWeekDisplay() {
+                const weekStart = new Date(today);
+                weekStart.setDate(today.getDate() - today.getDay() + 1 + (currentWeek * 7)); // Start from Monday
+                
+                const weekEnd = new Date(weekStart);
+                weekEnd.setDate(weekStart.getDate() + 6);
+                
+                const options = { day: 'numeric', month: 'long' };
+                const startStr = weekStart.toLocaleDateString('ru-RU', options);
+                const endStr = weekEnd.toLocaleDateString('ru-RU', options);
+                const year = weekStart.getFullYear();
+                
+                currentWeekElement.textContent = `${startStr} - ${endStr} ${year}`;
+                
+                renderSchedule();
+            }
+            
+            // Функция рендеринга расписания
+            function renderSchedule() {
+                // Очищаем таблицу и мобильное расписание
+                scheduleTableBody.innerHTML = '';
+                mobileSchedule.innerHTML = '';
+                upcomingLessons.innerHTML = '';
+                
+                // Создаем строки для каждого временного интервала
+                timeSlots.forEach(time => {
+                    const row = document.createElement('tr');
+                    
+                    // Ячейка времени
+                    const timeCell = document.createElement('td');
+                    timeCell.className = 'time-column';
+                    timeCell.textContent = time;
+                    row.appendChild(timeCell);
+                    
+                    // Для каждого дня создаем ячейку
+                    days.forEach(day => {
+                        const cell = document.createElement('td');
+                        cell.className = 'day-column';
+                        
+                        // Ищем занятия для этого дня и времени
+                        const dayLessons = lessonsData.filter(lesson => 
+                            lesson.day === day.key && lesson.time === time
+                        );
+                        
+                        // Добавляем занятия в ячейку
+                        dayLessons.forEach(lesson => {
+                            const lessonCard = createLessonCard(lesson);
+                            cell.appendChild(lessonCard);
+                        });
+                        
+                        row.appendChild(cell);
+                    });
+                    
+                    scheduleTableBody.appendChild(row);
+                });
+                
+                // Рендерим мобильное расписание
+                days.forEach(day => {
+                    const dayLessons = lessonsData.filter(lesson => lesson.day === day.key);
+                    
+                    if (dayLessons.length > 0) {
+                        const dayElement = document.createElement('div');
+                        dayElement.className = 'mobile-day';
+                        
+                        // Проверяем, сегодня ли этот день
+                        const todayIndex = (today.getDay() + 6) % 7; // Convert to Monday-based index
+                        const dayIndex = days.findIndex(d => d.key === day.key);
+                        if (dayIndex === todayIndex && currentWeek === 0) {
+                            dayElement.classList.add('today');
+                        }
+                        
+                        const dayHeader = document.createElement('div');
+                        dayHeader.className = 'mobile-day-header';
+                        dayHeader.textContent = day.name;
+                        dayElement.appendChild(dayHeader);
+                        
+                        const lessonsContainer = document.createElement('div');
+                        lessonsContainer.className = 'mobile-lessons';
+                        
+                        dayLessons.forEach(lesson => {
+                            const lessonCard = createLessonCard(lesson);
+                            lessonsContainer.appendChild(lessonCard);
+                        });
+                        
+                        dayElement.appendChild(lessonsContainer);
+                        mobileSchedule.appendChild(dayElement);
+                    }
+                });
+                
+                // Обновляем статистику
+                updateStatistics();
+                
+                // Обновляем ближайшие занятия
+                updateUpcomingLessons();
+            }
+            
+            // Функция создания карточки занятия
+            function createLessonCard(lesson) {
+                const card = document.createElement('div');
+                card.className = 'lesson-card';
+                card.setAttribute('data-lesson-id', lesson.id);
+                
+                card.innerHTML = `
+                    <div class="lesson-header">
+                        <div class="lesson-title">${lesson.subject}</div>
+                        <div class="lesson-time">${lesson.time}</div>
+                    </div>
+                    <div class="lesson-details">${lesson.topic}</div>
+                    <div class="lesson-meta">
+                        <span>${lesson.room}</span>
+                        <span>${lesson.teacher}</span>
+                    </div>
+                `;
+                
+                // Добавляем обработчик клика для просмотра деталей
+                card.addEventListener('click', function() {
+                    openLessonModal(lesson);
+                });
+                
+                return card;
+            }
+            
+            // Функция открытия модального окна с информацией о занятии
+            function openLessonModal(lesson) {
+                document.getElementById('modalSubject').textContent = lesson.subject;
+                document.getElementById('modalTopic').textContent = lesson.topic;
+                document.getElementById('modalTeacher').textContent = lesson.teacher;
+                document.getElementById('modalRoom').textContent = lesson.room;
+                
+                const dayName = days.find(d => d.key === lesson.day).name;
+                document.getElementById('modalTime').textContent = `${dayName}, ${lesson.time}`;
+                document.getElementById('modalDescription').textContent = lesson.description;
+                
+                // Сохраняем ID текущего занятия
+                currentLessonId = lesson.id;
+                
+                lessonModal.classList.add('active');
+            }
+            
+            // Функция обновления статистики
+            function updateStatistics() {
+                const totalLessons = lessonsData.length;
+                const programmingHours = lessonsData
+                    .filter(lesson => lesson.subject === 'Программирование')
+                    .reduce((total, lesson) => {
+                        const duration = getLessonDuration(lesson.time);
+                        return total + duration;
+                    }, 0);
+                    
+                const mathHours = lessonsData
+                    .filter(lesson => lesson.subject === 'Математика')
+                    .reduce((total, lesson) => {
+                        const duration = getLessonDuration(lesson.time);
+                        return total + duration;
+                    }, 0);
+                    
+                const physicsHours = lessonsData
+                    .filter(lesson => lesson.subject === 'Физика')
+                    .reduce((total, lesson) => {
+                        const duration = getLessonDuration(lesson.time);
+                        return total + duration;
+                    }, 0);
+                
+                totalLessonsElement.textContent = totalLessons;
+                programmingHoursElement.textContent = programmingHours;
+                mathHoursElement.textContent = mathHours;
+                physicsHoursElement.textContent = physicsHours;
+            }
+            
+            // Функция вычисления продолжительности занятия в часах
+            function getLessonDuration(timeString) {
+                // Пример: "09:00-10:30" -> 1.5 часа
+                const [start, end] = timeString.split('-');
+                const startTime = new Date(`2000-01-01T${start}:00`);
+                const endTime = new Date(`2000-01-01T${end}:00`);
+                
+                const diffMs = endTime - startTime;
+                const diffHours = diffMs / (1000 * 60 * 60);
+                
+                return Math.round(diffHours * 10) / 10; // Округляем до 1 знака после запятой
+            }
+            
+            // Функция обновления списка ближайших занятий
+            function updateUpcomingLessons() {
+                upcomingLessons.innerHTML = '';
+                
+                // Сортируем занятия по дню и времени
+                const sortedLessons = [...lessonsData].sort((a, b) => {
+                    const dayOrder = { monday: 1, tuesday: 2, wednesday: 3, thursday: 4, friday: 5 };
+                    if (dayOrder[a.day] !== dayOrder[b.day]) {
+                        return dayOrder[a.day] - dayOrder[b.day];
+                    }
+                    
+                    // Сравниваем время начала занятия
+                    const aStart = a.time.split('-')[0];
+                    const bStart = b.time.split('-')[0];
+                    return aStart.localeCompare(bStart);
+                });
+                
+                // Берем первые 4 занятия
+                const upcoming = sortedLessons.slice(0, 4);
+                
+                upcoming.forEach(lesson => {
+                    const item = document.createElement('li');
+                    item.className = 'upcoming-item';
+                    
+                    const dayName = days.find(d => d.key === lesson.day).name;
+                    
+                    item.innerHTML = `
+                        <div class="upcoming-header">
+                            <div class="upcoming-title">${lesson.subject}</div>
+                            <div class="upcoming-time">${dayName}, ${lesson.time}</div>
+                        </div>
+                        <div class="upcoming-details">${lesson.topic} • ${lesson.room}</div>
+                    `;
+                    
+                    upcomingLessons.appendChild(item);
+                });
+            }
+            
+            // Функция добавления нового занятия
+            function addLesson(lessonData) {
+                // Генерируем уникальный ID
+                const newId = lessonsData.length > 0 ? Math.max(...lessonsData.map(l => l.id)) + 1 : 1;
+                
+                const newLesson = {
+                    id: newId,
+                    ...lessonData
+                };
+                
+                lessonsData.push(newLesson);
+                renderSchedule();
+            }
+            
+            // Функция обновления существующего занятия
+            function updateLesson(lessonId, lessonData) {
+                const index = lessonsData.findIndex(lesson => lesson.id === lessonId);
+                
+                if (index !== -1) {
+                    lessonsData[index] = {
+                        id: lessonId,
+                        ...lessonData
+                    };
+                    
+                    renderSchedule();
+                }
+            }
+            
+            // Функция удаления занятия
+            function deleteLesson(lessonId) {
+                lessonsData = lessonsData.filter(lesson => lesson.id !== lessonId);
+                renderSchedule();
+            }
+            
+            // Week navigation
+            prevWeekBtn.addEventListener('click', function() {
+                currentWeek--;
+                updateWeekDisplay();
+            });
+            
+            nextWeekBtn.addEventListener('click', function() {
+                currentWeek++;
+                updateWeekDisplay();
+            });
+            
+            // Close lesson modal
+            function closeLessonModalFunc() {
+                lessonModal.classList.remove('active');
+                currentLessonId = null;
+            }
+            
+            closeLessonModal.addEventListener('click', closeLessonModalFunc);
+            cancelLessonBtn.addEventListener('click', closeLessonModalFunc);
+            
+            // Edit lesson
+            editLessonBtn.addEventListener('click', function() {
+                if (currentLessonId) {
+                    const lesson = lessonsData.find(l => l.id === currentLessonId);
+                    
+                    if (lesson) {
+                        // Заполняем форму редактирования данными занятия
+                        document.getElementById('editLessonId').value = lesson.id;
+                        document.getElementById('editLessonSubject').value = lesson.subject;
+                        document.getElementById('editLessonTeacher').value = lesson.teacher;
+                        document.getElementById('editLessonDay').value = lesson.day;
+                        document.getElementById('editLessonTime').value = lesson.time;
+                        document.getElementById('editLessonTopic').value = lesson.topic;
+                        document.getElementById('editLessonRoom').value = lesson.room;
+                        document.getElementById('editLessonDescription').value = lesson.description || '';
+                        
+                        // Закрываем модальное окно просмотра и открываем редактирование
+                        closeLessonModalFunc();
+                        editLessonModal.classList.add('active');
+                    }
+                }
+            });
+            
+            // Delete lesson
+            deleteLessonBtn.addEventListener('click', function() {
+                if (currentLessonId && confirm('Вы уверены, что хотите удалить это занятие?')) {
+                    deleteLesson(currentLessonId);
+                    closeLessonModalFunc();
+                }
+            });
+            
+            // Open add lesson modal
+            addLessonBtn.addEventListener('click', function() {
+                addLessonModal.classList.add('active');
+            });
+            
+            // Close add lesson modal
+            function closeAddLessonModalFunc() {
+                addLessonModal.classList.remove('active');
+                addLessonForm.reset();
+            }
+            
+            closeAddLessonModal.addEventListener('click', closeAddLessonModalFunc);
+            cancelAddLessonBtn.addEventListener('click', closeAddLessonModalFunc);
+            
+            // Close edit lesson modal
+            function closeEditLessonModalFunc() {
+                editLessonModal.classList.remove('active');
+                editLessonForm.reset();
+                currentLessonId = null;
+            }
+            
+            closeEditLessonModal.addEventListener('click', closeEditLessonModalFunc);
+            cancelEditLessonBtn.addEventListener('click', closeEditLessonModalFunc);
+            
+            // Save new lesson
+            addLessonForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                if (validateLessonForm('add')) {
+                    const formData = {
+                        subject: document.getElementById('lessonSubject').value,
+                        teacher: document.getElementById('lessonTeacher').value,
+                        day: document.getElementById('lessonDay').value,
+                        time: document.getElementById('lessonTime').value,
+                        topic: document.getElementById('lessonTopic').value,
+                        room: document.getElementById('lessonRoom').value,
+                        description: document.getElementById('lessonDescription').value
+                    };
+                    
+                    addLesson(formData);
+                    closeAddLessonModalFunc();
+                }
+            });
+            
+            // Update lesson
+            editLessonForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                if (validateLessonForm('edit')) {
+                    const lessonId = parseInt(document.getElementById('editLessonId').value);
+                    const formData = {
+                        subject: document.getElementById('editLessonSubject').value,
+                        teacher: document.getElementById('editLessonTeacher').value,
+                        day: document.getElementById('editLessonDay').value,
+                        time: document.getElementById('editLessonTime').value,
+                        topic: document.getElementById('editLessonTopic').value,
+                        room: document.getElementById('editLessonRoom').value,
+                        description: document.getElementById('editLessonDescription').value
+                    };
+                    
+                    updateLesson(lessonId, formData);
+                    closeEditLessonModalFunc();
+                }
+            });
+            
+            // Subject filter
+            subjectFilter.addEventListener('change', function() {
+                const selectedSubject = this.value;
+                const lessonCards = document.querySelectorAll('.lesson-card');
+                
+                lessonCards.forEach(card => {
+                    const subject = card.querySelector('.lesson-title').textContent;
+                    if (selectedSubject === 'Все предметы' || subject === selectedSubject) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+            
+            // Form validation
+            function validateLessonForm(formType) {
+                const prefix = formType === 'add' ? '' : 'edit';
+                
+                const subject = document.getElementById(`${prefix}LessonSubject`).value;
+                const teacher = document.getElementById(`${prefix}LessonTeacher`).value;
+                const day = document.getElementById(`${prefix}LessonDay`).value;
+                const time = document.getElementById(`${prefix}LessonTime`).value;
+                const topic = document.getElementById(`${prefix}LessonTopic`).value;
+                const room = document.getElementById(`${prefix}LessonRoom`).value;
+                
+                if (!subject) {
+                    alert('Пожалуйста, выберите предмет');
+                    return false;
+                }
+                
+                if (!teacher) {
+                    alert('Пожалуйста, выберите преподавателя');
+                    return false;
+                }
+                
+                if (!day) {
+                    alert('Пожалуйста, выберите день недели');
+                    return false;
+                }
+                
+                if (!time) {
+                    alert('Пожалуйста, выберите время занятия');
+                    return false;
+                }
+                
+                if (!topic) {
+                    alert('Пожалуйста, введите тему занятия');
+                    return false;
+                }
+                
+                if (!room) {
+                    alert('Пожалуйста, введите номер аудитории');
+                    return false;
+                }
+                
+                return true;
+            }
+            
+            // Установка текущей даты
+            function setExportData() {
+                const now = new Date();
+                exportDate.textContent = now.toLocaleDateString('ru-RU', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+                
+                // Обновляем статистику для экспорта
+                document.getElementById('exportTotalLessons').textContent = lessonsData.length;
+                document.getElementById('exportProgrammingHours').textContent = document.getElementById('programmingHours').textContent;
+                document.getElementById('exportMathHours').textContent = document.getElementById('mathHours').textContent;
+                document.getElementById('exportPhysicsHours').textContent = document.getElementById('physicsHours').textContent;
+                
+                // Обновляем таблицу для экспорта
+                const exportScheduleBody = document.getElementById('exportScheduleBody');
+                exportScheduleBody.innerHTML = '';
+                
+                lessonsData.forEach(lesson => {
+                    const row = document.createElement('tr');
+                    const dayName = days.find(d => d.key === lesson.day).name;
+                    
+                    row.innerHTML = `
+                        <td>${dayName}</td>
+                        <td>${lesson.time}</td>
+                        <td>${lesson.subject}</td>
+                        <td>${lesson.topic}</td>
+                        <td>${lesson.teacher}</td>
+                        <td>${lesson.room}</td>
+                    `;
+                    
+                    exportScheduleBody.appendChild(row);
+                });
+            }
+            
+            // Показать индикатор загрузки
+            function showLoading() {
+                exportLoading.style.display = 'flex';
+            }
+            
+            // Скрыть индикатор загрузки
+            function hideLoading() {
+                exportLoading.style.display = 'none';
+            }
+            
+            // Подготовка контента для экспорта
+            async function prepareExportContent() {
+                return new Promise((resolve) => {
+                    // Показываем контент для захвата
+                    exportContent.style.display = 'block';
+                    
+                    // Даем время на отрисовку
+                    setTimeout(() => {
+                        resolve();
+                    }, 500);
+                });
+            }
+            
+            // Открытие модального окна экспорта
+            exportBtn.addEventListener('click', function() {
+                setExportData();
+                exportModal.style.display = 'flex';
+            });
+            
+            // Закрытие модального окна экспорта
+            cancelExport.addEventListener('click', function() {
+                exportModal.style.display = 'none';
+            });
+            
+            // Закрытие модального окна при клике вне его
+            exportModal.addEventListener('click', function(e) {
+                if (e.target === exportModal) {
+                    exportModal.style.display = 'none';
+                }
+            });
+            
+            // Подтверждение экспорта
+            confirmExport.addEventListener('click', async function() {
+                const format = document.querySelector('input[name="exportFormat"]:checked').value;
+                exportModal.style.display = 'none';
+                
+                showLoading();
+                
+                try {
+                    // Подготавливаем контент для экспорта
+                    await prepareExportContent();
+                    
+                    switch(format) {
+                        case 'pdf':
+                            await exportToPDF();
+                            break;
+                        case 'image':
+                            await exportToImage();
+                            break;
+                        case 'word':
+                            await exportToWord();
+                            break;
+                        case 'print':
+                            await exportToPrint();
+                            break;
+                    }
+                } catch (error) {
+                    console.error('Ошибка при экспорте:', error);
+                    alert('Произошла ошибка при экспорте. Пожалуйста, попробуйте еще раз.');
+                } finally {
+                    // Всегда скрываем контент и загрузку
+                    exportContent.style.display = 'none';
+                    hideLoading();
+                }
+            });
+            
+            // Функция экспорта в PDF
+            async function exportToPDF() {
+                const { jsPDF } = window.jspdf;
+                
+                try {
+                    const canvas = await html2canvas(exportContent, {
+                        scale: 2,
+                        useCORS: true,
+                        logging: false,
+                        backgroundColor: '#FFFFFF',
+                        allowTaint: false,
+                        width: exportContent.scrollWidth,
+                        height: exportContent.scrollHeight
+                    });
+                    
+                    const imgData = canvas.toDataURL('image/png');
+                    const pdf = new jsPDF('p', 'mm', 'a4');
+                    const imgWidth = 210;
+                    const pageHeight = 295;
+                    const imgHeight = canvas.height * imgWidth / canvas.width;
+                    let heightLeft = imgHeight;
+                    let position = 0;
+                    
+                    pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                    heightLeft -= pageHeight;
+                    
+                    while (heightLeft >= 0) {
+                        position = heightLeft - imgHeight;
+                        pdf.addPage();
+                        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                        heightLeft -= pageHeight;
+                    }
+                    
+                    pdf.save('расписание_ИП-122_' + new Date().toISOString().slice(0,10) + '.pdf');
+                } catch (error) {
+                    console.error('Ошибка при экспорте в PDF:', error);
+                    throw error;
+                }
+            }
+            
+            // Функция экспорта в изображение
+            async function exportToImage() {
+                try {
+                    const canvas = await html2canvas(exportContent, {
+                        scale: 2,
+                        useCORS: true,
+                        logging: false,
+                        backgroundColor: '#FFFFFF',
+                        allowTaint: false,
+                        width: exportContent.scrollWidth,
+                        height: exportContent.scrollHeight
+                    });
+                    
+                    const link = document.createElement('a');
+                    link.download = 'расписание_ИП-122_' + new Date().toISOString().slice(0,10) + '.png';
+                    link.href = canvas.toDataURL('image/png');
+                    link.click();
+                } catch (error) {
+                    console.error('Ошибка при экспорте в изображение:', error);
+                    throw error;
+                }
+            }
+            
+            // Функция экспорта в Word
+            async function exportToWord() {
+                try {
+                    // Создаем изображение контента
+                    const canvas = await html2canvas(exportContent, {
+                        scale: 2,
+                        useCORS: true,
+                        logging: false,
+                        backgroundColor: '#FFFFFF',
+                        allowTaint: false,
+                        width: exportContent.scrollWidth,
+                        height: exportContent.scrollHeight
+                    });
+                    
+                    // Конвертируем canvas в blob
+                    const blob = await new Promise(resolve => {
+                        canvas.toBlob(resolve, 'image/png');
+                    });
+                    
+                    if (!blob) {
+                        throw new Error('Не удалось создать изображение для Word');
+                    }
+                    
+                    // Создаем документ Word с изображением
+                    const { Document, Packer, Paragraph, ImageRun } = window.docx;
+                    
+                    const doc = new Document({
+                        sections: [{
+                            properties: {},
+                            children: [
+                                new Paragraph({
+                                    children: [
+                                        new ImageRun({
+                                            data: await blob.arrayBuffer(),
+                                            transformation: {
+                                                width: 600,
+                                                height: 800,
+                                            },
+                                        }),
+                                    ],
+                                }),
+                            ],
+                        }],
+                    });
+                    
+                    // Генерируем и скачиваем документ
+                    const blobWord = await Packer.toBlob(doc);
+                    saveAs(blobWord, 'расписание_ИП-122_' + new Date().toISOString().slice(0,10) + '.docx');
+                } catch (error) {
+                    console.error('Ошибка при экспорте в Word:', error);
+                    throw error;
+                }
+            }
+            
+            // Функция экспорта для печати
+            async function exportToPrint() {
+                try {
+                    // Создаем изображение контента
+                    const canvas = await html2canvas(exportContent, {
+                        scale: 2,
+                        useCORS: true,
+                        logging: false,
+                        backgroundColor: '#FFFFFF',
+                        allowTaint: false,
+                        width: exportContent.scrollWidth,
+                        height: exportContent.scrollHeight
+                    });
+                    
+                    // Создаем изображение для печати
+                    const imgData = canvas.toDataURL('image/png');
+                    
+                    // Очищаем контейнер для печати
+                    printContent.innerHTML = '';
+                    
+                    // Создаем изображение в контейнере печати
+                    const img = document.createElement('img');
+                    img.src = imgData;
+                    img.style.width = '100%';
+                    img.style.height = 'auto';
+                    
+                    printContent.appendChild(img);
+                    printContent.style.display = 'block';
+                    
+                    // Запускаем печать
+                    window.print();
+                    
+                } catch (error) {
+                    console.error('Ошибка при печати:', error);
+                    throw error;
+                } finally {
+                    // Скрываем контейнер печати после завершения
+                    setTimeout(() => {
+                        printContent.style.display = 'none';
+                        printContent.innerHTML = '';
+                    }, 500);
+                }
+            }
+            
+            // Initialize week display and schedule
+            updateWeekDisplay();
+        });
+    </script>
+</body>
+</html>

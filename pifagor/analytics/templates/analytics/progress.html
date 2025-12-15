@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пифагор - Прогресс обучения</title>
+    <link rel="icon" href="/frontend/static/assets/image/logo/icons.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Forum&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="/frontend/static/css/main.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo-header">
+                <a href="/frontend/templates/main/index.html">
+                    <img src="/frontend/static/assets/image/logo/logo.svg" alt="logo">
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/frontend/templates/main/about.html">О платформе</a></li>
+                <li><a href="/frontend/templates/courses/courses.html">Курсы</a></li>
+                <li><a href="/frontend/templates/main/teachers.html">Преподаватели</a></li>
+                <li><a href="/frontend/templates/main/contact.html">Контакты</a></li>
+            </ul>
+            <div class="header-actions">
+                <div class="user-menu">
+                    <div class="user-avatar" id="userAvatar">
+                        <img src="/frontend/static/assets/image/denizer1305.png" alt="user">
+                    </div>
+                    <div class="user-name" id="userName">Денис Быков</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Dashboard -->
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <ul class="sidebar-menu">
+                <li><a href="/frontend/templates/main/index.html"><i class="fas fa-home"></i> <span>Главная</span></a></li>
+                <li><a href="/frontend/templates/courses/courses.html"><i class="fas fa-book-open"></i> <span>Курсы</span></a></li>
+                <li><a href="/frontend/templates/practic/practic.html"><i class="fas fa-tasks"></i> <span>Задания</span></a></li>
+                <li><a href="/frontend/templates/journal/schedule.html"><i class="fas fa-calendar-alt"></i> <span>Расписание</span></a></li>
+                <li><a href="/frontend/templates/analytics/progress.html" class="active"><i class="fas fa-chart-line"></i> <span>Успеваемость</span></a></li>
+                <li><a href="/frontend/templates/courses/materials.html"><i class="fas fa-file-alt"></i> <span>Материалы</span></a></li>
+                <li><a href="/frontend/templates/users/profile-edit.html"><i class="fas fa-cog"></i> <span>Настройки</span></a></li>
+                <li><a href="/frontend/templates/auth/logout.html"><i class="fas fa-sign-out"></i> <span>Выйти</span></a></li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Progress Header -->
+            <div class="progress-header">
+                <div class="progress-title">
+                    <h1>Успеваемость</h1>
+                    <p>Основы программирования • Преподаватель: Плеханова Е.А.</p>
+                </div>
+                <div class="progress-filters">
+                    <select class="filter-select" id="courseFilter">
+                        <option>Все курсы</option>
+                        <option>Основы программирования</option>
+                        <option>Математика</option>
+                        <option>Физика</option>
+                    </select>
+                    <select class="filter-select" id="timeFilter">
+                        <option>За последний месяц</option>
+                        <option>За последние 3 месяца</option>
+                        <option>За последние 6 месяцев</option>
+                        <option>За весь период</option>
+                    </select>
+                    <a href="#" class="btn btn-light btn-small"><i class="fas fa-download"></i> Экспорт</a>
+                </div>
+            </div>
+
+            <!-- Student Selector (Visible for parents and teachers) -->
+            <div class="student-selector" id="studentSelector">
+                <div class="student-card active" data-student="1">
+                    <div class="student-avatar">ИИ</div>
+                    <div class="student-info">
+                        <h3>Иван Иванов</h3>
+                        <p>9 класс, 15 лет</p>
+                    </div>
+                </div>
+                <div class="student-card" data-student="2">
+                    <div class="student-avatar">МП</div>
+                    <div class="student-info">
+                        <h3>Мария Петрова</h3>
+                        <p>9 класс, 15 лет</p>
+                    </div>
+                </div>
+                <div class="student-card" data-student="3">
+                    <div class="student-avatar">АС</div>
+                    <div class="student-info">
+                        <h3>Алексей Сидоров</h3>
+                        <p>9 класс, 15 лет</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon overall">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>4.5</h3>
+                        <p>Средний балл</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon completed">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>78%</h3>
+                        <p>Выполнено заданий</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon pending">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>3</h3>
+                        <p>Ожидает проверки</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon attendance">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>94%</h3>
+                        <p>Посещаемость</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Section -->
+            <section class="charts-section">
+                <div class="section-header">
+                    <h2>Прогресс обучения</h2>
+                    <div>
+                        <select class="filter-select" id="chartTypeFilter">
+                            <option value="performance">По успеваемости</option>
+                            <option value="activity">По активности</option>
+                            <option value="time">По времени выполнения</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="charts-grid">
+                    <div class="chart-container">
+                        <canvas id="progressChart"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="gradeDistributionChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Progress Table -->
+            <section class="progress-table-section">
+                <div class="section-header">
+                    <h2>Детализация заданий</h2>
+                    <a href="#" class="btn btn-light">Показать все</a>
+                </div>
+                <table class="progress-table">
+                    <thead>
+                        <tr>
+                            <th>Задание</th>
+                            <th>Тип</th>
+                            <th>Срок сдачи</th>
+                            <th>Статус</th>
+                            <th>Оценка</th>
+                            <th>Дата оценки</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Лабораторная работа #3</td>
+                            <td>Практическая</td>
+                            <td>15.12.2023</td>
+                            <td><span class="status-badge status-completed">Выполнено</span></td>
+                            <td><span class="grade-badge grade-excellent">5</span></td>
+                            <td>15.12.2023</td>
+                        </tr>
+                        <tr>
+                            <td>Контрольная работа</td>
+                            <td>Тест</td>
+                            <td>12.12.2023</td>
+                            <td><span class="status-badge status-completed">Выполнено</span></td>
+                            <td><span class="grade-badge grade-good">4</span></td>
+                            <td>13.12.2023</td>
+                        </tr>
+                        <tr>
+                            <td>Проект "Калькулятор"</td>
+                            <td>Проект</td>
+                            <td>10.12.2023</td>
+                            <td><span class="status-badge status-completed">Выполнено</span></td>
+                            <td><span class="grade-badge grade-satisfactory">3</span></td>
+                            <td>11.12.2023</td>
+                        </tr>
+                        <tr>
+                            <td>Домашнее задание #5</td>
+                            <td>Домашняя</td>
+                            <td>08.12.2023</td>
+                            <td><span class="status-badge status-completed">Выполнено</span></td>
+                            <td><span class="grade-badge grade-excellent">5</span></td>
+                            <td>09.12.2023</td>
+                        </tr>
+                        <tr>
+                            <td>Лабораторная работа #4</td>
+                            <td>Практическая</td>
+                            <td>05.01.2024</td>
+                            <td><span class="status-badge status-pending">Ожидает проверки</span></td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>Проект "База данных"</td>
+                            <td>Проект</td>
+                            <td>20.01.2024</td>
+                            <td><span class="status-badge status-pending">В процессе</span></td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </div>
+    <script type="module" src="/frontend/static/js/main.js"></script>
+</body>
+</html>

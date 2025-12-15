@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пифагор - Посещаемость детей</title>
+    <link rel="icon" href="/frontend/static/assets/image/logo/icons.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Forum&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/frontend/static/css/main.css">
+    
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo-header">
+                <a href="/frontend/templates/main/index.html">
+                    <img src="/frontend/static/assets/image/logo/logo.svg" alt="logo">
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/frontend/templates/main/about.html">О платформе</a></li>
+                <li><a href="/frontend/templates/courses/courses.html">Курсы</a></li>
+                <li><a href="/frontend/templates/main/teachers.html">Преподаватели</a></li>
+                <li><a href="/frontend/templates/main/contact.html">Контакты</a></li>
+            </ul>
+            <div class="header-actions">
+                <div class="user-menu">
+                    <div class="user-avatar" id="userAvatar">МП</div>
+                    <div class="user-name" id="userName">Мария Петрова</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Dashboard -->
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <ul class="sidebar-menu">
+                <li><a href="/frontend/templates/main/index.html"><i class="fas fa-home"></i> <span>Главная</span></a></li>
+                <li><a href="/frontend/templates/children/children.html"><i class="fas fa-child"></i> <span>Мои дети</span></a></li>
+                <li><a href="/frontend/templates/courses/courses-list.html"><i class="fas fa-book-open"></i> <span>Курсы детей</span></a></li>
+                <li><a href="/frontend/templates/practic/practic-list.html"><i class="fas fa-tasks"></i> <span>Задания</span></a></li>
+                <li><a href="/frontend/templates/analytics/statistics.html"><i class="fas fa-chart-line"></i> <span>Успеваемость</span></a></li>
+                <li><a href="/frontend/templates/children/children-attendance.html" class="active"><i class="fas fa-calendar-check"></i> <span>Посещаемость</span></a></li>
+                <li><a href="/frontend/templates/journal/schedule.html"><i class="fas fa-calendar-alt"></i> <span>Расписание</span></a></li>
+                <li><a href="/frontend/templates/journal/journal.html"><i class="fas fa-book"></i> <span>Журнал</span></a></li>
+                <li><a href="/frontend/templates/users/profile-edit.html"><i class="fas fa-cog"></i> <span>Настройки</span></a></li>
+                <li><a href="/frontend/templates/auth/logout.html"><i class="fas fa-sign-out"></i> <span>Выйти</span></a></li>                
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Attendance Header -->
+            <div class="attendance-header">
+                <div class="attendance-title">
+                    <h1>Посещаемость детей</h1>
+                    <p>Отслеживание посещаемости ваших детей</p>
+                </div>
+                <div class="attendance-controls">
+                    <select class="filter-select">
+                        <option>Все дети</option>
+                        <option>Алексей Петров</option>
+                        <option>Ирина Петрова</option>
+                    </select>
+                    <div class="date-navigation">
+                        <button id="prevMonth"><i class="fas fa-chevron-left"></i></button>
+                        <div class="current-month" id="currentMonth">Ноябрь 2023</div>
+                        <button id="nextMonth"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <button class="btn">
+                        <i class="fas fa-download"></i> Экспорт
+                    </button>
+                </div>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon overall">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>96%</h3>
+                        <p>Общая посещаемость</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon present">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>42</h3>
+                        <p>Посещенных дней</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon absent">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>2</h3>
+                        <p>Пропущенных дней</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon late">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>3</h3>
+                        <p>Опозданий</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Children Attendance Section -->
+            <section class="attendance-section">
+                <div class="section-header">
+                    <h2>Посещаемость по дням</h2>
+                    <div class="attendance-toggle">
+                        <button class="toggle-btn active" id="viewMonth">Месяц</button>
+                        <button class="toggle-btn" id="viewWeek">Неделя</button>
+                    </div>
+                </div>
+                
+                <div class="attendance-table-container">
+                    <table class="attendance-table">
+                        <thead>
+                            <tr>
+                                <th>Ребенок / Класс</th>
+                                <th class="day-header">
+                                    <span class="day-number">1</span>
+                                    <span class="day-name">Пн</span>
+                                </th>
+                                <th class="day-header">
+                                    <span class="day-number">2</span>
+                                    <span class="day-name">Вт</span>
+                                </th>
+                                <th class="day-header">
+                                    <span class="day-number">3</span>
+                                    <span class="day-name">Ср</span>
+                                </th>
+                                <th class="day-header">
+                                    <span class="day-number">4</span>
+                                    <span class="day-name">Чт</span>
+                                </th>
+                                <th class="day-header">
+                                    <span class="day-number">5</span>
+                                    <span class="day-name">Пт</span>
+                                </th>
+                                <th class="day-header weekend">
+                                    <span class="day-number">6</span>
+                                    <span class="day-name">Сб</span>
+                                </th>
+                                <th class="day-header weekend">
+                                    <span class="day-number">7</span>
+                                    <span class="day-name">Вс</span>
+                                </th>
+                                <th class="day-header">
+                                    <span class="day-number">8</span>
+                                    <span class="day-name">Пн</span>
+                                </th>
+                                <th class="day-header">
+                                    <span class="day-number">9</span>
+                                    <span class="day-name">Вт</span>
+                                </th>
+                                <th class="day-header">
+                                    <span class="day-number">10</span>
+                                    <span class="day-name">Ср</span>
+                                </th>
+                                <th class="day-header">
+                                    <span class="day-number">11</span>
+                                    <span class="day-name">Чт</span>
+                                </th>
+                                <th class="day-header">
+                                    <span class="day-number">12</span>
+                                    <span class="day-name">Пт</span>
+                                </th>
+                                <th class="day-header weekend">
+                                    <span class="day-number">13</span>
+                                    <span class="day-name">Сб</span>
+                                </th>
+                                <th class="day-header weekend">
+                                    <span class="day-number">14</span>
+                                    <span class="day-name">Вс</span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Child 1 -->
+                            <tr class="child-row">
+                                <td>
+                                    <div class="child-info-cell">
+                                        <div class="child-avatar">АП</div>
+                                        <div>
+                                            <div class="child-name">Алексей Петров</div>
+                                            <div class="child-class">9-А класс</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="attendance-status status-present" title="Присутствовал">П</span></td>
+                                <td><span class="attendance-status status-present" title="Присутствовал">П</span></td>
+                                <td><span class="attendance-status status-present" title="Присутствовал">П</span></td>
+                                <td><span class="attendance-status status-present" title="Присутствовал">П</span></td>
+                                <td><span class="attendance-status status-present" title="Присутствовал">П</span></td>
+                                <td class="weekend"></td>
+                                <td class="weekend"></td>
+                                <td><span class="attendance-status status-present" title="Присутствовал">П</span></td>
+                                <td><span class="attendance-status status-late" title="Опоздал">О</span></td>
+                                <td><span class="attendance-status status-present" title="Присутствовал">П</span></td>
+                                <td><span class="attendance-status status-present" title="Присутствовал">П</span></td>
+                                <td><span class="attendance-status status-present" title="Присутствовал">П</span></td>
+                                <td class="weekend"></td>
+                                <td class="weekend"></td>
+                            </tr>
+                            
+                            <!-- Child 2 -->
+                            <tr class="child-row">
+                                <td>
+                                    <div class="child-info-cell">
+                                        <div class="child-avatar">ИП</div>
+                                        <div>
+                                            <div class="child-name">Ирина Петрова</div>
+                                            <div class="child-class">10-Б класс</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="attendance-status status-present" title="Присутствовала">П</span></td>
+                                <td><span class="attendance-status status-present" title="Присутствовала">П</span></td>
+                                <td><span class="attendance-status status-absent" title="Отсутствовала">Н</span></td>
+                                <td><span class="attendance-status status-present" title="Присутствовала">П</span></td>
+                                <td><span class="attendance-status status-present" title="Присутствовала">П</span></td>
+                                <td class="weekend"></td>
+                                <td class="weekend"></td>
+                                <td><span class="attendance-status status-present" title="Присутствовала">П</span></td>
+                                <td><span class="attendance-status status-present" title="Присутствовала">П</span></td>
+                                <td><span class="attendance-status status-late" title="Опоздала">О</span></td>
+                                <td><span class="attendance-status status-present" title="Присутствовала">П</span></td>
+                                <td><span class="attendance-status status-late" title="Опоздала">О</span></td>
+                                <td class="weekend"></td>
+                                <td class="weekend"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Attendance Summary -->
+            <section class="attendance-summary">
+                <div class="section-header">
+                    <h2>Статистика посещаемости</h2>
+                </div>
+                
+                <div class="summary-grid">
+                    <div class="summary-card">
+                        <h3>Алексей Петров</h3>
+                        <p>9-А класс</p>
+                        <div class="attendance-stats">
+                            <h4>98%</h4>
+                            <p>Посещаемость</p>
+                        </div>
+                        <div class="details">
+                            <p>Посещено: 11 из 12 дней</p>
+                            <p>Опозданий: 1</p>
+                            <p>Пропусков: 0</p>
+                        </div>
+                    </div>
+                    
+                    <div class="summary-card">
+                        <h3>Ирина Петрова</h3>
+                        <p>10-Б класс</p>
+                        <div class="attendance-stats">
+                            <h4>94%</h4>
+                            <p>Посещаемость</p>
+                        </div>
+                        <div class="details">
+                            <p>Посещено: 10 из 12 дней</p>
+                            <p>Опозданий: 2</p>
+                            <p>Пропусков: 1</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="legend">
+                    <div class="legend-item">
+                        <span class="legend-color" style="background-color: var(--success);"></span>
+                        <span>Присутствовал(а)</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color" style="background-color: var(--danger);"></span>
+                        <span>Отсутствовал(а)</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color" style="background-color: var(--warning);"></span>
+                        <span>Опоздал(а)</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color" style="background-color: var(--info);"></span>
+                        <span>По уважительной причине</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script type="module" src="/frontend/static/js/main.js"></script>
+</body>
+</html>

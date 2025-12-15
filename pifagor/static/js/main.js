@@ -134,7 +134,7 @@ class EducationalPlatform {
 
         } catch (error) {
             console.error('Failed to initialize app:', error);
-            this.dispatchEvent('app:error', { error });
+            this.dispatchEvent('app:pifagor_error', { error });
         }
     }
 
@@ -549,11 +549,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (EduApp.config.autoInit) {
         EduApp.init();
     }
-});
-
-// Обработчики событий темы
-document.addEventListener('themeChanged', (event) => {
-    console.log('Тема изменена на:', event.detail.theme);
 });
 
 // Глобальные экспорты для обратной совместимости

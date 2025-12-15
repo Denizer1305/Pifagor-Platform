@@ -1,5 +1,6 @@
 from django.shortcuts import render
 
+
 def materials(request):
     title = {
         "title": "Пифагор - Учебные материалы"

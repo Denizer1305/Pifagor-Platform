@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block content %}
-    <section class="hero">
+    <section class="hero-page">
         <div class="bg-shapes">
             <div class="shape"></div>
             <div class="shape"></div>
@@ -27,7 +27,7 @@
             <div class="team-grid">
                 <div class="team-member fade-in">
                     <div class="member-photo">
-                        <img src="{% static 'assets/image/denizer1305.png' %}" alt="Быков Денис">
+                        <img src="{% static 'assets/image/denizer1305.webp' %}" alt="Быков Денис">
                     </div>
                     <div class="member-info">
                         <h3>Быков Денис Александрович</h3>
@@ -37,17 +37,17 @@
                 </div>
                 <div class="team-member fade-in">
                     <div class="member-photo">
-                        <img src="{% static 'assets/image/partner/foto_teachers.jpg' %}" alt="Плеханова Елена">
+                        <img src="{% static 'assets/image/partner/foto_teachers.webp' %}" alt="Плеханова Елена">
                     </div>
                     <div class="member-info">
                         <h3>Плеханова Елена Александровна</h3>
                         <div class="member-role">Руководитель дипломного проекта</div>
-                        <p class="member-description">Научный руководитель проекта, обеспечивающий методическое сопровождение и консультационную поддержку на всех этапах разработки платформы.</p>
+                        <p class="member-description">Руководитель проекта, обеспечивающий методическое сопровождение и консультационную поддержку на всех этапах разработки платформы.</p>
                     </div>
                 </div>
                 <div class="team-member fade-in">
                     <div class="member-photo">
-                        <img src="{% static 'assets/image/partner/elros.jpg' %}" alt="ЭлРос">
+                        <img src="{% static 'assets/image/partner/elros.webp' %}" alt="ЭлРос">
                     </div>
                     <div class="member-info">
                         <h3>ООО "ЭлРос"</h3>
@@ -58,7 +58,7 @@
                 </div>
                 <div class="team-member fade-in">
                     <div class="member-photo">
-                        <img src="{% static 'assets/image/partner/vamk.png' %}" alt="ВлГК им.Советкина">
+                        <img src="{% static 'assets/image/partner/vamk.webp' %}" alt="ВлГК им.Советкина">
                     </div>
                     <div class="member-info">
                         <h3>ГАПОУ ВО "ВлГК им. Д.К.Советкина"</h3>
@@ -75,31 +75,71 @@
         <div class="container">
             <h2 class="section-title">Тестирование и совершенствование платформы</h2>
             <div class="testing-content fade-in">
-                <p>В течение нескольких месяцев платформа проходила всестороннее тестирование в реальных образовательных условиях:</p>
+                <p class="testing-intro">В течение нескольких месяцев платформа проходила всестороннее тестирование в реальных образовательных условиях:</p>
                 
                 <div class="testing-institutions">
                     <div class="institution">
-                        <h3>ГАПОУ ВО "ВлГК им. Д.К. Советкина"</h3>
-                        <p>На базе колледжа было проведено комплексное тестирование всех модулей платформы в условиях 
-                        среднего профессионального образования. Студенты и преподаватели активно 
-                        участвовали в тестировании функционала, работая с профессиональными модулями, выполняли практические 
-                        задания и лабораторные работы через платформу.</p>
+                        <div class="institution-header">
+                            <h3 class="institution-title">ГАПОУ ВО "ВлГК им. Д.К. Советкина"</h3>
+                            <div class="institution-badge">Официальный партнер тестирования</div>
+                        </div>
                         
-                        <div class="testing-results">
-                            <h4>Ключевые направления тестирования:</h4>
-                            <ul>
-                                <li>Создание и прохождение учебных курсов по техническим дисциплинам</li>
-                                <li>Организация системы практических и лабораторных работ</li>
-                                <li>Тестирование модуля электронного журнала и оценок</li>
-                                <li>Тестирование системы аналитики и отчетности</li>
-                                <li>Работа с расписанием и планированием учебного процесса</li>
-                            </ul>
+                        <div class="institution-content">
+                            <div class="institution-main">
+                                <p class="institution-description">
+                                    На базе колледжа было проведено комплексное тестирование всех модулей платформы в условиях 
+                                    среднего профессионального образования. Студенты и преподаватели активно 
+                                    участвовали в тестировании функционала, работая с профессиональными модулями, выполняли практические 
+                                    задания и лабораторные работы через платформу.
+                                </p>
+                                
+                            </div>
+                            
+                            <div class="institution-gratitude">
+                                <h4 class="gratitude-title">Благодарности</h4>
+                                <div class="gratitude-items">
+                                    <div class="gratitude-item">
+                                        <strong>Плеханова Елена Александровна</strong>
+                                        <span>— за поддержку на всех этапах разработки и "полный полет фантазии"</span>
+                                        <span>— за развитие профессиональных навыков программирования</span>
+                                    </div>
+                                    <div class="gratitude-item">
+                                        <strong>Голубева Татьяна Владимировна</strong>
+                                        <span>— за развитие профессиональных навыков в создании реляционных баз данных</span>
+                                        <span>— за консультации по архитектуре базы данных</span>
+                                    </div>
+                                    <div class="gratitude-item">
+                                        <strong>Петров Артем Евгеньевич</strong>
+                                        <span>— за обучение структурному мышлению и созданию эффективных решений</span>
+                                        <span>— за помощь в развитии логического и алгоритмического мышления</span>
+                                        <span>— за поддержку в освоении принципов проектирования программных систем</span>
+                                    </div>
+                                    <div class="gratitude-item">
+                                        <strong>Икрамова Татьяна Владимировна</strong>
+                                        <span>— за помощь в разработке и тестировании языковых модулей для ИИ "Анастасии"</span>
+                                        <span>— за лингвистическую экспертизу и коррекцию модуля русского языка</span>
+                                        <span>— за методические рекомендации по созданию языковых упражнений</span>
+                                    </div>
+                                    <div class="gratitude-item">
+                                        <strong>Фёдерова Ирина Александровна</strong>
+                                        <span>— за помощь в разработке и тестировании языковых модулей для ИИ "Анастасии"</span>
+                                        <span>— за лингвистическую экспертизу модулей немецкого и английского языков</span>
+                                        <span>— за создание и валидацию межъязыковых упражнений</span>
+                                    </div>
+                                    <div class="gratitude-item">
+                                        <strong>Шмелева Екатерина Сергеевна</strong>
+                                        <span>— за помощь в доработке систем для преподавательского состава</span>
+                                        <span>— за адаптацию платформы под школьную программу</span>
+                                        <span>— за тестирование функционала в реальных образовательных условиях</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
                 
                 <div class="gratitude">
-                    <h3>Выражаем искреннюю признательность</h3>
+                    <h3 class="gratitude-main-title">Выражаем искреннюю признательность</h3>
                     <div class="gratitude-groups">
                         <div class="gratitude-group">
                             <h4>Преподавательскому составу</h4>

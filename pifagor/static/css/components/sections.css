@@ -2166,3 +2166,44 @@ code {
     background-color: rgba(243, 156, 18, 0.1);
     color: var(--warning);
 }
+
+.institution-gratitude {
+    background: var(--white);
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 8px;
+    border-left: 4px solid var(--accent);
+}
+
+.gratitude-title {
+    color: var(--accent-blue);
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin: 0 0 12px 0;
+}
+
+.gratitude-items {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.gratitude-item {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    color: var(--secondary);
+    line-height: 1.5;
+}
+
+.gratitude-item strong {
+    color: var(--accent);
+    font-weight: 600;
+}
+
+.gratitude-main-title {
+    text-align: center;
+    color: var(--accent-blue);
+    font-size: 1.75rem;
+    margin-bottom: 2rem;
+}

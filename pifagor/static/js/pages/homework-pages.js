@@ -1050,8 +1050,8 @@ function validateForm(isDraft = false) {
     let isValid = true;
     
     // Сброс предыдущих ошибок
-    document.querySelectorAll('.error').forEach(el => el.classList.remove('error'));
-    document.querySelectorAll('.error-message').forEach(el => el.remove());
+    document.querySelectorAll('.pifagor_error').forEach(el => el.classList.remove('error'));
+    document.querySelectorAll('.pifagor_error-message').forEach(el => el.remove());
     
     if (!isDraft) {
         if (!title || !title.value.trim()) {
@@ -1078,7 +1078,7 @@ function validateForm(isDraft = false) {
     if (!isValid && !isDraft) {
         showAlert('Пожалуйста, заполните все обязательные поля', 'error');
         // Прокрутка к первой ошибке
-        const firstError = document.querySelector('.error');
+        const firstError = document.querySelector('.pifagor_error');
         if (firstError) {
             firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
             firstError.focus();
@@ -1094,10 +1094,10 @@ function markFieldError(field, message) {
     field.classList.add('error');
     
     // Создание или обновление сообщения об ошибке
-    let errorElement = field.parentNode.querySelector('.error-message');
+    let errorElement = field.parentNode.querySelector('.pifagor_error-message');
     if (!errorElement) {
         errorElement = document.createElement('div');
-        errorElement.className = 'error-message';
+        errorElement.className = 'pifagor_error-message';
         field.parentNode.appendChild(errorElement);
     }
     errorElement.textContent = message;
@@ -1271,7 +1271,7 @@ function updateDeadlineCounter(deadlineDate) {
         daysLeftElement.textContent = `${daysLeft} ${getDaysText(daysLeft)}`;
         
         if (daysLeft <= 0) {
-            daysLeftElement.style.color = 'var(--error-color)';
+            daysLeftElement.style.color = 'var(--pifagor_error-color)';
             daysLeftElement.innerHTML = `<i class="fas fa-exclamation-triangle"></i> Просрочено`;
         } else if (daysLeft <= 3) {
             daysLeftElement.style.color = 'var(--warning-color)';
@@ -1571,7 +1571,7 @@ function initScoreCalculation() {
         } else if (percentage >= 60) {
             totalScoreValue.style.color = 'var(--warning-color)';
         } else {
-            totalScoreValue.style.color = 'var(--error-color)';
+            totalScoreValue.style.color = 'var(--pifagor_error-color)';
         }
     }
     

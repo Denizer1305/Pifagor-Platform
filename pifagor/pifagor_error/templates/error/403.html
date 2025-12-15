@@ -1,0 +1,80 @@
+{% extends 'base_error.html' %}
+{% load static %}
+
+{% block error_title %}Ошибка 403{% endblock %}
+{% block error_body_class %}error-page-403{% endblock %}
+
+{% block content %}
+    <div class="bg-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <!-- Floating elements -->
+    <div class="floating-element" style="top: 15%; right: 8%; width: 40px; height: 40px; background: var(--accent-purple); border-radius: 50%;"></div>
+    <div class="floating-element" style="top: 70%; left: 5%; width: 30px; height: 30px; background: var(--primary-dark); border-radius: 50%; animation-delay: 0.5s;"></div>
+    <div class="floating-element" style="top: 40%; right: 15%; width: 25px; height: 25px; background: var(--accent-red); border-radius: 50%; animation-delay: 1s;"></div>
+    
+    <!-- Particle Background -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Error Content -->
+    <div class="container-error">
+        <div class="content-left">
+            <div class="logo-container">
+                <div class="logo">
+                    <img src="{% static 'assets/image/logo/logo.svg' %}" alt="Пифагор">
+                </div>
+            </div>
+            
+            <div class="error-code">403</div>
+            
+            <h1 class="error-title">Доступ запрещен</h1>
+            
+            <p class="error-description">
+                У вас недостаточно прав для доступа к запрашиваемой странице. 
+                Этот ресурс может быть ограничен для определенных групп пользователей или требовать специальных разрешений.
+            </p>
+            
+            <div class="reassurance-access">
+                <p>
+                    <i class="fas fa-exclamation-triangle"></i> 
+                    <strong>Не волнуйтесь! Это стандартное ограничение доступа. Обратитесь к администратору, если считаете, что получили это сообщение по ошибке.</strong>
+                </p>
+            </div>
+            
+            <div class="error-actions">
+                <a href="{% url 'main:index' %}" class="btn">
+                    <i class="fas fa-home"></i> На главную
+                </a>
+                <a href="{% url 'main:index' %}" class="btn btn-light">
+                    <i class="fas fa-book-open"></i> Доступные курсы
+                </a>
+                <button onclick="history.back()" class="btn btn-light">
+                    <i class="fas fa-arrow-left"></i> Назад
+                </button>
+            </div>
+            
+            <div class="access-tips">
+                <h3><i class="fas fa-lightbulb"></i> Как получить доступ:</h3>
+                <ul>
+                    <li>Обратитесь к администратору системы</li>
+                    <li>Проверьте уровень вашей подписки или учетной записи</li>
+                    <li>Убедитесь, что вошли в систему под правильной учетной записью</li>
+                    <li>Если вы считаете, что это ошибка, свяжитесь с технической поддержкой</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="illustration-right">
+            <div class="error-illustration error-illustration-403" id="error-illustration">
+                <i class="fas fa-ban"></i>
+                <h3 class="illustration-title">Ошибка 403</h3>
+                <p>Доступ запрещен</p>
+                <p>Недостаточно прав для просмотра</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

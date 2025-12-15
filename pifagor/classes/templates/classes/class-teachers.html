@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пифагор - Преподаватели класса</title>
+    <link rel="icon" href="/frontend/static/assets/image/logo/icons.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Forum&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/frontend/static/css/main.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/docx/7.8.2/docx.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo-header">
+                <a href="/frontend/templates/main/index.html">
+                    <img src="/frontend/static/assets/image/logo/logo.svg" alt="logo">
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/frontend/templates/main/about.html">О платформе</a></li>
+                <li><a href="/frontend/templates/courses/courses.html">Курсы</a></li>
+                <li><a href="/frontend/templates/main/teachers.html">Преподаватели</a></li>
+                <li><a href="/frontend/templates/main/contact.html">Контакты</a></li>
+            </ul>
+            <div class="header-actions">
+                <div class="user-menu">
+                    <div class="user-avatar" id="userAvatar">ЕП</div>
+                    <div class="user-name" id="userName">Елена Плеханова</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Dashboard -->
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <ul class="sidebar-menu">
+                <li><a href="/frontend/templates/users/teacher-dashboard.html"><i class="fas fa-home"></i> <span>Главная</span></a></li>
+                <li><a href="/frontend/templates/courses/courses-list.html"><i class="fas fa-book-open"></i> <span>Мои курсы</span></a></li>
+                <li><a href="/frontend/templates/practic/practic-list.html"><i class="fas fa-tasks"></i> <span>Задания</span></a></li>
+                <li><a href="/frontend/templates/journal/classes.html"><i class="fas fa-users"></i> <span>Классы</span></a></li>
+                <li><a href="/frontend/templates/practic/practic-check.html"><i class="fas fa-check-circle"></i> <span>Проверка работ</span></a></li>
+                <li><a href="/frontend/templates/analytics/statistics.html"><i class="fas fa-chart-line"></i> <span>Аналитика</span></a></li>
+                <li><a href="/frontend/templates/journal/schedule.html"><i class="fas fa-calendar-alt"></i> <span>Расписание</span></a></li>
+                <li><a href="/frontend/templates/journal/journal.html"><i class="fas fa-book"></i> <span>Журнал</span></a></li>
+                <li><a href="/frontend/templates/analytics/attendance.html"><i class="fas fa-clipboard-check"></i> <span>Посещаемость</span></a></li>
+                <li><a href="/frontend/templates/journal/grades.html"><i class="fas fa-star"></i> <span>Успеваемость</span></a></li>
+                <li><a href="/frontend/templates/analytics/progress.html"><i class="fas fa-chart-bar"></i> <span>Прогресс</span></a></li>
+                <li><a href="/frontend/templates/journal/schedule-create.html"><i class="fas fa-plus-circle"></i> <span>Создать расписание</span></a></li>
+                <li><a href="/frontend/templates/classes/class-students.html"><i class="fas fa-user-graduate"></i> <span>Ученики класса</span></a></li>
+                <li><a href="/frontend/templates/classes/class-teachers.html" class="active"><i class="fas fa-chalkboard-teacher"></i> <span>Преподаватели класса</span></a></li>
+                <li><a href="/frontend/templates/classes/class-schedule.html"><i class="fas fa-calendar-week"></i> <span>Расписание класса</span></a></li>
+                <li><a href="/frontend/templates/users/profile-edit.html"><i class="fas fa-cog"></i> <span>Настройки</span></a></li>
+                <li><a href="/frontend/templates/auth/logout.html"><i class="fas fa-sign-out"></i> <span>Выйти</span></a></li>                
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Class Header -->
+            <div class="class-header">
+                <div class="class-title">
+                    <h1>Преподаватели 9-А класса</h1>
+                    <p>Основы программирования • Классный руководитель: Иванов А.С.</p>
+                </div>
+                <div class="class-controls">
+                    <select class="filter-select" id="subjectFilter">
+                        <option>Все предметы</option>
+                        <option>Математика</option>
+                        <option>Физика</option>
+                        <option>Программирование</option>
+                        <option>Литература</option>
+                        <option>История</option>
+                    </select>
+                    <a href="#" class="btn" id="addTeacherBtn"><i class="fas fa-user-plus"></i> Добавить преподавателя</a>
+                    <a href="#" class="btn btn-light" id="exportTeachersBtn"><i class="fas fa-download"></i> Экспорт списка</a>
+                </div>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon teachers">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>8</h3>
+                        <p>Преподавателей в классе</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon subjects">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>12</h3>
+                        <p>Преподаваемых предметов</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon hours">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>24ч</h3>
+                        <p>Общая нагрузка в неделю</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon workload">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>75%</h3>
+                        <p>Средняя загруженность</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Teachers Layout -->
+            <div class="teachers-layout">
+                <!-- Left Column -->
+                <div class="left-column">
+                    <!-- Teachers Section -->
+                    <section class="teachers-section">
+                        <div class="section-header">
+                            <h2>Преподаватели класса</h2>
+                            <div class="search-box">
+                                <i class="fas fa-search search-icon"></i>
+                                <input type="text" class="search-input" placeholder="Поиск преподавателей...">
+                            </div>
+                        </div>
+                        <div class="teachers-grid">
+                            <!-- Teacher Card 1 -->
+                            <div class="teacher-card">
+                                <div class="teacher-header">
+                                    <div class="teacher-avatar">ИА</div>
+                                    <div class="teacher-info">
+                                        <div class="teacher-name">Иванов Александр Сергеевич</div>
+                                        <div class="teacher-subject">Основы программирования</div>
+                                        <div class="teacher-meta">
+                                            <span>Классный руководитель</span>
+                                            <span>Опыт: 12 лет</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="teacher-body">
+                                    <div class="teacher-details">
+                                        <div class="detail-item">
+                                            <span class="detail-label">Нагрузка</span>
+                                            <span class="detail-value">6 часов/нед</span>
+                                        </div>
+                                        <div class="detail-item">
+                                            <span class="detail-label">Email</span>
+                                            <span class="detail-value">a.ivanov@school.ru</span>
+                                        </div>
+                                        <div class="detail-item">
+                                            <span class="detail-label">Телефон</span>
+                                            <span class="detail-value">+7 (912) 345-67-89</span>
+                                        </div>
+                                        <div class="detail-item">
+                                            <span class="detail-label">Кабинет</span>
+                                            <span class="detail-value">312</span>
+                                        </div>
+                                    </div>
+                                    <div class="work-days">
+                                        <div class="work-days-title">Рабочие дни:</div>
+                                        <div class="days-grid">
+                                            <div class="day-item day-work">ПН</div>
+                                            <div class="day-item day-work">ВТ</div>
+                                            <div class="day-item day-off">СР</div>
+                                            <div class="day-item day-work">ЧТ</div>
+                                            <div class="day-item day-work">ПТ</div>
+                                            <div class="day-item day-off">СБ</div>
+                                            <div class="day-item day-off">ВС</div>
+                                        </div>
+                                    </div>
+                                    <div class="teacher-bio">
+                                        <p>Специалист в области компьютерных наук. Автор учебника "Основы алгоритмизации".</p>
+                                    </div>
+                                </div>
+                                <div class="teacher-footer">
+                                    <div class="teacher-status">
+                                        <span class="attendance-badge attendance-high">Активен</span>
+                                    </div>
+                                    <div class="teacher-actions">
+                                        <div class="action-btn" data-action="edit"><i class="fas fa-edit"></i></div>
+                                        <div class="action-btn" data-action="profile"><i class="fas fa-user"></i></div>
+                                        <div class="action-btn" data-action="message"><i class="fas fa-envelope"></i></div>
+                                        <div class="action-btn" data-action="schedule"><i class="fas fa-calendar"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Right Column -->
+                <div class="right-column">
+                    <!-- Workload Section -->
+                    <section class="workload-section">
+                        <div class="section-header">
+                            <h2>Нагрузка преподавателей</h2>
+                        </div>
+                        <ul class="workload-list">
+                            <li class="workload-item">
+                                <div class="workload-header">
+                                    <div class="workload-title">Основы программирования</div>
+                                    <div class="workload-hours">6 часов</div>
+                                </div>
+                                <div class="workload-bar">
+                                    <div class="workload-fill" style="width: 75%"></div>
+                                </div>
+                                <div class="workload-details">
+                                    <span>Иванов А.С.</span>
+                                    <span>25% от общей нагрузки</span>
+                                </div>
+                            </li>
+                            <li class="workload-item">
+                                <div class="workload-header">
+                                    <div class="workload-title">Математика</div>
+                                    <div class="workload-hours">4 часа</div>
+                                </div>
+                                <div class="workload-bar">
+                                    <div class="workload-fill" style="width: 50%"></div>
+                                </div>
+                                <div class="workload-details">
+                                    <span>Петрова М.В.</span>
+                                    <span>17% от общей нагрузки</span>
+                                </div>
+                            </li>
+                            <li class="workload-item">
+                                <div class="workload-header">
+                                    <div class="workload-title">Физика</div>
+                                    <div class="workload-hours">4 часа</div>
+                                </div>
+                                <div class="workload-bar">
+                                    <div class="workload-fill" style="width: 50%"></div>
+                                </div>
+                                <div class="workload-details">
+                                    <span>Сидоров Д.К.</span>
+                                    <span>17% от общей нагрузки</span>
+                                </div>
+                            </li>
+                            <li class="workload-item">
+                                <div class="workload-header">
+                                    <div class="workload-title">Литература</div>
+                                    <div class="workload-hours">3 часа</div>
+                                </div>
+                                <div class="workload-bar">
+                                    <div class="workload-fill" style="width: 38%"></div>
+                                </div>
+                                <div class="workload-details">
+                                    <span>Новикова Е.П.</span>
+                                    <span>12% от общей нагрузки</span>
+                                </div>
+                            </li>
+                            <li class="workload-item">
+                                <div class="workload-header">
+                                    <div class="workload-title">История</div>
+                                    <div class="workload-hours">3 часа</div>
+                                </div>
+                                <div class="workload-bar">
+                                    <div class="workload-fill" style="width: 38%"></div>
+                                </div>
+                                <div class="workload-details">
+                                    <span>Козлов В.И.</span>
+                                    <span>12% от общей нагрузки</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </section>
+
+                    <!-- Recent Activity -->
+                    <section class="activity-section">
+                        <div class="section-header">
+                            <h2>Последняя активность</h2>
+                        </div>
+                        <ul class="activity-list">
+                            <li class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-chalkboard"></i>
+                                </div>
+                                <div class="activity-info">
+                                    <h4>Новое занятие</h4>
+                                    <p>Иванов А.С. добавил урок по алгоритмам</p>
+                                </div>
+                                <div class="activity-time">2 часа назад</div>
+                            </li>
+                            <li class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-tasks"></i>
+                                </div>
+                                <div class="activity-info">
+                                    <h4>Проверка работ</h4>
+                                    <p>Петрова М.В. проверила 15 домашних заданий</p>
+                                </div>
+                                <div class="activity-time">5 часов назад</div>
+                            </li>
+                            <li class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-user-plus"></i>
+                                </div>
+                                <div class="activity-info">
+                                    <h4>Новый преподаватель</h4>
+                                    <p>В класс добавлен преподаватель английского</p>
+                                </div>
+                                <div class="activity-time">Вчера</div>
+                            </li>
+                            <li class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-calendar-alt"></i>
+                                </div>
+                                <div class="activity-info">
+                                    <h4>Изменение расписания</h4>
+                                    <p>Сидоров Д.К. перенес лабораторную работу</p>
+                                </div>
+                                <div class="activity-time">2 дня назад</div>
+                            </li>
+                        </ul>
+                    </section>
+
+                    <!-- Quick Actions -->
+                    <section class="actions-section">
+                        <div class="section-header">
+                            <h2>Быстрые действия</h2>
+                        </div>
+                        <div class="actions-grid">
+                            <div class="action-card" id="exportTeachers">
+                                <div class="action-icon">
+                                    <i class="fas fa-file-export"></i>
+                                </div>
+                                <div class="action-title">Экспорт списка</div>
+                                <div class="action-desc">Выгрузить данные преподавателей</div>
+                            </div>
+                            <div class="action-card" id="sendMessage">
+                                <div class="action-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div class="action-title">Отправить сообщение</div>
+                                <div class="action-desc">Всем преподавателям класса</div>
+                            </div>
+                            <div class="action-card" id="scheduleMeeting">
+                                <div class="action-icon">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <div class="action-title">Назначить встречу</div>
+                                <div class="action-desc">С преподавателями класса</div>
+                            </div>
+                            <div class="action-card" id="workloadReport">
+                                <div class="action-icon">
+                                    <i class="fas fa-chart-pie"></i>
+                                </div>
+                                <div class="action-title">Отчет по нагрузке</div>
+                                <div class="action-desc">Анализ рабочей нагрузки</div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Teacher Modal -->
+    <div class="modal-overlay" id="teacherModal">
+        <div class="teacher-modal">
+            <div class="modal-header">
+                <h3 id="modalTitle">Добавить преподавателя</h3>
+                <div class="close-modal" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </div>
+            </div>
+            <div class="modal-content">
+                <form id="teacherForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="firstName">Имя</label>
+                            <input type="text" class="form-input" id="firstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="lastName">Фамилия</label>
+                            <input type="text" class="form-input" id="lastName" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="middleName">Отчество</label>
+                            <input type="text" class="form-input" id="middleName">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="subject">Предмет</label>
+                            <select class="form-select" id="subject" required>
+                                <option value="">Выберите предмет</option>
+                                <option value="math">Математика</option>
+                                <option value="physics">Физика</option>
+                                <option value="programming">Программирование</option>
+                                <option value="literature">Литература</option>
+                                <option value="history">История</option>
+                                <option value="english">Английский язык</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="workload">Нагрузка (часов/неделю)</label>
+                            <input type="number" class="form-input" id="workload" min="1" max="40" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="cabinet">Кабинет</label>
+                            <input type="text" class="form-input" id="cabinet">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="email">Email</label>
+                            <input type="email" class="form-input" id="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="phone">Телефон</label>
+                            <input type="tel" class="form-input" id="phone">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="experience">Опыт работы (лет)</label>
+                        <input type="number" class="form-input" id="experience" min="0" max="50">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="role">Роль в классе</label>
+                        <select class="form-select" id="role">
+                            <option value="">Обычный преподаватель</option>
+                            <option value="class_teacher">Классный руководитель</option>
+                            <option value="head_teacher">Завуч</option>
+                            <option value="methodist">Методист</option>
+                        </select>
+                    </div>
+                    <div class="work-days-modal">
+                        <div class="work-days-title-modal">Рабочие дни:</div>
+                        <div class="days-grid-modal">
+                            <input type="checkbox" id="monday" class="day-checkbox" checked>
+                            <label for="monday" class="day-label">ПН</label>
+                            
+                            <input type="checkbox" id="tuesday" class="day-checkbox" checked>
+                            <label for="tuesday" class="day-label">ВТ</label>
+                            
+                            <input type="checkbox" id="wednesday" class="day-checkbox" checked>
+                            <label for="wednesday" class="day-label">СР</label>
+                            
+                            <input type="checkbox" id="thursday" class="day-checkbox" checked>
+                            <label for="thursday" class="day-label">ЧТ</label>
+                            
+                            <input type="checkbox" id="friday" class="day-checkbox" checked>
+                            <label for="friday" class="day-label">ПТ</label>
+                            
+                            <input type="checkbox" id="saturday" class="day-checkbox">
+                            <label for="saturday" class="day-label">СБ</label>
+                            
+                            <input type="checkbox" id="sunday" class="day-checkbox">
+                            <label for="sunday" class="day-label">ВС</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="bio">Краткая биография</label>
+                        <textarea class="form-textarea" id="bio" rows="3"></textarea>
+                    </div>
+                    <div class="modal-actions">
+                        <button type="button" class="btn btn-light" id="cancelBtn">Отмена</button>
+                        <button type="submit" class="btn" id="saveTeacherBtn">Сохранить</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно экспорта -->
+    <div class="export-modal" id="exportModal">
+        <div class="export-modal-content">
+            <h2>Экспорт списка преподавателей</h2>
+            <div class="export-options">
+                <label class="export-option">
+                    <input type="radio" name="exportFormat" value="pdf" checked>
+                    <span>PDF документ</span>
+                </label>
+                <label class="export-option">
+                    <input type="radio" name="exportFormat" value="image">
+                    <span>Изображение PNG</span>
+                </label>
+                <label class="export-option">
+                    <input type="radio" name="exportFormat" value="word">
+                    <span>Word документ</span>
+                </label>
+                <label class="export-option">
+                    <input type="radio" name="exportFormat" value="print">
+                    <span>Печать</span>
+                </label>
+            </div>
+            <div class="export-actions">
+                <button class="btn btn-light" id="cancelExport">Отмена</button>
+                <button class="btn" id="confirmExport">Экспортировать</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Индикатор загрузки -->
+    <div class="export-loading" id="exportLoading">
+        <div class="spinner"></div>
+        <p>Подготовка отчета...</p>
+    </div>
+
+    <!-- Контейнер для экспорта (скрытый) -->
+    <div id="exportContent" style="display: none; position: relative;">
+        <div class="export-watermark">ПИФАГОР</div>
+        <div class="export-container">
+            <div class="export-header">
+                <h1 class="export-title">Список преподавателей 9-А класса</h1>
+                <p class="export-subtitle">Дата генерации: <span id="exportDate"></span></p>
+                <p class="export-subtitle">Классный руководитель: Иванов А.С.</p>
+            </div>
+
+            <div class="export-section">
+                <h2 class="export-section-title">Общая информация</h2>
+                <table class="export-table">
+                    <thead>
+                        <tr>
+                            <th>Показатель</th>
+                            <th>Значение</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Количество преподавателей</td>
+                            <td>8</td>
+                        </tr>
+                        <tr>
+                            <td>Количество предметов</td>
+                            <td>12</td>
+                        </tr>
+                        <tr>
+                            <td>Общая нагрузка в неделю</td>
+                            <td>24 часа</td>
+                        </tr>
+                        <tr>
+                            <td>Средняя загруженность</td>
+                            <td>75%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="export-section">
+                <h2 class="export-section-title">Преподаватели класса</h2>
+                <table class="export-table">
+                    <thead>
+                        <tr>
+                            <th>ФИО</th>
+                            <th>Предмет</th>
+                            <th>Нагрузка</th>
+                            <th>Email</th>
+                            <th>Телефон</th>
+                            <th>Кабинет</th>
+                            <th>Рабочие дни</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Иванов Александр Сергеевич</td>
+                            <td>Основы программирования</td>
+                            <td>6 часов/нед</td>
+                            <td>a.ivanov@school.ru</td>
+                            <td>+7 (912) 345-67-89</td>
+                            <td>312</td>
+                            <td>ПН, ВТ, ЧТ, ПТ</td>
+                        </tr>
+                        <tr>
+                            <td>Петрова Мария Владимировна</td>
+                            <td>Математика</td>
+                            <td>4 часа/нед</td>
+                            <td>m.petrova@school.ru</td>
+                            <td>+7 (912) 345-67-90</td>
+                            <td>215</td>
+                            <td>ПН, ВТ, СР, ЧТ</td>
+                        </tr>
+                        <tr>
+                            <td>Сидоров Дмитрий Константинович</td>
+                            <td>Физика</td>
+                            <td>4 часа/нед</td>
+                            <td>d.sidorov@school.ru</td>
+                            <td>+7 (912) 345-67-91</td>
+                            <td>118</td>
+                            <td>ВТ, СР, ЧТ, ПТ</td>
+                        </tr>
+                        <tr>
+                            <td>Новикова Елена Павловна</td>
+                            <td>Литература</td>
+                            <td>3 часа/нед</td>
+                            <td>e.novikova@school.ru</td>
+                            <td>+7 (912) 345-67-92</td>
+                            <td>305</td>
+                            <td>ПН, СР, ПТ</td>
+                        </tr>
+                        <tr>
+                            <td>Козлов Владимир Иванович</td>
+                            <td>История</td>
+                            <td>3 часа/нед</td>
+                            <td>v.kozlov@school.ru</td>
+                            <td>+7 (912) 345-67-93</td>
+                            <td>210</td>
+                            <td>ПН, ВТ, ЧТ</td>
+                        </tr>
+                        <tr>
+                            <td>Смирнова Ольга Васильевна</td>
+                            <td>Английский язык</td>
+                            <td>2 часа/нед</td>
+                            <td>o.smirnova@school.ru</td>
+                            <td>+7 (912) 345-67-94</td>
+                            <td>305</td>
+                            <td>ВТ, ЧТ</td>
+                        </tr>
+                        <tr>
+                            <td>Федоров Андрей Петрович</td>
+                            <td>Информатика</td>
+                            <td>1 час/нед</td>
+                            <td>a.fedorov@school.ru</td>
+                            <td>+7 (912) 345-67-95</td>
+                            <td>312</td>
+                            <td>ПТ</td>
+                        </tr>
+                        <tr>
+                            <td>Григорьева Татьяна Сергеевна</td>
+                            <td>Биология</td>
+                            <td>1 час/нед</td>
+                            <td>t.grigorieva@school.ru</td>
+                            <td>+7 (912) 345-67-96</td>
+                            <td>118</td>
+                            <td>СР</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="export-section">
+                <h2 class="export-section-title">Нагрузка по предметам</h2>
+                <table class="export-table">
+                    <thead>
+                        <tr>
+                            <th>Предмет</th>
+                            <th>Преподаватель</th>
+                            <th>Часов в неделю</th>
+                            <th>Доля от общей нагрузки</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Основы программирования</td>
+                            <td>Иванов А.С.</td>
+                            <td>6 часов</td>
+                            <td>25%</td>
+                        </tr>
+                        <tr>
+                            <td>Математика</td>
+                            <td>Петрова М.В.</td>
+                            <td>4 часа</td>
+                            <td>17%</td>
+                        </tr>
+                        <tr>
+                            <td>Физика</td>
+                            <td>Сидоров Д.К.</td>
+                            <td>4 часа</td>
+                            <td>17%</td>
+                        </tr>
+                        <tr>
+                            <td>Литература</td>
+                            <td>Новикова Е.П.</td>
+                            <td>3 часа</td>
+                            <td>12%</td>
+                        </tr>
+                        <tr>
+                            <td>История</td>
+                            <td>Козлов В.И.</td>
+                            <td>3 часа</td>
+                            <td>12%</td>
+                        </tr>
+                        <tr>
+                            <td>Английский язык</td>
+                            <td>Смирнова О.В.</td>
+                            <td>2 часа</td>
+                            <td>8%</td>
+                        </tr>
+                        <tr>
+                            <td>Информатика</td>
+                            <td>Федоров А.П.</td>
+                            <td>1 час</td>
+                            <td>4%</td>
+                        </tr>
+                        <tr>
+                            <td>Биология</td>
+                            <td>Григорьева Т.С.</td>
+                            <td>1 час</td>
+                            <td>4%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="export-footer">
+                <p>Сгенерировано в образовательной платформе "Пифагор"</p>
+                <p>© 2025 Пифагор. Все права защищены.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Контейнер для печати -->
+    <div id="printContent"></div>
+
+    <script>
+        // User data
+        const userName = "Елена Плеханова";
+        const userEmail = "elena.plekhanova@example.com";
+        
+        document.getElementById('userName').textContent = userName;
+        
+        // Generate avatar initials
+        const nameParts = userName.split(' ');
+        const initials = nameParts.map(part => part[0]).join('').toUpperCase();
+        document.getElementById('userAvatar').textContent = initials;
+
+        // Teachers functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const teacherModal = document.getElementById('teacherModal');
+            const closeModal = document.getElementById('closeModal');
+            const cancelBtn = document.getElementById('cancelBtn');
+            const saveTeacherBtn = document.getElementById('saveTeacherBtn');
+            const addTeacherBtn = document.getElementById('addTeacherBtn');
+            const teacherForm = document.getElementById('teacherForm');
+            const actionButtons = document.querySelectorAll('.action-btn');
+            const quickActions = document.querySelectorAll('.action-card');
+            const searchInput = document.querySelector('.search-input');
+            const exportTeachersBtn = document.getElementById('exportTeachersBtn');
+            
+            let currentTeacher = null;
+            let isEditing = false;
+
+            // Элементы для экспорта
+            const exportModal = document.getElementById('exportModal');
+            const cancelExport = document.getElementById('cancelExport');
+            const confirmExport = document.getElementById('confirmExport');
+            const exportContent = document.getElementById('exportContent');
+            const printContent = document.getElementById('printContent');
+            const exportDate = document.getElementById('exportDate');
+            const exportLoading = document.getElementById('exportLoading');
+
+            // Установка текущей даты
+            function setExportData() {
+                const now = new Date();
+                exportDate.textContent = now.toLocaleDateString('ru-RU', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+            }
+
+            // Показать индикатор загрузки
+            function showLoading() {
+                exportLoading.style.display = 'flex';
+            }
+
+            // Скрыть индикатор загрузки
+            function hideLoading() {
+                exportLoading.style.display = 'none';
+            }
+
+            // Подготовка контента для экспорта
+            async function prepareExportContent() {
+                return new Promise((resolve) => {
+                    // Показываем контент для захвата
+                    exportContent.style.display = 'block';
+                    
+                    // Даем время на отрисовку
+                    setTimeout(() => {
+                        resolve();
+                    }, 500);
+                });
+            }
+
+            // Открытие модального окна экспорта
+            exportTeachersBtn.addEventListener('click', function() {
+                setExportData();
+                exportModal.style.display = 'flex';
+            });
+
+            // Закрытие модального окна экспорта
+            cancelExport.addEventListener('click', function() {
+                exportModal.style.display = 'none';
+            });
+
+            // Закрытие модального окна при клике вне его
+            exportModal.addEventListener('click', function(e) {
+                if (e.target === exportModal) {
+                    exportModal.style.display = 'none';
+                }
+            });
+
+            // Подтверждение экспорта
+            confirmExport.addEventListener('click', async function() {
+                const format = document.querySelector('input[name="exportFormat"]:checked').value;
+                exportModal.style.display = 'none';
+                
+                showLoading();
+                
+                try {
+                    // Подготавливаем контент для экспорта
+                    await prepareExportContent();
+                    
+                    switch(format) {
+                        case 'pdf':
+                            await exportToPDF();
+                            break;
+                        case 'image':
+                            await exportToImage();
+                            break;
+                        case 'word':
+                            await exportToWord();
+                            break;
+                        case 'print':
+                            await exportToPrint();
+                            break;
+                    }
+                } catch (error) {
+                    console.error('Ошибка при экспорте:', error);
+                    alert('Произошла ошибка при экспорте. Пожалуйста, попробуйте еще раз.');
+                } finally {
+                    // Всегда скрываем контент и загрузку
+                    exportContent.style.display = 'none';
+                    hideLoading();
+                }
+            });
+
+            // Функция экспорта в PDF
+            async function exportToPDF() {
+                const { jsPDF } = window.jspdf;
+                
+                try {
+                    const canvas = await html2canvas(exportContent, {
+                        scale: 2,
+                        useCORS: true,
+                        logging: false,
+                        backgroundColor: '#FFFFFF',
+                        allowTaint: false,
+                        width: exportContent.scrollWidth,
+                        height: exportContent.scrollHeight
+                    });
+                    
+                    const imgData = canvas.toDataURL('image/png');
+                    const pdf = new jsPDF('p', 'mm', 'a4');
+                    const imgWidth = 210;
+                    const pageHeight = 295;
+                    const imgHeight = canvas.height * imgWidth / canvas.width;
+                    let heightLeft = imgHeight;
+                    let position = 0;
+
+                    pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                    heightLeft -= pageHeight;
+
+                    while (heightLeft >= 0) {
+                        position = heightLeft - imgHeight;
+                        pdf.addPage();
+                        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                        heightLeft -= pageHeight;
+                    }
+
+                    pdf.save('преподаватели_9А_' + new Date().toISOString().slice(0,10) + '.pdf');
+                } catch (error) {
+                    console.error('Ошибка при экспорте в PDF:', error);
+                    throw error;
+                }
+            }
+
+            // Функция экспорта в изображение
+            async function exportToImage() {
+                try {
+                    const canvas = await html2canvas(exportContent, {
+                        scale: 2,
+                        useCORS: true,
+                        logging: false,
+                        backgroundColor: '#FFFFFF',
+                        allowTaint: false,
+                        width: exportContent.scrollWidth,
+                        height: exportContent.scrollHeight
+                    });
+                    
+                    const link = document.createElement('a');
+                    link.download = 'преподаватели_9А_' + new Date().toISOString().slice(0,10) + '.png';
+                    link.href = canvas.toDataURL('image/png');
+                    link.click();
+                } catch (error) {
+                    console.error('Ошибка при экспорте в изображение:', error);
+                    throw error;
+                }
+            }
+
+            // Функция экспорта в Word
+            async function exportToWord() {
+                try {
+                    // Создаем изображение контента
+                    const canvas = await html2canvas(exportContent, {
+                        scale: 2,
+                        useCORS: true,
+                        logging: false,
+                        backgroundColor: '#FFFFFF',
+                        allowTaint: false,
+                        width: exportContent.scrollWidth,
+                        height: exportContent.scrollHeight
+                    });
+                    
+                    // Конвертируем canvas в blob
+                    const blob = await new Promise(resolve => {
+                        canvas.toBlob(resolve, 'image/png');
+                    });
+
+                    if (!blob) {
+                        throw new Error('Не удалось создать изображение для Word');
+                    }
+
+                    // Создаем документ Word с изображением
+                    const { Document, Packer, Paragraph, ImageRun } = window.docx;
+                    
+                    const doc = new Document({
+                        sections: [{
+                            properties: {},
+                            children: [
+                                new Paragraph({
+                                    children: [
+                                        new ImageRun({
+                                            data: await blob.arrayBuffer(),
+                                            transformation: {
+                                                width: 600,
+                                                height: 800,
+                                            },
+                                        }),
+                                    ],
+                                }),
+                            ],
+                        }],
+                    });
+
+                    // Генерируем и скачиваем документ
+                    const blobWord = await Packer.toBlob(doc);
+                    saveAs(blobWord, 'преподаватели_9А_' + new Date().toISOString().slice(0,10) + '.docx');
+                } catch (error) {
+                    console.error('Ошибка при экспорте в Word:', error);
+                    throw error;
+                }
+            }
+
+            // Функция экспорта для печати
+            async function exportToPrint() {
+                try {
+                    // Создаем изображение контента
+                    const canvas = await html2canvas(exportContent, {
+                        scale: 2,
+                        useCORS: true,
+                        logging: false,
+                        backgroundColor: '#FFFFFF',
+                        allowTaint: false,
+                        width: exportContent.scrollWidth,
+                        height: exportContent.scrollHeight
+                    });
+                    
+                    // Создаем изображение для печати
+                    const imgData = canvas.toDataURL('image/png');
+                    
+                    // Очищаем контейнер для печати
+                    printContent.innerHTML = '';
+                    
+                    // Создаем изображение в контейнере печати
+                    const img = document.createElement('img');
+                    img.src = imgData;
+                    img.style.width = '100%';
+                    img.style.height = 'auto';
+                    
+                    printContent.appendChild(img);
+                    printContent.style.display = 'block';
+                    
+                    // Запускаем печать
+                    window.print();
+                    
+                } catch (error) {
+                    console.error('Ошибка при печати:', error);
+                    throw error;
+                } finally {
+                    // Скрываем контейнер печати после завершения
+                    setTimeout(() => {
+                        printContent.style.display = 'none';
+                        printContent.innerHTML = '';
+                    }, 500);
+                }
+            }
+
+            // Open modal for adding teacher
+            addTeacherBtn.addEventListener('click', function() {
+                isEditing = false;
+                document.getElementById('modalTitle').textContent = 'Добавить преподавателя';
+                resetForm();
+                teacherModal.classList.add('active');
+            });
+
+            // Close modal
+            function closeTeacherModal() {
+                teacherModal.classList.remove('active');
+                currentTeacher = null;
+                isEditing = false;
+            }
+
+            closeModal.addEventListener('click', closeTeacherModal);
+            cancelBtn.addEventListener('click', closeTeacherModal);
+
+            // Teacher actions
+            actionButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const action = this.getAttribute('data-action');
+                    const teacherCard = this.closest('.teacher-card');
+                    const teacherName = teacherCard.querySelector('.teacher-name').textContent;
+                    
+                    if (action === 'edit') {
+                        // In a real app, we would fetch teacher data
+                        currentTeacher = {
+                            name: teacherName,
+                            subject: teacherCard.querySelector('.teacher-subject').textContent
+                        };
+                        
+                        isEditing = true;
+                        document.getElementById('modalTitle').textContent = 'Редактировать преподавателя';
+                        // In a real app, we would populate the form with teacher data
+                        const nameParts = teacherName.split(' ');
+                        document.getElementById('lastName').value = nameParts[0];
+                        document.getElementById('firstName').value = nameParts[1];
+                        document.getElementById('middleName').value = nameParts[2];
+                        document.getElementById('subject').value = getSubjectValue(currentTeacher.subject);
+                        
+                        teacherModal.classList.add('active');
+                    } else if (action === 'profile') {
+                        alert(`Открыть профиль преподавателя: ${teacherName}`);
+                    } else if (action === 'message') {
+                        alert(`Отправить сообщение преподавателю: ${teacherName}`);
+                    } else if (action === 'schedule') {
+                        alert(`Просмотреть расписание преподавателя: ${teacherName}`);
+                    }
+                });
+            });
+
+            // Quick actions
+            quickActions.forEach(action => {
+                action.addEventListener('click', function() {
+                    const actionId = this.id;
+                    
+                    if (actionId === 'exportTeachers') {
+                        setExportData();
+                        exportModal.style.display = 'flex';
+                    } else if (actionId === 'sendMessage') {
+                        alert('Отправка сообщения всем преподавателям класса');
+                    } else if (actionId === 'scheduleMeeting') {
+                        alert('Назначение встречи с преподавателями класса');
+                    } else if (actionId === 'workloadReport') {
+                        alert('Генерация отчета по нагрузке преподавателей');
+                    }
+                });
+            });
+
+            // Search functionality
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                const cards = document.querySelectorAll('.teacher-card');
+                
+                cards.forEach(card => {
+                    const teacherName = card.querySelector('.teacher-name').textContent.toLowerCase();
+                    const teacherSubject = card.querySelector('.teacher-subject').textContent.toLowerCase();
+                    
+                    if (teacherName.includes(searchTerm) || teacherSubject.includes(searchTerm)) {
+                        card.style.display = '';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+
+            // Form submission
+            teacherForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                if (validateForm()) {
+                    // In a real app, we would save the teacher data
+                    if (isEditing) {
+                        alert(`Данные преподавателя ${currentTeacher.name} успешно обновлены!`);
+                    } else {
+                        alert('Новый преподаватель успешно добавлен в класс!');
+                    }
+                    
+                    closeTeacherModal();
+                }
+            });
+
+            // Form validation
+            function validateForm() {
+                const firstName = document.getElementById('firstName').value;
+                const lastName = document.getElementById('lastName').value;
+                const subject = document.getElementById('subject').value;
+                const workload = document.getElementById('workload').value;
+                const email = document.getElementById('email').value;
+                
+                if (!firstName) {
+                    alert('Пожалуйста, введите имя преподавателя');
+                    return false;
+                }
+                
+                if (!lastName) {
+                    alert('Пожалуйста, введите фамилию преподавателя');
+                    return false;
+                }
+                
+                if (!subject) {
+                    alert('Пожалуйста, выберите предмет');
+                    return false;
+                }
+                
+                if (!workload) {
+                    alert('Пожалуйста, укажите нагрузку преподавателя');
+                    return false;
+                }
+                
+                if (!email) {
+                    alert('Пожалуйста, введите email преподавателя');
+                    return false;
+                }
+                
+                return true;
+            }
+
+            // Reset form
+            function resetForm() {
+                teacherForm.reset();
+                // Set default work days (Mon-Fri)
+                document.getElementById('monday').checked = true;
+                document.getElementById('tuesday').checked = true;
+                document.getElementById('wednesday').checked = true;
+                document.getElementById('thursday').checked = true;
+                document.getElementById('friday').checked = true;
+                document.getElementById('saturday').checked = false;
+                document.getElementById('sunday').checked = false;
+            }
+
+            // Helper function to get subject value
+            function getSubjectValue(subjectName) {
+                const subjects = {
+                    'Математика': 'math',
+                    'Физика': 'physics',
+                    'Основы программирования': 'programming',
+                    'Программирование': 'programming',
+                    'Литература': 'literature',
+                    'История': 'history',
+                    'Английский язык': 'english'
+                };
+                
+                return subjects[subjectName] || '';
+            }
+        });
+    </script>
+</body>
+</html>

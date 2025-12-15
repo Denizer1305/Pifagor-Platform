@@ -19,8 +19,6 @@ function savePersonalData() {
         grade: document.getElementById('grade').value,
         school: document.getElementById('school').value
     };
-    
-    console.log('Сохранение личных данных:', formData);
     localStorage.setItem('personalData', JSON.stringify(formData));
 }
 
@@ -29,8 +27,6 @@ function saveSecuritySettings() {
         twoFactor: document.querySelector('#securityForm input[type="checkbox"]').checked,
         loginNotifications: document.querySelectorAll('#securityForm input[type="checkbox"]')[1].checked
     };
-    
-    console.log('Сохранение настроек безопасности:', securityData);
     localStorage.setItem('securitySettings', JSON.stringify(securityData));
 }
 
@@ -40,13 +36,10 @@ function saveAppearanceSettings() {
         fontSize: localStorage.getItem('selectedFontSize') || 'medium',
         density: localStorage.getItem('selectedDensity') || 'normal'
     };
-    
-    console.log('Сохранение настроек внешнего вида:', appearanceData);
     localStorage.setItem('appearanceSettings', JSON.stringify(appearanceData));
 }
 
 function loadSavedData() {
-    // Загрузка личных данных
     const personalData = JSON.parse(localStorage.getItem('personalData'));
     if (personalData) {
         document.getElementById('firstName').value = personalData.firstName || '';
@@ -59,8 +52,7 @@ function loadSavedData() {
         document.getElementById('grade').value = personalData.grade || '';
         document.getElementById('school').value = personalData.school || '';
     }
-    
-    // Загрузка настроек безопасности
+
     const securitySettings = JSON.parse(localStorage.getItem('securitySettings'));
     if (securitySettings) {
         const checkboxes = document.querySelectorAll('#securityForm input[type="checkbox"]');

@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пифагор - Информация о классе</title>
+    <link rel="icon" href="/frontend/static/assets/image/logo/icons.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Forum&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/frontend/static/css/main.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo-header">
+                <a href="/frontend/templates/main/index.html">
+                    <img src="/frontend/static/assets/image/logo/logo.svg" alt="logo">
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/frontend/templates/main/about.html">О платформе</a></li>
+                <li><a href="/frontend/templates/courses/courses.html">Курсы</a></li>
+                <li><a href="/frontend/templates/main/teachers.html">Преподаватели</a></li>
+                <li><a href="/frontend/templates/main/contact.html">Контакты</a></li>
+            </ul>
+            <div class="header-actions">
+                <div class="user-menu">
+                    <div class="user-avatar" id="userAvatar">ЕП</div>
+                    <div class="user-name" id="userName">Елена Плеханова</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Dashboard -->
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <ul class="sidebar-menu">
+                <li><a href="/frontend/templates/main/index.html"><i class="fas fa-home"></i> <span>Главная</span></a></li>
+                <li><a href="/frontend/templates/courses/courses-list.html"><i class="fas fa-book-open"></i> <span>Мои курсы</span></a></li>
+                <li><a href="/frontend/templates/practic/practic-list.html"><i class="fas fa-tasks"></i> <span>Задания</span></a></li>
+                <li><a href="/frontend/templates/classes/classes.html"><i class="fas fa-users"></i> <span>Классы</span></a></li>
+                <li><a href="/frontend/templates/practic/practic-check.html"><i class="fas fa-check-circle"></i> <span>Проверка работ</span></a></li>
+                <li><a href="/frontend/templates/analytics/statistics.html"><i class="fas fa-chart-line"></i> <span>Аналитика</span></a></li>
+                <li><a href="/frontend/templates/journal/schedule.html"><i class="fas fa-calendar-alt"></i> <span>Расписание</span></a></li>
+                <li><a href="/frontend/templates/journal/journal.html"><i class="fas fa-book"></i> <span>Журнал</span></a></li>
+                <li><a href="/frontend/templates/attendance/attendance.html"><i class="fas fa-clipboard-check"></i> <span>Посещаемость</span></a></li>
+                <li><a href="/frontend/templates/grades/grades.html"><i class="fas fa-star"></i> <span>Успеваемость</span></a></li>
+                <li><a href="/frontend/templates/progress/progress.html"><i class="fas fa-chart-bar"></i> <span>Прогресс</span></a></li>
+                <li><a href="/frontend/templates/schedule/schedule-create.html"><i class="fas fa-plus-circle"></i> <span>Создать расписание</span></a></li>
+                <li><a href="/frontend/templates/classes/class-students.html"><i class="fas fa-user-graduate"></i> <span>Ученики класса</span></a></li>
+                <li><a href="/frontend/templates/classes/class-teachers.html"><i class="fas fa-chalkboard-teacher"></i> <span>Преподаватели класса</span></a></li>
+                <li><a href="/frontend/templates/classes/class-schedule.html"><i class="fas fa-calendar-week"></i> <span>Расписание класса</span></a></li>
+                <li><a href="/frontend/templates/classes/class-detail.html" class="active"><i class="fas fa-info-circle"></i> <span>Информация о классе</span></a></li>
+                <li><a href="/frontend/templates/users/profile-edit.html"><i class="fas fa-cog"></i> <span>Настройки</span></a></li>
+                <li><a href="/frontend/templates/auth/logout.html"><i class="fas fa-sign-out"></i> <span>Выйти</span></a></li>                
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Class Header -->
+            <div class="class-header">
+                <div class="class-title">
+                    <h1>9-А класс - Основы программирования</h1>
+                    <p>Классный руководитель: Иванов Александр Сергеевич</p>
+                </div>
+                <div class="class-controls">
+                    <a href="#" class="btn btn-light"><i class="fas fa-edit"></i> Редактировать</a>
+                    <a href="#" class="btn"><i class="fas fa-cog"></i> Настройки класса</a>
+                </div>
+            </div>
+
+            <!-- Class Stats -->
+            <div class="class-stats">
+                <div class="stat-card">
+                    <div class="stat-icon students">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>24</h3>
+                        <p>Учеников в классе</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon average">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>4.2</h3>
+                        <p>Средний балл класса</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon attendance">
+                        <i class="fas fa-clipboard-check"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>87%</h3>
+                        <p>Средняя посещаемость</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon performance">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>+5%</h3>
+                        <p>Улучшение успеваемости</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Class Layout -->
+            <div class="class-layout">
+                <!-- Left Column -->
+                <div class="left-column">
+                    <!-- Tabs -->
+                    <div class="tabs">
+                        <div class="tab active" data-tab="overview">Обзор</div>
+                        <div class="tab" data-tab="progress">Прогресс</div>
+                        <div class="tab" data-tab="members">Участники</div>
+                    </div>
+
+                    <!-- Overview Tab -->
+                    <div class="tab-content active" id="overview">
+                        <!-- Class Info Section -->
+                        <section class="class-info-section">
+                            <div class="section-header">
+                                <h2>Информация о классе</h2>
+                            </div>
+                            <div class="class-details">
+                                <div class="detail-card">
+                                    <h3>Основная информация</h3>
+                                    <ul class="detail-list">
+                                        <li class="detail-item">
+                                            <span class="detail-label">Класс:</span>
+                                            <span class="detail-value">9-А</span>
+                                        </li>
+                                        <li class="detail-item">
+                                            <span class="detail-label">Профиль:</span>
+                                            <span class="detail-value">Информационно-технологический</span>
+                                        </li>
+                                        <li class="detail-item">
+                                            <span class="detail-label">Классный руководитель:</span>
+                                            <span class="detail-value">Иванов А.С.</span>
+                                        </li>
+                                        <li class="detail-item">
+                                            <span class="detail-label">Год создания:</span>
+                                            <span class="detail-value">2023</span>
+                                        </li>
+                                        <li class="detail-item">
+                                            <span class="detail-label">Статус:</span>
+                                            <span class="detail-value">Активный</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="detail-card">
+                                    <h3>Академическая информация</h3>
+                                    <ul class="detail-list">
+                                        <li class="detail-item">
+                                            <span class="detail-label">Основной предмет:</span>
+                                            <span class="detail-value">Основы программирования</span>
+                                        </li>
+                                        <li class="detail-item">
+                                            <span class="detail-label">Количество предметов:</span>
+                                            <span class="detail-value">12</span>
+                                        </li>
+                                        <li class="detail-item">
+                                            <span class="detail-label">Преподавателей:</span>
+                                            <span class="detail-value">8</span>
+                                        </li>
+                                        <li class="detail-item">
+                                            <span class="detail-label">Часов в неделю:</span>
+                                            <span class="detail-value">32</span>
+                                        </li>
+                                        <li class="detail-item">
+                                            <span class="detail-label">Аудитория:</span>
+                                            <span class="detail-value">Каб. 301</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Progress Section -->
+                        <section class="progress-section">
+                            <div class="section-header">
+                                <h2>Прогресс класса</h2>
+                            </div>
+                            <div class="progress-grid">
+                                <div class="progress-item">
+                                    <div class="progress-chart">
+                                        <div class="progress-circle"></div>
+                                        <div class="progress-value">78%</div>
+                                    </div>
+                                    <div class="progress-label">Завершенность курса</div>
+                                    <div class="progress-desc">Основы программирования</div>
+                                </div>
+                                <div class="progress-item">
+                                    <div class="progress-chart">
+                                        <div class="progress-circle" style="background: conic-gradient(var(--success) 0% 85%, var(--light-bg) 85% 100%);"></div>
+                                        <div class="progress-value">85%</div>
+                                    </div>
+                                    <div class="progress-label">Выполнено заданий</div>
+                                    <div class="progress-desc">За текущий месяц</div>
+                                </div>
+                                <div class="progress-item">
+                                    <div class="progress-chart">
+                                        <div class="progress-circle" style="background: conic-gradient(var(--warning) 0% 65%, var(--light-bg) 65% 100%);"></div>
+                                        <div class="progress-value">65%</div>
+                                    </div>
+                                    <div class="progress-label">Активность студентов</div>
+                                    <div class="progress-desc">Средний показатель</div>
+                                </div>
+                                <div class="progress-item">
+                                    <div class="progress-chart">
+                                        <div class="progress-circle" style="background: conic-gradient(var(--info) 0% 92%, var(--light-bg) 92% 100%);"></div>
+                                        <div class="progress-value">92%</div>
+                                    </div>
+                                    <div class="progress-label">Удовлетворенность</div>
+                                    <div class="progress-desc">По опросу студентов</div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+
+                    <!-- Progress Tab -->
+                    <div class="tab-content" id="progress">
+                        <section class="class-info-section">
+                            <div class="section-header">
+                                <h2>Успеваемость класса</h2>
+                            </div>
+                            <div class="class-details">
+                                <div class="detail-card">
+                                    <h3>Статистика успеваемости</h3>
+                                    <ul class="detail-list">
+                                        <li class="detail-item">
+                                            <span class="detail-label">Средний балл:</span>
+                                            <span class="detail-value">4.2</span>
+                                        </li>
+                                        <li class="detail-item">
+                                            <span class="detail-label">Лучший ученик:</span>
+                                            <span class="detail-value">Петрова М.В. (5.0)</span>
+                                        </li>
+                                        <li class="detail-item">
+                                            <span class="detail-label">Отличников:</span>
+                                            <span class="detail-value">5</span>
+                                        </li>
+                                        <li class="detail-item">
+                                            <span class="detail-label">Хорошистов:</span>
+                                            <span class="detail-value">12</span>
+                                        </li>
+                                        <li class="detail-item">
+                                            <span class="detail-label">Троечников:</span>
+                                            <span class="detail-value">5</span>
+                                        </li>
+                                        <li class="detail-item">
+                                            <span class="detail-label">Низкая успеваемость:</span>
+                                            <span class="detail-value">2</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="detail-card">
+                                    <h3>Динамика успеваемости</h3>
+                                    <ul class="detail-list">
+                                        <li class="detail-item">
+                                            <span class="detail-label">За I четверть:</span>
+                                            <span class="detail-value">3.9</span>
+                                        </li>
+                                        <li class="detail-item">
+                                            <span class="detail-label">За II четверть:</span>
+                                            <span class="detail-value">4.1</span>
+                                        </li>
+                                        <li class="detail-item">
+                                            <span class="detail-label">За III четверть:</span>
+                                            <span class="detail-value">4.2</span>
+                                        </li>
+                                        <li class="detail-item">
+                                            <span class="detail-label">Прогноз на год:</span>
+                                            <span class="detail-value">4.3</span>
+                                        </li>
+                                        <li class="detail-item">
+                                            <span class="detail-label">Улучшение:</span>
+                                            <span class="detail-value">+0.4</span>
+                                        </li>
+                                        <li class="detail-item">
+                                            <span class="detail-label">Цель на год:</span>
+                                            <span class="detail-value">4.5</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+
+                    <!-- Members Tab -->
+                    <div class="tab-content" id="members">
+                        <section class="members-section">
+                            <div class="section-header">
+                                <h2>Участники класса</h2>
+                            </div>
+                            <div class="members-grid">
+                                <div class="member-card">
+                                    <div class="member-avatar">ИА</div>
+                                    <div class="member-name">Иванов А.С.</div>
+                                    <div class="member-role">Классный руководитель</div>
+                                </div>
+                                <div class="member-card">
+                                    <div class="member-avatar">ПМ</div>
+                                    <div class="member-name">Петрова М.В.</div>
+                                    <div class="member-role">Ученик</div>
+                                </div>
+                                <div class="member-card">
+                                    <div class="member-avatar">СД</div>
+                                    <div class="member-name">Сидоров Д.К.</div>
+                                    <div class="member-role">Ученик</div>
+                                </div>
+                                <div class="member-card">
+                                    <div class="member-avatar">НЕ</div>
+                                    <div class="member-name">Новикова Е.П.</div>
+                                    <div class="member-role">Ученик</div>
+                                </div>
+                                <div class="member-card">
+                                    <div class="member-avatar">КВ</div>
+                                    <div class="member-name">Козлов В.И.</div>
+                                    <div class="member-role">Преподаватель</div>
+                                </div>
+                                <div class="member-card">
+                                    <div class="member-avatar">СО</div>
+                                    <div class="member-name">Смирнова О.Л.</div>
+                                    <div class="member-role">Преподаватель</div>
+                                </div>
+                                <div class="member-card">
+                                    <div class="member-avatar">ИИ</div>
+                                    <div class="member-name">Иванов И.И.</div>
+                                    <div class="member-role">Ученик</div>
+                                </div>
+                                <div class="member-card">
+                                    <div class="member-avatar">МП</div>
+                                    <div class="member-name">Морозова П.С.</div>
+                                    <div class="member-role">Ученик</div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="right-column">
+                    <!-- Recent Activity -->
+                    <section class="activity-section">
+                        <div class="section-header">
+                            <h2>Последняя активность</h2>
+                        </div>
+                        <ul class="activity-list">
+                            <li class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-user-plus"></i>
+                                </div>
+                                <div class="activity-info">
+                                    <h4>Новый ученик</h4>
+                                    <p>В класс добавлен Сергей Волков</p>
+                                </div>
+                                <div class="activity-time">2 часа назад</div>
+                            </li>
+                            <li class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                <div class="activity-info">
+                                    <h4>Улучшение успеваемости</h4>
+                                    <p>Средний балл класса повысился до 4.2</p>
+                                </div>
+                                <div class="activity-time">5 часов назад</div>
+                            </li>
+                            <li class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <div class="activity-info">
+                                    <h4>Задание выполнено</h4>
+                                    <p>15 учеников сдали домашнюю работу</p>
+                                </div>
+                                <div class="activity-time">Вчера</div>
+                            </li>
+                            <li class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-calendar-alt"></i>
+                                </div>
+                                <div class="activity-info">
+                                    <h4>Изменение расписания</h4>
+                                    <p>Добавлено новое занятие по программированию</p>
+                                </div>
+                                <div class="activity-time">2 дня назад</div>
+                            </li>
+                            <li class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-exclamation-circle"></i>
+                                </div>
+                                <div class="activity-info">
+                                    <h4>Низкая посещаемость</h4>
+                                    <p>3 ученика пропустили занятие</p>
+                                </div>
+                                <div class="activity-time">3 дня назад</div>
+                            </li>
+                        </ul>
+                    </section>
+
+                    <!-- Quick Actions -->
+                    <section class="actions-section">
+                        <div class="section-header">
+                            <h2>Быстрые действия</h2>
+                        </div>
+                        <div class="actions-grid">
+                            <div class="action-card" id="viewStudents">
+                                <div class="action-icon">
+                                    <i class="fas fa-user-graduate"></i>
+                                </div>
+                                <div class="action-title">Ученики</div>
+                                <div class="action-desc">Просмотр списка учеников</div>
+                            </div>
+                            <div class="action-card" id="viewTeachers">
+                                <div class="action-icon">
+                                    <i class="fas fa-chalkboard-teacher"></i>
+                                </div>
+                                <div class="action-title">Преподаватели</div>
+                                <div class="action-desc">Список преподавателей</div>
+                            </div>
+                            <div class="action-card" id="viewSchedule">
+                                <div class="action-icon">
+                                    <i class="fas fa-calendar-week"></i>
+                                </div>
+                                <div class="action-title">Расписание</div>
+                                <div class="action-desc">Просмотр расписания</div>
+                            </div>
+                            <div class="action-card" id="generateReport">
+                                <div class="action-icon">
+                                    <i class="fas fa-chart-pie"></i>
+                                </div>
+                                <div class="action-title">Отчет</div>
+                                <div class="action-desc">Создать отчет по классу</div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // User data
+        const userName = "Елена Плеханова";
+        const userEmail = "elena.plekhanova@example.com";
+        
+        document.getElementById('userName').textContent = userName;
+        
+        // Generate avatar initials
+        const nameParts = userName.split(' ');
+        const initials = nameParts.map(part => part[0]).join('').toUpperCase();
+        document.getElementById('userAvatar').textContent = initials;
+
+        // Class detail functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab functionality
+            const tabs = document.querySelectorAll('.tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabId = this.getAttribute('data-tab');
+                    
+                    // Remove active class from all tabs and contents
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tabContents.forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class to current tab and content
+                    this.classList.add('active');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+            
+            // Quick actions
+            const actionCards = document.querySelectorAll('.action-card');
+            
+            actionCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const actionId = this.id;
+                    
+                    if (actionId === 'viewStudents') {
+                        window.location.href = '/frontend/templates/classes/class-students.html';
+                    } else if (actionId === 'viewTeachers') {
+                        window.location.href = '/frontend/templates/classes/class-teachers.html';
+                    } else if (actionId === 'viewSchedule') {
+                        window.location.href = '/frontend/templates/classes/class-schedule.html';
+                    } else if (actionId === 'generateReport') {
+                        alert('Генерация отчета по классу');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

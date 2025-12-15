@@ -1,8 +1,6 @@
 export function initAppearanceSettings() {
     const fontSizeOptions = document.querySelectorAll('.font-size-option');
     const densityOptions = document.querySelectorAll('.density-option');
-
-    // Обработчики для размера шрифта
     fontSizeOptions.forEach(option => {
         option.addEventListener('click', function() {
             fontSizeOptions.forEach(opt => opt.classList.remove('active'));
@@ -14,7 +12,6 @@ export function initAppearanceSettings() {
         });
     });
 
-    // Обработчики для плотности интерфейса
     densityOptions.forEach(option => {
         option.addEventListener('click', function() {
             densityOptions.forEach(opt => opt.classList.remove('active'));
@@ -25,8 +22,7 @@ export function initAppearanceSettings() {
             localStorage.setItem('selectedDensity', density);
         });
     });
-
-    // Загрузка сохраненных настроек внешнего вида
+    
     const savedFontSize = localStorage.getItem('selectedFontSize') || 'medium';
     const savedDensity = localStorage.getItem('selectedDensity') || 'normal';
     

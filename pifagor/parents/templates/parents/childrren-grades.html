@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пифагор - Оценки детей</title>
+    <link rel="icon" href="/frontend/static/assets/image/logo/icons.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Forum&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="/frontend/static/css/main.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo-header">
+                <a href="/frontend/templates/main/index.html">
+                    <img src="/frontend/static/assets/image/logo/logo.svg" alt="logo">
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/frontend/templates/main/about.html">О платформе</a></li>
+                <li><a href="/frontend/templates/courses/courses.html">Курсы</a></li>
+                <li><a href="/frontend/templates/main/teachers.html">Преподаватели</a></li>
+                <li><a href="/frontend/templates/main/contact.html">Контакты</a></li>
+            </ul>
+            <div class="header-actions">
+                <div class="user-menu">
+                    <div class="user-avatar" id="userAvatar">МП</div>
+                    <div class="user-name" id="userName">Мария Петрова</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Dashboard -->
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <ul class="sidebar-menu">
+                <li><a href="/frontend/templates/main/index.html"><i class="fas fa-home"></i> <span>Главная</span></a></li>
+                <li><a href="/frontend/templates/children/children.html"><i class="fas fa-child"></i> <span>Мои дети</span></a></li>
+                <li><a href="/frontend/templates/courses/courses-list.html"><i class="fas fa-book-open"></i> <span>Курсы детей</span></a></li>
+                <li><a href="/frontend/templates/practic/practic-list.html"><i class="fas fa-tasks"></i> <span>Задания</span></a></li>
+                <li><a href="/frontend/templates/analytics/statistics.html"><i class="fas fa-chart-line"></i> <span>Успеваемость</span></a></li>
+                <li><a href="/frontend/templates/children/children-attendance.html"><i class="fas fa-calendar-check"></i> <span>Посещаемость</span></a></li>
+                <li><a href="/frontend/templates/children/children-progress.html"><i class="fas fa-chart-bar"></i> <span>Прогресс</span></a></li>
+                <li><a href="/frontend/templates/children/children-grades.html" class="active"><i class="fas fa-star"></i> <span>Оценки</span></a></li>
+                <li><a href="/frontend/templates/journal/schedule.html"><i class="fas fa-calendar-alt"></i> <span>Расписание</span></a></li>
+                <li><a href="/frontend/templates/journal/journal.html"><i class="fas fa-book"></i> <span>Журнал</span></a></li>
+                <li><a href="/frontend/templates/users/profile-edit.html"><i class="fas fa-cog"></i> <span>Настройки</span></a></li>
+                <li><a href="/frontend/templates/auth/logout.html"><i class="fas fa-sign-out"></i> <span>Выйти</span></a></li>                
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Grades Header -->
+            <div class="grades-header">
+                <div class="grades-title">
+                    <h1>Оценки детей</h1>
+                    <p>Отслеживание успеваемости и оценок по предметам</p>
+                </div>
+                <div class="grades-controls">
+                    <select class="filter-select">
+                        <option>Все дети</option>
+                        <option>Алексей Петров</option>
+                        <option>Ирина Петрова</option>
+                    </select>
+                    <div class="date-navigation">
+                        <button id="prevPeriod"><i class="fas fa-chevron-left"></i></button>
+                        <div class="current-period" id="currentPeriod">2 четверть 2023</div>
+                        <button id="nextPeriod"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <button class="btn">
+                        <i class="fas fa-download"></i> Отчет
+                    </button>
+                </div>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon average">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>4.5</h3>
+                        <p>Средний балл</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon subjects">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>7</h3>
+                        <p>Предметов</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon improvement">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>+0.2</h3>
+                        <p>Улучшение</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon trend">
+                        <i class="fas fa-trend-up"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>5</h3>
+                        <p>Отличных оценок</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Section -->
+            <section class="charts-section">
+                <div class="section-header">
+                    <h2>Визуализация успеваемости</h2>
+                </div>
+                
+                <div class="charts-grid">
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <div class="chart-title">Средние оценки по предметам</div>
+                        </div>
+                        <canvas id="subjectsChart"></canvas>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <div class="chart-title">Динамика успеваемости</div>
+                        </div>
+                        <canvas id="progressChart"></canvas>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <div class="chart-title">Распределение оценок</div>
+                        </div>
+                        <canvas id="gradesDistributionChart"></canvas>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <div class="chart-title">Сравнение детей</div>
+                        </div>
+                        <canvas id="comparisonChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Children Grades Section -->
+            <section class="grades-section">
+                <div class="section-header">
+                    <h2>Оценки по предметам</h2>
+                    <div class="grades-toggle">
+                        <button class="toggle-btn active" id="viewAll">Все дети</button>
+                        <button class="toggle-btn" id="viewAlexey">Алексей</button>
+                        <button class="toggle-btn" id="viewIrina">Ирина</button>
+                    </div>
+                </div>
+                
+                <div class="grades-table-container">
+                    <table class="grades-table">
+                        <thead>
+                            <tr>
+                                <th>Ребенок / Предмет</th>
+                                <th>Математика</th>
+                                <th>Физика</th>
+                                <th>Программирование</th>
+                                <th>Химия</th>
+                                <th>Биология</th>
+                                <th>Русский язык</th>
+                                <th>Литература</th>
+                                <th>Средний балл</th>
+                                <th>Динамика</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Child 1 -->
+                            <tr class="child-row">
+                                <td>
+                                    <div class="child-info-cell">
+                                        <div class="child-avatar">АП</div>
+                                        <div>
+                                            <div class="child-name">Алексей Петров</div>
+                                            <div class="child-class">9-А класс</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="grade grade-5">5</span></td>
+                                <td><span class="grade grade-4">4</span></td>
+                                <td><span class="grade grade-5">5</span></td>
+                                <td><span class="grade grade-4">4</span></td>
+                                <td><span class="grade grade-5">5</span></td>
+                                <td><span class="grade grade-4">4</span></td>
+                                <td><span class="grade grade-5">5</span></td>
+                                <td><span class="subject-average">4.6</span></td>
+                                <td><i class="fas fa-arrow-up trend-up"></i></td>
+                            </tr>
+                            
+                            <!-- Child 2 -->
+                            <tr class="child-row">
+                                <td>
+                                    <div class="child-info-cell">
+                                        <div class="child-avatar">ИП</div>
+                                        <div>
+                                            <div class="child-name">Ирина Петрова</div>
+                                            <div class="child-class">10-Б класс</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="grade grade-4">4</span></td>
+                                <td><span class="grade grade-4">4</span></td>
+                                <td><span class="grade grade-4">4</span></td>
+                                <td><span class="grade grade-5">5</span></td>
+                                <td><span class="grade grade-4">4</span></td>
+                                <td><span class="grade grade-5">5</span></td>
+                                <td><span class="grade grade-5">5</span></td>
+                                <td><span class="subject-average">4.4</span></td>
+                                <td><i class="fas fa-arrow-up trend-up"></i></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Detailed Grades Section -->
+            <section class="detailed-grades">
+                <div class="section-header">
+                    <h2>Детализация оценок</h2>
+                </div>
+                
+                <div class="grades-tabs">
+                    <div class="grades-tab active" data-tab="math">Математика</div>
+                    <div class="grades-tab" data-tab="physics">Физика</div>
+                    <div class="grades-tab" data-tab="programming">Программирование</div>
+                    <div class="grades-tab" data-tab="chemistry">Химия</div>
+                </div>
+                
+                <div class="grades-content active" id="math-tab">
+                    <div class="subject-details">
+                        <div class="subject-header">
+                            <div class="subject-title">Алексей Петров - Математика</div>
+                            <div class="subject-average-grade">Средний балл: 5.0</div>
+                        </div>
+                        
+                        <div class="grades-timeline">
+                            <div class="grade-item">
+                                <div class="grade-value grade-5">5</div>
+                                <div class="grade-date">15.11.2023</div>
+                                <div class="grade-type control">Контрольная</div>
+                            </div>
+                            <div class="grade-item">
+                                <div class="grade-value grade-5">5</div>
+                                <div class="grade-date">10.11.2023</div>
+                                <div class="grade-type homework">Домашняя работа</div>
+                            </div>
+                            <div class="grade-item">
+                                <div class="grade-value grade-5">5</div>
+                                <div class="grade-date">05.11.2023</div>
+                                <div class="grade-type test">Тест</div>
+                            </div>
+                            <div class="grade-item">
+                                <div class="grade-value grade-5">5</div>
+                                <div class="grade-date">28.10.2023</div>
+                                <div class="grade-type homework">Домашняя работа</div>
+                            </div>
+                            <div class="grade-item">
+                                <div class="grade-value grade-5">5</div>
+                                <div class="grade-date">20.10.2023</div>
+                                <div class="grade-type control">Контрольная</div>
+                            </div>
+                        </div>
+                        
+                        <div class="performance-chart">
+                            <canvas id="mathAlexeyChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="subject-details">
+                        <div class="subject-header">
+                            <div class="subject-title">Ирина Петрова - Математика</div>
+                            <div class="subject-average-grade">Средний балл: 4.5</div>
+                        </div>
+                        
+                        <div class="grades-timeline">
+                            <div class="grade-item">
+                                <div class="grade-value grade-5">5</div>
+                                <div class="grade-date">15.11.2023</div>
+                                <div class="grade-type control">Контрольная</div>
+                            </div>
+                            <div class="grade-item">
+                                <div class="grade-value grade-4">4</div>
+                                <div class="grade-date">10.11.2023</div>
+                                <div class="grade-type homework">Домашняя работа</div>
+                            </div>
+                            <div class="grade-item">
+                                <div class="grade-value grade-4">4</div>
+                                <div class="grade-date">05.11.2023</div>
+                                <div class="grade-type test">Тест</div>
+                            </div>
+                            <div class="grade-item">
+                                <div class="grade-value grade-5">5</div>
+                                <div class="grade-date">28.10.2023</div>
+                                <div class="grade-type homework">Домашняя работа</div>
+                            </div>
+                            <div class="grade-item">
+                                <div class="grade-value grade-4">4</div>
+                                <div class="grade-date">20.10.2023</div>
+                                <div class="grade-type control">Контрольная</div>
+                            </div>
+                        </div>
+                        
+                        <div class="performance-chart">
+                            <canvas id="mathIrinaChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="grades-content" id="physics-tab">
+                    <div class="subject-details">
+                        <div class="subject-header">
+                            <div class="subject-title">Алексей Петров - Физика</div>
+                            <div class="subject-average-grade">Средний балл: 4.5</div>
+                        </div>
+                        
+                        <div class="grades-timeline">
+                            <div class="grade-item">
+                                <div class="grade-value grade-5">5</div>
+                                <div class="grade-date">14.11.2023</div>
+                                <div class="grade-type control">Контрольная</div>
+                            </div>
+                            <div class="grade-item">
+                                <div class="grade-value grade-4">4</div>
+                                <div class="grade-date">08.11.2023</div>
+                                <div class="grade-type homework">Домашняя работа</div>
+                            </div>
+                            <div class="grade-item">
+                                <div class="grade-value grade-4">4</div>
+                                <div class="grade-date">02.11.2023</div>
+                                <div class="grade-type test">Тест</div>
+                            </div>
+                            <div class="grade-item">
+                                <div class="grade-value grade-5">5</div>
+                                <div class="grade-date">25.10.2023</div>
+                                <div class="grade-type homework">Домашняя работа</div>
+                            </div>
+                        </div>
+                        
+                        <div class="performance-chart">
+                            <canvas id="physicsAlexeyChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="grades-content" id="programming-tab">
+                    <div class="subject-details">
+                        <div class="subject-header">
+                            <div class="subject-title">Алексей Петров - Программирование</div>
+                            <div class="subject-average-grade">Средний балл: 4.8</div>
+                        </div>
+                        
+                        <div class="grades-timeline">
+                            <div class="grade-item">
+                                <div class="grade-value grade-5">5</div>
+                                <div class="grade-date">16.11.2023</div>
+                                <div class="grade-type control">Контрольная</div>
+                            </div>
+                            <div class="grade-item">
+                                <div class="grade-value grade-5">5</div>
+                                <div class="grade-date">09.11.2023</div>
+                                <div class="grade-type homework">Домашняя работа</div>
+                            </div>
+                            <div class="grade-item">
+                                <div class="grade-value grade-4">4</div>
+                                <div class="grade-date">03.11.2023</div>
+                                <div class="grade-type test">Тест</div>
+                            </div>
+                            <div class="grade-item">
+                                <div class="grade-value grade-5">5</div>
+                                <div class="grade-date">27.10.2023</div>
+                                <div class="grade-type homework">Домашняя работа</div>
+                            </div>
+                        </div>
+                        
+                        <div class="performance-chart">
+                            <canvas id="programmingAlexeyChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="grades-content" id="chemistry-tab">
+                    <div class="subject-details">
+                        <div class="subject-header">
+                            <div class="subject-title">Ирина Петрова - Химия</div>
+                            <div class="subject-average-grade">Средний балл: 4.3</div>
+                        </div>
+                        
+                        <div class="grades-timeline">
+                            <div class="grade-item">
+                                <div class="grade-value grade-4">4</div>
+                                <div class="grade-date">13.11.2023</div>
+                                <div class="grade-type control">Контрольная</div>
+                            </div>
+                            <div class="grade-item">
+                                <div class="grade-value grade-5">5</div>
+                                <div class="grade-date">07.11.2023</div>
+                                <div class="grade-type homework">Домашняя работа</div>
+                            </div>
+                            <div class="grade-item">
+                                <div class="grade-value grade-4">4</div>
+                                <div class="grade-date">01.11.2023</div>
+                                <div class="grade-type test">Тест</div>
+                            </div>
+                            <div class="grade-item">
+                                <div class="grade-value grade-4">4</div>
+                                <div class="grade-date">24.10.2023</div>
+                                <div class="grade-type homework">Домашняя работа</div>
+                            </div>
+                        </div>
+                        
+                        <div class="performance-chart">
+                            <canvas id="chemistryIrinaChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script type="module" src="/frontend/static/js/main.js"></script>
+</body>
+</html>

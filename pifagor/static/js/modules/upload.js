@@ -87,7 +87,7 @@ export class UploadManager {
                 try {
                     await this.handleAvatarUpload(file, avatarImage, config);
                 } catch (error) {
-                    console.error('Avatar upload error:', error);
+                    console.error('Avatar upload pifagor_error:', error);
                     this.showNotification('Ошибка загрузки аватара', 'error');
                 }
             }
@@ -1012,14 +1012,14 @@ export class UploadManager {
         document.addEventListener('upload:file-added', this.handleFileAdded.bind(this));
         document.addEventListener('upload:progress', this.handleUploadProgress.bind(this));
         document.addEventListener('upload:complete', this.handleUploadComplete.bind(this));
-        document.addEventListener('upload:error', this.handleUploadError.bind(this));
+        document.addEventListener('upload:pifagor_error', this.handleUploadError.bind(this));
     }
 
     cleanupEventListeners() {
         document.removeEventListener('upload:file-added', this.handleFileAdded.bind(this));
         document.removeEventListener('upload:progress', this.handleUploadProgress.bind(this));
         document.removeEventListener('upload:complete', this.handleUploadComplete.bind(this));
-        document.removeEventListener('upload:error', this.handleUploadError.bind(this));
+        document.removeEventListener('upload:pifagor_error', this.handleUploadError.bind(this));
     }
 
     handleFileAdded(event) {
@@ -1035,7 +1035,7 @@ export class UploadManager {
     }
 
     handleUploadError(event) {
-        this.logDebug('Upload error:', event.detail);
+        this.logDebug('Upload pifagor_error:', event.detail);
     }
 
     dispatchUploadEvent(uploadId, eventType) {

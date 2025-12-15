@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пифагор - Создание расписания</title>
+    <link rel="icon" href="/frontend/static/assets/image/logo/icons.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Forum&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/frontend/static/css/main.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo-header">
+                <a href="/frontend/templates/main/index.html">
+                    <img src="/frontend/static/assets/image/logo/logo.svg" alt="logo">
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/frontend/templates/main/about.html">О платформе</a></li>
+                <li><a href="/frontend/templates/courses/courses.html">Курсы</a></li>
+                <li><a href="/frontend/templates/main/teachers.html">Преподаватели</a></li>
+                <li><a href="/frontend/templates/main/contact.html">Контакты</a></li>
+            </ul>
+            <div class="header-actions">
+                <div class="user-menu">
+                    <div class="user-avatar" id="userAvatar">ЕП</div>
+                    <div class="user-name" id="userName">Елена Плеханова</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Dashboard -->
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <ul class="sidebar-menu">
+                <li><a href="/frontend/templates/users/teacher-dashboard.html"><i class="fas fa-home"></i> <span>Главная</span></a></li>
+                <li><a href="/frontend/templates/courses/courses-list.html"><i class="fas fa-book-open"></i> <span>Мои курсы</span></a></li>
+                <li><a href="/frontend/templates/practic/practic-list.html"><i class="fas fa-tasks"></i> <span>Задания</span></a></li>
+                <li><a href="/frontend/templates/journal/classes.html"><i class="fas fa-users"></i> <span>Классы</span></a></li>
+                <li><a href="/frontend/templates/practic/practic-check.html"><i class="fas fa-check-circle"></i> <span>Проверка работ</span></a></li>
+                <li><a href="/frontend/templates/analytics/statistics.html"><i class="fas fa-chart-line"></i> <span>Аналитика</span></a></li>
+                <li><a href="/frontend/templates/journal/schedule.html"><i class="fas fa-calendar-alt"></i> <span>Расписание</span></a></li>
+                <li><a href="/frontend/templates/journal/journal.html"><i class="fas fa-book"></i> <span>Журнал</span></a></li>
+                <li><a href="/frontend/templates/analytics/attendance.html"><i class="fas fa-clipboard-check"></i> <span>Посещаемость</span></a></li>
+                <li><a href="/frontend/templates/journal/grades.html"><i class="fas fa-star"></i> <span>Успеваемость</span></a></li>
+                <li><a href="/frontend/templates/analytics/progress.html"><i class="fas fa-chart-bar"></i> <span>Прогресс</span></a></li>
+                <li><a href="/frontend/templates/journal/schedule-create.html"><i class="fas fa-plus-circle"></i> <span>Создать расписание</span></a></li>
+                <li><a href="/frontend/templates/classes/class-students.html"><i class="fas fa-user-graduate"></i> <span>Ученики класса</span></a></li>
+                <li><a href="/frontend/templates/classes/class-teachers.html"><i class="fas fa-chalkboard-teacher"></i> <span>Преподаватели класса</span></a></li>
+                <li><a href="/frontend/templates/classes/class-schedule.html"><i class="fas fa-calendar-week"></i> <span>Расписание класса</span></a></li>
+                <li><a href="/frontend/templates/users/profile-edit.html"><i class="fas fa-cog"></i> <span>Настройки</span></a></li>
+                <li><a href="/frontend/templates/auth/logout.html"><i class="fas fa-sign-out"></i> <span>Выйти</span></a></li>                
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Schedule Header -->
+            <div class="schedule-header">
+                <div class="schedule-title">
+                    <h1>Создание расписания</h1>
+                    <p>Добавление нового занятия в расписание</p>
+                </div>
+                <div class="schedule-controls">
+                    <a href="/frontend/templates/journal/schedule.html" class="btn btn-light"><i class="fas fa-arrow-left"></i> Назад к расписанию</a>
+                </div>
+            </div>
+
+            <!-- Schedule Layout -->
+            <div class="schedule-layout">
+                <!-- Left Column -->
+                <div class="left-column">
+                    <!-- Basic Information -->
+                    <section class="form-section">
+                        <div class="section-header">
+                            <h2>Основная информация</h2>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="lessonTitle">Название занятия</label>
+                            <input type="text" class="form-input" id="lessonTitle" placeholder="Введите название занятия">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="lessonDescription">Описание</label>
+                            <textarea class="form-textarea" id="lessonDescription" placeholder="Введите описание занятия (необязательно)"></textarea>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="subjectSelect">Предмет</label>
+                                <select class="form-select" id="subjectSelect">
+                                    <option value="">Выберите предмет</option>
+                                    <option value="math">Математика</option>
+                                    <option value="physics">Физика</option>
+                                    <option value="programming">Основы программирования</option>
+                                    <option value="literature">Литература</option>
+                                    <option value="history">История</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="classSelect">Класс</label>
+                                <select class="form-select" id="classSelect">
+                                    <option value="">Выберите класс</option>
+                                    <option value="9a">9-А класс</option>
+                                    <option value="9b">9-Б класс</option>
+                                    <option value="10a">10-А класс</option>
+                                    <option value="10b">10-Б класс</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Цвет занятия</label>
+                            <div class="color-options">
+                                <div class="color-option selected" style="background-color: #4A6FA5;" data-color="#4A6FA5"></div>
+                                <div class="color-option" style="background-color: #2ECC71;" data-color="#2ECC71"></div>
+                                <div class="color-option" style="background-color: #F39C12;" data-color="#F39C12"></div>
+                                <div class="color-option" style="background-color: #E74C3C;" data-color="#E74C3C"></div>
+                                <div class="color-option" style="background-color: #9B59B6;" data-color="#9B59B6"></div>
+                                <div class="color-option" style="background-color: #1ABC9C;" data-color="#1ABC9C"></div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Date and Time -->
+                    <section class="form-section">
+                        <div class="section-header">
+                            <h2>Дата и время</h2>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="lessonDate">Дата занятия</label>
+                                <input type="date" class="form-input" id="lessonDate">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="lessonTime">Время начала</label>
+                                <input type="time" class="form-input" id="lessonTime">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="durationSelect">Продолжительность</label>
+                                <select class="form-select" id="durationSelect">
+                                    <option value="45">45 минут</option>
+                                    <option value="60">1 час</option>
+                                    <option value="90">1,5 часа</option>
+                                    <option value="120">2 часа</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="roomSelect">Аудитория</label>
+                                <select class="form-select" id="roomSelect">
+                                    <option value="">Выберите аудиторию</option>
+                                    <option value="101">101</option>
+                                    <option value="102">102</option>
+                                    <option value="201">201</option>
+                                    <option value="202">202</option>
+                                    <option value="lab1">Компьютерный класс 1</option>
+                                    <option value="lab2">Компьютерный класс 2</option>
+                                </select>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Repetition -->
+                    <section class="form-section">
+                        <div class="section-header">
+                            <h2>Повторение</h2>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Тип повторения</label>
+                            <div class="repeat-options">
+                                <div class="repeat-option" data-repeat="none">Не повторять</div>
+                                <div class="repeat-option" data-repeat="daily">Ежедневно</div>
+                                <div class="repeat-option selected" data-repeat="weekly">Еженедельно</div>
+                                <div class="repeat-option" data-repeat="monthly">Ежемесячно</div>
+                            </div>
+                        </div>
+                        <div class="form-group" id="weeklyOptions">
+                            <label class="form-label">Дни недели</label>
+                            <div class="days-selection">
+                                <div class="day-option" data-day="mon">Пн</div>
+                                <div class="day-option" data-day="tue">Вт</div>
+                                <div class="day-option selected" data-day="wed">Ср</div>
+                                <div class="day-option" data-day="thu">Чт</div>
+                                <div class="day-option" data-day="fri">Пт</div>
+                                <div class="day-option" data-day="sat">Сб</div>
+                                <div class="day-option" data-day="sun">Вс</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="repeatUntil">Повторять до</label>
+                            <input type="date" class="form-input" id="repeatUntil">
+                            <div class="form-hint">Оставьте пустым, если повторение бессрочное</div>
+                        </div>
+                    </section>
+
+                    <!-- Additional Settings -->
+                    <section class="form-section">
+                        <div class="section-header">
+                            <h2>Дополнительные настройки</h2>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="teacherSelect">Преподаватель</label>
+                            <select class="form-select" id="teacherSelect">
+                                <option value="">Выберите преподавателя</option>
+                                <option value="1">Иванов А.С.</option>
+                                <option value="2">Петрова М.В.</option>
+                                <option value="3">Сидоров Д.К.</option>
+                                <option value="4">Новикова Е.П.</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="materialsInput">Учебные материалы</label>
+                            <input type="text" class="form-input" id="materialsInput" placeholder="Ссылка на материалы или название учебника">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="homeworkInput">Ссылки на дополнительные учебные материалы</label>
+                            <textarea class="form-textarea" id="homeworkInput" placeholder="Ссылка на материалы или название учебника"></textarea>
+                        </div>
+                    </section>
+
+                    <!-- Form Actions -->
+                    <div class="form-actions">
+                        <button class="btn btn-light" id="cancelBtn">Отмена</button>
+                        <button class="btn" id="saveBtn">Сохранить расписание</button>
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="right-column">
+                    <!-- Preview Section -->
+                    <section class="preview-section">
+                        <div class="preview-header">
+                            <div class="preview-title">Предварительный просмотр</div>
+                        </div>
+                        <div class="preview-content">
+                            <div class="preview-item" style="border-left-color: #4A6FA5;">
+                                <div class="preview-item-header">
+                                    <div class="preview-item-title">Основы программирования</div>
+                                    <div class="preview-item-time">09:00 - 10:30</div>
+                                </div>
+                                <div class="preview-item-details">Введение в алгоритмы. Практическая работа с базовыми структурами данных.</div>
+                                <div class="preview-item-meta">
+                                    <span>9-А класс</span>
+                                    <span>Ауд. 201</span>
+                                    <span>Иванов А.С.</span>
+                                </div>
+                            </div>
+                            <div class="preview-item" style="border-left-color: #2ECC71;">
+                                <div class="preview-item-header">
+                                    <div class="preview-item-title">Математика</div>
+                                    <div class="preview-item-time">11:00 - 12:00</div>
+                                </div>
+                                <div class="preview-item-details">Решение квадратных уравнений. Подготовка к контрольной работе.</div>
+                                <div class="preview-item-meta">
+                                    <span>9-А класс</span>
+                                    <span>Ауд. 102</span>
+                                    <span>Петрова М.В.</span>
+                                </div>
+                            </div>
+                            <div class="preview-item" style="border-left-color: #F39C12;">
+                                <div class="preview-item-header">
+                                    <div class="preview-item-title">Физика</div>
+                                    <div class="preview-item-time">13:00 - 14:00</div>
+                                </div>
+                                <div class="preview-item-details">Законы Ньютона. Лабораторная работа по измерению силы трения.</div>
+                                <div class="preview-item-meta">
+                                    <span>9-А класс</span>
+                                    <span>Ауд. 301</span>
+                                    <span>Сидоров Д.К.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Templates Section -->
+                    <section class="templates-section">
+                        <div class="section-header">
+                            <h2>Шаблоны расписания</h2>
+                        </div>
+                        <div class="templates-grid">
+                            <div class="template-card" data-template="standard">
+                                <div class="template-icon">
+                                    <i class="fas fa-school"></i>
+                                </div>
+                                <div class="template-title">Стандартное</div>
+                                <div class="template-desc">45-минутные уроки с переменами</div>
+                            </div>
+                            <div class="template-card" data-template="block">
+                                <div class="template-icon">
+                                    <i class="fas fa-th-large"></i>
+                                </div>
+                                <div class="template-title">Блочное</div>
+                                <div class="template-desc">90-минутные занятия</div>
+                            </div>
+                            <div class="template-card" data-template="intensive">
+                                <div class="template-icon">
+                                    <i class="fas fa-bolt"></i>
+                                </div>
+                                <div class="template-title">Кружок</div>
+                                <div class="template-desc">Внеурочная деятельность</div>
+                            </div>
+                            <div class="template-card" data-template="custom">
+                                <div class="template-icon">
+                                    <i class="fas fa-cog"></i>
+                                </div>
+                                <div class="template-title">Настроить</div>
+                                <div class="template-desc">Создать свой шаблон</div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="/frontend/static/js/main.js"></script>
+</body>
+</html>

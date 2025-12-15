@@ -1,0 +1,78 @@
+{% extends 'base_error.html' %}
+{% load static %}
+
+{% block error_title %}Ошибка 503{% endblock %}
+{% block error_body_class %}error-page-503{% endblock %}
+
+{% block content %}
+    <div class="bg-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <!-- Floating elements -->
+    <div class="floating-element" style="top: 15%; right: 8%; width: 40px; height: 40px; background: var(--accent-blue); border-radius: 50%;"></div>
+    <div class="floating-element" style="top: 70%; left: 5%; width: 30px; height: 30px; background: var(--primary-dark); border-radius: 50%; animation-delay: 0.5s;"></div>
+    <div class="floating-element" style="top: 40%; right: 15%; width: 25px; height: 25px; background: var(--accent-light-blue); border-radius: 50%; animation-delay: 1s;"></div>
+    
+    <!-- Particle Background -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Error Content -->
+    <div class="container-error">
+        <div class="content-left">
+            <div class="logo-container">
+                <div class="logo">
+                    <img src="{% static 'assets/image/logo/logo.svg' %}" alt="Пифагор">
+                </div>
+            </div>
+            
+            <div class="error-code">503</div>
+            
+            <h1 class="error-title">Сервис недоступен</h1>
+            
+            <p class="error-description">
+                Сервер временно не может обработать ваш запрос из-за технического обслуживания или временной перегрузки. 
+                Это плановая процедура для улучшения работы платформы.
+            </p>
+            
+            <div class="reassurance-work">
+                <p>
+                    <i class="fas fa-tools"></i> 
+                    <strong>Не переживайте! Мы проводим плановые работы для улучшения сервиса. Скоро мы снова вернемся в онлайн.</strong>
+                </p>
+            </div>
+            
+            <div class="maintenance-team">
+                <p><i class="fas fa-users-cog"></i> Наша команда активно работает над улучшением платформы для вас.</p>
+            </div>
+            
+            <div class="service-check-info">
+                <p><i class="fas fa-sync-alt"></i> Автоматически проверяем восстановление сервиса...</p>
+            </div>
+            
+            <div class="error-actions">
+                <button onclick="window.location.reload()" class="btn btn-info" id="refresh-btn">
+                    <i class="fas fa-redo"></i> Проверить снова
+                </button>
+                <a href="{% url 'main:index' %}" class="btn">
+                    <i class="fas fa-home"></i> На главную
+                </a>
+                <a href="{% url 'main:index' %}" class="btn btn-light">
+                    <i class="fas fa-book-open"></i> К курсам
+                </a>
+            </div>
+        </div>
+        
+        <div class="illustration-right">
+            <div class="error-illustration error-illustration-503" id="error-illustration">
+                <i class="fas fa-tools"></i>
+                <h3 class="illustration-title">Ошибка 503</h3>
+                <p>Сервис недоступен</p>
+                <p>Выполняются технические работы</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

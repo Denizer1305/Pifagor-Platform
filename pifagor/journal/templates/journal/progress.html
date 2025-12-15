@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пифагор - Отслеживание прогресса</title>
+    <link rel="icon" href="/frontend/static/assets/image/logo/icons.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Forum&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/frontend/static/css/main.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo-header">
+                <a href="/frontend/templates/main/index.html">
+                    <img src="/frontend/static/assets/image/logo/logo.svg" alt="logo">
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/frontend/templates/main/about.html">О платформе</a></li>
+                <li><a href="/frontend/templates/courses/courses.html">Курсы</a></li>
+                <li><a href="/frontend/templates/main/teachers.html">Преподаватели</a></li>
+                <li><a href="/frontend/templates/main/contact.html">Контакты</a></li>
+            </ul>
+            <div class="header-actions">
+                <div class="user-menu">
+                    <div class="user-avatar" id="userAvatar">ЕП</div>
+                    <div class="user-name" id="userName">Елена Плеханова</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Dashboard -->
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <ul class="sidebar-menu">
+                <li><a href="/frontend/templates/main/index.html"><i class="fas fa-home"></i> <span>Главная</span></a></li>
+                <li><a href="/frontend/templates/courses/courses-list.html"><i class="fas fa-book-open"></i> <span>Мои курсы</span></a></li>
+                <li><a href="/frontend/templates/practic/practic-list.html"><i class="fas fa-tasks"></i> <span>Задания</span></a></li>
+                <li><a href="/frontend/templates/classes/classes.html"><i class="fas fa-users"></i> <span>Классы</span></a></li>
+                <li><a href="/frontend/templates/practic/practic-check.html"><i class="fas fa-check-circle"></i> <span>Проверка работ</span></a></li>
+                <li><a href="/frontend/templates/analytics/statistics.html"><i class="fas fa-chart-line"></i> <span>Аналитика</span></a></li>
+                <li><a href="/frontend/templates/journal/schedule.html"><i class="fas fa-calendar-alt"></i> <span>Расписание</span></a></li>
+                <li><a href="/frontend/templates/journal/journal.html"><i class="fas fa-book"></i> <span>Журнал</span></a></li>
+                <li><a href="/frontend/templates/attendance/attendance.html"><i class="fas fa-clipboard-check"></i> <span>Посещаемость</span></a></li>
+                <li><a href="/frontend/templates/grades/grades.html"><i class="fas fa-star"></i> <span>Успеваемость</span></a></li>
+                <li><a href="/frontend/templates/progress/progress.html" class="active"><i class="fas fa-chart-bar"></i> <span>Прогресс</span></a></li>
+                <li><a href="/frontend/templates/users/profile-edit.html"><i class="fas fa-cog"></i> <span>Настройки</span></a></li>
+                <li><a href="/frontend/templates/auth/logout.html"><i class="fas fa-sign-out"></i> <span>Выйти</span></a></li>                
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Progress Header -->
+            <div class="progress-header">
+                <div class="progress-title">
+                    <h1>Отслеживание прогресса</h1>
+                    <p>9-А класс • Основы программирования</p>
+                </div>
+                <div class="progress-controls">
+                    <select class="filter-select" id="classFilter">
+                        <option>9-А класс</option>
+                        <option>9-Б класс</option>
+                        <option>10-А класс</option>
+                    </select>
+                    <select class="filter-select" id="subjectFilter">
+                        <option>Основы программирования</option>
+                        <option>Математика</option>
+                        <option>Физика</option>
+                    </select>
+                    <div class="period-navigation">
+                        <div class="nav-btn">
+                            <i class="fas fa-chevron-left"></i>
+                        </div>
+                        <div class="current-period">I четверть</div>
+                        <div class="nav-btn">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+                    <a href="#" class="btn"><i class="fas fa-download"></i> Отчет</a>
+                </div>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon completion">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>78%</h3>
+                        <p>Средняя завершенность курса</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon average">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>4.2</h3>
+                        <p>Средний балл класса</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon performance">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>+12%</h3>
+                        <p>Улучшение успеваемости</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon time">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>24ч</h3>
+                        <p>Среднее время обучения</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progress Layout -->
+            <div class="progress-layout">
+                <!-- Left Column -->
+                <div class="left-column">
+                    <!-- Progress Table -->
+                    <section class="progress-section">
+                        <div class="section-header">
+                            <h2>Прогресс студентов</h2>
+                            <a href="#" class="btn btn-light"><i class="fas fa-cog"></i> Настройки</a>
+                        </div>
+                        <div style="overflow-x: auto;">
+                            <table class="progress-table">
+                                <thead>
+                                    <tr>
+                                        <th>Студент</th>
+                                        <th>Прогресс курса</th>
+                                        <th>Средний балл</th>
+                                        <th>Выполнено заданий</th>
+                                        <th>Активность</th>
+                                        <th>Действия</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="student-info">
+                                                <div class="student-avatar">ИИ</div>
+                                                <div>
+                                                    <div>Иван Иванов</div>
+                                                    <div style="font-size: 0.8rem; color: var(--secondary);">№ 20151234</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="progress-cell">
+                                            <div class="progress-bar-container">
+                                                <div class="progress-bar high" style="width: 85%"></div>
+                                            </div>
+                                            <div class="progress-value">85%</div>
+                                        </td>
+                                        <td>
+                                            <span class="grade-badge grade-excellent">4.6</span>
+                                        </td>
+                                        <td>
+                                            <span class="grade-badge grade-good">12/15</span>
+                                        </td>
+                                        <td class="progress-cell">
+                                            <div class="progress-bar-container">
+                                                <div class="progress-bar high" style="width: 90%"></div>
+                                            </div>
+                                            <div class="progress-value">Высокая</div>
+                                        </td>
+                                        <td>
+                                            <div class="progress-actions">
+                                                <div class="action-btn"><i class="fas fa-chart-line"></i></div>
+                                                <div class="action-btn"><i class="fas fa-envelope"></i></div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="student-info">
+                                                <div class="student-avatar">МП</div>
+                                                <div>
+                                                    <div>Мария Петрова</div>
+                                                    <div style="font-size: 0.8rem; color: var(--secondary);">№ 20151235</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="progress-cell">
+                                            <div class="progress-bar-container">
+                                                <div class="progress-bar high" style="width: 95%"></div>
+                                            </div>
+                                            <div class="progress-value">95%</div>
+                                        </td>
+                                        <td>
+                                            <span class="grade-badge grade-excellent">5.0</span>
+                                        </td>
+                                        <td>
+                                            <span class="grade-badge grade-excellent">15/15</span>
+                                        </td>
+                                        <td class="progress-cell">
+                                            <div class="progress-bar-container">
+                                                <div class="progress-bar high" style="width: 95%"></div>
+                                            </div>
+                                            <div class="progress-value">Очень высокая</div>
+                                        </td>
+                                        <td>
+                                            <div class="progress-actions">
+                                                <div class="action-btn"><i class="fas fa-chart-line"></i></div>
+                                                <div class="action-btn"><i class="fas fa-envelope"></i></div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="student-info">
+                                                <div class="student-avatar">АС</div>
+                                                <div>
+                                                    <div>Алексей Сидоров</div>
+                                                    <div style="font-size: 0.8rem; color: var(--secondary);">№ 20151236</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="progress-cell">
+                                            <div class="progress-bar-container">
+                                                <div class="progress-bar medium" style="width: 65%"></div>
+                                            </div>
+                                            <div class="progress-value">65%</div>
+                                        </td>
+                                        <td>
+                                            <span class="grade-badge grade-average">3.0</span>
+                                        </td>
+                                        <td>
+                                            <span class="grade-badge grade-average">10/15</span>
+                                        </td>
+                                        <td class="progress-cell">
+                                            <div class="progress-bar-container">
+                                                <div class="progress-bar medium" style="width: 60%"></div>
+                                            </div>
+                                            <div class="progress-value">Средняя</div>
+                                        </td>
+                                        <td>
+                                            <div class="progress-actions">
+                                                <div class="action-btn"><i class="fas fa-chart-line"></i></div>
+                                                <div class="action-btn"><i class="fas fa-envelope"></i></div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="student-info">
+                                                <div class="student-avatar">ЕН</div>
+                                                <div>
+                                                    <div>Елена Новикова</div>
+                                                    <div style="font-size: 0.8rem; color: var(--secondary);">№ 20151237</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="progress-cell">
+                                            <div class="progress-bar-container">
+                                                <div class="progress-bar high" style="width: 90%"></div>
+                                            </div>
+                                            <div class="progress-value">90%</div>
+                                        </td>
+                                        <td>
+                                            <span class="grade-badge grade-excellent">4.8</span>
+                                        </td>
+                                        <td>
+                                            <span class="grade-badge grade-excellent">14/15</span>
+                                        </td>
+                                        <td class="progress-cell">
+                                            <div class="progress-bar-container">
+                                                <div class="progress-bar high" style="width: 85%"></div>
+                                            </div>
+                                            <div class="progress-value">Высокая</div>
+                                        </td>
+                                        <td>
+                                            <div class="progress-actions">
+                                                <div class="action-btn"><i class="fas fa-chart-line"></i></div>
+                                                <div class="action-btn"><i class="fas fa-envelope"></i></div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="student-info">
+                                                <div class="student-avatar">ДК</div>
+                                                <div>
+                                                    <div>Дмитрий Козлов</div>
+                                                    <div style="font-size: 0.8rem; color: var(--secondary);">№ 20151238</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="progress-cell">
+                                            <div class="progress-bar-container">
+                                                <div class="progress-bar medium" style="width: 75%"></div>
+                                            </div>
+                                            <div class="progress-value">75%</div>
+                                        </td>
+                                        <td>
+                                            <span class="grade-badge grade-good">3.6</span>
+                                        </td>
+                                        <td>
+                                            <span class="grade-badge grade-good">11/15</span>
+                                        </td>
+                                        <td class="progress-cell">
+                                            <div class="progress-bar-container">
+                                                <div class="progress-bar medium" style="width: 70%"></div>
+                                            </div>
+                                            <div class="progress-value">Средняя</div>
+                                        </td>
+                                        <td>
+                                            <div class="progress-actions">
+                                                <div class="action-btn"><i class="fas fa-chart-line"></i></div>
+                                                <div class="action-btn"><i class="fas fa-envelope"></i></div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                    <!-- Performance Chart -->
+                    <section class="chart-section">
+                        <div class="section-header">
+                            <h2>Динамика успеваемости</h2>
+                            <select class="filter-select" id="chartPeriod">
+                                <option>За последний месяц</option>
+                                <option>За последние 3 месяца</option>
+                                <option>За учебный год</option>
+                            </select>
+                        </div>
+                        <div class="chart-controls">
+                            <button class="chart-type-btn active" data-type="line">Линейный график</button>
+                            <button class="chart-type-btn" data-type="bar">Столбчатая диаграмma</button>
+                            <button class="chart-type-btn" data-type="radar">Радарная диаграмма</button>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="performanceChart"></canvas>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Right Column -->
+                <div class="right-column">
+                    <!-- Course Progress -->
+                    <section class="course-progress-section">
+                        <div class="section-header">
+                            <h2>Прогресс по курсам</h2>
+                        </div>
+                        <ul class="course-list">
+                            <li class="course-item">
+                                <div class="course-header">
+                                    <div class="course-title">Основы программирования</div>
+                                    <div class="course-progress-value">78%</div>
+                                </div>
+                                <div class="course-progress-bar">
+                                    <div class="course-progress-fill" style="width: 78%"></div>
+                                </div>
+                                <div class="course-details">
+                                    <span>Завершено: 39/50 уроков</span>
+                                    <span>Средний балл: 4.2</span>
+                                </div>
+                            </li>
+                            <li class="course-item">
+                                <div class="course-header">
+                                    <div class="course-title">Алгоритмы и структуры данных</div>
+                                    <div class="course-progress-value">45%</div>
+                                </div>
+                                <div class="course-progress-bar">
+                                    <div class="course-progress-fill" style="width: 45%"></div>
+                                </div>
+                                <div class="course-details">
+                                    <span>Завершено: 18/40 уроков</span>
+                                    <span>Средний балл: 4.0</span>
+                                </div>
+                            </li>
+                            <li class="course-item">
+                                <div class="course-header">
+                                    <div class="course-title">Веб-разработка</div>
+                                    <div class="course-progress-value">62%</div>
+                                </div>
+                                <div class="course-progress-bar">
+                                    <div class="course-progress-fill" style="width: 62%"></div>
+                                </div>
+                                <div class="course-details">
+                                    <span>Завершено: 25/40 уроков</span>
+                                    <span>Средний балл: 4.4</span>
+                                </div>
+                            </li>
+                            <li class="course-item">
+                                <div class="course-header">
+                                    <div class="course-title">Базы данных</div>
+                                    <div class="course-progress-value">30%</div>
+                                </div>
+                                <div class="course-progress-bar">
+                                    <div class="course-progress-fill" style="width: 30%"></div>
+                                </div>
+                                <div class="course-details">
+                                    <span>Завершено: 12/40 уроков</span>
+                                    <span>Средний балл: 4.1</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </section>
+
+                    <!-- Activity Feed -->
+                    <section class="activity-section">
+                        <div class="section-header">
+                            <h2>Последняя активность</h2>
+                        </div>
+                        <ul class="activity-list">
+                            <li class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <div class="activity-info">
+                                    <h4>Задание выполнено</h4>
+                                    <p>Иван Иванов завершил ДЗ №3</p>
+                                </div>
+                                <div class="activity-time">2 часа назад</div>
+                            </li>
+                            <li class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                <div class="activity-info">
+                                    <h4>Улучшение успеваемости</h4>
+                                    <p>Алексей Сидоров улучшил средний балл</p>
+                                </div>
+                                <div class="activity-time">5 часов назад</div>
+                            </li>
+                            <li class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-trophy"></i>
+                                </div>
+                                <div class="activity-info">
+                                    <h4>Достижение</h4>
+                                    <p>Мария Петрова завершила курс на 100%</p>
+                                </div>
+                                <div class="activity-time">Вчера</div>
+                            </li>
+                            <li class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-book"></i>
+                                </div>
+                                <div class="activity-info">
+                                    <h4>Новый урок</h4>
+                                    <p>Добавлен урок "Функции в Python"</p>
+                                </div>
+                                <div class="activity-time">2 дня назад</div>
+                            </li>
+                            <li class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-exclamation-circle"></i>
+                                </div>
+                                <div class="activity-info">
+                                    <h4>Низкая активность</h4>
+                                    <p>Дмитрий Козлов неактивен 3 дня</p>
+                                </div>
+                                <div class="activity-time">3 дня назад</div>
+                            </li>
+                        </ul>
+                    </section>
+
+                    <!-- Goals Section -->
+                    <section class="goals-section">
+                        <div class="section-header">
+                            <h2>Цели класса</h2>
+                        </div>
+                        <ul class="goals-list">
+                            <li class="goal-item">
+                                <div class="goal-header">
+                                    <div class="goal-title">Завершить курс программирования</div>
+                                    <div class="goal-progress">78%</div>
+                                </div>
+                                <div class="goal-progress-bar">
+                                    <div class="goal-progress-fill" style="width: 78%"></div>
+                                </div>
+                                <div class="goal-details">
+                                    <span>Срок: 30 мая</span>
+                                    <span>39/50 уроков</span>
+                                </div>
+                            </li>
+                            <li class="goal-item">
+                                <div class="goal-header">
+                                    <div class="goal-title">Средний балл выше 4.0</div>
+                                    <div class="goal-progress">100%</div>
+                                </div>
+                                <div class="goal-progress-bar">
+                                    <div class="goal-progress-fill" style="width: 100%"></div>
+                                </div>
+                                <div class="goal-details">
+                                    <span>Достигнуто!</span>
+                                    <span>4.2 средний балл</span>
+                                </div>
+                            </li>
+                            <li class="goal-item">
+                                <div class="goal-header">
+                                    <div class="goal-title">Увеличить активность студентов</div>
+                                    <div class="goal-progress">65%</div>
+                                </div>
+                                <div class="goal-progress-bar">
+                                    <div class="goal-progress-fill" style="width: 65%"></div>
+                                </div>
+                                <div class="goal-details">
+                                    <span>Срок: 15 апреля</span>
+                                    <span>13/20 студентов активны</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="/frontend/static/js/main.js"></script>
+</body>
+</html>

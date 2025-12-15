@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пифагор - Ученики класса</title>
+    <link rel="icon" href="/frontend/static/assets/image/logo/icons.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Forum&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/frontend/static/css/main.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo-header">
+                <a href="/frontend/templates/main/index.html">
+                    <img src="/frontend/static/assets/image/logo/logo.svg" alt="logo">
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/frontend/templates/main/about.html">О платформе</a></li>
+                <li><a href="/frontend/templates/courses/courses.html">Курсы</a></li>
+                <li><a href="/frontend/templates/main/teachers.html">Преподаватели</a></li>
+                <li><a href="/frontend/templates/main/contact.html">Контакты</a></li>
+            </ul>
+            <div class="header-actions">
+                <div class="user-menu">
+                    <div class="user-avatar" id="userAvatar">ЕП</div>
+                    <div class="user-name" id="userName">Елена Плеханова</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Dashboard -->
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <ul class="sidebar-menu">
+                <li><a href="/frontend/templates/users/teacher-dashboard.html"><i class="fas fa-home"></i> <span>Главная</span></a></li>
+                <li><a href="/frontend/templates/courses/courses-list.html"><i class="fas fa-book-open"></i> <span>Мои курсы</span></a></li>
+                <li><a href="/frontend/templates/practic/practic-list.html"><i class="fas fa-tasks"></i> <span>Задания</span></a></li>
+                <li><a href="/frontend/templates/journal/classes.html"><i class="fas fa-users"></i> <span>Классы</span></a></li>
+                <li><a href="/frontend/templates/practic/practic-check.html"><i class="fas fa-check-circle"></i> <span>Проверка работ</span></a></li>
+                <li><a href="/frontend/templates/analytics/statistics.html"><i class="fas fa-chart-line"></i> <span>Аналитика</span></a></li>
+                <li><a href="/frontend/templates/journal/schedule.html"><i class="fas fa-calendar-alt"></i> <span>Расписание</span></a></li>
+                <li><a href="/frontend/templates/journal/journal.html"><i class="fas fa-book"></i> <span>Журнал</span></a></li>
+                <li><a href="/frontend/templates/analytics/attendance.html"><i class="fas fa-clipboard-check"></i> <span>Посещаемость</span></a></li>
+                <li><a href="/frontend/templates/journal/grades.html"><i class="fas fa-star"></i> <span>Успеваемость</span></a></li>
+                <li><a href="/frontend/templates/analytics/progress.html"><i class="fas fa-chart-bar"></i> <span>Прогресс</span></a></li>
+                <li><a href="/frontend/templates/journal/schedule-create.html"><i class="fas fa-plus-circle"></i> <span>Создать расписание</span></a></li>
+                <li><a href="/frontend/templates/classes/class-students.html"><i class="fas fa-user-graduate"></i> <span>Ученики класса</span></a></li>
+                <li><a href="/frontend/templates/classes/class-teachers.html"><i class="fas fa-chalkboard-teacher"></i> <span>Преподаватели класса</span></a></li>
+                <li><a href="/frontend/templates/classes/class-schedule.html"><i class="fas fa-calendar-week"></i> <span>Расписание класса</span></a></li>
+                <li><a href="/frontend/templates/users/profile-edit.html"><i class="fas fa-cog"></i> <span>Настройки</span></a></li>
+                <li><a href="/frontend/templates/auth/logout.html"><i class="fas fa-sign-out"></i> <span>Выйти</span></a></li>                
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Class Header -->
+            <div class="class-header">
+                <div class="class-title">
+                    <h1>Ученики 9-А класса</h1>
+                    <p>Основы программирования • Классный руководитель: Иванов А.С.</p>
+                </div>
+                <div class="class-controls">
+                    <select class="filter-select" id="groupFilter">
+                        <option>Все ученики</option>
+                        <option>Отличники</option>
+                        <option>Хорошисты</option>
+                        <option>Троечники</option>
+                        <option>Низкая успеваемость</option>
+                    </select>
+                    <a href="#" class="btn" id="addStudentBtn"><i class="fas fa-user-plus"></i> Добавить ученика</a>
+                </div>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon students">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>24</h3>
+                        <p>Учеников в классе</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon average">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>4.2</h3>
+                        <p>Средний балл класса</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon attendance">
+                        <i class="fas fa-clipboard-check"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>87%</h3>
+                        <p>Средняя посещаемость</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon performance">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>+5%</h3>
+                        <p>Улучшение успеваемости</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Students Layout -->
+            <div class="students-layout">
+                <!-- Left Column -->
+                <div class="left-column">
+                    <!-- Students Section -->
+                    <section class="students-section">
+                        <div class="section-header">
+                            <h2>Список учеников</h2>
+                            <div class="search-box">
+                                <i class="fas fa-search search-icon"></i>
+                                <input type="text" class="search-input" placeholder="Поиск учеников...">
+                            </div>
+                        </div>
+                        <div style="overflow-x: auto;">
+                            <table class="students-table">
+                                <thead>
+                                    <tr>
+                                        <th>Ученик</th>
+                                        <th>Средний балл</th>
+                                        <th>Посещаемость</th>
+                                        <th>Последний сеанс</th>
+                                        <th>Действия</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="student-info">
+                                                <div class="student-avatar">ИИ</div>
+                                                <div class="student-details">
+                                                    <h4>Иван Иванов</h4>
+                                                    <p>№ 20151234</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span class="grade-badge grade-excellent">4.6</span>
+                                        </td>
+                                        <td>
+                                            <span class="attendance-badge attendance-high">92%</span>
+                                        </td>
+                                        <td>
+                                            <span class="attendance-badge attendance-high">25.10.2025</span>
+                                        </td>
+                                        <td>
+                                            <div class="student-actions">
+                                                <div class="action-btn" data-action="edit"><i class="fas fa-edit"></i></div>
+                                                <div class="action-btn" data-action="profile"><i class="fas fa-user"></i></div>
+                                                <div class="action-btn" data-action="message"><i class="fas fa-envelope"></i></div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Right Column -->
+                <div class="right-column">
+                    <!-- Student Groups -->
+                    <section class="groups-section">
+                        <div class="section-header">
+                            <h2>Группы учеников</h2>
+                        </div>
+                        <ul class="groups-list">
+                            <li class="group-item">
+                                <div class="group-header">
+                                    <div class="group-title">Отличники</div>
+                                    <div class="group-count">5 учеников</div>
+                                </div>
+                                <div class="group-progress-bar">
+                                    <div class="group-progress-fill" style="width: 21%"></div>
+                                </div>
+                                <div class="group-details">
+                                    <span>Средний балл: 4.8</span>
+                                    <span>21% класса</span>
+                                </div>
+                            </li>
+                            <li class="group-item">
+                                <div class="group-header">
+                                    <div class="group-title">Хорошисты</div>
+                                    <div class="group-count">12 учеников</div>
+                                </div>
+                                <div class="group-progress-bar">
+                                    <div class="group-progress-fill" style="width: 50%"></div>
+                                </div>
+                                <div class="group-details">
+                                    <span>Средний балл: 4.1</span>
+                                    <span>50% класса</span>
+                                </div>
+                            </li>
+                            <li class="group-item">
+                                <div class="group-header">
+                                    <div class="group-title">Троечники</div>
+                                    <div class="group-count">5 учеников</div>
+                                </div>
+                                <div class="group-progress-bar">
+                                    <div class="group-progress-fill" style="width: 21%"></div>
+                                </div>
+                                <div class="group-details">
+                                    <span>Средний балл: 3.3</span>
+                                    <span>21% класса</span>
+                                </div>
+                            </li>
+                            <li class="group-item">
+                                <div class="group-header">
+                                    <div class="group-title">Низкая успеваемость</div>
+                                    <div class="group-count">2 ученика</div>
+                                </div>
+                                <div class="group-progress-bar">
+                                    <div class="group-progress-fill" style="width: 8%"></div>
+                                </div>
+                                <div class="group-details">
+                                    <span>Средний балл: 2.8</span>
+                                    <span>8% класса</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </section>
+
+                    <!-- Recent Activity -->
+                    <section class="activity-section">
+                        <div class="section-header">
+                            <h2>Последняя активность</h2>
+                        </div>
+                        <ul class="activity-list">
+                            <li class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-user-plus"></i>
+                                </div>
+                                <div class="activity-info">
+                                    <h4>Новый ученик</h4>
+                                    <p>Добавлен Сергей Волков</p>
+                                </div>
+                                <div class="activity-time">2 часа назад</div>
+                            </li>
+                            <li class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                <div class="activity-info">
+                                    <h4>Улучшение успеваемости</h4>
+                                    <p>Алексей Сидоров повысил средний балл</p>
+                                </div>
+                                <div class="activity-time">5 часов назад</div>
+                            </li>
+                            <li class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <div class="activity-info">
+                                    <h4>Задание выполнено</h4>
+                                    <p>15 учеников сдали домашнюю работу</p>
+                                </div>
+                                <div class="activity-time">Вчера</div>
+                            </li>
+                            <li class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-exclamation-circle"></i>
+                                </div>
+                                <div class="activity-info">
+                                    <h4>Низкая посещаемость</h4>
+                                    <p>3 ученика пропустили занятие</p>
+                                </div>
+                                <div class="activity-time">2 дня назад</div>
+                            </li>
+                        </ul>
+                    </section>
+
+                    <!-- Quick Actions -->
+                    <section class="actions-section">
+                        <div class="section-header">
+                            <h2>Быстрые действия</h2>
+                        </div>
+                        <div class="actions-grid">
+                            <div class="action-card" id="exportStudents">
+                                <div class="action-icon">
+                                    <i class="fas fa-file-export"></i>
+                                </div>
+                                <div class="action-title">Экспорт списка</div>
+                                <div class="action-desc">Выгрузить данные учеников</div>
+                            </div>
+                            <div class="action-card" id="sendMessage">
+                                <div class="action-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div class="action-title">Отправить сообщение</div>
+                                <div class="action-desc">Всем ученикам класса</div>
+                            </div>
+                            <div class="action-card" id="createGroup">
+                                <div class="action-icon">
+                                    <i class="fas fa-layer-group"></i>
+                                </div>
+                                <div class="action-title">Создать группу</div>
+                                <div class="action-desc">Для проектной работы</div>
+                            </div>
+                            <div class="action-card" id="generateReport">
+                                <div class="action-icon">
+                                    <i class="fas fa-chart-pie"></i>
+                                </div>
+                                <div class="action-title">Создать отчет</div>
+                                <div class="action-desc">По успеваемости класса</div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Student Modal -->
+    <div class="modal-overlay" id="studentModal">
+        <div class="student-modal">
+            <div class="modal-header">
+                <h3 id="modalTitle">Добавить ученика</h3>
+                <div class="close-modal" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </div>
+            </div>
+            <div class="modal-content">
+                <form id="studentForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="firstName">Имя</label>
+                            <input type="text" class="form-input" id="firstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="lastName">Фамилия</label>
+                            <input type="text" class="form-input" id="lastName" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="studentId">ID ученика</label>
+                            <input type="text" class="form-input" id="studentId" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="birthDate">Дата рождения</label>
+                            <input type="date" class="form-input" id="birthDate">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="email">Email</label>
+                        <input type="email" class="form-input" id="email">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="phone">Телефон</label>
+                        <input type="tel" class="form-input" id="phone">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="parentName">Имя родителя</label>
+                        <input type="text" class="form-input" id="parentName">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="parentPhone">Телефон родителя</label>
+                        <input type="tel" class="form-input" id="parentPhone">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="notes">Примечания</label>
+                        <textarea class="form-input" id="notes" rows="3"></textarea>
+                    </div>
+                    <div class="modal-actions">
+                        <button type="button" class="btn btn-light" id="cancelBtn">Отмена</button>
+                        <button type="submit" class="btn" id="saveStudentBtn">Сохранить</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // User data
+        const userName = "Елена Плеханова";
+        const userEmail = "elena.plekhanova@example.com";
+        
+        document.getElementById('userName').textContent = userName;
+        
+        // Generate avatar initials
+        const nameParts = userName.split(' ');
+        const initials = nameParts.map(part => part[0]).join('').toUpperCase();
+        document.getElementById('userAvatar').textContent = initials;
+
+        // Students functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const studentModal = document.getElementById('studentModal');
+            const closeModal = document.getElementById('closeModal');
+            const cancelBtn = document.getElementById('cancelBtn');
+            const saveStudentBtn = document.getElementById('saveStudentBtn');
+            const addStudentBtn = document.getElementById('addStudentBtn');
+            const studentForm = document.getElementById('studentForm');
+            const actionButtons = document.querySelectorAll('.action-btn');
+            const quickActions = document.querySelectorAll('.action-card');
+            const searchInput = document.querySelector('.search-input');
+            
+            let currentStudent = null;
+            let isEditing = false;
+
+            // Open modal for adding student
+            addStudentBtn.addEventListener('click', function() {
+                isEditing = false;
+                document.getElementById('modalTitle').textContent = 'Добавить ученика';
+                resetForm();
+                studentModal.classList.add('active');
+            });
+
+            // Close modal
+            function closeStudentModal() {
+                studentModal.classList.remove('active');
+                currentStudent = null;
+                isEditing = false;
+            }
+
+            closeModal.addEventListener('click', closeStudentModal);
+            cancelBtn.addEventListener('click', closeStudentModal);
+
+            // Student actions
+            actionButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const action = this.getAttribute('data-action');
+                    const studentRow = this.closest('tr');
+                    const studentName = studentRow.querySelector('.student-details h4').textContent;
+                    
+                    if (action === 'edit') {
+                        // In a real app, we would fetch student data
+                        currentStudent = {
+                            name: studentName,
+                            id: studentRow.querySelector('.student-details p').textContent.replace('№ ', '')
+                        };
+                        
+                        isEditing = true;
+                        document.getElementById('modalTitle').textContent = 'Редактировать ученика';
+                        // In a real app, we would populate the form with student data
+                        document.getElementById('firstName').value = studentName.split(' ')[1];
+                        document.getElementById('lastName').value = studentName.split(' ')[0];
+                        document.getElementById('studentId').value = currentStudent.id;
+                        
+                        studentModal.classList.add('active');
+                    } else if (action === 'profile') {
+                        alert(`Открыть профиль ученика: ${studentName}`);
+                    } else if (action === 'message') {
+                        alert(`Отправить сообщение ученику: ${studentName}`);
+                    }
+                });
+            });
+
+            // Quick actions
+            quickActions.forEach(action => {
+                action.addEventListener('click', function() {
+                    const actionId = this.id;
+                    
+                    if (actionId === 'exportStudents') {
+                        alert('Экспорт списка учеников');
+                    } else if (actionId === 'sendMessage') {
+                        alert('Отправка сообщения всем ученикам класса');
+                    } else if (actionId === 'createGroup') {
+                        alert('Создание новой группы учеников');
+                    } else if (actionId === 'generateReport') {
+                        alert('Генерация отчета по успеваемости класса');
+                    }
+                });
+            });
+
+            // Search functionality
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                const rows = document.querySelectorAll('.students-table tbody tr');
+                
+                rows.forEach(row => {
+                    const studentName = row.querySelector('.student-details h4').textContent.toLowerCase();
+                    if (studentName.includes(searchTerm)) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            });
+
+            // Form submission
+            studentForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                if (validateForm()) {
+                    // In a real app, we would save the student data
+                    if (isEditing) {
+                        alert(`Данные ученика ${currentStudent.name} успешно обновлены!`);
+                    } else {
+                        alert('Новый ученик успешно добавлен в класс!');
+                    }
+                    
+                    closeStudentModal();
+                }
+            });
+
+            // Form validation
+            function validateForm() {
+                const firstName = document.getElementById('firstName').value;
+                const lastName = document.getElementById('lastName').value;
+                const studentId = document.getElementById('studentId').value;
+                
+                if (!firstName) {
+                    alert('Пожалуйста, введите имя ученика');
+                    return false;
+                }
+                
+                if (!lastName) {
+                    alert('Пожалуйста, введите фамилию ученика');
+                    return false;
+                }
+                
+                if (!studentId) {
+                    alert('Пожалуйста, введите ID ученика');
+                    return false;
+                }
+                
+                return true;
+            }
+
+            // Reset form
+            function resetForm() {
+                studentForm.reset();
+            }
+        });
+    </script>
+</body>
+</html>

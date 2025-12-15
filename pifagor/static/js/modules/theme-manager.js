@@ -27,6 +27,25 @@ class ThemeManager {
         
         this.initializeThemeOptions();
         this.initializeAppearanceOptions();
+        
+        this.initializeAuthPages();
+    }
+
+    initializeAuthPages() {
+        const authPages = [
+            'login', 'registration', 'password-reset', 
+            'password-reset-code', 'logout', 'email-notification',
+            'new-password', 'reset', 'verification'
+        ];
+        
+        const currentPath = window.location.pathname;
+        const isAuthPage = authPages.some(page => currentPath.includes(page));
+        
+        if (isAuthPage) {
+            setTimeout(() => {
+                this.forceUpdateLogos();
+            }, 100);
+        }
     }
 
     setupEventListeners() {
@@ -34,21 +53,18 @@ class ThemeManager {
             if (e.target.classList.contains('theme-btn')) {
                 const theme = e.target.getAttribute('data-theme');
                 this.switchTheme(theme);
-                
                 this.animateButton(e.target);
             }
             
             if (e.target.classList.contains('theme-option')) {
                 const theme = e.target.getAttribute('data-theme');
                 this.switchTheme(theme);
-                
                 this.animateButton(e.target);
             }
             
             if (e.target.classList.contains('font-size-option')) {
                 const size = e.target.getAttribute('data-size');
                 this.setFontSize(size);
-                
                 document.querySelectorAll('.font-size-option').forEach(opt => {
                     opt.classList.remove('active');
                 });
@@ -58,12 +74,17 @@ class ThemeManager {
             if (e.target.classList.contains('density-option')) {
                 const density = e.target.getAttribute('data-density');
                 this.setDensity(density);
-                
                 document.querySelectorAll('.density-option').forEach(opt => {
                     opt.classList.remove('active');
                 });
                 e.target.classList.add('active');
             }
+        });
+
+        document.addEventListener('themeChanged', () => {
+            setTimeout(() => {
+                this.forceUpdateLogos();
+            }, 50);
         });
     }
 
@@ -99,7 +120,6 @@ class ThemeManager {
         this.currentTheme = theme;
         this.applyTheme(theme);
         localStorage.setItem('selectedTheme', theme);
-        
         this.dispatchThemeChangeEvent(theme);
     }
 
@@ -128,36 +148,55 @@ class ThemeManager {
         this.updateThemeColor(theme);
     }
 
-    // Обновление логотипов согласно теме
     updateLogos(theme) {
         const folderName = this.themeFolderMap[theme] || 'light';
         const staticBase = window.STATIC_URL || '/static/';
 
         this.updateMainLogos(folderName, staticBase);
+        this.updateAuthPageLogos(folderName, staticBase);
         this.updateFavicon(folderName, staticBase);
         this.updateSpecificHeroLogo(folderName, staticBase);
         this.updateSpecificAiCardLogo(folderName, staticBase);
-        this.diagnoseLogoElements();
+    }
+
+    updateAuthPageLogos(folderName, staticBase) {
+        const authLogos = document.querySelectorAll('.platform-logo');
+        authLogos.forEach((logo) => {
+            const newSrc = `${staticBase}assets/image/logo/${folderName}/logo.svg`;
+            this.updateImageSource(logo, newSrc);
+        });
     }
 
     updateMainLogos(folderName, staticBase) {
-        const mainLogos = document.querySelectorAll('.logo-header img, .mobile-logo img');
+        const mainLogos = document.querySelectorAll(`
+            .logo-header img, 
+            .mobile-logo img,
+            .platform-logo,
+            .reset-content .platform-logo,
+            .registration-content .platform-logo,
+            .login-content .platform-logo,
+            .logout-content .platform-logo,
+            .verification-content .platform-logo,
+            .reset-password .platform-logo,
+            .reset .platform-logo,
+            .login .platform-logo,
+            .registration .platform-logo,
+            .logout .platform-logo,
+            .verification .platform-logo
+        `);
         
-        mainLogos.forEach((logo, index) => {
+        mainLogos.forEach((logo) => {
             const newSrc = `${staticBase}assets/image/logo/${folderName}/logo.svg`;
-            this.updateImageSource(logo, newSrc, 'Основной логотип');
+            this.updateImageSource(logo, newSrc);
         });
     }
 
     updateSpecificHeroLogo(folderName, staticBase) {
         const mainHeroLogo = document.querySelector('.hero-section .hero-logo, main .hero-logo, [data-logo-type="hero"]');
-        
         if (!mainHeroLogo) {
             const allHeroLogos = document.querySelectorAll('.hero-logo');
             if (allHeroLogos.length > 0) {
                 this.updateSingleHeroLogo(allHeroLogos[0], folderName, staticBase);
-            } else {
-                console.log('Основной hero-logo не найден');
             }
             return;
         }
@@ -179,19 +218,15 @@ class ThemeManager {
                 targetElement = innerImg;
             }
         }
-        
-        this.tryMultipleSources(targetElement, possibleSources, 'Основной герой-логотип');
+        this.tryMultipleSources(targetElement, possibleSources);
     }
 
     updateSpecificAiCardLogo(folderName, staticBase) {
         const mainAiCardLogo = document.querySelector('.ai-card .ai-card-logo, [data-logo-type="ai-card"], .main-ai-logo');
-        
         if (!mainAiCardLogo) {
             const allAiCardLogos = document.querySelectorAll('.ai-card-logo');
             if (allAiCardLogos.length > 0) {
                 this.updateSingleAiCardLogo(allAiCardLogos[0], folderName, staticBase);
-            } else {
-                console.log('Основной ai-card-logo не найден');
             }
             return;
         }
@@ -215,35 +250,26 @@ class ThemeManager {
                 targetElement = innerImg;
             }
         }
-        
-        this.tryMultipleSources(targetElement, possibleSources, 'Основной AI Card логотип');
+        this.tryMultipleSources(targetElement, possibleSources);
     }
 
-    tryMultipleSources(element, sources, logName) {
-        if (!element || !sources.length) {
-            console.warn(`Нет элемента или источников для ${logName}`);
-            return;
-        }
+    tryMultipleSources(element, sources) {
+        if (!element || !sources.length) return;
 
         const trySource = (index) => {
             if (index >= sources.length) {
-                console.error(`Все источники для ${logName} недоступны`);
-                this.fallbackToDefault(element, logName);
+                this.fallbackToDefault(element);
                 return;
             }
 
             const source = sources[index];
             const tempImage = new Image();
             tempImage.onload = () => {
-                console.log(`✅ Источник доступен: ${source}`);
-                this.applyImageToElement(element, source, logName);
+                this.applyImageToElement(element, source);
             };
-            
             tempImage.onerror = () => {
-                console.warn(`Источник недоступен: ${source}`);
                 trySource(index + 1);
             };
-            
             const cacheBuster = `?t=${Date.now()}`;
             tempImage.src = source + cacheBuster;
         };
@@ -251,7 +277,7 @@ class ThemeManager {
         trySource(0);
     }
 
-    applyImageToElement(element, src, logName) {
+    applyImageToElement(element, src) {
         if (element.tagName.toLowerCase() === 'img') {
             element.src = src;
         } else {
@@ -266,26 +292,14 @@ class ThemeManager {
         }
     }
 
-    fallbackToDefault(element, logName) {
+    fallbackToDefault(element) {
         const staticBase = window.STATIC_URL || '/static/';
-        let fallbackSrc = '';
-
-        if (logName.includes('AI Card')) {
-            fallbackSrc = `${staticBase}assets/image/logo/light/Anastasia.svg`;
-        } else if (logName.includes('Герой')) {
-            fallbackSrc = `${staticBase}assets/image/logo/light/hero-logo.svg`;
-        } else {
-            fallbackSrc = `${staticBase}assets/image/logo/light/logo.svg`;
-        }
-
-        this.applyImageToElement(element, fallbackSrc, `${logName} (fallback)`);
+        const fallbackSrc = `${staticBase}assets/image/logo/light/logo.svg`;
+        this.applyImageToElement(element, fallbackSrc);
     }
 
-    updateImageSource(imgElement, newSrc, logName) {
-        if (!imgElement) {
-            console.warn(`${logName}: элемент не найден`);
-            return;
-        }
+    updateImageSource(imgElement, newSrc) {
+        if (!imgElement) return;
 
         const cacheBuster = `?t=${Date.now()}`;
         const srcWithCacheBuster = newSrc + cacheBuster;
@@ -293,19 +307,8 @@ class ThemeManager {
         const tempImage = new Image();
         tempImage.onload = () => {
             imgElement.src = srcWithCacheBuster;
-            setTimeout(() => {
-                if (imgElement.complete && imgElement.naturalHeight !== 0) {
-                    console.log(`🎉 ${logName} подтвержден в DOM: ${newSrc}`);
-                } else {
-                    console.warn(`${logName} может не отображаться: ${newSrc}`);
-                }
-            }, 100);
         };
-        
-        tempImage.onerror = () => {
-            console.error(`${logName} не найден: ${newSrc}`);
-        };
-        
+        tempImage.onerror = () => {};
         tempImage.src = srcWithCacheBuster;
     }
 
@@ -325,42 +328,10 @@ class ThemeManager {
             favicon.href = faviconSrc + cacheBuster;
         };
         tempImage.onerror = () => {
-            console.error(`Фавикон не найден: ${faviconSrc}`);
             const fallbackFavicon = `${staticBase}assets/image/logo/light/icons.svg`;
             favicon.href = fallbackFavicon + cacheBuster;
         };
         tempImage.src = faviconSrc + cacheBuster;
-    }
-
-    diagnoseLogoElements() {
-        console.group('🔍 Диагностика логотипов');
-        
-        const selectors = [
-            '.logo-header img',
-            '.mobile-logo img', 
-            '.hero-logo',
-            '.ai-card-logo',
-            '.hero-section .hero-logo',
-            '.ai-card .ai-card-logo',
-            '[data-logo-type="hero"]',
-            '[data-logo-type="ai-card"]'
-        ];
-        
-        selectors.forEach(selector => {
-            const elements = document.querySelectorAll(selector);
-            
-            elements.forEach((el, index) => {
-                console.log(`  ${selector} [${index}]:`, {
-                    tagName: el.tagName,
-                    currentSrc: el.src || 'N/A',
-                    backgroundImage: el.style.backgroundImage || 'N/A',
-                    classList: Array.from(el.classList),
-                    parent: el.parentElement?.tagName || 'N/A'
-                });
-            });
-        });
-        
-        console.groupEnd();
     }
 
     setFontSize(size) {
@@ -384,7 +355,6 @@ class ThemeManager {
 
     updateActiveButtons(theme) {
         const buttons = document.querySelectorAll('.theme-btn, .theme-option');
-        
         buttons.forEach(btn => {
             btn.classList.remove('active');
             if (btn.getAttribute('data-theme') === theme) {
@@ -395,39 +365,17 @@ class ThemeManager {
 
     updateThemeColor(theme) {
         let themeColor = '#394458';
-        
         switch(theme) {
-            case 'dark':
-                themeColor = '#1E293B';
-                break;
-            case 'blue':
-                themeColor = '#1e3a8a';
-                break;
-            case 'light-blue':
-                themeColor = '#0ea5e9';
-                break;
-            case 'green':
-                themeColor = '#065f46';
-                break;
-            case 'orange':
-                themeColor = '#ea580c';
-                break;
-            case 'pinki':
-                themeColor = '#be185d';
-                break;
-            case 'red':
-                themeColor = '#dc2626';
-                break;
-            case 'violett':
-                themeColor = '#7c3aed';
-                break;
-            case 'yellow':
-                themeColor = '#ca8a04';
-                break;
-            case 'light':
-            default:
-                themeColor = '#394458';
-                break;
+            case 'dark': themeColor = '#1E293B'; break;
+            case 'blue': themeColor = '#1e3a8a'; break;
+            case 'light-blue': themeColor = '#0ea5e9'; break;
+            case 'green': themeColor = '#065f46'; break;
+            case 'orange': themeColor = '#ea580c'; break;
+            case 'pinki': themeColor = '#be185d'; break;
+            case 'red': themeColor = '#dc2626'; break;
+            case 'violett': themeColor = '#7c3aed'; break;
+            case 'yellow': themeColor = '#ca8a04'; break;
+            case 'light': default: themeColor = '#394458'; break;
         }
 
         let themeColorMeta = document.querySelector('meta[name="theme-color"]');
@@ -488,47 +436,7 @@ class ThemeManager {
     forceUpdateLogos() {
         this.updateLogos(this.currentTheme);
     }
-
-    async checkLogoFiles() {
-        const theme = this.currentTheme;
-        const folderName = this.themeFolderMap[theme] || 'light';
-        const staticBase = window.STATIC_URL || '/static/';
-        
-        const filesToCheck = [
-            'logo.svg',
-            'icons.svg', 
-            'hero-logo.svg',
-            'Anastasia.svg',
-            'anastasia.svg'
-        ];
-        
-        for (const file of filesToCheck) {
-            const url = `${staticBase}assets/image/logo/${folderName}/${file}`;
-            const exists = await this.checkFileExists(url);
-            console.log(`${exists ? '✅' : '❌'} ${file}: ${url}`);
-        }
-        
-        console.groupEnd();
-    }
-
-    checkFileExists(url) {
-        return new Promise((resolve) => {
-            const xhr = new XMLHttpRequest();
-            xhr.open('HEAD', url);
-            xhr.onload = () => resolve(xhr.status === 200);
-            xhr.onerror = () => resolve(false);
-            xhr.send();
-        });
-    }
 }
 
 window.themeManager = new ThemeManager();
-
-window.debugThemeManager = {
-    checkLogos: () => window.themeManager.checkLogoFiles(),
-    forceUpdate: () => window.themeManager.forceUpdateLogos(),
-    diagnose: () => window.themeManager.diagnoseLogoElements(),
-    getInfo: () => window.themeManager.getSettingsInfo()
-};
-
 export default window.themeManager;

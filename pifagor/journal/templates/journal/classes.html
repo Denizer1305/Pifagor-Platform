@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пифагор - Управление классами</title>
+    <link rel="icon" href="/frontend/static/assets/image/logo/icons.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Forum&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/frontend/static/css/main.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo-header">
+                <a href="/frontend/templates/main/index.html">
+                    <img src="/frontend/static/assets/image/logo/logo.svg" alt="logo">
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/frontend/templates/main/about.html">О платформе</a></li>
+                <li><a href="/frontend/templates/courses/courses.html">Курсы</a></li>
+                <li><a href="/frontend/templates/main/teachers.html">Преподаватели</a></li>
+                <li><a href="/frontend/templates/main/contact.html">Контакты</a></li>
+            </ul>
+            <div class="header-actions">
+                <div class="user-menu">
+                    <div class="user-avatar" id="userAvatar">ЕП</div>
+                    <div class="user-name" id="userName">Елена Плеханова</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Dashboard -->
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <ul class="sidebar-menu">
+                <li><a href="/frontend/templates/users/teacher-dashboard.html"><i class="fas fa-home"></i> <span>Главная</span></a></li>
+                <li><a href="/frontend/templates/courses/courses-list.html"><i class="fas fa-book-open"></i> <span>Мои курсы</span></a></li>
+                <li><a href="/frontend/templates/practic/practic-list.html"><i class="fas fa-tasks"></i> <span>Задания</span></a></li>
+                <li><a href="/frontend/templates/journal/classes.html"><i class="fas fa-users"></i> <span>Классы</span></a></li>
+                <li><a href="/frontend/templates/practic/practic-check.html"><i class="fas fa-check-circle"></i> <span>Проверка работ</span></a></li>
+                <li><a href="/frontend/templates/analytics/statistics.html"><i class="fas fa-chart-line"></i> <span>Аналитика</span></a></li>
+                <li><a href="/frontend/templates/journal/schedule.html"><i class="fas fa-calendar-alt"></i> <span>Расписание</span></a></li>
+                <li><a href="/frontend/templates/journal/journal.html"><i class="fas fa-book"></i> <span>Журнал</span></a></li>
+                <li><a href="/frontend/templates/analytics/attendance.html"><i class="fas fa-clipboard-check"></i> <span>Посещаемость</span></a></li>
+                <li><a href="/frontend/templates/journal/grades.html"><i class="fas fa-star"></i> <span>Успеваемость</span></a></li>
+                <li><a href="/frontend/templates/analytics/progress.html"><i class="fas fa-chart-bar"></i> <span>Прогресс</span></a></li>
+                <li><a href="/frontend/templates/journal/schedule-create.html"><i class="fas fa-plus-circle"></i> <span>Создать расписание</span></a></li>
+                <li><a href="/frontend/templates/classes/class-students.html"><i class="fas fa-user-graduate"></i> <span>Ученики класса</span></a></li>
+                <li><a href="/frontend/templates/classes/class-teachers.html"><i class="fas fa-chalkboard-teacher"></i> <span>Преподаватели класса</span></a></li>
+                <li><a href="/frontend/templates/classes/class-schedule.html"><i class="fas fa-calendar-week"></i> <span>Расписание класса</span></a></li>
+                <li><a href="/frontend/templates/users/profile-edit.html"><i class="fas fa-cog"></i> <span>Настройки</span></a></li>
+                <li><a href="/frontend/templates/auth/logout.html"><i class="fas fa-sign-out"></i> <span>Выйти</span></a></li>                
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Classes Header -->
+            <div class="classes-header">
+                <div class="classes-title">
+                    <h1>Управление классами</h1>
+                    <p>Создание и управление учебными группами</p>
+                </div>
+                <div class="classes-controls">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Поиск класса...">
+                    </div>
+                    <select class="filter-select">
+                        <option>Все классы</option>
+                        <option>9 класс</option>
+                        <option>10 класс</option>
+                        <option>11 класс</option>
+                    </select>
+                    <button class="btn" id="createClassBtn">
+                        <i class="fas fa-plus"></i> Создать класс
+                    </button>
+                </div>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon classes">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>8</h3>
+                        <p>Активных классов</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon students">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>187</h3>
+                        <p>Всего студентов</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon courses">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>24</h3>
+                        <p>Активных курсов</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon performance">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>4.3</h3>
+                        <p>Средняя успеваемость</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Classes Grid -->
+            <section class="classes-section">
+                <div class="section-header">
+                    <h2>Мои классы</h2>
+                    <div>
+                        <select class="filter-select">
+                            <option>Сортировка: По имени</option>
+                            <option>Сортировка: По дате создания</option>
+                            <option>Сортировка: По количеству студентов</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="classes-grid">
+                    <!-- Class 1 -->
+                    <div class="class-card">
+                        <div class="class-header">
+                            <div class="class-info">
+                                <h3>9-А класс</h3>
+                                <p>Классный руководитель: Плеханова Е.А.</p>
+                            </div>
+                            <div class="class-actions">
+                                <div class="action-btn"><i class="fas fa-edit"></i></div>
+                                <div class="action-btn"><i class="fas fa-cog"></i></div>
+                            </div>
+                        </div>
+                        
+                        <div class="class-stats">
+                            <div class="class-stat">
+                                <h4>24</h4>
+                                <p>Студента</p>
+                            </div>
+                            <div class="class-stat">
+                                <h4>4.5</h4>
+                                <p>Средний балл</p>
+                            </div>
+                        </div>
+                        
+                        <div class="class-progress">
+                            <div class="progress-header">
+                                <span>Общий прогресс</span>
+                                <span>78%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 78%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="class-students">
+                            <div class="student-avatars">
+                                <div class="student-avatar">ИИ</div>
+                                <div class="student-avatar">МП</div>
+                                <div class="student-avatar">АС</div>
+                                <div class="student-avatar">ЕН</div>
+                                <div class="student-avatar more">+20</div>
+                            </div>
+                            <div class="students-count">24 студента</div>
+                        </div>
+                        
+                        <div class="class-footer">
+                            <div class="class-courses">
+                                <span class="course-badge">Математика</span>
+                                <span class="course-badge">Физика</span>
+                                <span class="course-badge">+3</span>
+                            </div>
+                            <a href="/frontend/templates/classes/class-students.html" class="btn btn-small">Подробнее</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Class 2 -->
+                    <div class="class-card">
+                        <div class="class-header">
+                            <div class="class-info">
+                                <h3>9-Б класс</h3>
+                                <p>Классный руководитель: Плеханова Е.А.</p>
+                            </div>
+                            <div class="class-actions">
+                                <div class="action-btn"><i class="fas fa-edit"></i></div>
+                                <div class="action-btn"><i class="fas fa-cog"></i></div>
+                            </div>
+                        </div>
+                        
+                        <div class="class-stats">
+                            <div class="class-stat">
+                                <h4>22</h4>
+                                <p>Студента</p>
+                            </div>
+                            <div class="class-stat">
+                                <h4>4.2</h4>
+                                <p>Средний балл</p>
+                            </div>
+                        </div>
+                        
+                        <div class="class-progress">
+                            <div class="progress-header">
+                                <span>Общий прогресс</span>
+                                <span>65%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 65%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="class-students">
+                            <div class="student-avatars">
+                                <div class="student-avatar">ДК</div>
+                                <div class="student-avatar">АН</div>
+                                <div class="student-avatar">ОС</div>
+                                <div class="student-avatar">МН</div>
+                                <div class="student-avatar more">+18</div>
+                            </div>
+                            <div class="students-count">22 студента</div>
+                        </div>
+                        
+                        <div class="class-footer">
+                            <div class="class-courses">
+                                <span class="course-badge">Математика</span>
+                                <span class="course-badge">Информатика</span>
+                                <span class="course-badge">+2</span>
+                            </div>
+                            <a href="/frontend/templates/classes/class-students.html" class="btn btn-small">Подробнее</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Class 3 -->
+                    <div class="class-card">
+                        <div class="class-header">
+                            <div class="class-info">
+                                <h3>10-А класс</h3>
+                                <p>Классный руководитель: Плеханова Е.А.</p>
+                            </div>
+                            <div class="class-actions">
+                                <div class="action-btn"><i class="fas fa-edit"></i></div>
+                                <div class="action-btn"><i class="fas fa-cog"></i></div>
+                            </div>
+                        </div>
+                        
+                        <div class="class-stats">
+                            <div class="class-stat">
+                                <h4>26</h4>
+                                <p>Студентов</p>
+                            </div>
+                            <div class="class-stat">
+                                <h4>4.4</h4>
+                                <p>Средний балл</p>
+                            </div>
+                        </div>
+                        
+                        <div class="class-progress">
+                            <div class="progress-header">
+                                <span>Общий прогресс</span>
+                                <span>72%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 72%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="class-students">
+                            <div class="student-avatars">
+                                <div class="student-avatar">ПС</div>
+                                <div class="student-avatar">КМ</div>
+                                <div class="student-avatar">ЛВ</div>
+                                <div class="student-avatar">ЕТ</div>
+                                <div class="student-avatar more">+22</div>
+                            </div>
+                            <div class="students-count">26 студентов</div>
+                        </div>
+                        
+                        <div class="class-footer">
+                            <div class="class-courses">
+                                <span class="course-badge">Программирование</span>
+                                <span class="course-badge">Физика</span>
+                                <span class="course-badge">+4</span>
+                            </div>
+                            <a href="/frontend/templates/classes/class-students.html" class="btn btn-small">Подробнее</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Class 4 -->
+                    <div class="class-card">
+                        <div class="class-header">
+                            <div class="class-info">
+                                <h3>Кружок программирования</h3>
+                                <p>Преподаватель: Плеханова Е.А.</p>
+                            </div>
+                            <div class="class-actions">
+                                <div class="action-btn"><i class="fas fa-edit"></i></div>
+                                <div class="action-btn"><i class="fas fa-cog"></i></div>
+                            </div>
+                        </div>
+                        
+                        <div class="class-stats">
+                            <div class="class-stat">
+                                <h4>18</h4>
+                                <p>Участников</p>
+                            </div>
+                            <div class="class-stat">
+                                <h4>4.7</h4>
+                                <p>Средний балл</p>
+                            </div>
+                        </div>
+                        
+                        <div class="class-progress">
+                            <div class="progress-header">
+                                <span>Общий прогресс</span>
+                                <span>85%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="class-students">
+                            <div class="student-avatars">
+                                <div class="student-avatar">ИИ</div>
+                                <div class="student-avatar">МП</div>
+                                <div class="student-avatar">АС</div>
+                                <div class="student-avatar">ДК</div>
+                                <div class="student-avatar more">+14</div>
+                            </div>
+                            <div class="students-count">18 участников</div>
+                        </div>
+                        
+                        <div class="class-footer">
+                            <div class="class-courses">
+                                <span class="course-badge">Python</span>
+                                <span class="course-badge">Алгоритмы</span>
+                                <span class="course-badge">Web</span>
+                            </div>
+                            <a href="/frontend/templates/classes/class-students.html" class="btn btn-small">Подробнее</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Create Class Modal -->
+    <div class="modal-overlay" id="createClassModal">
+        <div class="class-modal">
+            <div class="modal-header">
+                <h3>Создание нового класса</h3>
+                <div class="close-modal" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </div>
+            </div>
+            <div class="modal-content">
+                <div class="form-group">
+                    <label for="className">Название класса</label>
+                    <input type="text" id="className" class="form-control" placeholder="Например: 9-А класс">
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="classGrade">Класс/Год</label>
+                        <select id="classGrade" class="form-control">
+                            <option>9 класс</option>
+                            <option>10 класс</option>
+                            <option>11 класс</option>
+                            <option>Другое</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="classTeacher">Классный руководитель</label>
+                        <input type="text" id="classTeacher" class="form-control" value="Плеханова Е.А." readonly>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="classDescription">Описание класса</label>
+                    <textarea id="classDescription" class="form-control" rows="3" placeholder="Дополнительная информация о классе..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="classCourses">Привязать курсы</label>
+                    <select id="classCourses" class="form-control" multiple>
+                        <option>Основы программирования</option>
+                        <option>Математика</option>
+                        <option>Физика</option>
+                        <option>WEB-технологии</option>
+                        <option>Базы данных</option>
+                    </select>
+                    <small style="color: var(--secondary); font-size: 0.8rem;">Удерживайте Ctrl для выбора нескольких курсов</small>
+                </div>
+                
+                <div class="modal-actions">
+                    <button class="btn btn-light" id="cancelCreate">Отмена</button>
+                    <button class="btn" id="saveClass">Создать класс</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="/frontend/static/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пифагор - Расписание</title>
+    <link rel="icon" href="/frontend/static/assets/image/logo/icons.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Forum&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/frontend/static/css/main.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/docx/7.8.2/docx.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo-header">
+                <a href="/frontend/templates/main/index.html">
+                    <img src="/frontend/static/assets/image/logo/logo.svg" alt="logo">
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/frontend/templates/main/about.html">О платформе</a></li>
+                <li><a href="/frontend/templates/courses/courses.html">Курсы</a></li>
+                <li><a href="/frontend/templates/main/teachers.html">Преподаватели</a></li>
+                <li><a href="/frontend/templates/main/contact.html">Контакты</a></li>
+            </ul>
+            <div class="header-actions">
+                <div class="user-menu">
+                    <div class="user-avatar" id="userAvatar">ИИ</div>
+                    <div class="user-name" id="userName">Иван Иванов</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Dashboard -->
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <ul class="sidebar-menu">
+                <li><a href="/frontend/templates/users/teacher-dashboard.html"><i class="fas fa-home"></i> <span>Главная</span></a></li>
+                <li><a href="/frontend/templates/courses/courses-list.html"><i class="fas fa-book-open"></i> <span>Мои курсы</span></a></li>
+                <li><a href="/frontend/templates/practic/practic-list.html"><i class="fas fa-tasks"></i> <span>Задания</span></a></li>
+                <li><a href="/frontend/templates/journal/classes.html"><i class="fas fa-users"></i> <span>Классы</span></a></li>
+                <li><a href="/frontend/templates/practic/practic-check.html"><i class="fas fa-check-circle"></i> <span>Проверка работ</span></a></li>
+                <li><a href="/frontend/templates/analytics/statistics.html"><i class="fas fa-chart-line"></i> <span>Аналитика</span></a></li>
+                <li><a href="/frontend/templates/journal/schedule.html" class="active"><i class="fas fa-calendar-alt"></i> <span>Расписание</span></a></li>
+                <li><a href="/frontend/templates/journal/journal.html"><i class="fas fa-book"></i> <span>Журнал</span></a></li>
+                <li><a href="/frontend/templates/analytics/attendance.html"><i class="fas fa-clipboard-check"></i> <span>Посещаемость</span></a></li>
+                <li><a href="/frontend/templates/journal/grades.html"><i class="fas fa-star"></i> <span>Успеваемость</span></a></li>
+                <li><a href="/frontend/templates/analytics/progress.html"><i class="fas fa-chart-bar"></i> <span>Прогресс</span></a></li>
+                <li><a href="/frontend/templates/journal/schedule-create.html"><i class="fas fa-plus-circle"></i> <span>Создать расписание</span></a></li>
+                <li><a href="/frontend/templates/classes/class-students.html"><i class="fas fa-user-graduate"></i> <span>Ученики класса</span></a></li>
+                <li><a href="/frontend/templates/classes/class-teachers.html"><i class="fas fa-chalkboard-teacher"></i> <span>Преподаватели класса</span></a></li>
+                <li><a href="/frontend/templates/classes/class-schedule.html"><i class="fas fa-calendar-week"></i> <span>Расписание класса</span></a></li>
+                <li><a href="/frontend/templates/users/profile-edit.html"><i class="fas fa-cog"></i> <span>Настройки</span></a></li>
+                <li><a href="/frontend/templates/auth/logout.html"><i class="fas fa-sign-out"></i> <span>Выйти</span></a></li>                
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Schedule Header -->
+            <div class="schedule-header">
+                <div class="schedule-title">
+                    <h1>Расписание занятий</h1>
+                    <p id="scheduleSubtitle">Январь 2024 • 2-я учебная неделя</p>
+                </div>
+                <div class="schedule-controls">
+                    <div class="view-selector">
+                        <div class="view-option active" data-view="month">Месяц</div>
+                        <div class="view-option" data-view="week">Неделя</div>
+                        <div class="view-option" data-view="day">День</div>
+                    </div>
+                    <div class="date-navigation">
+                        <div class="nav-btn" id="prevBtn">
+                            <i class="fas fa-chevron-left"></i>
+                        </div>
+                        <div class="current-date" id="currentDate">Январь 2024</div>
+                        <div class="nav-btn" id="nextBtn">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+                    <select class="filter-select" id="courseFilter">
+                        <option>Все курсы</option>
+                        <option>Основы программирования</option>
+                        <option>Математика</option>
+                        <option>Физика</option>
+                    </select>
+                    <button class="btn btn-light" id="exportScheduleBtn"><i class="fas fa-download"></i> Экспорт</button>
+                </div>
+            </div>
+
+            <!-- Schedule Layout -->
+            <div class="schedule-layout">
+                <!-- Left Column -->
+                <div class="left-column">
+                    <!-- Month View -->
+                    <section class="calendar-section month-view">
+                        <div class="section-header">
+                            <h2>Календарь</h2>
+                            <button id="addEventBtn" class="btn btn-light">Добавить событие</button>
+                        </div>
+                        <div class="calendar-grid" id="monthGrid">
+                            <!-- Calendar Headers -->
+                            <div class="calendar-header">Пн</div>
+                            <div class="calendar-header">Вт</div>
+                            <div class="calendar-header">Ср</div>
+                            <div class="calendar-header">Чт</div>
+                            <div class="calendar-header">Пт</div>
+                            <div class="calendar-header">Сб</div>
+                            <div class="calendar-header">Вс</div>
+
+                            <!-- Calendar Days will be generated by JavaScript -->
+                        </div>
+                    </section>
+
+                    <!-- Week View -->
+                    <section class="calendar-section week-view">
+                        <div class="section-header">
+                            <h2>Неделя</h2>
+                            <button id="addEventBtnWeek" class="btn btn-light">Добавить событие</button>
+                        </div>
+                        <div class="week-header" id="weekHeader">
+                            <!-- Week headers will be generated by JavaScript -->
+                        </div>
+                        <div class="week-grid" id="weekGrid">
+                            <!-- Week grid will be generated by JavaScript -->
+                        </div>
+                    </section>
+
+                    <!-- Day View -->
+                    <section class="calendar-section day-view">
+                        <div class="section-header">
+                            <h2>День</h2>
+                            <button id="addEventBtnDay" class="btn btn-light">Добавить событие</button>
+                        </div>
+                        <div class="day-header" id="dayHeader">
+                            <!-- Day header will be generated by JavaScript -->
+                        </div>
+                        <div class="day-grid" id="dayGrid">
+                            <!-- Day grid will be generated by JavaScript -->
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Right Column -->
+                <div class="right-column">
+                    <!-- Upcoming Events -->
+                    <section class="upcoming-section">
+                        <div class="section-header">
+                            <h2>Ближайшие события</h2>
+                        </div>
+                        <ul class="upcoming-list" id="upcomingList">
+                            <!-- Upcoming events will be generated by JavaScript -->
+                        </ul>
+                    </section>
+
+                    <!-- Schedule List -->
+                    <section class="schedule-list-section">
+                        <div class="section-header">
+                            <h2>Расписание на сегодня</h2>
+                        </div>
+                        <ul class="schedule-list" id="todaySchedule">
+                            <!-- Today's schedule will be generated by JavaScript -->
+                        </ul>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно для добавления/редактирования события -->
+    <div class="modal" id="eventModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Добавить событие</h2>
+                <button class="close-modal" id="closeModal">&times;</button>
+            </div>
+            <form id="eventForm">
+                <div class="form-group">
+                    <label for="eventTitle">Название события</label>
+                    <input type="text" id="eventTitle" class="form-control" placeholder="Введите название события" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Тип события</label>
+                    <div class="event-type-options">
+                        <div class="event-type-option lecture">
+                            <input type="radio" id="typeLecture" name="eventType" value="lecture" checked>
+                            <label for="typeLecture">Лекция</label>
+                        </div>
+                        <div class="event-type-option practice">
+                            <input type="radio" id="typePractice" name="eventType" value="practice">
+                            <label for="typePractice">Практика</label>
+                        </div>
+                        <div class="event-type-option deadline">
+                            <input type="radio" id="typeDeadline" name="eventType" value="deadline">
+                            <label for="typeDeadline">Дедлайн</label>
+                        </div>
+                        <div class="event-type-option exam">
+                            <input type="radio" id="typeExam" name="eventType" value="exam">
+                            <label for="typeExam">Экзамен</label>
+                        </div>
+                        <div class="event-type-option other">
+                            <input type="radio" id="typeOther" name="eventType" value="other">
+                            <label for="typeOther">Другое</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="eventDate">Дата</label>
+                        <input type="date" id="eventDate" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="eventTime">Время</label>
+                        <input type="time" id="eventTime" class="form-control">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="eventCourse">Курс</label>
+                    <select id="eventCourse" class="form-control">
+                        <option value="">Выберите курс</option>
+                        <option value="programming">Основы программирования</option>
+                        <option value="math">Математика</option>
+                        <option value="physics">Физика</option>
+                        <option value="web">WEB-технологии</option>
+                        <option value="databases">Базы данных</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="eventDescription">Описание</label>
+                    <textarea id="eventDescription" class="form-control" rows="3" placeholder="Добавьте описание события"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="eventLocation">Место проведения</label>
+                    <input type="text" id="eventLocation" class="form-control" placeholder="Аудитория, кабинет и т.д.">
+                </div>
+                
+                <div class="modal-actions">
+                    <button type="button" id="deleteEventBtn" class="btn btn-danger" style="display: none;">Удалить</button>
+                    <button type="button" id="cancelEventBtn" class="btn btn-light">Отмена</button>
+                    <button type="submit" class="btn">Сохранить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Модальное окно экспорта расписания -->
+    <div class="export-modal" id="exportScheduleModal">
+        <div class="export-modal-content">
+            <h2>Экспорт расписания</h2>
+            <div class="export-options">
+                <label class="export-option">
+                    <input type="radio" name="exportScheduleFormat" value="pdf" checked>
+                    <span>PDF документ (текущий вид)</span>
+                </label>
+                <label class="export-option">
+                    <input type="radio" name="exportScheduleFormat" value="image">
+                    <span>Изображение PNG (текущий вид)</span>
+                </label>
+                <label class="export-option">
+                    <input type="radio" name="exportScheduleFormat" value="word">
+                    <span>Word документ (список событий)</span>
+                </label>
+                <label class="export-option">
+                    <input type="radio" name="exportScheduleFormat" value="excel">
+                    <span>Excel таблица (список событий)</span>
+                </label>
+                <label class="export-option">
+                    <input type="radio" name="exportScheduleFormat" value="print">
+                    <span>Печать (текущий вид)</span>
+                </label>
+            </div>
+            <div class="export-actions">
+                <button class="btn btn-light" id="cancelScheduleExport">Отмена</button>
+                <button class="btn" id="confirmScheduleExport">Экспортировать</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Индикатор загрузки для экспорта расписания -->
+    <div class="export-loading" id="exportScheduleLoading">
+        <div class="spinner"></div>
+        <p>Подготовка отчета...</p>
+    </div>
+
+    <!-- Контейнер для экспорта (скрытый) -->
+    <div id="exportContent" style="display: none; position: relative;">
+        <div class="export-watermark">
+            <img src="/frontend/static/assets/image/logo/logo.png" alt="Пифагор">
+            ПИФАГОР
+        </div>
+        <div class="export-container">
+            <div class="export-header">
+                <div class="logo-container">
+                    <div class="logo-combined">
+                        <img src="/frontend/static/assets/image/logo/logo.png" alt="Пифагор" class="logo-image" id="exportLogo">
+                        <div class="logo-text-primary">ПИФАГОР</div>
+                        <div class="logo-text-secondary">Образовательная платформа</div>
+                    </div>
+                </div>
+                <h1 class="export-title">Расписание занятий</h1>
+                <p class="export-subtitle">Дата генерации: <span id="exportDate"></span></p>
+                <p class="export-subtitle">Преподаватель: <span id="exportTeacher"></span></p>
+                <p class="export-subtitle">Период: <span id="exportPeriod"></span></p>
+            </div>
+
+            <div class="export-section">
+                <h2 class="export-section-title">Текущее расписание</h2>
+                <div id="exportScheduleView">
+                    <!-- Здесь будет вставлено текущее представление расписания -->
+                </div>
+            </div>
+
+            <div class="export-section">
+                <h2 class="export-section-title">Все события периода</h2>
+                <table class="export-table" id="exportEventsTable">
+                    <thead>
+                        <tr>
+                            <th>Дата</th>
+                            <th>Время</th>
+                            <th>Название</th>
+                            <th>Тип</th>
+                            <th>Курс</th>
+                            <th>Место</th>
+                            <th>Описание</th>
+                        </tr>
+                    </thead>
+                    <tbody id="exportEventsBody">
+                        <!-- События будут добавлены через JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="export-section">
+                <h2 class="export-section-title">Ближайшие события</h2>
+                <table class="export-table" id="exportUpcomingTable">
+                    <thead>
+                        <tr>
+                            <th>Дата</th>
+                            <th>Время</th>
+                            <th>Название</th>
+                            <th>Курс</th>
+                            <th>Место</th>
+                        </tr>
+                    </thead>
+                    <tbody id="exportUpcomingBody">
+                        <!-- Ближайшие события будут добавлены через JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="export-footer">
+                <p>Сгенерировано в образовательной платформе "Пифагор"</p>
+                <p>© 2025 Пифагор. Все права защищены.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Контейнер для печати -->
+    <div id="printContent"></div>
+
+    <script type="module" src="/frontend/static/js/main.js"></script>
+</body>
+</html>

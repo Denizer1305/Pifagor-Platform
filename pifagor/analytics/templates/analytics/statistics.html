@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пифагор - Статистика</title>
+    <link rel="icon" href="/frontend/static/assets/image/logo/icons.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Forum&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/docx/7.8.2/docx.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <link rel="stylesheet" href="/frontend/static/css/main.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo-header">
+                <a href="/frontend/templates/main/index.html">
+                    <img src="/frontend/static/assets/image/logo/logo.svg" alt="logo">
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/frontend/templates/main/about.html">О платформе</a></li>
+                <li><a href="/frontend/templates/courses/courses.html">Курсы</a></li>
+                <li><a href="/frontend/templates/main/teachers.html">Преподаватели</a></li>
+                <li><a href="/frontend/templates/main/contact.html">Контакты</a></li>
+            </ul>
+            <div class="header-actions">
+                <div class="user-menu">
+                    <div class="user-avatar" id="userAvatar">
+                        <img src="/frontend/static/assets/image/partner/foto_teachers.jpg" alt="users">
+                    </div>
+                    <div class="user-name" id="userName">Елена Плеханова</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Dashboard -->
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <ul class="sidebar-menu">
+                <li><a href="/frontend/templates/users/teacher-dashboard.html"><i class="fas fa-home"></i> <span>Главная</span></a></li>
+                <li><a href="/frontend/templates/courses/courses-list.html"><i class="fas fa-book-open"></i> <span>Мои курсы</span></a></li>
+                <li><a href="/frontend/templates/practic/practic-list.html"><i class="fas fa-tasks"></i> <span>Задания</span></a></li>
+                <li><a href="/frontend/templates/journal/classes.html"><i class="fas fa-users"></i> <span>Классы</span></a></li>
+                <li><a href="/frontend/templates/practic/practic-check.html"><i class="fas fa-check-circle"></i> <span>Проверка работ</span></a></li>
+                <li><a href="/frontend/templates/analytics/statistics.html" class="active"><i class="fas fa-chart-line"></i> <span>Аналитика</span></a></li>
+                <li><a href="/frontend/templates/journal/schedule.html"><i class="fas fa-calendar-alt"></i> <span>Расписание</span></a></li>
+                <li><a href="/frontend/templates/journal/journal.html"><i class="fas fa-book"></i> <span>Журнал</span></a></li>
+                <li><a href="/frontend/templates/analytics/attendance.html"><i class="fas fa-clipboard-check"></i> <span>Посещаемость</span></a></li>
+                <li><a href="/frontend/templates/journal/grades.html"><i class="fas fa-star"></i> <span>Успеваемость</span></a></li>
+                <li><a href="/frontend/templates/analytics/progress.html"><i class="fas fa-chart-bar"></i> <span>Прогресс</span></a></li>
+                <li><a href="/frontend/templates/journal/schedule-create.html"><i class="fas fa-plus-circle"></i> <span>Создать расписание</span></a></li>
+                <li><a href="/frontend/templates/classes/class-students.html"><i class="fas fa-user-graduate"></i> <span>Ученики класса</span></a></li>
+                <li><a href="/frontend/templates/classes/class-teachers.html"><i class="fas fa-chalkboard-teacher"></i> <span>Преподаватели класса</span></a></li>
+                <li><a href="/frontend/templates/classes/class-schedule.html"><i class="fas fa-calendar-week"></i> <span>Расписание класса</span></a></li>
+                <li><a href="/frontend/templates/users/profile-edit.html"><i class="fas fa-cog"></i> <span>Настройки</span></a></li>
+                <li><a href="/frontend/templates/auth/logout.html"><i class="fas fa-sign-out"></i> <span>Выйти</span></a></li>                
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Statistics Header -->
+            <div class="statistics-header">
+                <div class="statistics-title">
+                    <h1>Статистика и аналитика</h1>
+                    <p>Обзор успеваемости и активности студентов</p>
+                </div>
+                <div class="statistics-filters">
+                    <select class="filter-select" id="courseFilter">
+                        <option>Все курсы</option>
+                        <option>Основы программирования</option>
+                        <option>Математика</option>
+                        <option>Физика</option>
+                    </select>
+                    <select class="filter-select" id="timeFilter">
+                        <option>За последний месяц</option>
+                        <option>За последние 3 месяца</option>
+                        <option>За последние 6 месяцев</option>
+                        <option>За весь период</option>
+                    </select>
+                    <button class="btn btn-light" id="exportBtn"><i class="fas fa-download"></i> Экспорт</button>
+                </div>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon students">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>87</h3>
+                        <p>Всего студентов</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon courses">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>5</h3>
+                        <p>Активных курсов</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon performance">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>4.3</h3>
+                        <p>Средний балл</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon activity">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>78%</h3>
+                        <p>Активность студентов</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Section -->
+            <section class="charts-section">
+                <div class="section-header">
+                    <h2>Визуализация данных</h2>
+                    <div>
+                        <select class="filter-select" id="chartTypeFilter">
+                            <option value="performance">По успеваемости</option>
+                            <option value="activity">По активности</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="charts-grid">
+                    <div class="chart-container">
+                        <div class="chart-title">Распределение оценок</div>
+                        <canvas id="gradesDistributionChart"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-title">Прогресс по курсам</div>
+                        <canvas id="coursesProgressChart"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-title">Активность студентов</div>
+                        <canvas id="activityChart"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-title">Выполнение заданий</div>
+                        <canvas id="assignmentsChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Detailed Stats -->
+            <div class="detailed-stats">
+                <!-- Stats Table -->
+                <section class="stats-table-section">
+                    <div class="section-header">
+                        <h2>Статистика по курсам</h2>
+                    </div>
+                    <table class="stats-table">
+                        <thead>
+                            <tr>
+                                <th>Курс</th>
+                                <th>Студенты</th>
+                                <th>Средний балл</th>
+                                <th>Прогресс</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Основы программирования</td>
+                                <td>45</td>
+                                <td>4.5</td>
+                                <td class="progress-cell">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 78%"></div>
+                                    </div>
+                                    <span>78%</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Математика</td>
+                                <td>38</td>
+                                <td>4.2</td>
+                                <td class="progress-cell">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 65%"></div>
+                                    </div>
+                                    <span>65%</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Физика</td>
+                                <td>32</td>
+                                <td>3.9</td>
+                                <td class="progress-cell">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 52%"></div>
+                                    </div>
+                                    <span>52%</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>WEB-технологии</td>
+                                <td>28</td>
+                                <td>4.4</td>
+                                <td class="progress-cell">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 71%"></div>
+                                    </div>
+                                    <span>71%</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Базы данных</td>
+                                <td>25</td>
+                                <td>4.1</td>
+                                <td class="progress-cell">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 58%"></div>
+                                    </div>
+                                    <span>58%</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <!-- Leaderboard -->
+                <section class="leaderboard-section">
+                    <div class="section-header">
+                        <h2>Топ студентов</h2>
+                    </div>
+                    <ul class="leaderboard-list">
+                        <li class="leaderboard-item">
+                            <div class="leaderboard-rank top">1</div>
+                            <div class="leaderboard-avatar">
+                                <img src="/frontend/static/assets/image/denizer1305.png" alt="users">
+                            </div>
+                            <div class="leaderboard-info">
+                                <h4>Иван Иванов</h4>
+                                <p>Основы программирования</p>
+                            </div>
+                            <div class="leaderboard-score">
+                                <div class="score-value">4.9</div>
+                                <div class="score-label">Средний балл</div>
+                            </div>
+                        </li>
+                        <li class="leaderboard-item">
+                            <div class="leaderboard-rank top">2</div>
+                            <div class="leaderboard-avatar">
+                                <img src="/frontend/static/assets/image/anastasia_qe.jpg" alt="users">
+                            </div>
+                            <div class="leaderboard-info">
+                                <h4>Мария Петрова</h4>
+                                <p>WEB-технологии</p>
+                            </div>
+                            <div class="leaderboard-score">
+                                <div class="score-value">4.8</div>
+                                <div class="score-label">Средний балл</div>
+                            </div>
+                        </li>
+                        <li class="leaderboard-item">
+                            <div class="leaderboard-rank top">3</div>
+                            <div class="leaderboard-avatar">
+                                <img src="/frontend/static/assets/image/denizer1305.png" alt="users">
+                            </div>
+                            <div class="leaderboard-info">
+                                <h4>Алексей Сидоров</h4>
+                                <p>Математика</p>
+                            </div>
+                            <div class="leaderboard-score">
+                                <div class="score-value">4.7</div>
+                                <div class="score-label">Средний балл</div>
+                            </div>
+                        </li>
+                        <li class="leaderboard-item">
+                            <div class="leaderboard-rank">4</div>
+                            <div class="leaderboard-avatar">
+                                <img src="/frontend/static/assets/image/anastasia_qe.jpg" alt="users">
+                            </div>
+                            <div class="leaderboard-info">
+                                <h4>Елена Новикова</h4>
+                                <p>Базы данных</p>
+                            </div>
+                            <div class="leaderboard-score">
+                                <div class="score-value">4.6</div>
+                                <div class="score-label">Средний балл</div>
+                            </div>
+                        </li>
+                        <li class="leaderboard-item">
+                            <div class="leaderboard-rank">5</div>
+                            <div class="leaderboard-avatar">
+                                <img src="/frontend/static/assets/image/denizer1305.png" alt="users">
+                            </div>
+                            <div class="leaderboard-info">
+                                <h4>Дмитрий Козлов</h4>
+                                <p>Физика</p>
+                            </div>
+                            <div class="leaderboard-score">
+                                <div class="score-value">4.5</div>
+                                <div class="score-label">Средний балл</div>
+                            </div>
+                        </li>
+                    </ul>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно экспорта -->
+    <div class="export-modal" id="exportModal">
+        <div class="export-modal-content">
+            <h2>Экспорт статистики</h2>
+            <div class="export-options">
+                <label class="export-option">
+                    <input type="radio" name="exportFormat" value="pdf" checked>
+                    <span>PDF документ (с графиками)</span>
+                </label>
+                <label class="export-option">
+                    <input type="radio" name="exportFormat" value="image">
+                    <span>Изображение PNG (с графиками)</span>
+                </label>
+                <label class="export-option">
+                    <input type="radio" name="exportFormat" value="word">
+                    <span>Word документ (с графиками)</span>
+                </label>
+                <label class="export-option">
+                    <input type="radio" name="exportFormat" value="print">
+                    <span>Печать</span>
+                </label>
+            </div>
+            <div class="export-actions">
+                <button class="btn btn-light" id="cancelExport">Отмена</button>
+                <button class="btn" id="confirmExport">Экспортировать</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Индикатор загрузки -->
+    <div class="export-loading" id="exportLoading">
+        <div class="spinner"></div>
+        <p>Подготовка отчета...</p>
+    </div>
+
+    <!-- Контейнер для экспорта (скрытый) -->
+    <div id="exportContent" style="display: none; position: relative;">
+        <div class="export-watermark">
+            <img src="/frontend/static/assets/image/logo/logo.png" alt="Пифагор">
+            ПИФАГОР
+        </div>
+        <div class="export-container">
+            <div class="export-header">
+                <div class="logo-container">
+                    <div class="logo-combined">
+                        <!-- SVG логотип в base64 -->
+                        <img src="/frontend/static/assets/image/logo/logo.png" alt="Пифагор" class="logo-image" id="exportLogo">
+                        <div class="logo-text-primary">ПИФАГОР</div>
+                        <div class="logo-text-secondary">Образовательная платформа</div>
+                    </div>
+                </div>
+                <h1 class="export-title">Отчет по статистике и аналитике</h1>
+                <p class="export-subtitle">Дата генерации: <span id="exportDate"></span></p>
+                <p class="export-subtitle">Преподаватель: <span id="exportTeacher"></span></p>
+            </div>
+
+            <div class="export-section">
+                <h2 class="export-section-title">Общая статистика</h2>
+                <div class="export-stats-grid">
+                    <div class="export-stat-card">
+                        <div class="export-stat-value">87</div>
+                        <div class="export-stat-label">Всего студентов</div>
+                    </div>
+                    <div class="export-stat-card">
+                        <div class="export-stat-value">5</div>
+                        <div class="export-stat-label">Активных курсов</div>
+                    </div>
+                    <div class="export-stat-card">
+                        <div class="export-stat-value">4.3</div>
+                        <div class="export-stat-label">Средний балл</div>
+                    </div>
+                    <div class="export-stat-card">
+                        <div class="export-stat-value">78%</div>
+                        <div class="export-stat-label">Активность студентов</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="export-section">
+                <h2 class="export-section-title">Графики и диаграммы</h2>
+                <div class="export-charts-grid">
+                    <div class="export-chart-container">
+                        <div class="export-chart-title">Распределение оценок</div>
+                        <canvas id="exportGradesChart"></canvas>
+                    </div>
+                    <div class="export-chart-container">
+                        <div class="export-chart-title">Прогресс по курсам</div>
+                        <canvas id="exportCoursesChart"></canvas>
+                    </div>
+                    <div class="export-chart-container">
+                        <div class="export-chart-title">Активность студентов</div>
+                        <canvas id="exportActivityChart"></canvas>
+                    </div>
+                    <div class="export-chart-container">
+                        <div class="export-chart-title">Выполнение заданий</div>
+                        <canvas id="exportAssignmentsChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="export-section">
+                <h2 class="export-section-title">Статистика по курсам</h2>
+                <table class="export-table">
+                    <thead>
+                        <tr>
+                            <th>Курс</th>
+                            <th>Студенты</th>
+                            <th>Средний балл</th>
+                            <th>Прогресс</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Основы программирования</td>
+                            <td>45</td>
+                            <td>4.5</td>
+                            <td>78%</td>
+                        </tr>
+                        <tr>
+                            <td>Математика</td>
+                            <td>38</td>
+                            <td>4.2</td>
+                            <td>65%</td>
+                        </tr>
+                        <tr>
+                            <td>Физика</td>
+                            <td>32</td>
+                            <td>3.9</td>
+                            <td>52%</td>
+                        </tr>
+                        <tr>
+                            <td>WEB-технологии</td>
+                            <td>28</td>
+                            <td>4.4</td>
+                            <td>71%</td>
+                        </tr>
+                        <tr>
+                            <td>Базы данных</td>
+                            <td>25</td>
+                            <td>4.1</td>
+                            <td>58%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="export-section">
+                <h2 class="export-section-title">Топ студентов</h2>
+                <table class="export-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Студент</th>
+                            <th>Курс</th>
+                            <th>Средний балл</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Иван Иванов</td>
+                            <td>Основы программирования</td>
+                            <td>4.9</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Мария Петрова</td>
+                            <td>WEB-технологии</td>
+                            <td>4.8</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Алексей Сидоров</td>
+                            <td>Математика</td>
+                            <td>4.7</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Елена Новикова</td>
+                            <td>Базы данных</td>
+                            <td>4.6</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>Дмитрий Козлов</td>
+                            <td>Физика</td>
+                            <td>4.5</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="export-footer">
+                <p>Сгенерировано в образовательной платформе "Пифагор"</p>
+                <p>© 2025 Пифагор. Все права защищены.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Контейнер для печати -->
+    <div id="printContent"></div>
+
+    <script type="module" src="/frontend/static/js/main.js"></script>
+</body>
+</html>

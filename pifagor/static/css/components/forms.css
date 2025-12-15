@@ -50,7 +50,7 @@ textarea.form-control {
     text-align: center;
     margin-bottom: var(--spacing-xxl);
     font-size: var(--text-5xl);
-    color: var(--primary);
+    color: var(--primary-text);
 }
 
 .form-label {

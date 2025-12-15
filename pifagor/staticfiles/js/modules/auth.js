@@ -413,7 +413,7 @@ registerForm.addEventListener('submit', function(e) {
                 }
             });
         } else {
-            document.querySelectorAll('.error-message').forEach(el => {
+            document.querySelectorAll('.pifagor_error-message').forEach(el => {
                 el.style.display = 'none';
                 el.textContent = '';
             });
@@ -425,15 +425,15 @@ registerForm.addEventListener('submit', function(e) {
                     let errorElement;
                     
                     if (field === 'password1' || field === 'id_password1') {
-                        errorElement = document.querySelector('#id_password1')?.closest('.form-group')?.querySelector('.error-message');
+                        errorElement = document.querySelector('#id_password1')?.closest('.form-group')?.querySelector('.pifagor_error-message');
                     } else if (field === 'password2' || field === 'id_password2') {
-                        errorElement = document.querySelector('#id_password2')?.closest('.form-group')?.querySelector('.error-message');
+                        errorElement = document.querySelector('#id_password2')?.closest('.form-group')?.querySelector('.pifagor_error-message');
                     } else if (field === 'email' || field === 'id_email') {
-                        errorElement = document.querySelector('#id_email')?.closest('.form-group')?.querySelector('.error-message');
+                        errorElement = document.querySelector('#id_email')?.closest('.form-group')?.querySelector('.pifagor_error-message');
                     } else if (field === 'fullname' || field === 'id_fullname') {
-                        errorElement = document.querySelector('#id_fullname')?.closest('.form-group')?.querySelector('.error-message');
+                        errorElement = document.querySelector('#id_fullname')?.closest('.form-group')?.querySelector('.pifagor_error-message');
                     } else if (field === 'role') {
-                        errorElement = document.querySelector('.role-selector')?.closest('.form-group')?.querySelector('.error-message');
+                        errorElement = document.querySelector('.role-selector')?.closest('.form-group')?.querySelector('.pifagor_error-message');
                     } else if (field === '__all__') {
                         showAlert('Ошибка регистрации', Array.isArray(data.errors[field]) ? data.errors[field][0] : data.errors[field], 'error');
                         return;
@@ -459,7 +459,7 @@ registerForm.addEventListener('submit', function(e) {
         }
     })
     .catch(error => {
-        console.error('Fetch error:', error);
+        console.error('Fetch pifagor_error:', error);
         
         let errorMessage = 'Произошла ошибка при регистрации. ';
         

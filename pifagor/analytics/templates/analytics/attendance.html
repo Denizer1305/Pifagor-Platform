@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пифагор - Учет посещаемости</title>
+    <link rel="icon" href="/frontend/static/assets/image/logo/icons.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Forum&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/frontend/static/css/main.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo-header">
+                <a href="/frontend/templates/main/index.html">
+                    <img src="/frontend/static/assets/image/logo/logo.svg" alt="logo">
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/frontend/templates/main/about.html">О платформе</a></li>
+                <li><a href="/frontend/templates/courses/courses.html">Курсы</a></li>
+                <li><a href="/frontend/templates/main/teachers.html">Преподаватели</a></li>
+                <li><a href="/frontend/templates/main/contact.html">Контакты</a></li>
+            </ul>
+            <div class="header-actions">
+                <div class="user-menu">
+                    <div class="user-avatar" id="userAvatar">
+                        <img src="/frontend/static/assets/image/partner/foto_teachers.jpg" alt="">
+                    </div>
+                    <div class="user-name" id="userName">Елена Плеханова</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Dashboard -->
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <ul class="sidebar-menu">
+                <li><a href="/frontend/templates/users/teacher-dashboard.html"><i class="fas fa-home"></i> <span>Главная</span></a></li>
+                <li><a href="/frontend/templates/courses/courses-list.html"><i class="fas fa-book-open"></i> <span>Мои курсы</span></a></li>
+                <li><a href="/frontend/templates/practic/practic-list.html"><i class="fas fa-tasks"></i> <span>Задания</span></a></li>
+                <li><a href="/frontend/templates/journal/classes.html"><i class="fas fa-users"></i> <span>Классы</span></a></li>
+                <li><a href="/frontend/templates/practic/practic-check.html"><i class="fas fa-check-circle"></i> <span>Проверка работ</span></a></li>
+                <li><a href="/frontend/templates/analytics/statistics.html"><i class="fas fa-chart-line"></i> <span>Аналитика</span></a></li>
+                <li><a href="/frontend/templates/journal/schedule.html"><i class="fas fa-calendar-alt"></i> <span>Расписание</span></a></li>
+                <li><a href="/frontend/templates/journal/journal.html"><i class="fas fa-book"></i> <span>Журнал</span></a></li>
+                <li><a href="/frontend/templates/analytics/attendance.html"><i class="fas fa-clipboard-check"></i> <span>Посещаемость</span></a></li>
+                <li><a href="/frontend/templates/journal/grades.html"><i class="fas fa-star"></i> <span>Успеваемость</span></a></li>
+                <li><a href="/frontend/templates/analytics/progress.html"><i class="fas fa-chart-bar"></i> <span>Прогресс</span></a></li>
+                <li><a href="/frontend/templates/journal/schedule-create.html"><i class="fas fa-plus-circle"></i> <span>Создать расписание</span></a></li>
+                <li><a href="/frontend/templates/classes/class-students.html"><i class="fas fa-user-graduate"></i> <span>Ученики класса</span></a></li>
+                <li><a href="/frontend/templates/classes/class-teachers.html"><i class="fas fa-chalkboard-teacher"></i> <span>Преподаватели класса</span></a></li>
+                <li><a href="/frontend/templates/classes/class-schedule.html"><i class="fas fa-calendar-week"></i> <span>Расписание класса</span></a></li>
+                <li><a href="/frontend/templates/users/profile-edit.html"><i class="fas fa-cog"></i> <span>Настройки</span></a></li>
+                <li><a href="/frontend/templates/auth/logout.html"><i class="fas fa-sign-out"></i> <span>Выйти</span></a></li>                
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Attendance Header -->
+            <div class="attendance-header">
+                <div class="attendance-title">
+                    <h1>Учет посещаемости</h1>
+                    <p>ИП-122 • Основы программирования</p>
+                </div>
+                <div class="attendance-controls">
+                    <select class="filter-select" id="classFilter">
+                        <option>9-А класс</option>
+                        <option>9-Б класс</option>
+                        <option>10-А класс</option>
+                    </select>
+                    <select class="filter-select" id="subjectFilter">
+                        <option>Основы программирования</option>
+                        <option>Математика</option>
+                        <option>Физика</option>
+                    </select>
+                    <div class="date-navigation">
+                        <div class="nav-btn">
+                            <i class="fas fa-chevron-left"></i>
+                        </div>
+                        <div class="current-date">Январь 2025</div>
+                        <div class="nav-btn">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+                    <a href="#" class="btn btn-light btn-small"><i class="fas fa-download"></i> Экспорт</a>
+                </div>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon present">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>87%</h3>
+                        <p>Средняя посещаемость</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon absent">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>5</h3>
+                        <p>Пропусков за месяц</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon late">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>3</h3>
+                        <p>Опозданий</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon average">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>92%</h3>
+                        <p>Посещаемость за неделю</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Attendance Layout -->
+            <div class="attendance-layout">
+                <!-- Left Column -->
+                <div class="left-column">
+                    <!-- Attendance Table -->
+                    <section class="attendance-section">
+                        <div class="section-header">
+                            <h2>Посещаемость студентов</h2>
+                            <a href="#" class="btn btn-light"><i class="fas fa-cog"></i> Настройки</a>
+                        </div>
+                        <table class="attendance-table">
+                            <thead>
+                                <tr>
+                                    <th>Студент</th>
+                                    <th>10 янв</th>
+                                    <th>11 янв</th>
+                                    <th>12 янв</th>
+                                    <th>15 янв</th>
+                                    <th>16 янв</th>
+                                    <th>17 янв</th>
+                                    <th>Статистика</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="student-info">
+                                            <div class="student-avatar">ИИ</div>
+                                            <div>
+                                                <div>Иван Иванов</div>
+                                                <div style="font-size: 0.8rem; color: var(--secondary);">№ 20151234</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="attendance-status" data-student="1" data-date="2024-01-10">
+                                        <span class="status-badge status-present">0</span>
+                                    </td>
+                                    <td class="attendance-status" data-student="1" data-date="2024-01-11">
+                                        <span class="status-badge status-present">0</span>
+                                    </td>
+                                    <td class="attendance-status" data-student="1" data-date="2024-01-12">
+                                        <span class="status-badge status-absent">2</span>
+                                    </td>
+                                    <td class="attendance-status" data-student="1" data-date="2024-01-15">
+                                        <span class="status-badge status-present">0</span>
+                                    </td>
+                                    <td class="attendance-status" data-student="1" data-date="2024-01-16">
+                                        <span class="status-badge status-late">1</span>
+                                    </td>
+                                    <td class="attendance-status" data-student="1" data-date="2024-01-17">
+                                        <span class="status-badge status-present">0</span>
+                                    </td>
+                                    <td>
+                                        <span class="status-badge status-present">83%</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </section>
+                </div>
+
+                <!-- Right Column -->
+                <div class="right-column">
+                    <!-- Calendar Section -->
+                    <section class="calendar-section">
+                        <div class="section-header">
+                            <h2>Календарь посещаемости</h2>
+                        </div>
+                        <div class="calendar-grid">
+                            <!-- Calendar Headers -->
+                            <div class="calendar-header">Пн</div>
+                            <div class="calendar-header">Вт</div>
+                            <div class="calendar-header">Ср</div>
+                            <div class="calendar-header">Чт</div>
+                            <div class="calendar-header">Пт</div>
+                            <div class="calendar-header">Сб</div>
+                            <div class="calendar-header">Вс</div>
+
+                            <!-- Calendar Days -->
+                            <!-- Week 1 -->
+                            <div class="calendar-day other-month">
+                                <div class="day-number">25</div>
+                            </div>
+                            <div class="calendar-day other-month">
+                                <div class="day-number">26</div>
+                            </div>
+                            <div class="calendar-day other-month">
+                                <div class="day-number">27</div>
+                            </div>
+                            <div class="calendar-day other-month">
+                                <div class="day-number">28</div>
+                            </div>
+                            <div class="calendar-day other-month">
+                                <div class="day-number">29</div>
+                            </div>
+                            <div class="calendar-day other-month">
+                                <div class="day-number">30</div>
+                            </div>
+                            <div class="calendar-day">
+                                <div class="day-number">31</div>
+                            </div>
+
+                            <!-- Week 2 -->
+                            <div class="calendar-day">
+                                <div class="day-number">1</div>
+                                <div class="attendance-indicator indicator-good"></div>
+                            </div>
+                            <div class="calendar-day">
+                                <div class="day-number">2</div>
+                                <div class="attendance-indicator indicator-good"></div>
+                            </div>
+                            <div class="calendar-day">
+                                <div class="day-number">3</div>
+                                <div class="attendance-indicator indicator-average"></div>
+                            </div>
+                            <div class="calendar-day">
+                                <div class="day-number">4</div>
+                                <div class="attendance-indicator indicator-good"></div>
+                            </div>
+                            <div class="calendar-day">
+                                <div class="day-number">5</div>
+                                <div class="attendance-indicator indicator-good"></div>
+                            </div>
+                            <div class="calendar-day">
+                                <div class="day-number">6</div>
+                            </div>
+                            <div class="calendar-day">
+                                <div class="day-number">7</div>
+                            </div>
+
+                            <!-- Week 3 -->
+                            <div class="calendar-day">
+                                <div class="day-number">8</div>
+                                <div class="attendance-indicator indicator-good"></div>
+                            </div>
+                            <div class="calendar-day">
+                                <div class="day-number">9</div>
+                                <div class="attendance-indicator indicator-poor"></div>
+                            </div>
+                            <div class="calendar-day today">
+                                <div class="day-number">10</div>
+                                <div class="attendance-indicator indicator-average"></div>
+                            </div>
+                            <div class="calendar-day">
+                                <div class="day-number">11</div>
+                                <div class="attendance-indicator indicator-good"></div>
+                            </div>
+                            <div class="calendar-day">
+                                <div class="day-number">12</div>
+                                <div class="attendance-indicator indicator-good"></div>
+                            </div>
+                            <div class="calendar-day">
+                                <div class="day-number">13</div>
+                            </div>
+                            <div class="calendar-day">
+                                <div class="day-number">14</div>
+                            </div>
+
+                            <!-- Week 4 -->
+                            <div class="calendar-day">
+                                <div class="day-number">15</div>
+                                <div class="attendance-indicator indicator-average"></div>
+                            </div>
+                            <div class="calendar-day">
+                                <div class="day-number">16</div>
+                                <div class="attendance-indicator indicator-poor">
+                                    <div class="attendance-indicator indicator-average"></div>
+                                </div>
+                                
+                            </div>
+                            <div class="calendar-day">
+                                <div class="day-number">17</div>
+                                <div class="attendance-indicator indicator-good">
+                                </div>
+                            </div>
+                            <div class="calendar-day">
+                                <div class="day-number">18</div>
+                                <div class="attendance-indicator indicator-good"></div>
+                            </div>
+                            <div class="calendar-day">
+                                <div class="day-number">19</div>
+                                <div class="attendance-indicator indicator-good"></div>
+                            </div>
+                            <div class="calendar-day">
+                                <div class="day-number">20</div>
+                            </div>
+                            <div class="calendar-day">
+                                <div class="day-number">21</div>
+                            </div>
+
+                            <!-- Week 5 -->
+                            <div class="calendar-day">
+                                <div class="day-number">22</div>
+                                <div class="attendance-indicator indicator-good"></div>
+                            </div>
+                            <div class="calendar-day">
+                                <div class="day-number">23</div>
+                                <div class="attendance-indicator indicator-good"></div>
+                            </div>
+                            <div class="calendar-day">
+                                <div class="day-number">24</div>
+                                <div class="attendance-indicator indicator-good"></div>
+                            </div>
+                            <div class="calendar-day">
+                                <div class="day-number">25</div>
+                                <div class="attendance-indicator indicator-average"></div>
+                            </div>
+                            <div class="calendar-day">
+                                <div class="day-number">26</div>
+                                <div class="attendance-indicator indicator-good"></div>
+                            </div>
+                            <div class="calendar-day">
+                                <div class="day-number">27</div>
+                            </div>
+                            <div class="calendar-day">
+                                <div class="day-number">28</div>
+                            </div>
+
+                            <!-- Week 6 -->
+                            <div class="calendar-day other-month">
+                                <div class="day-number">29</div>
+                            </div>
+                            <div class="calendar-day other-month">
+                                <div class="day-number">30</div>
+                            </div>
+                            <div class="calendar-day other-month">
+                                <div class="day-number">31</div>
+                            </div>
+                            <div class="calendar-day other-month">
+                                <div class="day-number">1</div>
+                            </div>
+                            <div class="calendar-day other-month">
+                                <div class="day-number">2</div>
+                            </div>
+                            <div class="calendar-day other-month">
+                                <div class="day-number">3</div>
+                            </div>
+                            <div class="calendar-day other-month">
+                                <div class="day-number">4</div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Summary Section -->
+                    <section class="summary-section">
+                        <div class="section-header">
+                            <h2>Статистика посещаемости</h2>
+                        </div>
+                        <ul class="summary-list">
+                            <li class="summary-item">
+                                <div class="summary-icon">
+                                    <i class="fas fa-user-check"></i>
+                                </div>
+                                <div class="summary-info">
+                                    <h4>Лучшая посещаемость</h4>
+                                    <p>Елена Новикова</p>
+                                </div>
+                                <div class="summary-value">100%</div>
+                            </li>
+                            <li class="summary-item">
+                                <div class="summary-icon">
+                                    <i class="fas fa-user-times"></i>
+                                </div>
+                                <div class="summary-info">
+                                    <h4>Наибольшее кол-во пропусков</h4>
+                                    <p>Алексей Сидоров</p>
+                                </div>
+                                <div class="summary-value">33%</div>
+                            </li>
+                            <li class="summary-item">
+                                <div class="summary-icon">
+                                    <i class="fas fa-book"></i>
+                                </div>
+                                <div class="summary-info">
+                                    <h4>Проблемный предмет</h4>
+                                    <p>Основы безопасности и жизнедеятельности</p>
+                                </div>
+                                <div class="summary-value">52%</div>
+                            </li>
+                            <li class="summary-item">
+                                <div class="summary-icon">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                <div class="summary-info">
+                                    <h4>Динамика за месяц</h4>
+                                    <p>Улучшение на 5%</p>
+                                </div>
+                                <div class="summary-value">+5%</div>
+                            </li>
+                        </ul>
+                    </section>
+
+                    <!-- Bulk Actions -->
+                    <section class="bulk-actions-section">
+                        <div class="section-header">
+                            <h2>Массовые действия</h2>
+                        </div>
+                        <div class="bulk-actions">
+                            <div class="bulk-action" id="markAllPresent">
+                                <div class="bulk-icon">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <h4>Отметить всех присут.</h4>
+                                <p>Для выбранной даты</p>
+                            </div>
+                            <div class="bulk-action" id="markAllAbsent">
+                                <div class="bulk-icon">
+                                    <i class="fas fa-times"></i>
+                                </div>
+                                <h4>Отметить всех отсут.</h4>
+                                <p>Для выбранной даты</p>
+                            </div>
+                            <div class="bulk-action" id="exportData">
+                                <div class="bulk-icon">
+                                    <i class="fas fa-file-export"></i>
+                                </div>
+                                <h4>Экспорт данных</h4>
+                                <p>В формате Excel</p>
+                            </div>
+                            <div class="bulk-action" id="generateReport">
+                                <div class="bulk-icon">
+                                    <i class="fas fa-chart-pie"></i>
+                                </div>
+                                <h4>Создать отчет</h4>
+                                <p>Статистика за период</p>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Attendance Modal -->
+    <div class="modal-overlay" id="attendanceModal">
+        <div class="attendance-modal">
+            <div class="modal-header">
+                <h3>Изменение статуса посещаемости</h3>
+                <div class="close-modal" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </div>
+            </div>
+            <div class="modal-content">
+                <p id="studentDateInfo">Студент: Иван Иванов • Дата: 10 января 2024</p>
+                <div class="status-options">
+                    <div class="status-option" data-status="present">
+                        <i class="fas fa-check-circle"></i>
+                        <div>Присутствовал</div>
+                    </div>
+                    <div class="status-option" data-status="absent">
+                        <i class="fas fa-times-circle"></i>
+                        <div>Отсутствовал</div>
+                    </div>
+                    <div class="status-option" data-status="late">
+                        <i class="fas fa-clock"></i>
+                        <div>Опоздал</div>
+                    </div>
+                    <div class="status-option" data-status="excused">
+                        <i class="fas fa-user-clock"></i>
+                        <div>Уважительная причина</div>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button class="btn btn-light" id="cancelAttendance">Отмена</button>
+                    <button class="btn" id="saveAttendance">Сохранить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="dayDetailsModal">
+        <div class="attendance-modal">
+            <div class="modal-header">
+                <h3>Посещаемость за <span id="modalDayDate"></span></h3>
+                <div class="close-modal" id="closeDayDetailsModal">
+                    <i class="fas fa-times"></i>
+                </div>
+            </div>
+            <div class="modal-content">
+                <div class="day-details-section">
+                    <h4>Опоздавшие <span class="status-badge status-late" id="lateCount">0</span></h4>
+                    <div class="student-list" id="lateList">
+                        <!-- Список опоздавших будет добавляться динамически -->
+                    </div>
+                </div>
+                
+                <div class="day-details-section">
+                    <h4>Отсутствующие <span class="status-badge status-absent" id="absentCount">0</span></h4>
+                    <div class="student-list" id="absentList">
+                        <!-- Список отсутствующих будет добавляться динамически -->
+                    </div>
+                </div>
+                
+                <div class="day-details-section">
+                    <h4>Присутствовали <span class="status-badge status-present" id="presentCount">0</span></h4>
+                    <div class="student-list" id="presentList">
+                        <!-- Список присутствующих будет добавляться динамически -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Добавляем модальные окна для статистики после существующих модальных окон -->
+    <div class="modal-overlay" id="bestAttendanceModal">
+        <div class="attendance-modal">
+            <div class="modal-header">
+                <h3>Лучшая посещаемость</h3>
+                <div class="close-modal" id="closeBestAttendanceModal">
+                    <i class="fas fa-times"></i>
+                </div>
+            </div>
+            <div class="modal-content">
+                <div class="day-details-section">
+                    <h4>Топ студентов по посещаемости</h4>
+                    <div class="student-list">
+                        <div class="student-item">
+                            <div class="student-avatar-small">ЕН</div>
+                            <div class="student-name">Елена Новикова</div>
+                            <div class="summary-value">100%</div>
+                        </div>
+                        <div class="student-item">
+                            <div class="student-avatar-small">МП</div>
+                            <div class="student-name">Мария Петрова</div>
+                            <div class="summary-value">98%</div>
+                        </div>
+                        <div class="student-item">
+                            <div class="student-avatar-small">ИИ</div>
+                            <div class="student-name">Иван Иванов</div>
+                            <div class="summary-value">95%</div>
+                        </div>
+                        <div class="student-item">
+                            <div class="student-avatar-small">ДК</div>
+                            <div class="student-name">Дмитрий Козлов</div>
+                            <div class="summary-value">92%</div>
+                        </div>
+                        <div class="student-item">
+                            <div class="student-avatar-small">АС</div>
+                            <div class="student-name">Алексей Сидоров</div>
+                            <div class="summary-value">87%</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="day-details-section">
+                    <h4>Статистика за месяц</h4>
+                    <div class="stats-grid" style="grid-template-columns: 1fr 1fr; margin: 0;">
+                        <div class="stat-card" style="padding: 15px;">
+                            <div class="stat-icon present">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>87%</h3>
+                                <p>Средняя посещаемость</p>
+                            </div>
+                        </div>
+                        <div class="stat-card" style="padding: 15px;">
+                            <div class="stat-icon average">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>+5%</h3>
+                                <p>Рост за месяц</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn" id="closeBestAttendanceBtn">Закрыть</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="worstAttendanceModal">
+        <div class="attendance-modal">
+            <div class="modal-header">
+                <h3>Наибольшее количество пропусков</h3>
+                <div class="close-modal" id="closeWorstAttendanceModal">
+                    <i class="fas fa-times"></i>
+                </div>
+            </div>
+            <div class="modal-content">
+                <div class="day-details-section">
+                    <h4>Студенты с наибольшим количеством пропусков</h4>
+                    <div class="student-list">
+                        <div class="student-item">
+                            <div class="student-avatar-small">АС</div>
+                            <div class="student-name">Алексей Сидоров</div>
+                            <div class="summary-value" style="color: var(--danger);">33%</div>
+                        </div>
+                        <div class="student-item">
+                            <div class="student-avatar-small">ДК</div>
+                            <div class="student-name">Дмитрий Козлов</div>
+                            <div class="summary-value" style="color: var(--danger);">25%</div>
+                        </div>
+                        <div class="student-item">
+                            <div class="student-avatar-small">ИИ</div>
+                            <div class="student-name">Иван Иванов</div>
+                            <div class="summary-value" style="color: var(--warning);">18%</div>
+                        </div>
+                        <div class="student-item">
+                            <div class="student-avatar-small">МП</div>
+                            <div class="student-name">Мария Петрова</div>
+                            <div class="summary-value" style="color: var(--success);">5%</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="day-details-section">
+                    <h4>Анализ пропусков</h4>
+                    <div class="stats-grid" style="grid-template-columns: 1fr 1fr; margin: 0;">
+                        <div class="stat-card" style="padding: 15px;">
+                            <div class="stat-icon absent">
+                                <i class="fas fa-times-circle"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>12</h3>
+                                <p>Всего пропусков</p>
+                            </div>
+                        </div>
+                        <div class="stat-card" style="padding: 15px;">
+                            <div class="stat-icon late">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>8</h3>
+                                <p>Всего опозданий</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn" id="closeWorstAttendanceBtn">Закрыть</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="problemSubjectModal">
+        <div class="attendance-modal">
+            <div class="modal-header">
+                <h3>Проблемные предметы</h3>
+                <div class="close-modal" id="closeProblemSubjectModal">
+                    <i class="fas fa-times"></i>
+                </div>
+            </div>
+            <div class="modal-content">
+                <div class="day-details-section">
+                    <h4>Предметы с низкой посещаемостью</h4>
+                    <div class="subject-list">
+                        <div class="subject-item">
+                            <div class="subject-icon" style="background-color: rgba(231, 76, 60, 0.2); color: var(--danger);">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <div class="subject-info">
+                                <h4>Основы безопасности и жизнедеятельности</h4>
+                                <p>Наибольшее количество пропусков</p>
+                            </div>
+                            <div class="subject-value" style="color: var(--danger);">52%</div>
+                        </div>
+                        <div class="subject-item">
+                            <div class="subject-icon" style="background-color: rgba(243, 156, 18, 0.2); color: var(--warning);">
+                                <i class="fas fa-flask"></i>
+                            </div>
+                            <div class="subject-info">
+                                <h4>Химия</h4>
+                                <p>Частые опоздания</p>
+                            </div>
+                            <div class="subject-value" style="color: var(--warning);">67%</div>
+                        </div>
+                        <div class="subject-item">
+                            <div class="subject-icon" style="background-color: rgba(52, 152, 219, 0.2); color: var(--info);">
+                                <i class="fas fa-calculator"></i>
+                            </div>
+                            <div class="subject-info">
+                                <h4>Математика</h4>
+                                <p>Средняя посещаемость</p>
+                            </div>
+                            <div class="subject-value" style="color: var(--info);">78%</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="day-details-section">
+                    <h4>Рекомендации</h4>
+                    <div class="recommendations">
+                        <div class="recommendation-item">
+                            <i class="fas fa-lightbulb" style="color: var(--warning);"></i>
+                            <span>Провести индивидуальные беседы с часто отсутствующими студентами</span>
+                        </div>
+                        <div class="recommendation-item">
+                            <i class="fas fa-lightbulb" style="color: var(--warning);"></i>
+                            <span>Разработать дополнительные материалы по ОБЖ</span>
+                        </div>
+                        <div class="recommendation-item">
+                            <i class="fas fa-lightbulb" style="color: var(--warning);"></i>
+                            <span>Внести изменения в расписание химии</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn" id="closeProblemSubjectBtn">Закрыть</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="monthlyTrendModal">
+        <div class="attendance-modal">
+            <div class="modal-header">
+                <h3>Динамика посещаемости</h3>
+                <div class="close-modal" id="closeMonthlyTrendModal">
+                    <i class="fas fa-times"></i>
+                </div>
+            </div>
+            <div class="modal-content">
+                <div class="day-details-section">
+                    <h4>Динамика за январь 2024</h4>
+                    <div class="trend-chart">
+                        <div class="chart-bar" style="height: 30%; background-color: var(--danger);" title="1 янв - 70%">
+                            <span>70%</span>
+                        </div>
+                        <div class="chart-bar" style="height: 50%; background-color: var(--warning);" title="2 янв - 80%">
+                            <span>80%</span>
+                        </div>
+                        <div class="chart-bar" style="height: 60%; background-color: var(--warning);" title="3 янв - 85%">
+                            <span>85%</span>
+                        </div>
+                        <div class="chart-bar" style="height: 90%; background-color: var(--success);" title="4 янв - 95%">
+                            <span>95%</span>
+                        </div>
+                        <div class="chart-bar" style="height: 70%; background-color: var(--warning);" title="5 янв - 82%">
+                            <span>82%</span>
+                        </div>
+                        <div class="chart-bar" style="height: 85%; background-color: var(--success);" title="8 янв - 92%">
+                            <span>92%</span>
+                        </div>
+                        <div class="chart-bar" style="height: 88%; background-color: var(--success);" title="9 янв - 94%">
+                            <span>94%</span>
+                        </div>
+                        <div class="chart-bar" style="height: 75%; background-color: var(--warning);" title="10 янв - 84%">
+                            <span>84%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="day-details-section">
+                    <h4>Ключевые показатели</h4>
+                    <div class="stats-grid" style="grid-template-columns: 1fr 1fr; margin: 0;">
+                        <div class="stat-card" style="padding: 15px;">
+                            <div class="stat-icon present">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>+5%</h3>
+                                <p>Улучшение за месяц</p>
+                            </div>
+                        </div>
+                        <div class="stat-card" style="padding: 15px;">
+                            <div class="stat-icon average">
+                                <i class="fas fa-target"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>87%</h3>
+                                <p>Средняя посещаемость</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="day-details-section">
+                    <h4>Прогноз</h4>
+                    <div class="prediction">
+                        <p>При сохранении текущей динамики к концу месяца посещаемость достигнет <strong>90%</strong></p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn" id="closeMonthlyTrendBtn">Закрыть</button>
+            </div>
+        </div>
+    </div>
+    <script type="module" src="/frontend/static/js/main.js"></script>
+</body>
+</html>

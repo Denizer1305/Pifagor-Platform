@@ -3,18 +3,15 @@ export function initTabs() {
     const tabContents = document.querySelectorAll('.tab-content');
     
     function switchTab(tabName) {
-        // Скрыть все вкладки
         tabContents.forEach(tab => {
             tab.classList.remove('active');
         });
         
-        // Показать выбранную вкладку
         const activeTab = document.getElementById(`${tabName}-tab`);
         if (activeTab) {
             activeTab.classList.add('active');
         }
         
-        // Обновить активное состояние в меню
         tabLinks.forEach(link => {
             link.classList.remove('active');
             if (link.getAttribute('data-tab') === tabName) {
@@ -22,8 +19,6 @@ export function initTabs() {
             }
         });
     }
-    
-    // Обработчики для ссылок вкладок
     tabLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
